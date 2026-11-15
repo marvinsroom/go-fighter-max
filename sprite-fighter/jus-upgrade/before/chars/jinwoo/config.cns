@@ -1,0 +1,5270 @@
+
+[Statedef 8000]
+type = S
+movetype = I
+physics = S
+Velset = -vel x*1.2,0
+ctrl = 0
+poweradd = 0
+sprpriority = 2
+
+[State 0]
+type = PosAdd
+triggerall = p2bodydist x != [0,40]
+trigger1 = !time
+x = -8
+y = 0
+ignorehitpause = 1
+
+[State 0]
+type = PosAdd
+triggerall = p2bodydist x = [0,40]
+trigger1 = !time
+x = -5-ceil(p2bodydist x*.5)
+y = 0
+ignorehitpause = 1
+
+[State 0]
+type = VarAdd
+trigger1 = time < 19 && Var(12) > -100
+v = 12
+value = -4
+[State 0]
+type = Varset
+trigger1 = time = 20
+v = 12
+value = -100
+[State 0]
+type = Varset
+trigger1 = time = 60
+v = 12
+value = 0
+[State 0]
+type = VarAdd
+triggerall = Var(12) < 0
+trigger1 = time = [30,60]
+v = 12
+value = 4
+[State 0]
+type = BGPalFX
+trigger1 = time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+ignorehitpause = 1
+
+[State 0]
+type = Null
+trigger1 = time = [0,15]
+pos = ((pos x) / (1/Camerazoom*1.5)) * CameraZoom, (pos y) / (1/Camerazoom*1.5) * CameraZoom;pos x,pos y +camerazoom
+scale=1
+lag = .40
+ignorehitpause = 1
+persistent = 1
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0]
+type = Null
+trigger1 = time = [15,20]
+pos = pos x,pos y +camerazoom
+scale=1
+lag = .35
+ignorehitpause = 1
+persistent = 1
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0]
+type = PlaySnd
+trigger1 = !time
+value = S5,13
+volumescale = 100
+[State 0]
+type = PlaySnd
+trigger1 = !time
+value = S5,13
+volumescale = 100
+
+[State 0]
+type = Explod
+trigger1 = !time
+anim = 30860
+pos = 20,-30
+postype = p1
+bindtime = 1
+sprpriority = -10
+removetime = -2
+scale = 1,1
+ownpal = 1
+supermovetime = 99
+pausemovetime = 99
+[State 0]
+type = Explod
+trigger1 = !time
+anim = 30859
+pos = 20,-30
+postype = p1
+bindtime = 1
+sprpriority = -11
+removetime = -2
+scale = 1.1,1.1
+ownpal = 1
+supermovetime = 99
+pausemovetime = 99
+
+[State 0]
+type = Pause
+trigger1 = !time
+time = 30
+movetime = 30
+ignorehitpause = 1
+
+[State 0]
+type = NotHitBy
+trigger1 = !time
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 60
+ignorehitpause = 1
+
+[State 0]
+type = ChangeAnim
+trigger1 = time < 20
+value=cond(!ishelper && var(45)>0 && selfanimexist((anim)+var(45)*1000000),(anim)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(anim)),500000+(anim),cond(selfanimexist(anim),(anim),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+elem = AnimElemNo(0) 
+ignorehitpause = 1
+
+[State 0]
+type = ChangeState
+triggerall = pos y >= 0
+Triggerall = time > 5
+trigger1 = !ailevel && command = "s"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 2960;cond(random<500,1200,2960)
+[State 0]
+type = ChangeState
+triggerall = pos y < -1
+Triggerall = time > 5
+trigger1 = !ailevel && command = "s"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 1100;cond(random<500,1740,1100)
+
+[State 0]
+type = ChangeState
+trigger1 = !AnimTime
+value = ifelse(pos y = 0,0,50)
+ctrl = 1
+
+[Statedef 8010]
+type    = A
+movetype= I
+physics = N
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6570)+var(45)*1000000),(6570)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6570)),500000+(6570),cond(selfanimexist(6570),(6570),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 2
+
+[State 0]
+type = AngleAdd
+triggerall = ishelper(8013)
+trigger1 = !time
+value = random%360
+
+[State 0]
+type = AngleDraw
+trigger1 = 1
+scale=cond(ishelper,(1+time*.1),1),cond(ishelper,(1+time*.05),1)
+
+[State 0]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+[State 0]
+type = Trans
+triggerall = ishelper(8011)
+trigger1 = 1
+trans = add1
+alpha = 150,256
+[State 0]
+type = Trans
+triggerall = ishelper(8012)
+trigger1 = 1
+trans = add1
+alpha = 100,256
+[State 0]
+type = Trans
+triggerall = ishelper(8013)
+trigger1 = 1
+trans = add1
+alpha = 100,256
+
+[State 200]
+type = Destroyself
+trigger1 = AnimTime = 0
+
+[Statedef 8025]
+type    = A
+movetype= A
+physics = N
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+ctrl = 0
+sprpriority = 0
+
+[State 0]
+type = VarAdd
+trigger1 = time <= 10
+fv = 1  
+value = 0.06
+ignorehitpause = 1
+
+[State 0]
+type = VarAdd
+trigger1 = time >= 30
+fv = 1  
+value = -0.04
+ignorehitpause = 1
+
+[State 0]
+type = Null
+trigger1 = 1
+pos = root,pos x,root,pos y
+scale=1
+ignorehitpause = 1
+
+[State 0]
+type = DestroySelf
+trigger1 = time >= 40
+ignorehitpause =  1
+removeexplods = 1
+
+[Statedef 8030]
+type = A
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[State 0] 
+type = Null
+trigger1 = time = [0,10] 
+scale=1
+pos = (pos x/(1 + (time * 0.05))) * camerazoom,root,pos y
+
+[State 0] 
+type = Null
+trigger1 = time = [10,35] 
+scale=1
+pos = (pos x/2) * camerazoom,root,pos y
+
+[State 0]
+type = ChangeState
+trigger1 = time = 40
+value = 8035
+
+[Statedef 8035]
+type = A
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[State 0] 
+Type = Null
+Trigger1 = Time = [0,5] 
+scale=1
+Pos = (Pos X/(1.5 - (Time * 0.05))) * CameraZoom,root,pos y
+IgnoreHitPause = 1
+
+[State 0]
+type = DestroySelf
+trigger1 = time = 10
+
+[Statedef 8040]
+type = A
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[State 0] 
+type = Null
+trigger1 = time = [0,10] 
+scale=1
+pos = (pos x/(1 + (time * 0.05))) * camerazoom,root,pos y
+
+[State 0] 
+type = Null
+trigger1 = time = [10,115] 
+scale=1
+pos = (pos x/2) * camerazoom,root,pos y
+
+[State 0]
+type = ChangeState
+trigger1 = time = 120
+value = 8035
+
+;-------------------------------------------------------------------------------
+; Portrait
+[statedef 8050]
+type = A
+movetype = I
+physics = N
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = Envshake
+trigger1 = !time
+time = 25
+ampl = -7
+freq = 25
+
+[state 0]
+type = Playsnd
+trigger1 = !time
+value = s950,5
+volumescale = 70
+
+[State 0]
+type = Explod
+triggerall = ishelper(8050)
+trigger1 =! Time
+anim = 4080 + (random%2)
+ID = 4080
+pos = 60,Floor((1.33*GameHeight/GameWidth)*130)
+postype = back
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = 0.28,0.28
+sprpriority = -8
+ontop = 0
+ownpal = 1
+removeongethit = 1
+pausemovetime = 99999
+supermovetime = 99999
+[State 0]
+type = Explod
+triggerall = ishelper(8051)
+trigger1 =! Time
+anim = 4082 + (random%2)
+ID = 4080
+pos = 60,Floor((1.33*GameHeight/GameWidth)*130)
+postype = back
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = 0.29,0.28
+sprpriority = -8
+ontop = 0
+ownpal = 1
+removeongethit = 1
+pausemovetime = 99999
+supermovetime = 99999
+[State 0]
+type = Explod
+triggerall = ishelper(8052)
+trigger1 =! Time
+anim = 4084
+ID = 4080
+pos = 60,Floor((1.33*GameHeight/GameWidth)*130)
+postype = back
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = 0.28,0.28
+sprpriority = -8
+ontop = 0
+ownpal = 1
+removeongethit = 1
+pausemovetime = 99999
+supermovetime = 99999
+
+[State 0]
+type = Explod
+triggerall = ishelper(8050)
+trigger1 =! Time
+anim = 4075
+ID = 4075
+pos = 60,Floor((1.33*GameHeight/GameWidth)*130)
+postype = back
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = 0.28,0.28
+sprpriority = -9
+ontop = 0
+ownpal = 1
+removeongethit = 1
+pausemovetime = 99999
+supermovetime = 99999
+[State 0]
+type = Explod
+triggerall = ishelper(8051) || ishelper(8052)
+trigger1 =! Time
+anim = 4074
+ID = 4074
+pos = 60,Floor((1.33*GameHeight/GameWidth)*130)
+postype = back
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = 0.28,0.28
+sprpriority = -9
+ontop = 0
+ownpal = 1
+removeongethit = 1
+pausemovetime = 99999
+supermovetime = 99999
+
+[State 0]
+type = Explod
+triggerall = ishelper(8050)
+trigger1 =! Time
+anim = 4076
+ID = 4076
+pos = 60,Floor((1.33*GameHeight/GameWidth)*130)
+postype = back
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = 0.28,0.28
+sprpriority = -5
+ontop = 0
+ownpal = 1
+remappal = 3,20
+removeongethit = 1
+pausemovetime = 99999
+supermovetime = 99999
+[State 0]
+type = Explod
+triggerall = ishelper(8051) || ishelper(8052)
+trigger1 =! Time
+anim = 4076
+ID = 4076
+pos = 60,Floor((1.33*GameHeight/GameWidth)*130)
+postype = back
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = 0.28,0.28
+sprpriority = -5
+ontop = 0
+ownpal = 1
+remappal = 3,19
+removeongethit = 1
+pausemovetime = 99999
+supermovetime = 99999
+
+[state 0]
+type = Explod
+trigger1 = !time
+anim = 4010
+id = 4010
+pos = 160,90
+postype = back
+bindtime = 1
+removetime = -2
+sprpriority = 128
+scale = .5,.5
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+remappal = 3,9
+
+[state 0]
+type = Explod
+trigger1 = !time
+anim = 4010
+id = 4010
+pos = 160,90
+postype = back
+bindtime = 1
+removetime = -2
+sprpriority = 128
+scale = .5,.5
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+remappal = 3,0
+trans = sub
+
+
+[state 0]
+type = Destroyself
+trigger1 = time = 75 || root,movetype = H
+
+[statedef 30120]
+type = u
+velset = 0, 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((stateno)+var(45)*1000000),(stateno)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(stateno)),500000+(stateno),cond(selfanimexist(stateno),(stateno),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 10
+
+[state 0]
+type = angledraw
+trigger1 = (alive) && (statetype != l)
+value = cond(vel x != 0, - (atan(vel y / vel x) * (const(size.air.back)) / pi), 0)
+scale=cond(ishelper,(1 + (sin((time / (60 + (life / 1))) * (pi / 2)) * 0.5)),1),cond(ishelper,( 1 + (sin((time / (60 + (life / 1))) * (pi / 2)) * 0.5)),1)
+ignorehitpause = 1
+
+[state 0]
+type = remappal
+trigger1 = 1
+source = 3, 0
+dest = 3, 1
+
+[state 0]
+type = assertspecial
+trigger1 = 1
+flag = noshadow
+
+[state 0]
+type = angledraw
+trigger1 = 1
+value = 90
+ignorehitpause = 1
+
+[state 0]
+type = changestate
+trigger1 = root, stateno != 5901
+value = 30121
+
+[statedef 30121]
+type = u
+velset = 0, 0
+sprpriority = 10
+
+[state 0]
+type = assertspecial
+trigger1 = 1
+flag = noshadow
+
+[state 0]
+type = angledraw
+trigger1 = 1
+value = 90
+ignorehitpause = 1
+
+[state 0]
+type = varadd
+trigger1 = time >= 2
+v = 2
+value = 5
+
+[state 0]
+type = trans
+trigger1 = 1
+trans = addalpha
+alpha = 256-var(2), 256
+
+[state 0]
+type = destroyself
+trigger1 = var(2) >= 256
+
+; academy power charge
+[statedef 30500]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = bindtoroot
+trigger1 = 1
+pos = 0,0
+ignorehitpause = 1
+
+;[state 0]
+;type = envshake
+;trigger1 = time % 6 = 0
+;time = 5
+;ampl = -5
+;freq = 5
+[State 0]
+type = EnvShake
+trigger1 = Timemod = 10,0
+time = 10
+ampl = -2
+freq = 20
+
+[state 0]
+type = playsnd
+trigger1 = !time
+value = s9501, 6;0
+volumescale = 75
+
+[state 0]
+type = playsnd
+triggerall = ishelper(30500)
+trigger1 = time % 80 = 0
+value = s9500, 0
+volumescale = 255
+channel = 1
+
+[state 0]
+type = playsnd
+triggerall = ishelper(30500)
+trigger1 = time % 180 = 0
+value = s9500, 1
+channel = 2
+[state 0]
+type = playsnd
+triggerall = ishelper(30501)
+trigger1 = time % 100 = 0;time % 240 = 0
+value = s9500, 1;s9501, 1
+volumescale = 50;75
+channel = 2
+[state 0]
+type = playsnd
+triggerall = ishelper(30502)
+trigger1 = time % 100 = 0;time % 240 = 0
+value = s9500, 1;s9501, 1
+volumescale = 50;75
+channel = 2
+
+[state 0]
+type = stopsnd
+trigger1 = ((root, stateno != root, stateno) || (root, movetype = h))
+channel = 1
+[state 0]
+type = stopsnd
+trigger1 = ((root, stateno != root, stateno) || (root, movetype = h))
+channel = 2
+[state 0]
+type = removeexplod
+trigger1 = ((root, stateno != root, stateno) || (root, movetype = h))
+id = 30500
+
+[state 0]
+type = explod
+triggerall = ishelper(30500)
+trigger1 = time % 18 = 0
+anim = 30510
+id = 30500
+pos = -2, 2
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 5
+scale = const(size.xscale) * .125, const(size.yscale) * .125
+angle = 0
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+persistent = 1
+[state 0]
+type = explod
+triggerall = ishelper(30500)
+trigger1 = time % 18 = 0
+anim = 30510
+id = 30500
+pos = -2, 2
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 4
+scale = const(size.xscale) * .125, const(size.yscale) * .125
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+persistent = 1
+
+[state 0]
+type = explod
+triggerall = ishelper(30500)
+trigger1 = time % 30 = 0
+anim = 30511
+id = 30500
+pos = -2, -4
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 4
+scale = const(size.xscale) * .15, const(size.yscale) * .225
+angle = 0
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(30500)
+trigger1 = time % 30 = 0
+anim = 30511
+id = 30500
+pos = -2, -4
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 3
+scale = const(size.xscale) * .15, const(size.yscale) * .225
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = ishelper(30500)
+trigger1 = time % 15 = 0
+anim = 30512
+id = 30500
+pos = -2, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 1
+scale = const(size.xscale) * .175, const(size.yscale) * .25
+angle = 0
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(30500)
+trigger1 = time % 15 = 0
+anim = 30512
+id = 30500
+pos = -2, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 0
+scale = const(size.xscale) * .175, const(size.yscale) * .25
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = ishelper(30501)
+trigger1 = time % 12 = 0
+anim = 30512;30503
+id = 30500
+pos = -4, -5
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 1
+scale = const(size.xscale) * .2, const(size.yscale) * .27
+angle = -5
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+persistent = 1
+[state 0]
+type = explod
+triggerall = ishelper(30501)
+trigger1 = time % 12 = 0
+anim = 30513;30503
+id = 30500
+pos = -4, -5
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 0
+scale = const(size.xscale) * .23, const(size.yscale) * .3
+angle = -5
+ownpal = 1
+;remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+;trans = sub
+persistent = 1
+
+[state 0]
+type = explod
+triggerall = ishelper(30501)
+trigger1 = time % 30 = 0
+anim = 30511
+id = 30500
+pos = 0, -4
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 4
+scale = const(size.xscale) * .15, const(size.yscale) * .225
+angle = 0
+ownpal = 1
+remappal = 3,20
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(30501)
+trigger1 = time % 30 = 0
+anim = 30511
+id = 30500
+pos = 0, -4
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 3
+scale = const(size.xscale) * .15, const(size.yscale) * .225
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = ishelper(30501)
+trigger1 = time = 0
+anim = 30505
+id = 30500
+pos = 0, -1
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -1
+sprpriority = 0
+scale = const(size.xscale) * .3, const(size.yscale) * .2
+angle = 0
+ownpal = 1
+remappal = 3,20
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(30501)
+trigger1 = time = 0
+anim = 30505
+id = 30500
+pos = 0, -1
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -1
+sprpriority = 0
+scale = const(size.xscale) * .3, const(size.yscale) * .2
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+
+[state 0]
+type = explod
+triggerall = ishelper(30502)
+trigger1 = time % 12 = 0
+anim = 30512;30503
+id = 30500
+pos = -4, -5
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 1
+scale = const(size.xscale) * .2, const(size.yscale) * .27
+angle = -5
+ownpal = 1
+remappal = 3,19
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+persistent = 1
+[state 0]
+type = explod
+triggerall = ishelper(30502)
+trigger1 = time % 12 = 0
+anim = 30513;30503
+id = 30500
+pos = -4, -5
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 0
+scale = const(size.xscale) * .23, const(size.yscale) * .3
+angle = -5
+ownpal = 1
+;remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+;trans = sub
+persistent = 1
+
+[state 0]
+type = explod
+triggerall = ishelper(30502)
+trigger1 = time % 30 = 0
+anim = 30511
+id = 30500
+pos = 0, -4
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 4
+scale = const(size.xscale) * .15, const(size.yscale) * .225
+angle = 0
+ownpal = 1
+remappal = 3,19
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(30502)
+trigger1 = time % 30 = 0
+anim = 30511
+id = 30500
+pos = 0, -4
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 3
+scale = const(size.xscale) * .15, const(size.yscale) * .225
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = ishelper(30502)
+trigger1 = time = 0
+anim = 30505
+id = 30500
+pos = 0, -1
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -1
+sprpriority = 0
+scale = const(size.xscale) * .3, const(size.yscale) * .2
+angle = 0
+ownpal = 1
+remappal = 3,19
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(30502)
+trigger1 = time = 0
+anim = 30505
+id = 30500
+pos = 0, -1
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -1
+sprpriority = 0
+scale = const(size.xscale) * .3, const(size.yscale) * .2
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = changestate
+trigger1 = ((root, stateno = [0, 100]) || (root, movetype = h))
+trigger2 = root, stateno != 500
+trigger3 = enemy, numhelper(80015) = 1
+value = 30501
+ignorehitpause = 1
+
+; academy power charge end
+[statedef 30501]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = removeexplod
+trigger1 = 1
+id = 30500
+[state 0]
+type = stopsnd
+trigger1 = 1
+channel = 2
+
+[state 0]
+type = envshake
+trigger1 = !time
+time = 15
+ampl = -5
+freq = 12
+[state 0]
+type = playsnd
+triggerall = ishelper(30500)
+trigger1 = !time
+value = s9160, 5
+volumescale = 255
+[state 0]
+type = playsnd
+triggerall = ishelper(30501)
+trigger1 = !time
+value = s5, 18
+
+[state 0]
+type = destroyself
+trigger1 = !time
+
+[statedef 30505]
+type = u
+movetype = i
+physics = n
+velset = 0, 0
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = -1
+
+[state 0]
+type = remappal
+trigger1 = 1
+source = 3, 0
+dest = 3, (root, var(53))
+
+[state 0]
+type = turn
+trigger1 = facing != root, facing
+
+[state 0]
+type = bindtoroot
+trigger1 = 1
+pos = 0, 0
+
+[state 0]
+type = helper
+trigger1 = numexplod(30505) = 1
+stateno = 30506
+id = 30506
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .2
+size.yscale = .2
+supermovetime = 999
+pausemovetime = 999
+persistent = 0
+
+[state 0]
+type = null
+trigger1 = var(1) := (random % 25)
+trigger1 = var(2) := - (random % 35)
+
+[state 0]
+type = explod
+trigger1 = (root, vel x = [-10, 3]) && (time % 3 = 0)
+anim = 30505
+id = 30505
+pos = -10 + (var(1)), 5 + (var(2))
+postype = p1
+facing = 1
+bindtime = 5
+removetime = -2
+sprpriority = cond(random < 500, 3, 1)
+scale = .1, .1
+angle = 0
+ownpal = 0
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = addalpha
+alpha = 200, 256
+vel = 0, -.5
+[state 0]
+type = explod
+trigger1 = (root, vel x > 3) && (time % 3 = 0)
+anim = 30505
+id = 30505
+pos = 15 + (var(1)), 0 + (var(2))
+postype = p1
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = cond(random < 500, 3, 1)
+scale = .1, .1
+angle = 90
+ownpal = 0
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = addalpha
+alpha = 200, 256
+vel = - .5, 0
+
+[state 0]
+type = removeexplod
+trigger1 = root, anim = 5110
+trigger2 = root, anim = 191
+trigger3 = root, stateno = 1516
+trigger4 = root, stateno = 1520
+trigger5 = root, stateno = 3012
+trigger6 = ((root, stateno = 191) && (root, time = [0, 160]))
+trigger7 = root, stateno = 170
+trigger8 = ((root, stateno = 1002) && (root, time = [5, 15]))
+trigger9 = !selfanimexist(root, anim) 
+trigger10 = root, movetype = h && ((root, stateno != [150, 155]) && (root, stateno != [5000, 5210]))
+id = 30505
+
+[state 0]
+type = destroyself
+trigger1 = (root, life = 0) || (roundstate != 2)
+trigger2 = root, numhelper(30990)
+trigger2 = helper(30990), fvar(8) = 0
+
+[statedef 30506]
+type = u
+movetype = i
+physics = n
+velset = 0, 0
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((30506)+var(45)*1000000),(30506)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(30506)),500000+(30506),cond(selfanimexist(30506),(30506),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 1
+
+[state 0]
+type = remappal
+trigger1 = 1
+source = 3, 0
+dest = 3, (root, var(53))
+
+[state 0]
+type = turn
+trigger1 = facing != root, facing
+
+[state 0]
+type = bindtoroot
+trigger1 = 1
+pos = 0, -8
+
+[state 0]
+type = angledraw
+trigger1 = root, stateno = [100, 105]
+value = 90
+[state 0]
+type = bindtoroot
+trigger1 = root, stateno = [100, 105]
+pos = 15, -22
+
+[state 0]
+type = assertspecial
+trigger1 = root, anim = [5110, 5120]
+trigger2 = root, anim = 191
+trigger3 = root, stateno = 1516
+trigger4 = root, stateno = 1520
+trigger5 = root, stateno = 3012
+trigger6 = ((root, stateno = 191) && (root, time = [0, 160]))
+trigger7 = root, stateno = 170
+trigger8 = ((root, stateno = 1002) && (root, time = [5, 15]))
+trigger9 = !selfanimexist(root, anim) 
+trigger10 = root, movetype = h && ((root, stateno != [150, 155]) && (root, stateno != [5000, 5210]))
+flag = invisible
+flag2 = noshadow
+
+[state 0]
+type = destroyself
+trigger1 = (root, life = 0) || (roundstate != 2)
+trigger2 = root, numhelper(30990)
+trigger2 = helper(30990), fvar(8) = 0
+
+[statedef 30710]
+type = u
+movetype = i
+physics = n
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((stateno)+var(45)*1000000),(stateno)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(stateno)),500000+(stateno),cond(selfanimexist(stateno),(stateno),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 3
+
+[state 0]
+type = width
+trigger1 = 1
+edge = 0, 0
+player = -5, -5
+ignorehitpause = 1
+
+[state 0]
+type = angledraw
+trigger1 = 1
+scale=cond(ishelper,(1),1),cond(ishelper,( 1),1)
+ignorehitpause = 1
+
+[state 0]
+type = velset
+trigger1 = !time
+x = 8
+ignorehitpause = 1
+
+[state 0]
+type = veladd
+triggerall = time >= 5
+trigger1 = vel x > 1
+x = -.5
+ignorehitpause = 1
+
+[state 0]
+type = playerpush
+trigger1 = 1
+value = 1
+ignorehitpause = 1
+
+[state 0]
+type = nothitby
+trigger1 = 1
+value = sca, aa, ap, at
+time = -1
+ignorehitpause = 1
+
+[state 0]
+type = hitoverride
+trigger1 = 1
+attr = sca, aa, ap, at
+stateno = 9999
+time = -1
+ignorehitpause = 1
+
+[state 0]
+type = destroyself
+trigger1 = time >= 15
+ignorehitpause = 1
+
+; Academy specials VFX
+[statedef 30850]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = bindtoroot
+trigger1 = 1
+pos = const(size.mid.pos.x), const(size.mid.pos.y)
+ignorehitpause = 1
+
+[state 0]
+type = null
+trigger1 = var(3) := 45
+trigger1 = var(4) := 0 + (random % 360)
+ignorehitpause = 1
+
+;=====================================
+; Skill FX
+[state 0]
+type = envshake
+triggerall = ishelper(001)
+trigger1 = !time
+time = 10
+[state 0]
+type = playsnd
+triggerall = ishelper(001)
+trigger1 = !time
+value = s9600, 7
+[state 0]
+type = playsnd
+triggerall = ishelper(001)
+trigger1 = !time
+value = s9600, 7
+[state 0]
+type = playsnd
+triggerall = ishelper(001)
+trigger1 = !time
+value = s9600, 8
+[state 0]
+type = playsnd
+triggerall = ishelper(001)
+trigger1 = !time
+value = s9600, 8
+
+[state 0]
+type = explod
+triggerall = ishelper(001)
+trigger1 = !time
+anim = 30853
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 6
+scale = const(size.xscale) * 1.75, const(size.yscale) * 1.75
+angle = var(4)
+ownpal = 1
+remappal = 3, const(size.head.pos.y)
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(001)
+trigger1 = !time
+anim = 30853
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 5
+scale = const(size.xscale) * 1.75, const(size.yscale) * 1.75
+angle = var(4)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = ishelper(001)
+trigger1 = !time
+anim = 30856
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 4
+scale = const(size.xscale) * 1.5, const(size.yscale) * 1.5
+angle = var(4)
+ownpal = 1
+remappal = 3, const(size.head.pos.y)
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(001)
+trigger1 = !time
+anim = 30856
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 1
+scale = const(size.xscale) * 1.5, const(size.yscale) * 1.5
+angle = var(4)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+;=====================================
+; Super FX
+
+[state 0]
+type = envshake
+triggerall = ishelper(002)
+trigger1 = !time
+time = 15
+ampl = -10
+freq = 30
+[state 0]
+type = playsnd
+triggerall = ishelper(002)
+trigger1 = !time
+value = s9600, 6
+[state 0]
+type = playsnd
+triggerall = ishelper(002)
+trigger1 = !time
+value = s9600, 6
+
+[state 0]
+type = helper
+triggerall = ishelper(002)
+trigger1 = !time
+stateno = 98510
+id = 98511
+postype = p1
+supermovetime = 999
+pausemovetime = 999
+ignorehitpause = 1
+
+[state 0]
+type = explod
+triggerall = ishelper(002)
+trigger1 = !time
+anim = 30801
+id = stateno
+pos = 0, -const(size.mid.pos.y)
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 1
+scale = const(size.xscale) * 2.5, const(size.yscale) * 2.5
+angle = 0
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(002)
+trigger1 = !time
+anim = 30801
+id = stateno
+pos = 0, -const(size.mid.pos.y)
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 1
+scale = const(size.xscale) * 2.5, const(size.yscale) * 2.5
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = ishelper(002)
+trigger1 = !time
+anim = 30856
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 8
+scale = const(size.xscale) * 1.2, const(size.yscale) * 1.2
+angle = var(4)
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(002)
+trigger1 = !time
+anim = 30856
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 7
+scale = const(size.xscale) * 1.2, const(size.yscale) * 1.2
+angle = var(4)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+;=====================================
+; Ultimate FX
+[state 0]
+type = envshake
+triggerall = ishelper(003)
+trigger1 = !time
+time = 15
+ampl = -10
+freq = 30
+[state 0]
+type = playsnd
+triggerall = ishelper(003)
+trigger1 = !time
+value = s950, 3
+[state 0]
+type = playsnd
+triggerall = ishelper(003)
+trigger1 = !time
+value = s950, 3
+
+[state 0]
+type = helper
+triggerall = ishelper(003)
+triggerall = numhelper(98085) = 0
+trigger1 = !time
+stateno = 98085
+id = 98085
+pos = 0, 0
+postype = p1
+supermovetime = 999
+pausemovetime = 999
+persistent = 0
+[state 0]
+type = helper
+triggerall = ishelper(003)
+trigger1 = !time
+stateno = 98510
+id = 98510
+postype = p1
+supermovetime = 999
+pausemovetime = 999
+ignorehitpause = 1
+
+[state 0]
+type = explod
+triggerall = ishelper(003)
+triggerall = numexplod(30810) = 0
+trigger1 = !time
+anim = 30810
+id = 30810
+pos = (screenwidth / 2), (screenheight / 2)
+postype = back
+facing = 1
+bindtime = 1
+removetime = -1
+scale = (screenwidth / 320), (screenheight / 235)
+sprpriority = 200
+ownpal = 1 
+remappal = 3,9
+removeongethit = 1
+pausemovetime = 99999
+supermovetime = 99999
+[state 0]
+type = explod
+triggerall = ishelper(003)
+triggerall = numexplod(30810) = 0
+trigger1 = !time
+anim = 30810
+id = 30810
+pos = (screenwidth / 2), (screenheight / 2)
+postype = back
+facing = 1
+bindtime = 1
+removetime = -1
+scale = (screenwidth / 320), (screenheight / 235)
+sprpriority = 200
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+pausemovetime = 99999
+supermovetime = 99999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = ishelper(003)
+trigger1 = !time
+anim = 30500
+pos = 0, (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 210
+scale = (screenwidth / 320), 2
+angle = -90
+ownpal = 1
+remappal = 3,20
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(003)
+trigger1 = !time
+anim = 30500
+pos = 0, (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 210
+scale = (screenwidth / 320), 2
+angle = -90
+ownpal = 1
+remappal = 3,0
+trans = sub
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = explod
+triggerall = ishelper(003)
+trigger1 = !time
+anim = 30854
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = -1
+scale = const(size.xscale) * 1.75, const(size.yscale) * 1.75
+angle = 0
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(003)
+trigger1 = !time
+anim = 30854
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = -1
+scale = const(size.xscale) * 1.75, const(size.yscale) * 1.75
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = ishelper(003)
+trigger1 = !time
+anim = 30850
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 1
+scale = const(size.xscale) * 2, const(size.yscale) * 2
+ownpal = 1
+remappal = 3, 9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(003)
+trigger1 = !time
+anim = 30850
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 1
+scale = const(size.xscale) * 2, const(size.yscale) * 2
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = ishelper(003)
+trigger1 = !time
+anim = 30813
+pos = (screenwidth / 2), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = -20
+scale = (screenwidth / 320), (screenheight / 235)
+angle = 0
+ownpal = 1
+remappal = 3, 20
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = ishelper(003)
+trigger1 = !time
+anim = 30813
+pos = (screenwidth / 2), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = -21
+scale = (screenwidth / 320), (screenheight / 235)
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[State 0]
+type = explod
+triggerall = ishelper(003)
+trigger1 = !time
+anim = 30805
+pos = (screenwidth / 2), (screenheight / 2)
+postype = back
+sprpriority = 201
+removetime = -2
+bindtime = -1
+scale = 2,3.2
+ownpal = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = destroyself
+trigger1 = time >= 15
+trigger1 = numhelper(98510) = 0 && numhelper(98511) = 0
+removeexplods = 1
+
+[statedef 30902]
+type = u
+movetype = i
+physics = n
+velset = 0, 0
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = nothitby
+trigger1 = stateno = stateno
+value = sca, na, sa, ha, np, sp, hp, nt, st, ht
+ignorehitpause = 1
+[state 0]
+type = assertspecial
+trigger1 = stateno = stateno
+flag = noshadow
+ignorehitpause = 1
+[state 0]
+type = null
+trigger1 = fvar(0) := 0 + (time * (0.125 / 10))
+ignorehitpause = 1
+[state 0]
+type = bindtoroot
+trigger1 = stateno = stateno
+ignorehitpause = 1
+[state 0]
+type = turn
+trigger1 = facing != root, facing
+ignorehitpause = 1
+[state 0]
+type = changeanim
+trigger1 =  selfanimexist(root, anim)
+value=cond(!ishelper && var(45)>0 && selfanimexist((root, anim)+var(45)*1000000),(root, anim)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(root, anim)),500000+(root, anim),cond(selfanimexist(root, anim),(root, anim),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+elem = root, animelemno(0)
+ignorehitpause = 1
+[state 0]
+type = angleset
+trigger1 = root, anim = 41 || root, anim = 44
+trigger1 = root, vel x > 0
+value = -5
+ignorehitpause = 1
+[state 0]
+type = angleset
+trigger1 = root, anim = 5040
+trigger1 = root, animelemtime(2) < 0
+value = 0 + ((root, time -1) * (270/10))
+ignorehitpause = 1
+[state 0]
+type = angleset
+trigger1 = root, anim != 41 && root, anim != 44 &&  root, vel x = 0
+trigger1 = root, anim != 5040 || (root, anim = 5040 && root, animelemtime(2) >= 0)
+value = 0
+ignorehitpause = 1
+[state 0]
+type = angledraw
+trigger1 = root, anim = 0
+scale=cond(ishelper,((1.0 + fvar(0)) ),1),cond(ishelper,( (1.0 + fvar(0)) + (sin((root, time/ 60.0) * (pi / 2)) * 0.0125)),1)
+ignorehitpause = 1
+[state 0]
+type = angledraw
+trigger1 = root, anim = 20
+trigger1 = root, command = "holdback"
+scale=cond(ishelper,(-(1.0 + fvar(0)) ),1),cond(ishelper,( (1.0 + fvar(0))),1)
+ignorehitpause = 1
+[state 0]
+type = angledraw
+trigger1 = root, anim = 20
+trigger1 = root, command = "holdfwd"
+scale=cond(ishelper,((1.0 + fvar(0)) ),1),cond(ishelper,( (1.0 + fvar(0))),1)
+ignorehitpause = 1
+[state 0]
+type = angledraw
+trigger1 = root, anim != 0 && root, anim != 20
+scale=cond(ishelper,((1.0 + fvar(0)) ),1),cond(ishelper,( (1.0 + fvar(0))),1)
+ignorehitpause = 1
+
+[state 0]
+type = trans
+trigger1 = stateno = stateno
+trans = addalpha
+alpha = 256 - ceil(time * (256/10)), 256
+ignorehitpause = 1 
+
+[state 0]
+type = palfx
+trigger1 = !time
+time = -1
+add = 0,0,80
+mul = 0,0,80
+ignorehitpause = 1
+
+[state 0]
+type = sprpriority
+trigger1 = root, stateno = 0
+trigger2 = root, stateno = [10, 12]
+trigger3 = root, stateno = 20
+trigger4 = root, stateno = 45
+trigger5 = root, stateno = 50
+trigger6 = root, stateno = 51
+trigger7 = root, stateno = 52
+trigger8 = root, stateno = [120, 155]
+trigger9 = root, stateno = [5000, 5403]
+value = 0
+ignorehitpause = 1
+
+[state 0]
+type = sprpriority
+trigger1 = root, stateno = 40
+value = 1
+ignorehitpause = 1
+
+[state 0]
+type = sprpriority
+trigger1 = root, stateno != 0
+trigger1 = root, stateno != [10, 12]
+trigger1 = root, stateno != 20
+trigger1 = root, stateno != 40
+trigger1 = root, stateno != 45
+trigger1 = root, stateno != 50
+trigger1 = root, stateno != 51
+trigger1 = root, stateno != 52
+trigger1 = root, stateno != [120, 155]
+trigger1 = root, stateno != [5000, 5403]
+value = 2
+ignorehitpause = 1
+
+[state 0]
+type = destroyself
+trigger1 = time = 10
+trigger2 = !selfanimexist(root, anim) 
+trigger3 = root, movetype = h && ((root, stateno != [150, 155]) && (root, stateno != [5000, 5210]))
+ignorehitpause = 1
+
+;Academy config
+[statedef 30990]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = bindtoroot
+trigger1 = root, numhelper(30500) = 0
+pos = 0, 4
+ignorehitpause = 1
+[state 0]
+type = bindtoroot
+trigger1 = (root, numhelper(30500) = 1) || (root, numhelper(30501) = 1) || (root, numhelper(30502) = 1)
+pos = 0, 6
+ignorehitpause = 1
+
+[state 0]
+type = varadd
+triggerall = (root, numhelper(80015) = 0) && (enemy, numhelper(80015) = 0)
+triggerall = fvar(7) <= 1.01 && fvar(8) = 0
+triggerall = enemynear, statetype != l
+triggerall = root, stateno != [1000, 4999]
+trigger1 = p2movetype = h && enemy, time = 1
+fvar(7) = .0025
+ignorehitpause = 1
+[state 0]
+type = varadd
+triggerall = (root, numhelper(80015) = 0) && (enemy, numhelper(80015) = 0)
+triggerall = fvar(7) <= 1.01 && fvar(8) = 0
+triggerall = enemy, stateno != [2000, 4999]
+trigger1 = root, movetype = h && root, time = 1
+fvar(7) = .0035
+ignorehitpause = 1
+[state 0]
+type = varadd
+triggerall = (root, numhelper(80015) = 0) && (enemy, numhelper(80015) = 0)
+triggerall = fvar(7) <= 1.01 && fvar(8) = 0
+trigger1 = (root, stateno = 500) && (root, time >= 15)
+fvar(7) = cond(root, numhelper(98085) > 0, .002, .004)
+ignorehitpause = 1
+
+[state 0]
+type = varadd
+triggerall = fvar(8) = 1
+trigger1 = (root, stateno = 99685) || (root, numhelper(98510) = 1)
+fvar(7) = -0.06
+ignorehitpause = 1
+[state 0]
+type = varadd
+triggerall = fvar(8) = 1
+trigger1 = fvar(7) = [0, 2]
+fvar(7) = cond(root, movetype = h, -0.0007, -0.001)
+ignorehitpause = 1
+[state 0]
+type = varadd
+triggerall = root, var(57) = 4
+triggerall = root, numhelper(98001) = 1
+triggerall = fvar(8) = 1
+trigger1 = fvar(7)>0 && fvar(7) <= 2
+fvar(7) = -0.005
+ignorehitpause = 1
+[state 0]
+type = varadd
+triggerall = root, var(57) = 6
+triggerall = fvar(8) = 1
+triggerall = root, prevstateno = [5000, 5080]
+trigger1 = root, stateno = 110
+fvar(7) = -0.009
+ignorehitpause = 1
+
+[state 0]
+type = null
+trigger1 = time = 0
+trigger1 = fvar(7) := 0 || fvar(8) := 0
+trigger2 = fvar(7) > 1
+trigger2 = fvar(8) := 1
+trigger3 = fvar(7) < 0.01
+trigger3 = fvar(8) := 0
+
+[state 0]
+type = null
+trigger1 = var(41) := 1200
+trigger1 = var(42) := 1600
+trigger1 = var(43) := 1640
+trigger1 = var(44) := 2700
+
+[state 0]
+type = helper
+triggerall = numhelper(99100) = 0
+trigger1 = fvar(8) = 1
+stateno = 99100
+id = 99100
+pos = 0, 0
+postype = p1
+facing = 1
+ownpal = 1
+size.xscale = root, const(size.xscale)
+size.yscale = root, const(size.yscale)
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = explod
+trigger1 = !numexplod(30902)
+anim = 40902
+id = 30902
+pos = 8,111;0, -20
+postype = back;p1
+facing = 1
+bindtime = -1
+removetime = -1
+angle = 0
+pausemovetime = 9999
+supermovetime = 9999
+ownpal = 1
+scale = const(size.xscale), const(size.yscale)
+sprpriority = 11
+ignorehitpause = 1
+[state 0]
+type = modifyexplod
+trigger1 = numexplod(30902)
+id = 30902
+pos = 8,111;0,0
+postype = back;p1
+removetime = -1
+angle = 0
+pausemovetime = 9999
+supermovetime = 9999
+ownpal = 1
+scale = const(size.xscale) * fvar(7), const(size.yscale)
+sprpriority = 11
+ignorehitpause = 1
+
+[state 0]
+type = explod
+triggerall = !((root, stateno = [4000, 4999])  || (enemy, stateno = [4000, 4999]) )
+trigger1 = fvar(8) = 1 && numexplod(30324) = 0
+anim = 30507
+id = 30324
+pos = 8,113
+postype = back
+facing = -1
+bindtime = -1
+removetime = -1
+sprpriority = 13
+scale = const(size.xscale) * .3, const(size.yscale) * .56
+angle = 0
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = removeexplod
+trigger1 = fvar(8) = 0
+id = 30324
+
+[state 0]
+type = explod
+trigger1 = numexplod(30901) = 0
+anim = 40901
+id = 30901
+pos = 8,111
+postype = back
+facing = 1
+bindtime = -1
+removetime = -1
+angle = 0
+ownpal = 1
+pausemovetime = 9999
+supermovetime = 9999
+scale = const(size.xscale), const(size.yscale)
+ownpal = 1
+sprpriority = 12
+ignorehitpause = 1
+[state 0]
+type = explod
+trigger1 = numexplod(30900) = 0
+anim = 40900
+id = 30900
+pos = 8,111;0,0
+postype = back;p1
+facing = 1
+bindtime = -1
+removetime = -1
+angle = 0
+pausemovetime = 9999
+supermovetime = 9999
+scale = const(size.xscale), const(size.yscale)
+ownpal = 1
+sprpriority = 8
+ignorehitpause = 1
+
+[state 0]
+type = removeexplod
+;trigger1 = (roundstate != 2) || (root, life = 0) || (root, stateno = [5080, 5120]) || ((root, stateno = 60) && (fvar(8) = 0))
+trigger1 = (roundstate != 2) || (root, life = 0) && (fvar(8) = 0)
+trigger2 = (((root, numhelper(30500) = 0) && (root, numhelper(30501) = 0)) && (root, numhelper(30502) = 1) && (fvar(8) = 0))
+;trigger3 = root, movetype = h && ((root, stateno != [150, 155]); && (root, stateno != [5000, 5210]))
+id = 30324
+ignorehitpause = 1
+
+[state 0]
+type = removeexplod
+;trigger1 = (roundstate != 2) || (root, life = 0) || (root, stateno = [5080, 5120]) || ((root, stateno = 60) && (fvar(8) = 0))
+trigger1 = (roundstate != 2) || (root, life = 0) && (fvar(8) = 0)
+trigger2 = (((root, numhelper(30500) = 0) && (root, numhelper(30501) = 0)) && (root, numhelper(30502) = 0) && (fvar(8) = 0))
+;trigger3 = root, movetype = h && ((root, stateno != [150, 155]); && (root, stateno != [5000, 5210]))
+id = 30900
+ignorehitpause = 1
+
+[state 0]
+type = removeexplod
+trigger1 = (roundstate != 2) || (root, life = 0) && (fvar(8) = 0)
+trigger2 = (((root, numhelper(30500) = 0) && (root, numhelper(30501) = 0)) && (root, numhelper(30502) = 0) && (fvar(8) = 0))
+id = 30901
+ignorehitpause = 1
+
+[state 0]
+type = removeexplod
+;trigger1 = (roundstate != 2) || (root, life = 0) || (root, stateno = [5080, 5120]) || ((root, stateno = 60) && (fvar(8) = 0))
+trigger1 = (roundstate != 2) || (root, life = 0) && (fvar(8) = 0)
+trigger2 = (((root, numhelper(30500) = 0) && (root, numhelper(30501) = 0)) && (root, numhelper(30502) = 0) && (fvar(8) = 0))
+;trigger3 = root, movetype = h && ((root, stateno != [150, 155]); && (root, stateno != [5000, 5210]))
+id = 30902
+ignorehitpause = 1
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = win || lose || drawgame
+fv = 8
+value = 0
+
+[state 0]
+type = destroyself
+trigger1 = (roundstate >= 3) || (root, life = 0)
+removeexplods = 1
+
+[statedef 50903]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 1
+
+[State 0]
+type = posadd
+trigger1 = time = 0
+x = -4
+y = 0 - (random % 40)
+
+[State 0]
+type = varset
+trigger1 = time = 0
+v = 1
+value = -40 + (random % 50)
+[state 0]
+type = explod
+trigger1 = time = 0
+anim = 8012
+id = 8012
+pos = 0,0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = -4
+scale = .12,.13
+angle = (var(1))
+ownpal = 1
+remappal = 3,0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 9999
+pausemovetime = 9999
+trans = sub
+[state 0]
+type = explod
+trigger1 = time = 0
+anim = 8011
+id = 8011
+pos = 0,0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = -4
+scale = .12,.13
+angle = (var(1))
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 9999
+pausemovetime = 9999
+trans = sub
+
+[State 0]
+type = destroyself
+trigger1 = time = 10
+
+;-------------------------------------------------------------------------------
+[statedef 50904]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 1
+
+[State 0]
+type = posadd
+trigger1 = time = 0
+x = -5 + (random % 2)
+y = 0 - (random % 40)
+
+[State 0]
+type = varset
+trigger1 = time = 0
+v = 1
+value = -40 + (random % 50)
+[state 0]
+type = explod
+triggerall = ishelper(8011)
+trigger1 = time = 0
+anim = 8012
+id = 8012
+pos = 0,0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = -5
+scale = .14,.14
+angle = (var(1))
+ownpal = 1
+remappal = 3,20
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 9999
+pausemovetime = 9999
+trans = add
+[state 0]
+type = explod
+triggerall = ishelper(8012)
+trigger1 = time = 0
+anim = 8012
+id = 8012
+pos = 0,0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = -5
+scale = .14,.14
+angle = (var(1))
+ownpal = 1
+remappal = 0,15
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 9999
+pausemovetime = 9999
+trans = add
+[state 0]
+type = explod
+trigger1 = time = 0
+anim = 8011
+id = 8011
+pos = 0,0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = -5
+scale = .14,.14
+angle = (var(1))
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 9999
+pausemovetime = 9999
+trans = sub
+
+[State 0]
+type = destroyself
+trigger1 = time = 10
+
+;-------------------------------------------------------------------------------
+; 
+[statedef 50905]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 1
+
+[State 0]
+type = posadd
+trigger1 = time = 0
+x = -6 + (random % 5)
+y = 0 - (random % 42)
+
+[State 0]
+type = varset
+trigger1 = time = 0
+v = 1
+value = -40 + (random % 50)
+[state 0]
+type = explod
+triggerall = ishelper(8011)
+trigger1 = time = 0
+anim = 8012
+id = 8012
+pos = 0,0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = -6
+scale = .15,.15
+angle = (var(1))
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 9999
+pausemovetime = 9999
+trans = add
+[state 0]
+type = explod
+triggerall = ishelper(8012)
+trigger1 = time = 0
+anim = 8012
+id = 8012
+pos = 0,0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = -6
+scale = .15,.15
+angle = (var(1))
+ownpal = 1
+remappal = 3,19
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 9999
+pausemovetime = 9999
+trans = add
+[state 0]
+type = explod
+trigger1 = time = 0
+anim = 8011
+id = 8011
+pos = 0,0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = -6
+scale = .15,.15
+angle = (var(1))
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 9999
+pausemovetime = 9999
+trans = sub
+
+[State 0]
+type = destroyself
+trigger1 = time = 10
+
+[statedef 80000]
+type = u
+movetype = i
+physics = n
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = bgpalfx
+trigger1 = (time >= 0) && (time <= 60)
+time = 3
+invertall = 1
+color = 256
+[state 0]
+type = bgpalfx
+trigger1 = time >= 60
+time = 5
+invertall = 0
+color = 200 - (time * 1)
+ignorehitpause = 1
+
+[state 0]
+type = envshake
+triggerall = time <= 65
+trigger1 = time % 8 = 0
+time = 10
+ampl = -10
+freq = 10
+
+[state 0]
+type = helper
+trigger1 = (!time) || (time = 10)
+stateno = 80020
+id = 80020
+postype = p1
+facing = 1
+ownpal = 1
+size.mid.pos = 0, -25
+size.head.pos = 30106, 1
+size.xscale = .05
+size.yscale = .05
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = helper
+trigger1 = time = 5
+stateno = 80020
+id = 80020
+postype = p1
+facing = 1
+ownpal = 1
+size.mid.pos = 0, -25
+size.head.pos = 30107, 9
+size.xscale = .05
+size.yscale = .05
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = helper
+trigger1 = time = 15
+stateno = 80020
+id = 80020
+postype = p1
+facing = 1
+ownpal = 1
+size.mid.pos = 0, -25
+size.head.pos = 30107, 4
+size.xscale = .05
+size.yscale = .05
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = helper
+trigger1 = time = 20
+stateno = 80020
+id = 80020
+postype = p1
+facing = 1
+ownpal = 1
+size.mid.pos = 0, -25
+size.head.pos = 30107, 6
+size.xscale = .05
+size.yscale = .05
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = helper
+trigger1 = (time = 50) || (time = 60)
+stateno = 80021
+id = 80021
+postype = p1
+facing = 1
+ownpal = 1
+size.mid.pos = 0, -25
+size.head.pos = 30106, 1
+size.xscale = .05
+size.yscale = .05
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = destroyself
+trigger1 = time >= 70
+
+[statedef 80020]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((const(size.head.pos.x))+var(45)*1000000),(const(size.head.pos.x))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(const(size.head.pos.x))),500000+(const(size.head.pos.x)),cond(selfanimexist(const(size.head.pos.x)),(const(size.head.pos.x)),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 9
+
+[state 0]
+type = remappal
+trigger1 = 1
+source = 3, 0
+dest = 3, const(size.head.pos.y)
+
+[state 0]
+type = bindtoparent
+trigger1 = numhelper(80000)
+pos = const(size.mid.pos.x), const(size.mid.pos.y)
+
+[state 0]
+type = envshake
+trigger1 = !time
+time = 10
+
+[state 0]
+type = angledraw
+trigger1 = 1
+scale=cond(ishelper,(1 + (time * .4)),1),cond(ishelper,( 1 + (time * .4)),1)
+ignorehitpause = 1
+
+[state 0]
+type = trans
+trigger1 = time < 30
+trans = add
+alpha = 256 - (time * 6), 256
+
+[state 0]
+type = assertspecial
+trigger1 = 1
+flag = noshadow
+
+[state 0]
+type = destroyself
+trigger1 = !animtime
+
+[statedef 80021]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((const(size.head.pos.x))+var(45)*1000000),(const(size.head.pos.x))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(const(size.head.pos.x))),500000+(const(size.head.pos.x)),cond(selfanimexist(const(size.head.pos.x)),(const(size.head.pos.x)),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 9
+
+[state 0]
+type = remappal
+trigger1 = 1
+source = 3, 0
+dest = 3, const(size.head.pos.y)
+
+[state 0]
+type = bindtoparent
+trigger1 = numhelper(80000)
+pos = const(size.mid.pos.x), const(size.mid.pos.y)
+
+[state 0]
+type = envshake
+trigger1 = !time
+time = 10
+
+[state 0]
+type = angledraw
+trigger1 = time < 28
+scale=cond(ishelper,(15 - (time * .6)),1),cond(ishelper,( 15 - (time * .6)),1)
+
+[state 0]
+type = angledraw
+trigger1 = time >= 28
+scale=cond(ishelper,(1.089 - (time * .0001)),1),cond(ishelper,( 1.089 - (time * .0001)),1)
+
+[state 0]
+type = trans
+trigger1 = time < 99
+trans = add
+alpha = 0 + (time * 6), 256
+
+[state 0]
+type = assertspecial
+trigger1 = 1
+flag = noshadow
+
+[state 0]
+type = destroyself
+trigger1 = time >= 25
+
+[statedef 81000]
+type = u
+movetype = a
+physics = s
+velset = 0, 0
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((30700)+var(45)*1000000),(30700)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(30700)),500000+(30700),cond(selfanimexist(30700),(30700),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 6
+
+[state 0]
+type = envshake
+trigger1 = !time
+time = 30
+freq = 60
+ampl = -5
+
+[state 0]
+type = playsnd
+trigger1 = !time
+value = s5,12
+[state 0]
+type = playsnd
+trigger1 = !time
+value = s5,12
+[state 0]
+type = playsnd
+trigger1 = !time
+value = s5,12
+
+[state 0]
+type = pause
+trigger1 = time = [0, 10]
+time = 2
+
+[state 0]
+type = hitdef
+trigger1 = !movecontact
+animtype = diagup
+attr = s, st
+damage = 30 + (random % 20), 25
+hitflag = mafd
+guardflag = ma
+pausetime = 0, 6
+guardsound = s4, 1
+ground.type = high
+ground.slidetime = 12
+ground.hittime = 15
+ground.velocity = -1.5, -6.5
+air.velocity = -1.5, -6.5
+fall = 1
+envshake.time = 15
+kill = 0
+guard.kill = 0
+
+[state 0]
+type = helper
+triggerall = p2movetype = h
+trigger1 = movecontact = 1
+stateno = 98010
+id = 001
+size.height = 0
+size.head.pos = (random % 360), (root, var(53))
+pos = 0, -24 + (random % 8)
+postype = p2
+ownpal = 1
+size.xscale = .8
+size.yscale = .8
+ignorehitpause = 1
+persistent = 0
+
+[state 0]
+type = destroyself
+trigger1 = !animtime
+ignorehitpause = 1
+
+[statedef 98000]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((30300)+var(45)*1000000),(30300)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(30300)),500000+(30300),cond(selfanimexist(30300),(30300),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 4
+
+[state 0]
+type = remappal
+trigger1 = 1
+source = 3, 0
+dest = 3, 20;(cond(!(enemynear, var(53)), 8, (enemynear, var(53))))
+
+[state 0]
+type = explod
+trigger1 = time = 0
+anim = anim
+id = anim
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 0
+scale = const(size.xscale), const(size.yscale)
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+trigger1 = time = 0
+anim = 30315
+id = 30315
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 5
+scale = const(size.xscale) * .6, const(size.yscale) * 1
+angle = var(1)
+ownpal = 0
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = destroyself
+trigger1 = !animtime
+
+;Hit
+[statedef 98010]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = remappal
+trigger1 = 1
+source = 3, 0
+dest = 3, const(size.head.pos.y)
+
+[state 0]
+type = helper
+triggerall = enemynear, stateno = [120, 154]
+trigger1 = time = 0
+stateno = 98000
+id = 98000
+pos = 10, 0
+postype = p1
+ownpal = 1
+size.xscale = const(size.xscale) * .4
+size.yscale = const(size.yscale) * .4
+ignorehitpause = 1
+persistent = 0
+
+;=================
+; Normal Spark
+;=================
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(001)) || (ishelper(020))
+trigger1 = time = 0
+anim = 30330
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 10
+scale = const(size.xscale) * .525, const(size.yscale) * .525
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(001)) || (ishelper(020))
+trigger1 = time = 0
+anim = 30330
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 9
+scale = const(size.xscale) * .525, const(size.yscale) * .525
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(001)) || (ishelper(020))
+trigger1 = time = 0
+anim = 30332
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 14
+scale = const(size.xscale) * .7, const(size.yscale) * .37
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(001)) || (ishelper(020))
+trigger1 = time = 0
+anim = 30332
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 13
+scale = const(size.xscale) * .7, const(size.yscale) * .37
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(001)) || (ishelper(020))
+trigger1 = time = 0
+anim = 30325
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 14
+scale = const(size.xscale) * .5, const(size.yscale) * .25
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(001)) || (ishelper(020))
+trigger1 = time = 0
+anim = 30325
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 13
+scale = const(size.xscale) * .5, const(size.yscale) * .25
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(002)) || (ishelper(019))
+trigger1 = time = 0
+anim = 30330
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 10
+scale = const(size.xscale) * .525, const(size.yscale) * .525
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 0, 14
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(002)) || (ishelper(019))
+trigger1 = time = 0
+anim = 30330
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 9
+scale = const(size.xscale) * .525, const(size.yscale) * .525
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(002)) || (ishelper(019))
+trigger1 = time = 0
+anim = 30331
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 14
+scale = const(size.xscale) * .7, const(size.yscale) * .35
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 0, 14
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(002)) || (ishelper(019))
+trigger1 = time = 0
+anim = 30331
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 13
+scale = const(size.xscale) * .7, const(size.yscale) * .35
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(002)) || (ishelper(019))
+trigger1 = time = 0
+anim = 30325
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 14
+scale = const(size.xscale) * .5, const(size.yscale) * .25
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 0, 14
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(002)) || (ishelper(019))
+trigger1 = time = 0
+anim = 30325
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 13
+scale = const(size.xscale) * .5, const(size.yscale) * .25
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(003)) || (ishelper(018))
+trigger1 = time = 0
+anim = 30330
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 10
+scale = const(size.xscale) * .525, const(size.yscale) * .525
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 0, 16
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(003)) || (ishelper(018))
+trigger1 = time = 0
+anim = 30330
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 9
+scale = const(size.xscale) * .525, const(size.yscale) * .525
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(003)) || (ishelper(018))
+trigger1 = time = 0
+anim = 30331
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 14
+scale = const(size.xscale) * .7, const(size.yscale) * .37
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 0, 16
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(003)) || (ishelper(018))
+trigger1 = time = 0
+anim = 30331
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 13
+scale = const(size.xscale) * .7, const(size.yscale) * .37
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(003)) || (ishelper(018))
+trigger1 = time = 0
+anim = 30325
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 14
+scale = const(size.xscale) * .5, const(size.yscale) * .25
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 0, 16
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(003)) || (ishelper(018))
+trigger1 = time = 0
+anim = 30325
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 13
+scale = const(size.xscale) * .5, const(size.yscale) * .25
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+;=================
+; Slash Spark
+;=================
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30315
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 10
+scale = const(size.xscale) * .35, const(size.yscale) * .35
+angle = const(size.head.pos.x)
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30304
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 9
+scale = const(size.xscale) * .2, const(size.yscale) * .2
+angle = const(size.head.pos.x)
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30304
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 0
+scale = const(size.xscale) * .2, const(size.yscale) * .2
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30304
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 8
+scale = const(size.xscale) * .125, const(size.yscale) * .125
+angle = (const(size.head.pos.x) + const(size.head.pos.x)) * 2
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30304
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 0
+scale = const(size.xscale) * .125, const(size.yscale) * .125
+angle = (const(size.head.pos.x) + const(size.head.pos.x)) * 2
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30313
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 8
+scale = const(size.xscale) * .3, const(size.yscale) * .3
+angle = const(size.head.pos.x)
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30313
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 0
+scale = const(size.xscale) * .3, const(size.yscale) * .3
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30305
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 7
+scale = const(size.xscale) * .3, const(size.yscale) * .3
+angle = const(size.head.pos.x)
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30305
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 0
+scale = const(size.xscale) * .3, const(size.yscale) * .3
+angle = const(size.head.pos.x)
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30303
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 6
+scale = const(size.xscale) * .25, const(size.yscale) * .25
+angle = (const(size.head.pos.x) - const(size.head.pos.x))
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(011)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30303
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 0
+scale = const(size.xscale) * .25, const(size.yscale) * .25
+angle = (const(size.head.pos.x) - const(size.head.pos.x))
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+;=================
+; Blood Spark
+;=================
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(020)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30321
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 7
+scale = const(size.xscale) * .3, const(size.yscale) * .3
+angle = 0
+ownpal = 1
+remappal = 3, 2
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+triggerall = (enemynear, stateno != [120, 154])
+triggerall = (ishelper(020)) || (ishelper(021))
+trigger1 = time = 0
+anim = 30321
+id = stateno
+pos = 0, 0
+postype = p1
+facing = 1
+bindtime = -1
+removetime = -2
+sprpriority = 6
+scale = const(size.xscale) * .3, const(size.yscale) * .3
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = destroyself
+trigger1 = !numexplod(stateno)
+ignorehitpause = 1
+removeexplods = 1
+
+[statedef 98061]
+type = u
+sprpriority = 10
+
+[state 0]
+type = changeanim
+trigger1 = 1
+value=cond(!ishelper && var(45)>0 && selfanimexist((root, anim)+var(45)*1000000),(root, anim)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(root, anim)),500000+(root, anim),cond(selfanimexist(root, anim),(root, anim),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+elem = root, animelemno(0)
+ignorehitpause = 1
+[state 0]
+type = bindtoroot
+trigger1 = time % 10 = 0
+time = -1
+ignorehitpause = 1
+[state 0]
+type = playerpush
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+[state 0]
+type = turn
+trigger1 = facing != root, facing
+ignorehitpause = 1
+[state 0]
+type = nothitby
+trigger1 = 1
+value = sca, na, sa, ha, np, sp, hp, nt, st, ht
+time = -1
+ignorehitpause = 1
+[state 0]
+type = trans
+trigger1 = 1
+trans = add
+alpha = 50 - ((time) * 5), 256
+[state 0]
+type = afterimage
+trigger1 = time = 0
+time = -1
+trans = add
+length = 5
+timegap = 1
+framegap = 1
+palbright = 0 , 0 , 0
+palcontrast = floor(root, fvar(35)), floor(root, fvar(36)), floor(root, fvar(37))
+paladd = 0, 0, 0
+palmul = .25, .25, .25
+
+[state 0]
+type = destroyself
+trigger1 = time = 15
+trigger2 = !selfanimexist(root, anim) 
+trigger3 = root, movetype = h && ((root, stateno != [150, 155]) && (root, stateno != [5000, 5210]))
+ignorehitpause = 1
+
+[statedef 98085]
+type = u
+movetype = i
+physics = n
+velset = 0, 0
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 3
+
+[state 0]
+type = destroyself
+trigger1 = time = 1200
+
+; academy special effects 1
+[statedef 98510]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = assertspecial
+trigger1 = ishelper(98510)
+flag = nobardisplay
+ignorehitpause = 1
+
+[state 0]
+type = bindtoroot
+triggerall = ishelper(98510)
+trigger1 = time <= 60
+time = 1
+facing = 0
+
+;[state 0]
+;type = zoom
+;triggerall = root,stateno != 1905
+;triggerall = ishelper(98510)
+;trigger1 = time = [0, 25] 
+;pos = (pos x / (1 + (time * .0125))) * camerazoom, 4 * camerazoom
+;scale = 1 + (time * .0125)
+;ignorehitpause = 1
+;[state 0] 
+;type = zoom
+;triggerall = root,stateno != 1905
+;triggerall = ishelper(98510)
+;trigger1 = time = [25, 60]
+;pos = (pos x / 1) * camerazoom, 4 * camerazoom
+;scale = 1.25
+;ignorehitpause = 1
+
+[state 0]
+type = varadd
+triggerall = root, numhelper(80015) = 0
+trigger1 = var(5) > -50
+v = 5
+value = -10
+
+[state 0]
+type = bgpalfx
+triggerall = root, numhelper(80015) = 0
+trigger1 = 1
+time = 2
+add = var(5), var(5), var(5)
+
+[state 0]
+type = helper
+triggerall = ishelper(98510)
+triggerall = !numhelper(98520)
+trigger1 = winko
+stateno = 98520
+id = 98520
+pos = 0, 0
+postype = p1
+ownpal = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 0]
+type = changestate
+trigger1 = ((root, stateno = 0) || (root, stateno = 20) || (root, stateno = 50)) || (root, movetype = h)
+trigger2 = ((root, stateno = 500) || (root, stateno = 80))
+value = 98511
+
+; academy special effects 2
+[statedef 98511]
+type = u
+
+[state 0]
+type = varadd
+trigger1 = ishelper(98510)
+fvar(20) = -1
+ignorehitpause = 1
+
+[state 0]
+type = removeexplod
+trigger1 = 1
+id = 30810
+ignorehitpause = 1
+
+;[state 0]
+;type = explod
+;trigger1 = ishelper(98510)
+;trigger1 = !time
+;anim = 30820
+;id = 30820
+;pos = (screenwidth / 2), (screenheight / 2)
+;postype = back
+;facing = 1
+;bindtime = 1
+;removetime = -2
+;sprpriority = 200
+;scale = (screenwidth / 320), (screenheight / 235)
+;angle = 0
+;ownpal = 1
+;remappal = 3, 0
+;removeongethit = 1
+;ignorehitpause = 1
+;supermovetime = 999
+;pausemovetime = 999
+;persistent = 0
+
+[state 0]
+type = varadd
+triggerall = !ishelper(98510)
+trigger1 = var(5) < 0
+v = 5
+value = 5
+
+[state 0]
+type = bgpalfx
+triggerall = !ishelper(98510)
+trigger1 = 1
+time = 2
+add = var(5), var(5), var(5)
+
+;[state 0]
+;type = zoom
+;triggerall = ishelper(98510)
+;trigger1 = time = [0, 5] 
+;pos = ceil(pos x / (1.5 - (time * 0.05))) * camerazoom, 0
+;scale = 1.25 - (time * 0.05)
+;ignorehitpause = 1
+
+[state 0]
+type = destroyself
+trigger1 = time = 10
+
+; academy last arc finish
+[statedef 98520]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+poweradd = 1000
+
+[state 0]
+type = assertspecial
+trigger1 = 1
+flag = nokosnd
+
+[state 0]
+type = pause
+triggerall = time <= 30
+trigger1 = time % 2 = 0
+time = 1
+
+[state 0]
+type = bgpalfx
+trigger1 = time <= 30
+time = 1
+color = 0
+add = 256, 256, 256
+mul = 256, 256, 256
+sinadd = -256, -256, -256, 100
+invertall = 1
+ignorehitpause = 1
+
+[state 0]
+type = playsnd
+trigger1 = time = 10
+value = s9820, 0
+persistent = 0
+ignorehitpause = 1
+[state 0]
+type = playsnd
+trigger1 = time = 10
+value = s9820, 0
+persistent = 0
+ignorehitpause = 1
+
+[state 0]
+type = explod
+trigger1 = time = 10
+anim = 30812
+id = 30812
+pos = (screenwidth / 2), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 99
+scale = (screenwidth / 320), (screenheight / 235)
+angle = 0
+ownpal = 1
+remappal = 3, 4
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+trigger1 = time = 10
+anim = 30812
+id = 30812
+pos = (screenwidth / 2), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 98
+scale = (screenwidth / 320), (screenheight / 235)
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+trigger1 = time = 10
+anim = 30812
+id = 30812
+pos = (screenwidth / 2), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 99
+scale = (screenwidth / 320), (screenheight / 235)
+angle = 0
+ownpal = 1
+remappal = 3, 4
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+trigger1 = time = 10
+anim = 30812
+id = 30812
+pos = (screenwidth / 2), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 98
+scale = (screenwidth / 320), (screenheight / 235)
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = playsnd
+trigger1 = time = 15
+value = s9820, 1
+persistent = 0
+ignorehitpause = 1
+[state 0]
+type = playsnd
+trigger1 = time = 15
+value = s9820, 1
+persistent = 0
+ignorehitpause = 1
+
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 30813
+id = 30813
+pos = (screenwidth / 2), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 100
+scale = (screenwidth / 320), (screenheight / 235)
+angle = 0
+ownpal = 1
+remappal = 3, 4
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 30813
+id = 30813
+pos = (screenwidth / 2), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 99
+scale = (screenwidth / 320), (screenheight / 235)
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 30814
+id = 30814
+pos = ((screenwidth / 2) - 5), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = 30
+sprpriority = 100
+scale = (screenwidth / 1280), (screenheight / 720)
+angle = 0
+ownpal = 1
+remappal = 3, 4
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+persistent = 0
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 30814
+id = 30814
+pos = ((screenwidth / 2) - 5), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = 30
+sprpriority = 99
+scale = (screenwidth / 1280), (screenheight / 720)
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+persistent = 0
+trans = sub
+
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 30815
+id = 30815
+pos = ((screenwidth / 2) - 5), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 100
+scale = (screenwidth / 1280), (screenheight / 720)
+angle = 0
+ownpal = 1
+remappal = 3, 4
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 30815
+id = 30815
+pos = ((screenwidth / 2) - 5), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = 140
+sprpriority = 99
+scale = (screenwidth / 1280), (screenheight / 720)
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 30816
+id = 30816
+pos = ((screenwidth / 2) - 5), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 100
+scale = (screenwidth / 720), (screenheight / 480)
+angle = 0
+ownpal = 1
+remappal = 3, 2
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+persistent = 0
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 30816
+id = 30816
+pos = ((screenwidth / 2) - 5), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = 140
+sprpriority = 99
+scale = (screenwidth / 720), (screenheight / 480)
+angle = 0
+ownpal = 1
+remappal = 3, 0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+persistent = 0
+trans = sub
+
+[state 0]
+type = destroyself
+trigger1 = time = 90
+
+[statedef 99005]
+type = u
+movetype = i
+physics = n
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 10
+
+;[state 0]
+;type = remappal
+;trigger1 = 1
+;source = 3, 0
+;dest = 3,21
+
+;[state 0]
+;type = angledraw
+;trigger1 = 1
+;scale = 1 + time * .1, 1 + time * .1
+
+[state 0]
+type = envshake
+trigger1 = time = 0
+time = 80
+ampl = -2
+
+[state 0]
+type = playsnd
+trigger1 = time = 0
+value = s9600, 7
+
+[state 0]
+type = explod
+trigger1 = !time
+anim = 30110
+pos = 0,0
+postype = p1
+bindtime = -1
+removetime = -2
+sprpriority = 10
+ownpal = 1
+scale = const(size.xscale), const(size.yscale)
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 99
+pausemovetime = 99
+[state 0]
+type = explod
+trigger1 = !time
+anim = 30110
+pos = 0,0
+postype = p1
+bindtime = -1
+removetime = -2
+sprpriority = 0
+ownpal = 1
+remappal = 3,0
+scale = const(size.xscale), const(size.yscale)
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 99
+pausemovetime = 99
+trans = sub
+
+[state 0]
+type = helper
+triggerall = root, movetype != h
+trigger1 = animelemtime(2) = 0
+stateno = 30710
+id = 30710
+pos = 0, 20
+postype = p1
+facing = 1
+ignorehitpause = 1
+persistent = 0
+[state 0]
+type = helper
+triggerall = root, movetype != h
+trigger1 = animelemtime(2) = 0
+stateno = 30710
+id = 30710
+pos = 0, 20
+postype = p1
+facing = -1
+ignorehitpause = 1
+persistent = 0
+
+[state 0]
+type = varset
+trigger1 = time = 0
+v = 13
+value = 150
+
+[state 0]
+type = varadd
+trigger1 = time >= 20
+v = 13
+value = 9
+
+[state 0]
+type = allpalfx
+trigger1 = time > 0
+time = 3
+color = var(13)
+
+[state 0]
+type = assertspecial
+trigger1 = 1
+flag = noshadow
+
+[state 0]
+type = destroyself
+trigger1 = animtime = 0
+
+[statedef 99071]
+type = u
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+;[state 0]
+;type = screenbound
+;trigger1 = 1
+;value = 0
+;movecamera = 1, 1
+
+[state 0]
+type = bindtoroot
+trigger1 = 1
+pos = (const(size.mid.pos.x) + 30), (const(size.mid.pos.y) + 0)
+
+[state 0]
+type = assertspecial
+trigger1 = 1
+flag = nobardisplay
+ignorehitpause = 1
+
+[state 0]
+type = explod
+trigger1 = !time
+anim = 30315
+id = 30315
+pos = (screenwidth / 2), (screenheight / 2)
+postype = back
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 200
+scale = (screenwidth / 320) * 3, (screenheight / 235) * 3
+angle = 0
+ownpal = 1
+remappal = 3, 2
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+persistent = 0
+
+[state 0]
+type = bgpalfx
+trigger1 = time <= 30
+time = 1
+invertall = 1
+add = 0, -128, -128
+color = 128
+ignorehitpause = 1
+
+[state 0]
+type = pause
+trigger1 = ((time > 0) && (time < 30)) && (time % 3 = 0)
+time = 2
+movetime = 2
+
+[state 0]
+type = destroyself
+trigger1 = time >= 90
+removeexplods = 1
+
+[statedef 99100]
+type = u
+movetype = i
+physics = n
+velset = 0, 0
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = -1
+
+[state 0]
+type = bindtoroot
+trigger1 = 1
+pos = 0, 0
+
+[state 0]
+type = helper
+trigger1 = time = 0
+stateno = 99005
+id = 30105
+pos = 0, 0
+postype = p1
+ownpal = 1
+size.xscale = .3
+size.yscale = .35
+supermovetime = 999
+pausemovetime = 999
+persistent = 0
+
+[state 0]
+type = helper
+trigger1 = time % 8 = 0
+stateno = 30902
+id = 30902
+ownpal = 1
+supermovetime = 99999
+pausemovetime = 99999
+ignorehitpause = 1
+
+[state 0]
+type = helper
+triggerall = root, stateno != [3000, 4999]
+trigger1 = time % 8 = 0
+stateno = 98061
+id = 98061
+pos = 0, 0
+postype = p1
+persistent = 1
+supermovetime = 60
+pausemovetime = 60
+
+[state 0]
+type = poweradd
+triggerall = (root, var(57) = 1)
+triggerall = (root, power < root, powermax)
+trigger1 = time % 60 = 0
+value = 130
+ignorehitpause = 1
+[state 0]
+type = playsnd
+triggerall = (root, var(57) = 1)
+triggerall = (root, power < root, powermax)
+trigger1 = time % 60 = 0
+value = s9500, 0
+volumescale = 45
+
+;[state 0]
+;type = explod
+;triggerall = (root, var(57) = 1)
+;triggerall = (root, power < root, powermax)
+;trigger1 = time % 80 = 0
+;anim = 30802
+;id = 99100
+;pos = 0, -15 + (random % 10)
+;postype = p1
+;facing = 1
+;bindtime = -1
+;removetime = -2
+;sprpriority = cond(random % 2 = 0, 3, 1)
+;scale = .15, .15
+;angle = 0
+;ownpal = 1
+;remappal = 3,9
+;removeongethit = 1
+;ignorehitpause = 1
+;supermovetime = 999
+;pausemovetime = 999
+;trans = add
+;alpha = 200, 256
+;vel = 0, 0
+;persistent = 1
+
+;[state 0]
+;type = explod
+;triggerall = (root, var(57) = 1)
+;trigger1 = time % 8 = 0 
+;anim = 911
+;id = 99100
+;pos = (random % 11) * cond(random < 500, -1, 1), -20 + (random %30 ) * cond(random < 500, -1, 1)
+;postype = p1
+;scale = .1, .1
+;ownpal = 1
+;ignorehitpause = 1
+;sprpriority = cond(random % 2 = 0, 3, 1)
+;supermovetime = 999
+;pausemovetime = 999
+;remappal = 3,9
+
+[state 0]
+type = explod
+triggerall = (root, var(57) = 2)
+trigger1 = time % 20 = 0
+anim = 30324
+id = 99100
+pos = 0 + (random % 5), -12 - (random % 24)
+postype = p1
+facing = cond(random % 1 = 0, 1, 0)
+vfacing = cond(random % 1 = 0, 1, 0)
+bindtime = -1
+removetime = -2
+sprpriority = 3
+scale = .3, .3
+angle = 0 + (random % 360)
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = helper
+triggerall = (root, var(57) = 4)
+triggerall = numhelper(30505) = 0
+trigger1 = time = 0
+stateno = 30505
+id = 30505
+pos = 0, 0
+postype = p1
+facing = 1
+ownpal = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = explod
+triggerall = (root, var(57) = 6)
+trigger1 = time % 10 = 0
+anim = 30206
+id = 99100
+pos = -12 + (random % 24), -25 + (random % 25)
+postype = p1
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 3
+scale = .25, .075
+angle = -25 + (random % 50)
+ownpal = 1
+remappal = 3,9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = add
+vel = 0, -1
+
+[state 0]
+type = removeexplod
+trigger1 = (root, stateno = [5100, 5120]) || (root, statetype = l)
+trigger2 = root, movetype = h && ((root, stateno != [150, 155]) && (root, stateno != [5000, 5210]))
+id = 99100
+
+[state 0]
+type = destroyself
+trigger1 = (roundstate != 2) || (!alive)
+trigger2 = time = 1200
+trigger3 = numhelper(30990)
+trigger3 = helper(30990), fvar(8) = 0
+ignorehitpause = 1
+
+[statedef 99015]
+type = u
+sprpriority = 10
+
+[state 0]
+type = remappal
+trigger1 = 1
+source = 3, 4
+dest = 3, 20
+ignorehitpause = 1
+[state 0]
+type = bindtoroot
+trigger1 = 1
+pos = 0, 8
+ignorehitpause = 1
+[state 0]
+type = assertspecial
+trigger1 = 1
+flag = noshadow
+[state 0]
+type = angledraw
+trigger1 = time <= 5
+scale=cond(ishelper,(.95),1),cond(ishelper,( 1.05 - (sin((time/ 50.0) * (pi / 2)) * 0.0125)),1)
+ignorehitpause = 1
+[state 0]
+type = trans
+trigger1 = time <= 15
+trans = addalpha
+alpha = 0 + (time * 25), 256 - (time * 25)
+[state 0]
+type = angledraw
+trigger1 = 1
+value = cond(vel x != 0, - (atan(vel y / vel x) * (const(size.air.back)) / pi), 0)
+scale=cond(ishelper,(1),1),cond(ishelper,( 1 + (sin((time / 20.0) * (pi / 2)) * 0.0125)),1)
+ignorehitpause = 1
+
+[state 0]
+type = changeanim
+trigger1 = 1
+value=cond(!ishelper && var(45)>0 && selfanimexist((30911)+var(45)*1000000),(30911)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(30911)),500000+(30911),cond(selfanimexist(30911),(30911),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+elem = 10
+
+[state 0]
+type = changestate
+triggerall = time >= 90
+trigger1 = (root, life = 0) || (roundstate != 1) || (root, anim = 6) && (root,stateno = 3000)
+value = 99016
+
+[statedef 99016]
+type = u
+velset = 0, 0.25
+sprpriority = 10
+
+[state 0]
+type = remappal
+trigger1 = 1
+source = 3, 4
+dest = 3, 20
+ignorehitpause = 1
+[state 0]
+type = bindtoroot
+trigger1 = 1
+pos = 0, 8
+ignorehitpause = 1
+[state 0]
+type = assertspecial
+trigger1 = 1
+flag = noshadow
+[state 0]
+type = angledraw
+trigger1 = time <= 10
+scale=cond(ishelper,(1 + (sin((time/ 50.0) * (pi / 2)) * 0.4)),1),cond(ishelper,( 1 - (sin((time/ 50.0) * (pi / 2)) * 0.4)),1)
+ignorehitpause = 1
+[state 0]
+type = trans
+trigger1 = 1
+trans = addalpha
+alpha = 256 - (time * 25), 0 + (time * 25)
+ignorehitpause = 1
+
+[state 0]
+type = destroyself
+trigger1 = (time >= 10) || (root, movetype = h) || (root, anim = 6); || (root, anim = 6)
+ignorehitpause = 1
+
+[statedef 99050]
+type = u
+movetype = h
+physics = n
+anim=cond(!ishelper && var(45)>0 && selfanimexist((5050 + (var(10)))+var(45)*1000000),(5050 + (var(10)))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(5050 + (var(10)))),500000+(5050 + (var(10))),cond(selfanimexist(5050 + (var(10))),(5050 + (var(10))),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+velset = 0, 0
+ctrl = 0
+sprpriority = 1
+facep2 = 1
+
+[state 0]
+type = velset
+trigger1 = time >= 0
+x = enemy, const(velocity.run.back.x) * 3.2
+y = 0
+ignorehitpause = 1
+
+[state 0]
+type = posset
+trigger1 = pos y >= 0
+y = 0
+
+[state 0]
+type = playerpush
+trigger1 = 1
+value = 0
+
+[state 0]
+type = changestate
+trigger1 = backedgebodydist <= 5
+value = 99051
+
+[statedef 99051]
+type = u
+movetype = h
+physics = n
+velset = 0, 0
+ctrl = 0
+sprpriority = 1
+
+[state 0]
+type = lifeadd
+trigger1 = !time
+value = -15
+
+[state 0]
+type = envshake
+trigger1 = !time
+time = 15
+ampl = -5
+freq = 25
+
+[state 0]
+type = changeanim
+trigger1 = 1
+value=cond(!ishelper && var(45)>0 && selfanimexist((5020 + (cond(animexist(6300) && (var(10)), (var(10)), 0)))+var(45)*1000000),(5020 + (cond(animexist(6300) && (var(10)), (var(10)), 0)))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(5020 + (cond(animexist(6300) && (var(10)), (var(10)), 0)))),500000+(5020 + (cond(animexist(6300) && (var(10)), (var(10)), 0))),cond(selfanimexist(5020 + (cond(animexist(6300) && (var(10)), (var(10)), 0))),(5020 + (cond(animexist(6300) && (var(10)), (var(10)), 0))),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = selfstate
+trigger1 = time >= 10
+value = 5050
+
+[statedef 99100]
+type = u
+movetype = i
+physics = n
+velset = 0, 0
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((6)+var(45)*1000000),(6)+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(6)),500000+(6),cond(selfanimexist(6),(6),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = -1
+
+[state 0]
+type = bindtoroot
+trigger1 = 1
+pos = 0, 0
+
+[state 0]
+type = envshake
+trigger1 = !time
+time = 15
+ampl = -10
+freq = 10
+[state 0]
+type = playsnd
+trigger1 = !time
+value = s950,3
+[state 0]
+type = helper
+trigger1 = !time
+stateno = 80020
+id = 80020
+postype = p1
+facing = 1
+ownpal = 1
+size.mid.pos = (root, const(size.mid.pos.x) + 0), (root, const(size.mid.pos.y) + 0)
+size.head.pos = 30523, (root, var(53))
+size.xscale = .05
+size.yscale = .05
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = destroyself
+trigger1 = (root, life = 0) || (root, fvar(39) != 1)
+ignorehitpause = 1
+
+[statedef 99685]
+type = s
+movetype = a
+physics = s
+velset = 0, 0
+ctrl = 0
+sprpriority = -1
+facep2 = 1
+
+[state 0]
+type = lifeadd
+trigger1 = numhelper(30990)
+value = cond((helper(30990), var(1)) = 3, 4, 2)
+ignorehitpause = 1
+
+;[state 0]
+;type = pause
+;trigger1 = ((time > 0) && (time < 25)) && (time % 5 = 0)
+;time = 2
+;movetime = 2
+
+[state 0]
+type = nothitby
+trigger1 = 1
+value = sca, na, np, nt, sa, sp, st, ha, hp, ht
+time = 30
+ignorehitpause = 1
+
+[state 0]
+type = poweradd
+trigger1 = !time
+value = 1000
+
+[state 0]
+type = angledraw
+trigger1 = time <= 5
+scale=cond(ishelper,(.95),1),cond(ishelper,( 1.05 - (sin((time/ 50.0) * (pi / 2)) * 0.0125)),1)
+ignorehitpause = 1
+
+[state 0]
+type = statetypeset
+trigger1 = pos y != 0
+statetype = a
+movetype = h
+physics = a
+ignorehitpause = 1
+
+[state 0]
+type = velset
+triggerall = pos y != 0
+trigger1 = time <= 15
+y = -1
+ignorehitpause = 1
+
+[state 0]
+type = velset
+triggerall = pos y != 0
+trigger1 = time = 15
+x = -1
+y = -3
+ignorehitpause = 1
+
+[State 0]
+type = Helper
+trigger1 = !time
+helpertype = normal
+ID = 8025
+stateno = 8025
+pos = 0,0
+postype = p1
+pausemovetime = 99
+supermovetime = 99
+ignorehitpause = 1
+
+[state 0]
+type = helper
+trigger1 = time = 15
+stateno = 81000
+id = 81000
+pos = 0, -15
+postype = p1
+ownpal = 1
+
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 30809
+pos = (screenwidth / 2), (screenheight / 2)
+postype = left
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 99
+scale = (screenwidth / 320), (screenheight / 235)
+angle = 0
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[State 0]
+type = Explod
+trigger1 = time = 15
+anim = 30330
+pos = 0,-35
+postype = p1
+bindtime = -1
+removetime = -2
+scale = 1,1
+sprpriority = 5
+ownpal = 1
+[State 0]
+type = Explod
+trigger1 = time = 15
+anim = 30854
+pos = 0,-35
+postype = p1
+bindtime = -1
+removetime = -2
+scale = .25,.25
+sprpriority = -1
+ownpal = 1
+[State 0]
+type = Explod
+trigger1 = time = 15
+anim = 30854
+pos = 0,-35
+postype = p1
+bindtime = -1
+removetime = -2
+scale = .25,.25
+sprpriority = -1
+ownpal = 1
+remappal = 3,0
+trans = sub
+
+[state 0]
+type = changeanim
+trigger1 = !time
+value=cond(!ishelper && var(45)>0 && selfanimexist((cond(pos y != 0, 132, 130) + (var(10)))+var(45)*1000000),(cond(pos y != 0, 132, 130) + (var(10)))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(cond(pos y != 0, 132, 130) + (var(10)))),500000+(cond(pos y != 0, 132, 130) + (var(10))),cond(selfanimexist(cond(pos y != 0, 132, 130) + (var(10))),(cond(pos y != 0, 132, 130) + (var(10))),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+elem = 1
+[state 0]
+type = changeanim
+trigger1 = numhelper(81000) = 1
+value=cond(!ishelper && var(45)>0 && selfanimexist((cond(pos y != 0, 132, 500) + (var(10)))+var(45)*1000000),(cond(pos y != 0, 132, 500) + (var(10)))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(cond(pos y != 0, 132, 500) + (var(10)))),500000+(cond(pos y != 0, 132, 500) + (var(10))),cond(selfanimexist(cond(pos y != 0, 132, 500) + (var(10))),(cond(pos y != 0, 132, 500) + (var(10))),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+elem = 3
+[state 0]
+type = changeanim
+trigger1 = (numhelper(81000) = 0) && (time >= 25)
+value=cond(!ishelper && var(45)>0 && selfanimexist((cond(pos y != 0, 41, 10) + (var(10)))+var(45)*1000000),(cond(pos y != 0, 41, 10) + (var(10)))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(cond(pos y != 0, 41, 10) + (var(10)))),500000+(cond(pos y != 0, 41, 10) + (var(10))),cond(selfanimexist(cond(pos y != 0, 41, 10) + (var(10))),(cond(pos y != 0, 41, 10) + (var(10))),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+elem = 1
+
+[state 0]
+type = changestate
+triggerall = numhelper(81000)
+triggerall = (roundstate = 2) && ((helper(81000), movecontact))
+trigger1 = ((!ailevel) && (command = "holdup"))
+trigger2 = ((ailevel) && (p2bodydist x <= 40 + (random % 20)) && (random < (ailevel * 95)))
+value = cond(pos y != 0, 45, 40)
+
+[state 0]
+type = changestate
+trigger1 = time = 30
+value = cond(pos y != 0, 50, 0)
+ctrl = 1
+
+[statedef 99030]
+type = u
+physics = s
+velset = 0, 0
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((cond(random<500,5000,11)+var(10))+var(45)*1000000),(cond(random<500,5000,11)+var(10))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(cond(random<500,5000,11)+var(10))),500000+(cond(random<500,5000,11)+var(10)),cond(selfanimexist(cond(random<500,5000,11)+var(10)),(cond(random<500,5000,11)+var(10)),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 1
+facep2 = 1
+
+[State 0]
+type = PlaySnd
+trigger1 = !time
+value = S2,11
+volumescale = 100
+[State 0]
+type = PlaySnd
+trigger1 = !time
+value = S5,47
+volumescale = 100
+
+[state 0]
+type = screenbound
+trigger1 = time = [0, 7]
+value = 0
+
+[state 0]
+type = changeanim
+trigger1 = time = 12
+value=cond(!ishelper && var(45)>0 && selfanimexist((60+var(10))+var(45)*1000000),(60+var(10))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(60+var(10))),500000+(60+var(10)),cond(selfanimexist(60+var(10)),(60+var(10)),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = envshake
+trigger1 = !time
+time = 15
+ampl = -25
+freq = 10
+
+[State 0]
+type = VelSet
+trigger1 = time < 15
+x = -8
+[State 0]
+type = VelSet
+trigger1 = time > 15
+x = 8
+
+[state 0]
+type = nothitby
+trigger1 = 1
+value = sca, na, np, nt, sa, sp, st, ha, hp, ht
+time = 1
+
+[State 0]
+Type = Helper
+triggerall = time > 15
+Trigger1 = Time%4 = 0
+ID = 101
+StateNO = 101
+IgnoreHitPause = 1
+
+[state 0]
+type = explod
+trigger1 = time = 0
+anim = 30300
+pos = 15, -33
+postype = p1
+bindtime = 1
+removetime = -2
+sprpriority = 15
+scale = .3,.4
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+trigger1 = time = 0
+anim = 30300
+pos = 15, -33
+postype = p1
+bindtime = 1
+removetime = -2
+sprpriority = 15
+scale = .3,.4
+ownpal = 1
+remappal = 3, 0
+trans = sub
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 40060
+id = 8120
+pos = 0, 2
+postype = p1
+bindtime = 15
+removetime = -2
+sprpriority = 0
+scale = .5, .4
+angle = 0
+ownpal = 1
+remappal = 3,0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 40060
+id = 8120
+pos = 0, 2
+postype = p1
+bindtime = 15
+removetime = -2
+sprpriority = 3
+scale = .5, .4
+angle = 0
+ownpal = 1
+remappal = 3,11
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = changestate
+trigger1 = (time = 30)
+trigger2 = enemy, stateno = 99035
+value = 99035
+
+[statedef 99031]
+type = u
+physics = s
+velset = 0, 0
+ctrl = 0
+anim=cond(!ishelper && var(45)>0 && selfanimexist((cond(random<500,5000,11)+var(10))+var(45)*1000000),(cond(random<500,5000,11)+var(10))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(cond(random<500,5000,11)+var(10))),500000+(cond(random<500,5000,11)+var(10)),cond(selfanimexist(cond(random<500,5000,11)+var(10)),(cond(random<500,5000,11)+var(10)),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+sprpriority = 1
+facep2 = 1
+
+[state 0]
+type = screenbound
+trigger1 = time = [0, 7]
+value = 0
+
+[state 0]
+type = changeanim
+trigger1 = time = 12
+value=cond(!ishelper && var(45)>0 && selfanimexist((60+var(10))+var(45)*1000000),(60+var(10))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(60+var(10))),500000+(60+var(10)),cond(selfanimexist(60+var(10)),(60+var(10)),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[State 0]
+type = VelSet
+trigger1 = time < 15
+x = -8
+[State 0]
+type = VelSet
+trigger1 = time > 15
+x = 8
+
+[state 0]
+type = nothitby
+trigger1 = 1
+value = sca, na, np, nt, sa, sp, st, ha, hp, ht
+time = 1
+
+[State 0]
+Type = Helper
+triggerall = time > 15
+Trigger1 = Time%4 = 0
+ID = 101
+StateNO = 101
+IgnoreHitPause = 1
+
+[state 0]
+type = explod
+trigger1 = time = 0
+anim = 30300
+pos = 15, -33
+postype = p1
+bindtime = 1
+removetime = -2
+sprpriority = 15
+scale = .3,.4
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+[state 0]
+type = explod
+trigger1 = time = 0
+anim = 30300
+pos = 15, -33
+postype = p1
+bindtime = 1
+removetime = -2
+sprpriority = 15
+scale = .3,.4
+ownpal = 1
+remappal = 3, 0
+trans = sub
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 40060
+id = 8120
+pos = 0, 2
+postype = p1
+bindtime = 15
+removetime = -2
+sprpriority = 0
+scale = .5, .4
+angle = 0
+ownpal = 1
+remappal = 3,0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+trigger1 = time = 15
+anim = 40060
+id = 8120
+pos = 0, 2
+postype = p1
+bindtime = 15
+removetime = -2
+sprpriority = 3
+scale = .5, .4
+angle = 0
+ownpal = 1
+remappal = 3,11
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = changestate
+trigger1 = (time = 30)
+trigger2 = enemy, stateno = 99035
+value = 99035
+
+[statedef 99035]
+type = l
+velset = 0,0
+ctrl = 0
+
+[state 0]
+type = assertspecial
+trigger1 = 1
+flag = roundnotover
+flag2 = timerfreeze
+ignorehitpause = 1
+
+[state 0]
+type = screenbound
+trigger1 = 1
+value = 0
+movecamera = 1, 1
+
+[state 0]
+type = destroyself
+trigger1 = ishelper
+
+[state 0]
+type = nothitby
+trigger1 = 1
+value = sca, na, np, nt, sa, sp, st, ha, hp, ht
+time = 1
+
+[state 0]
+type = changeanim
+trigger1 = time % 2 = 0
+value=cond(!ishelper && var(45)>0 && selfanimexist((cond((numexplod(99036) || enemy, numexplod(99036)), 6, 61))+var(45)*1000000),(cond((numexplod(99036) || enemy, numexplod(99036)), 6, 61))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(cond((numexplod(99036) || enemy, numexplod(99036)), 6, 61))),500000+(cond((numexplod(99036) || enemy, numexplod(99036)), 6, 61)),cond(selfanimexist(cond((numexplod(99036) || enemy, numexplod(99036)), 6, 61)),(cond((numexplod(99036) || enemy, numexplod(99036)), 6, 61)),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+
+[state 0]
+type = null
+trigger1 = var(5) := (cond(random % 2 = 0, 90, cond(random % 2 = 0, 70, 61)))
+[state 0]
+type = explod
+triggerall = !numexplod(40200)
+trigger1 = ((teamside = 1) && (time % 15 = 0))
+trigger2 = ((teamside = 2) && (enemy, numexplod(40200)))
+anim = 40200
+id = 40200
+pos = -4 + (random % 6),0 + (random % 20)
+postype = p1
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 9
+scale = .5, .25
+angle = var(5) + cond(vel x != 0, ((atan((-1 * vel y) / vel x)) * (-75 / pi)), 0)
+ownpal = 1
+remappal = 3, 9
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+vel = -2, 0
+[state 0]
+type = explod
+triggerall = !numexplod(40201)
+trigger1 = ((teamside = 1) && (time % 15 = 0))
+trigger2 = ((teamside = 2) && (enemy, numexplod(40201)))
+anim = 40199
+id = 40201
+pos = -4 + (random % 6),0 + (random % 20)
+postype = p1
+facing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 10
+scale = .45, .2
+angle = var(5) + cond(vel x != 0, ((atan((-1 * vel y) / vel x)) * (-75 / pi)), 0)
+ownpal = 1
+remappal = 3, 0
+trans = sub
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+vel = -2, 0
+
+[state 0]
+type = poweradd
+triggerall = time = [5, 130]
+trigger1 = 1
+value = 3
+ignorehitpause = 1
+[State 0]
+type = LifeAdd
+triggerall = time = [5, 130]
+trigger1 = 1
+value = -1
+kill = cond(time>100,1,0)
+ignorehitpause = 1 
+[state 0]
+type = envshake
+triggerall = teamside = 1
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+time = 15
+ampl = -5
+[state 0]
+type = playsnd
+triggerall = teamside = 1
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+value = s5,23
+volumescale = 70
+[state 0]
+type = playsnd
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+value = s2,10+(random%3)
+volumescale = 100
+[state 0]
+type = playsnd
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+value = s2,10+(random%3)
+volumescale = 100
+[State 0]
+type = Explod
+triggerall = teamside = 1
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+anim = 30330
+id = 99036
+pos = 0,0
+postype = p1
+bindtime = 1
+removetime = -2
+scale = 1,1
+sprpriority = 8
+ownpal = 1
+[State 0]
+type = Explod
+triggerall = teamside = 1
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+anim = 30330
+id = 99036
+pos = 0,0
+postype = p1
+bindtime = 1
+removetime = -2
+scale = 1,1
+sprpriority = 8
+ownpal = 1
+remappal = 3,0
+trans = sub
+[State 0]
+type = Explod
+triggerall = teamside = 1
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+anim = 8000
+pos = 10,0
+postype = p1
+bindtime = 1
+removetime = -2
+scale = .3,.3
+sprpriority = 20
+ownpal = 1
+remappal = 3,20
+angle = random%360
+[State 0]
+type = Explod
+triggerall = teamside = 2
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+anim = 8000
+pos = 10,0
+postype = p1
+bindtime = 1
+removetime = -2
+scale = .3,.3
+sprpriority = 20
+ownpal = 1
+remappal = 3,20
+angle = random%360
+[State 0]
+type = Explod
+triggerall = teamside = 1
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+anim = 30325
+pos = 5,0
+postype = p1
+bindtime = 1
+removetime = -2
+scale = .3,.3
+sprpriority = 7
+ownpal = 1
+remappal = 3,20
+angle = random%360
+[State 0]
+type = Explod
+triggerall = teamside = 1
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+anim = 30325
+pos = 5,0
+postype = p1
+bindtime = 1
+removetime = -2
+scale = .3,.3
+sprpriority = 7
+ownpal = 1
+trans = sub
+angle = random%360
+[State 0]
+type = Explod
+triggerall = teamside = 1
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+anim = 6215
+pos = 10,0
+postype = p1
+bindtime = 1
+removetime = -2
+scale = .2,10
+ownpal = 1
+remappal = 3,9
+sprpriority = 5
+angle = random%360
+[State 0]
+type = Explod
+triggerall = teamside = 2
+triggerall = time = [5, 130]
+trigger1 = time % 15 = 0
+anim = 6215
+pos = 10,0
+postype = p1
+bindtime = 1
+removetime = -2
+scale = .2,10
+ownpal = 1
+remappal = 3,9
+trans = add
+sprpriority = 5
+angle = random%360
+
+[state 0]
+type = posset
+triggerall = teamside = 1
+triggerall = time = [0, 135]
+triggerall = pos y = [-160, 5]
+trigger1 = time % 15 = 0
+x = -150 + (random % 300)
+y = -25 - (random % 125)
+ignorehitpause = 1
+[state 0]
+type = velset
+trigger1 = teamside = 2
+x = p2bodydist x - (35 - (random % 10))
+y = p2bodydist y
+
+[state 0]
+type = posset
+trigger1 = time = 99
+y = -50
+ignorehitpause = 1
+
+[state 0]
+type = selfstate
+trigger1 = time >= cond(teamside = 2, 100, 102)
+value = cond(random<500,ifelse(random<500,6002,82744),99036)
+
+[statedef 99036]
+type = s
+movetype = i
+physics = s
+anim=cond(!ishelper && var(45)>0 && selfanimexist((11+var(10))+var(45)*1000000),(11+var(10))+var(45)*1000000,cond(!ishelper && var(45)=0 && var(10)>0 && selfanimexist(500000+(11+var(10))),500000+(11+var(10)),cond(selfanimexist(11+var(10)),(11+var(10)),cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(30)=1 && selfanimexist(15000),15000,cond(selfanimexist(5000),5000,0))))))
+ctrl = 0
+sprpriority = 2
+velset = -10, 0
+
+[state 0]
+type = playsnd
+trigger1 = animelem = 1
+value = s5, 40
+volumescale = 100
+[state 0]
+type = playsnd
+trigger1 = animelem = 1
+value = s5, 41
+volumescale = 100
+
+[state 0]
+type = playsnd
+trigger1 = animelem = 1
+value = s20, 0
+volumescale = 50
+
+[State 0]
+type = PosSet
+trigger1 = !time
+y = 0
+[State 0]
+type = VelAdd
+trigger1 = time > 0
+x = -0.25
+[State 0]
+type = VelSet
+trigger1 = time > 30
+x = 0
+y = 0
+
+[state 0]
+type = nothitby
+trigger1 = 1
+value = sca, na, np, nt, sa, sp, st, ha, hp, ht
+time = 1
+
+[State 0]
+Type = Helper
+Trigger1 = Time%4 = 0
+ID = 101
+StateNO = 101
+IgnoreHitPause = 1
+
+[state 0]
+type = explod
+trigger1 = (animelem = 1) && (pos y = 0)
+anim = 40060
+id = 8120
+pos = 0, 2
+postype = p1
+facing = -1
+bindtime = 15
+removetime = -2
+sprpriority = 0
+scale = .5, .3
+angle = 0
+ownpal = 1
+remappal = 3,0
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+trans = sub
+
+[state 0]
+type = explod
+trigger1 = (animelem = 1) && (pos y = 0)
+anim = 40060
+id = 8120
+pos = 0, 2
+postype = p1
+facing = -1
+bindtime = 15
+removetime = -2
+sprpriority = 3
+scale = .5, .3
+angle = 0
+ownpal = 1
+remappal = 3,11
+removeongethit = 1
+ignorehitpause = 1
+supermovetime = 999
+pausemovetime = 999
+
+[state 0]
+type = changestate
+trigger1 = time = 40
+value = ifelse(pos y = 0,11,50)
+ctrl = 1

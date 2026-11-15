@@ -1,0 +1,142 @@
+[Statedef -3]
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=1
+name="L"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=2
+name="M"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=3
+name="H"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=4
+name="snare"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=5
+name="daggers"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=6
+name="reel"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=7
+name="step"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=8
+name="veil"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=9
+name="super"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=10
+name="rain"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=11
+name="prison"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=12
+name="ultimate"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=13
+name="hold_charge"
+buffer.time=1
+[State -3, Consume]
+type=MapSet
+trigger1=map(test.pulse)>0
+map="test.pulse"
+value=0
+[State -3, Held]
+type=AssertCommand
+trigger1=map(test.walk)=1
+name="holdfwd"
+[State -3, Input]
+type=AssertInput
+trigger1=map(test.walk)=1
+flag=F
+[State -3, Held]
+type=AssertCommand
+trigger1=map(test.walkback)=1
+name="holdback"
+[State -3, Input]
+type=AssertInput
+trigger1=map(test.walkback)=1
+flag=B
+[State -3, Held]
+type=AssertCommand
+trigger1=map(test.down)=1
+name="holddown"
+[State -3, Input]
+type=AssertInput
+trigger1=map(test.down)=1
+flag=D
+[State -3, Held]
+type=AssertCommand
+trigger1=map(test.jump)=1
+name="holdup"
+[State -3, Input]
+type=AssertInput
+trigger1=map(test.jump)=1
+flag=U
+[State -3, Held]
+type=AssertCommand
+trigger1=map(test.charge)=1
+name="hold_charge"
+[State -3, No KO]
+type=AssertSpecial
+trigger1=!ishelper
+flag=globalnoko
+[Statedef 99000]
+type=S
+movetype=I
+physics=N
+anim=0
+ctrl=0
+velset=0,0
+[State 99000, Position]
+type=PosSet
+trigger1=1
+x=map(test.startx)
+y=0
+[State 99000, Face]
+type=Turn
+trigger1=facing!=map(test.facing)
+[State 99000, Clear]
+type=RemoveExplod
+trigger1=1
+[State 99000, Cooldowns]
+type=VarSet
+trigger1=1
+var(10)=0
+[State 99000, Cooldown]
+type=VarSet
+trigger1=1
+var(11)=0
+[State 99000, Ready]
+type=ChangeState
+trigger1=time>=5
+value=0
+ctrl=1

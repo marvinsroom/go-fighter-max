@@ -1,0 +1,871 @@
+; Hiten Mitsurugi Ryu no Ougi!!!
+[Statedef 3600]
+type    = S
+movetype= A
+physics = N
+velset = 0,0
+anim = 3600
+poweradd = -3000
+ctrl = 0
+
+[State 1010, 3]
+type       = PlaySnd
+trigger1   = time = 0
+value      = s5,4;S10,6
+volume = 255
+channel = 0
+
+[State 1600, 2]
+type = SuperPause
+trigger1 = AnimElem = 1
+time = 50
+anim = -1
+
+[State 3000, 2]
+type = AfterImage
+trigger1 = Time = 0
+time = 20
+TimeGap  = 1
+FrameGap = 4
+
+[State 3000, Portrait]
+type = Explod
+trigger1 = animelem = 1
+trigger1 = facing = 1
+anim = 2999
+pos = -180,0
+facing = 1
+postype = back
+sprpriority = -1
+supermove = 1
+bindtime = -1
+ownpal = 1
+
+[State 3000, Portrait]
+type = Explod
+trigger1 = animelem = 1
+trigger1 = facing = -1
+anim = 3000
+pos = 85,0
+facing = -1
+postype = back
+sprpriority = -1
+supermove = 1
+bindtime = 1
+ownpal = 1
+
+;BG effect
+[State 3000, 1]
+type = Explod
+trigger1 = AnimElem = 1
+anim = 6600
+pos = 160,270
+postype = back
+sprpriority = -2
+supermove = 1
+bindtime = 1
+removetime = 50
+vel = -20,0
+scale = 0.5,0.6
+ownpal = 1
+ignorehitpause = 1
+
+;BG effect
+[State 3000, 2]
+type = Explod
+trigger1 = AnimElem = 1
+anim = 6600
+pos = 800,270
+postype = back
+sprpriority = -2
+supermove = 1
+bindtime = 1
+removetime = 50
+vel = -20,0
+scale = 0.5,0.6
+ownpal = 1
+ignorehitpause = 1
+
+;BG effect
+[State 3000, 2]
+type = Explod
+trigger1 = AnimElem = 1
+anim = 6600
+pos = 1440,270
+postype = back
+sprpriority = -2
+supermove = 1
+bindtime = 1
+removetime = 50
+vel = -20,0
+scale = 0.5,0.6
+ownpal = 1
+ignorehitpause = 1
+
+[State 3000, Back Spark]
+type = Explod
+trigger1 = animelem = 1
+anim = F102
+pos = 10,-70
+facing = 1
+postype = p1
+sprpriority = 1
+supermove = 1
+bindtime = -1
+ownpal = 1
+
+[State 4400, Super B]
+type = PlaySnd
+trigger1 = Time = 0
+value = 21, 0
+
+[State 3600, 5]
+type = EnvColor
+trigger1 = AnimElem = 1
+value = 245,245,245
+persistent = 0
+time = 3
+
+[State 3003, 8]
+type = EnvShake
+trigger1 = time = 1
+time = 16
+ampl = 5
+
+
+[State 3601, 1]
+type = NotHitBy
+trigger1 = Time >= 0
+value = , NA, SA, NT
+time = 1
+
+[State 201, 1]
+type = HitDef
+trigger1 = Time = 0
+attr = S, HA
+damage = 0, 70
+animtype = High
+guardflag = H
+hitflag = MAF
+priority = 7, Hit
+pausetime = 10,10
+guard.pausetime = 0, 20;30
+getpower = 0,0
+sparkno = 3
+sparkxy = -10, -45
+hitsound = 5, 4
+guardsound = s16, 0
+ground.type = High
+ground.slidetime = 8
+ground.hittime  = 1
+ground.velocity = 10,-10
+guard.velocity = -5
+air.type = High
+air.velocity = 10,-10
+air.hittime = 10
+fall = 1
+fall.recover = 0
+kill = 0
+
+[State 4100, 5]
+type = ChangeState
+trigger1 = movehit = 1
+value = 3602
+ctrl = 0
+
+[State 3600, 9]
+type = changestate
+trigger1 = time = 5
+trigger1 = movecontact = 0
+trigger2 = moveguarded
+value = 3603
+ctrl = 0
+
+;---------------------------------------------------------------------------
+; Amakakeryu No Hirameki!!!
+[Statedef 3602]
+type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = S                      ;Physics: S-stand, C-crouch, A-air                     ;Number of air juggle points move takes
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 3602                       ;Change animation (Def: no change)
+
+[State 3003, 8]
+type = EnvShake
+trigger1 = time = 1
+time = 16
+ampl = 5
+
+[State 8050, 1]
+type = Helper
+trigger1 = AnimElem = 1 ;1
+helpertype = normal
+ID = 123
+pos = 0,0
+postype = p1
+stateno = 3604
+supermovetime = 90
+
+[State 1010, 3]
+type       = Playerpush
+trigger1   = time = [0,14]
+value      = 0
+
+[State 1600, 2]
+type = SuperPause
+trigger1 = AnimElem = 1
+time = 90
+anim = -1
+pausebg = 0
+
+[State 1010, 3]
+type       = PlaySnd
+trigger1   = animelem = 1
+value      = S10,8
+volume = 255
+channel = 0
+
+[State 3602, 2]
+type = Explod
+trigger1 = animelem = 1
+anim = 3654
+pos = 0,0
+postype = left
+sprpriority = 255
+supermove = 1
+bindtime = -1
+ownpal = 1
+scale = 2,2
+ontop = 1
+
+[State 3602, 2]
+type = Explod
+trigger1 = animelem = 1
+anim = 3653
+pos = 0,0
+postype = left
+sprpriority = 255
+scale = .5,.5
+supermove = 1
+bindtime = -1
+ownpal = 1
+ontop = 1
+scale = 0.63,0.63
+
+;[State 1800, 2]
+;type = Explod
+;trigger1 = animelem = 1
+;anim = 4200
+;pos = -20,-5
+;postype = p1
+;facing = 1
+;sprpriority = 5
+;bindtime = 5
+
+[State 3601, floor]
+type = Explod
+trigger1 = time = 1
+anim = F61 
+pos = 30,0
+facing = 1
+sprpriority = 2
+bindtime = 2
+supermove = 1
+trans = add
+
+[State 3300, 5]
+type = BGPalFX
+trigger1 = Time = [0,1]
+;invertall = 1
+color = 0
+time = 1
+ignorehitpause = 1
+
+[State 3300, 6]
+type = bgpalfx
+trigger1 = Time = 3
+add = 155, 155, 155
+sinadd = -155,-155,-155,90
+;invertall = 1
+time = 21
+
+[State 120, 2]
+type = bgpalfx
+trigger1 = Time = 2
+invertall = 1
+time = 19
+
+[State 3601, floor]
+type = Explod
+trigger1 = time = 1
+anim = F61 
+pos = 30,0
+facing = 1
+sprpriority = 2
+bindtime = 2
+supermove = 1
+trans = add
+
+[State 3601, 1]
+type = NotHitBy
+trigger1 = Time = 1
+value = , NA, SA, NT
+time = 12
+
+[State 3003, 8]
+type = TargetLifeAdd
+trigger1 = time = 1 ;movehit = 1
+value = -550
+absolute = 1
+kill = 1
+
+[State 3003, 8]
+type = EnvShake
+trigger1 = time = 1 ;1
+time = 16
+ampl = 5
+
+[State 3600, 7]
+type = PlaySnd
+trigger1 = winko
+;trigger1 = movehit = 1
+volume = 255
+value = s11, 1
+ignorehitpause = 1
+persistent = 0
+
+[State 1010, 3]
+type       = PlaySnd
+trigger1   = animelem = 10
+value      = S1,3
+volume = 255
+channel = 0
+
+[State 201, 3]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; GUARDED OR MISSED 1st STEP!!!
+[Statedef 3603]
+type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= I                      ;Move-type: A-attack, I-idle, H-gethit
+physics = S                      ;Physics: S-stand, C-crouch, A-air                     ;Number of air juggle points move takes
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 3603                       ;Change animation (Def: no change)
+
+[State 3003, 8]
+type = EnvShake
+trigger1 = time = 1
+time = 16
+ampl = 5
+
+[state 201, 0]
+type = playsnd
+trigger1 = animelem = 1
+value = S0,2
+volume = 255
+
+[state 201, 0]
+type = playsnd
+trigger1 = animelem = 2
+value = S1,4
+volume = 255
+channel = 0
+
+[State 3601, floor]
+type = Explod
+trigger1 = time = 1
+anim = F61 
+pos = 30,0
+facing = 1
+sprpriority = 2
+bindtime = 2
+supermove = 1
+trans = add
+
+[State 201, 3]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;===================================================================================
+;decoy1
+[Statedef 3604]
+type    = S
+movetype= I
+physics = N
+juggle  = 0
+anim = -1
+velset = 0,0,0
+ctrl = 0
+
+[State 3601, 1]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 90
+
+[state 180, AssertSpecial Flag]
+type     = assertspecial
+trigger1 = time = [0,90]
+flag    = NoBarDisplay
+flag2 = invisible
+flag3 = noFG
+
+[state 182, AssertSpecial Flag]
+type     = assertspecial
+trigger1 = time = [0,90]
+flag    = NoBG
+;flag2 = invisible
+;flag3 = noFG
+
+[State 8050, 1]
+type = destroyself
+trigger1 = time = 90
+
+;===================================================================================
+;decoy2
+[Statedef 3605]
+type    = S
+movetype= I
+physics = N
+juggle  = 0
+anim = 3605
+velset = 7,0
+ctrl = 0
+
+[State 3601, 1]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 90
+
+[state 182, AssertSpecial Flag]
+type     = assertspecial
+trigger1 = time = [0,50]
+flag    = invisible
+;flag2 = invisible
+;flag3 = noFG
+
+[State 8050, 1]
+type = playerpush
+trigger1 = time = [0,50]
+value = 1
+
+[State 8050, 1]
+type = destroyself
+trigger1 = time = 50
+
+;=====================================================================================
+; Hiten Mitsurugi Ryu no Ougi (2nd step)!!!
+[Statedef 3700]
+type    = S
+movetype= A
+physics = N
+velset = 0,0
+anim = 3700
+poweradd = 0
+ctrl = 0
+
+[State 1600, 2]
+type = Lifeadd
+trigger1 = time = 0
+value = -999
+absolute = 1
+kill = 0
+
+[State 1010, 3]
+type       = PlaySnd
+trigger1   = time = 0
+value      = s10,4
+volume = 255
+channel = 0
+
+[State 1600, 2]
+type = SuperPause
+trigger1 = AnimElem = 1
+time = 50
+anim = -1
+
+[State 3000, 2]
+type = AfterImage
+trigger1 = Time = 0
+time = 20
+TimeGap  = 1
+FrameGap = 4
+
+[State 3000, Portrait]
+type = Explod
+trigger1 = animelem = 1
+trigger1 = facing = 1
+anim = 2999
+pos = -180,0
+facing = 1
+postype = back
+sprpriority = -1
+supermove = 1
+bindtime = -1
+ownpal = 1
+
+[State 3000, Portrait]
+type = Explod
+trigger1 = animelem = 1
+trigger1 = facing = -1
+anim = 3000
+pos = 85,0
+facing = -1
+postype = back
+sprpriority = -1
+supermove = 1
+bindtime = 1
+ownpal = 1
+
+;BG effect
+[State 3000, 1]
+type = Explod
+trigger1 = AnimElem = 1
+anim = 6600
+pos = 160,270
+postype = back
+sprpriority = -2
+supermove = 1
+bindtime = 1
+removetime = 50
+vel = -20,0
+scale = 0.5,0.6
+ownpal = 1
+ignorehitpause = 1
+
+;BG effect
+[State 3000, 2]
+type = Explod
+trigger1 = AnimElem = 1
+anim = 6600
+pos = 800,270
+postype = back
+sprpriority = -2
+supermove = 1
+bindtime = 1
+removetime = 50
+vel = -20,0
+scale = 0.5,0.6
+ownpal = 1
+ignorehitpause = 1
+
+;BG effect
+[State 3000, 2]
+type = Explod
+trigger1 = AnimElem = 1
+anim = 6600
+pos = 1440,270
+postype = back
+sprpriority = -2
+supermove = 1
+bindtime = 1
+removetime = 50
+vel = -20,0
+scale = 0.5,0.6
+ownpal = 1
+ignorehitpause = 1
+
+[State 3000, Back Spark]
+type = Explod
+trigger1 = animelem = 1
+anim = F102
+pos = -26,-90
+facing = 1
+postype = p1
+sprpriority = 1
+supermove = 1
+bindtime = -1
+ownpal = 1
+
+[State 3000, vortex]
+type = Explod
+trigger1 = animelem = 1
+anim = 3657
+pos = 45,-50
+facing = 1
+postype = p1
+sprpriority = 20
+supermove = 1
+bindtime = -1
+ownpal = 1
+scale = 0.4,0.4
+
+[State 8050, 1]
+type = Helper
+triggerall = p2bodydist x >= 70
+trigger1 = AnimElem = 1 ;1
+helpertype = normal
+ID = 123
+pos = -120,0
+postype = p2
+stateno = 3605
+supermovetime = 51
+
+[State 3000, screen]
+type = Screenbound
+trigger1 = 1
+value = 1
+
+[State 4400, Super B]
+type = PlaySnd
+trigger1 = Time = 0
+value = 21, 0
+
+[State 3600, 5]
+type = EnvColor
+trigger1 = AnimElem = 1
+value = 245,245,245
+persistent = 0
+time = 3
+
+[State 3003, 8]
+type = EnvShake
+trigger1 = time = 1
+time = 16
+ampl = 5
+
+[State 3601, 1]
+type = NotHitBy
+trigger1 = Time >= 0
+value = SCA
+time = 1
+
+[State 201, 1]
+type = HitDef
+trigger1 = Time = 0
+attr = S, HA
+damage = 0, 70
+animtype = High
+guardflag = 
+hitflag = MAF
+priority = 7, Hit
+pausetime = 10,10
+guard.pausetime = 0, 20
+getpower = 0,0
+sparkno = 3
+sparkxy = -10, -45
+hitsound = 5, 4
+guardsound = s16, 0
+ground.type = High
+ground.slidetime = 8
+ground.hittime  = 10
+ground.velocity = 10,-10
+guard.velocity = -5
+air.type = High
+air.velocity = 10,-10
+air.hittime = 10
+fall = 1
+fall.recover = 0
+kill = 0
+
+[State 4100, 5]
+type = ChangeState
+trigger1 = movehit = 1
+value = 3702
+ctrl = 0
+
+[State 3600, 9]
+type = changestate
+trigger1 = time = 5
+trigger1 = movecontact = 0
+value = 3703
+ctrl = 0
+
+;---------------------------------------------------------------------------
+; Amakakeryu No Hirameki 2.0!!!
+[Statedef 3702]
+type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= A                      ;Move-type: A-attack, I-idle, H-gethit
+physics = S                      ;Physics: S-stand, C-crouch, A-air                     ;Number of air juggle points move takes
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 3602                       ;Change animation (Def: no change)
+
+[State 8050, 1]
+type = Helper
+trigger1 = AnimElem = 1 ;1
+helpertype = normal
+ID = 123
+pos = 0,0
+postype = p1
+stateno = 3604
+supermovetime = 90
+
+[State 1010, 3]
+type       = Playerpush
+trigger1   = time = [0,14]
+value      = 0
+
+[State 1600, 2]
+type = SuperPause
+trigger1 = AnimElem = 1
+time = 90
+anim = -1
+pausebg = 0
+
+[State 1010, 3]
+type       = PlaySnd
+trigger1   = animelem = 1
+value      = S10,8
+volume = 255
+channel = 0
+
+[State 3602, 2]
+type = Explod
+trigger1 = animelem = 1
+anim = 3656
+pos = 0,0
+postype = left
+sprpriority = 254
+supermove = 1
+bindtime = -1
+ownpal = 1
+ontop = 1
+scale = 2,2
+
+[State 3602, 2]
+type = Explod
+trigger1 = animelem = 1
+anim = 3655
+pos = 0,0
+postype = left
+sprpriority = 255
+scale = .5,.5
+supermove = 1
+bindtime = -1
+ownpal = 1
+ontop = 1
+scale = 0.63,0.63
+
+;[State 1800, 2]
+;type = Explod
+;trigger1 = animelem = 1
+;anim = 4200
+;pos = -20,-5
+;postype = p1
+;facing = 1
+;sprpriority = 5
+;bindtime = 5
+
+[State 3300, 5]
+type = BGPalFX
+trigger1 = Time = [0,1]
+;invertall = 1
+color = 0
+time = 1
+ignorehitpause = 1
+
+[State 3300, 6]
+type = bgpalfx
+trigger1 = Time = 3
+add = 155, 155, 155
+sinadd = -155,-155,-155,90
+;invertall = 1
+time = 21
+
+[State 120, 2]
+type = bgpalfx
+trigger1 = Time = 2
+invertall = 1
+time = 19
+
+[State 3601, floor]
+type = Explod
+trigger1 = time = 1
+anim = F61 
+pos = 30,0
+facing = 1
+sprpriority = 2
+bindtime = 2
+supermove = 1
+trans = add
+
+[State 3601, 1]
+type = NotHitBy
+trigger1 = Time = 1
+value = , NA, SA, NT
+time = 12
+
+[State 3003, 8]
+type = TargetLifeAdd
+trigger1 = time = 1 ;movehit = 1
+value = -530
+absolute = 1
+kill = 1
+
+[State 3003, 8]
+type = EnvShake
+trigger1 = time = 1
+time = 16
+ampl = 5
+
+[State 3600, 7]
+type = PlaySnd
+trigger1 = winko
+;trigger1 = movehit = 1
+volume = 255
+value = s11, 1
+ignorehitpause = 1
+persistent = 0
+
+[State 1010, 3]
+type       = PlaySnd
+trigger1   = animelem = 10
+value      = S1,3
+volume = 255
+channel = 0
+
+[State 201, 3]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; GUARDED OR MISSED 2nd STEP!!!
+[Statedef 3703]
+type    = S                      ;State-type: S-stand, C-crouch, A-air, L-liedown
+movetype= I                      ;Move-type: A-attack, I-idle, H-gethit
+physics = S                      ;Physics: S-stand, C-crouch, A-air                     ;Number of air juggle points move takes
+velset = 0,0                     ;Set velocity (x,y) (Def: no change)
+ctrl = 0                         ;Set ctrl (Def: no change)
+anim = 3603                       ;Change animation (Def: no change)
+
+[state 201, 0]
+type = playsnd
+trigger1 = animelem = 1
+value = S0,2
+volume = 255
+
+[state 201, 0]
+type = playsnd
+trigger1 = animelem = 2
+value = S1,4
+volume = 255
+channel = 0
+
+[State 3601, floor]
+type = Explod
+trigger1 = time = 1
+anim = F61 
+pos = 30,0
+facing = 1
+sprpriority = 2
+bindtime = 2
+supermove = 1
+trans = add
+
+[State 201, 3]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1

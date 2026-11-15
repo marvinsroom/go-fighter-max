@@ -1,0 +1,5081 @@
+
+[Statedef 870200]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=870200+var(45)*100
+velset=0,0
+
+[State 870200, Remember entry form]
+type=VarSet
+trigger1=!time
+var(46)=var(45)
+
+[State 870200, Random shadow without consecutive repeats]
+type=VarSet
+trigger1=time=18
+var(45)=cond(var(46)>0,0,cond(map(our.last_shadow)=0,1+random%4,1+(map(our.last_shadow)+random%3)%4))
+
+[State 870200, Remember last summoned form]
+type=MapSet
+trigger1=time=18
+trigger1=var(45)>0
+map="our.last_shadow"
+value=var(45)
+
+[State 870200, Reveal selected body]
+type=ChangeAnim
+trigger1=time=18
+value=870200+var(45)*100
+elem=2
+
+[State 870200, Shadow reveal]
+type=PalFX
+trigger1=time=18
+time=10
+add=35,5,70
+mul=256,256,256
+
+[State 870200, Clear previous body trails]
+type=AfterImageTime
+trigger1=!time
+time=0
+
+[State 870200, Recover]
+type=ChangeState
+trigger1=time>=41
+value=0
+ctrl=1
+
+[Statedef 870100]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=870100+var(45)*10000
+velset=0,0
+poweradd=-250
+
+[State 870100, Summon cooldown]
+type=VarSet
+trigger1=!time
+var(31)=90
+
+[State 870100, Assigned summon identity]
+type=VarSet
+trigger1=!time
+var(35)=0
+
+[State 870100, Named shadow attack]
+type=Helper
+trigger1=time=20
+helpertype=normal
+name="igris"
+ID=870700
+stateno=870700
+postype=p1
+pos=10,0
+ownpal=1
+keyctrl=0
+size.xscale=1.5
+size.yscale=1.5
+
+[State 870100, Recover]
+type=ChangeState
+trigger1=time>=65
+value=0
+ctrl=1
+
+[Statedef 870700]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=870700
+velset=0,0
+
+[State 870700, Contact]
+type=HitDef
+trigger1=time=8
+attr=S,SP
+damage=100,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=0,0
+givepower=15,5
+id=870700
+
+[State 870700, Named shadow rush]
+type=VelSet
+trigger1=time=[8,15]
+x=2
+
+[State 870700, Finish rush]
+type=VelSet
+trigger1=time>15
+x=0
+
+; BEGIN PROJECT SHADOW SPACING
+[State 870700, Shadow body width]
+type=Width
+trigger1=ishelper
+player=12,12
+ignorehitpause=1
+[State 870700, Shadow body separation]
+type=PosAdd
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=p2bodydist x<0
+x=p2bodydist x
+ignorehitpause=1
+[State 870700, Shadow contact brake]
+type=VelSet
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=vel x>0
+x=min(vel x,max(0,p2bodydist x))
+; END PROJECT SHADOW SPACING
+[State 870700, Shadow dissolves]
+type=DestroySelf
+trigger1=time>=29
+
+; BEGIN PROJECT SHADOW SPACING
+[State 870700, Shadow body width]
+type=Width
+trigger1=ishelper
+player=12,12
+ignorehitpause=1
+[State 870700, Shadow body separation]
+type=PosAdd
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=p2bodydist x<0
+x=p2bodydist x
+ignorehitpause=1
+[State 870700, Shadow contact brake]
+type=VelSet
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=vel x>0
+x=min(vel x,max(0,p2bodydist x))
+; END PROJECT SHADOW SPACING
+[Statedef 870101]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=870101+var(45)*10000
+velset=0,0
+poweradd=-250
+
+[State 870101, Summon cooldown]
+type=VarSet
+trigger1=!time
+var(31)=90
+
+[State 870101, Assigned summon identity]
+type=VarSet
+trigger1=!time
+var(35)=1
+
+[State 870101, Named shadow attack]
+type=Helper
+trigger1=time=14
+helpertype=normal
+name="beru"
+ID=870701
+stateno=870701
+postype=p1
+pos=10,0
+ownpal=1
+keyctrl=0
+size.xscale=1.5
+size.yscale=1.5
+
+[State 870101, Recover]
+type=ChangeState
+trigger1=time>=65
+value=0
+ctrl=1
+
+[Statedef 870701]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=870701
+velset=0,0
+
+[State 870701, Contact]
+type=HitDef
+trigger1=time=8
+attr=S,SP
+damage=110,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=0,0
+givepower=15,5
+id=870701
+
+[State 870701, Named shadow rush]
+type=VelSet
+trigger1=time=[8,15]
+x=8
+
+[State 870701, Finish rush]
+type=VelSet
+trigger1=time>15
+x=0
+
+; BEGIN PROJECT SHADOW SPACING
+[State 870701, Shadow body width]
+type=Width
+trigger1=ishelper
+player=25,20
+ignorehitpause=1
+[State 870701, Shadow body separation]
+type=PosAdd
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=p2bodydist x<0
+x=p2bodydist x
+ignorehitpause=1
+[State 870701, Shadow contact brake]
+type=VelSet
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=vel x>0
+x=min(vel x,max(0,p2bodydist x))
+; END PROJECT SHADOW SPACING
+[State 870701, Shadow dissolves]
+type=DestroySelf
+trigger1=time>=29
+
+; BEGIN PROJECT SHADOW SPACING
+[State 870701, Shadow body width]
+type=Width
+trigger1=ishelper
+player=25,20
+ignorehitpause=1
+[State 870701, Shadow body separation]
+type=PosAdd
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=p2bodydist x<0
+x=p2bodydist x
+ignorehitpause=1
+[State 870701, Shadow contact brake]
+type=VelSet
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=vel x>0
+x=min(vel x,max(0,p2bodydist x))
+; END PROJECT SHADOW SPACING
+[Statedef 870102]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=870102+var(45)*10000
+velset=0,0
+poweradd=-250
+
+[State 870102, Summon cooldown]
+type=VarSet
+trigger1=!time
+var(31)=90
+
+[State 870102, Assigned summon identity]
+type=VarSet
+trigger1=!time
+var(35)=2
+
+[State 870102, Named shadow attack]
+type=Helper
+trigger1=time=30
+helpertype=normal
+name="iron"
+ID=870702
+stateno=870702
+postype=p1
+pos=10,0
+ownpal=1
+keyctrl=0
+size.xscale=1.5
+size.yscale=1.5
+
+[State 870102, Recover]
+type=ChangeState
+trigger1=time>=65
+value=0
+ctrl=1
+
+[Statedef 870702]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=870702
+velset=0,0
+
+[State 870702, Contact]
+type=HitDef
+trigger1=time=8
+attr=S,SP
+damage=125,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=0,0
+givepower=15,5
+id=870702
+
+[State 870702, Named shadow rush]
+type=VelSet
+trigger1=time=[8,15]
+x=0
+
+[State 870702, Finish rush]
+type=VelSet
+trigger1=time>15
+x=0
+
+; BEGIN PROJECT SHADOW SPACING
+[State 870702, Shadow body width]
+type=Width
+trigger1=ishelper
+player=25,25
+ignorehitpause=1
+[State 870702, Shadow body separation]
+type=PosAdd
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=p2bodydist x<0
+x=p2bodydist x
+ignorehitpause=1
+[State 870702, Shadow contact brake]
+type=VelSet
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=vel x>0
+x=min(vel x,max(0,p2bodydist x))
+; END PROJECT SHADOW SPACING
+[State 870702, Shadow dissolves]
+type=DestroySelf
+trigger1=time>=29
+
+; BEGIN PROJECT SHADOW SPACING
+[State 870702, Shadow body width]
+type=Width
+trigger1=ishelper
+player=25,25
+ignorehitpause=1
+[State 870702, Shadow body separation]
+type=PosAdd
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=p2bodydist x<0
+x=p2bodydist x
+ignorehitpause=1
+[State 870702, Shadow contact brake]
+type=VelSet
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=vel x>0
+x=min(vel x,max(0,p2bodydist x))
+; END PROJECT SHADOW SPACING
+[Statedef 870103]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=870103+var(45)*10000
+velset=0,0
+poweradd=-250
+
+[State 870103, Summon cooldown]
+type=VarSet
+trigger1=!time
+var(31)=90
+
+[State 870103, Assigned summon identity]
+type=VarSet
+trigger1=!time
+var(35)=3
+
+[State 870103, Named shadow attack]
+type=Helper
+trigger1=time=18
+helpertype=normal
+name="tank"
+ID=870703
+stateno=870703
+postype=p1
+pos=10,0
+ownpal=1
+keyctrl=0
+size.xscale=1.5
+size.yscale=1.5
+
+[State 870103, Recover]
+type=ChangeState
+trigger1=time>=65
+value=0
+ctrl=1
+
+[Statedef 870703]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=870703
+velset=0,0
+
+[State 870703, Contact]
+type=HitDef
+trigger1=time=8
+attr=S,SP
+damage=115,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=0,0
+givepower=15,5
+id=870703
+
+[State 870703, Named shadow rush]
+type=VelSet
+trigger1=time=[8,15]
+x=6
+
+[State 870703, Finish rush]
+type=VelSet
+trigger1=time>15
+x=0
+
+; BEGIN PROJECT SHADOW SPACING
+[State 870703, Shadow body width]
+type=Width
+trigger1=ishelper
+player=47,45
+ignorehitpause=1
+[State 870703, Shadow body separation]
+type=PosAdd
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=p2bodydist x<0
+x=p2bodydist x
+ignorehitpause=1
+[State 870703, Shadow contact brake]
+type=VelSet
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=vel x>0
+x=min(vel x,max(0,p2bodydist x))
+; END PROJECT SHADOW SPACING
+[State 870703, Shadow dissolves]
+type=DestroySelf
+trigger1=time>=29
+
+; BEGIN PROJECT SHADOW SPACING
+[State 870703, Shadow body width]
+type=Width
+trigger1=ishelper
+player=47,45
+ignorehitpause=1
+[State 870703, Shadow body separation]
+type=PosAdd
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=p2bodydist x<0
+x=p2bodydist x
+ignorehitpause=1
+[State 870703, Shadow contact brake]
+type=VelSet
+triggerall=ishelper
+triggerall=numenemy>0
+triggerall=abs(p2dist y)<60
+triggerall=p2dist x>=0
+trigger1=vel x>0
+x=min(vel x,max(0,p2bodydist x))
+; END PROJECT SHADOW SPACING
+[Statedef 890200]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=890200
+velset=0,0
+
+[State 890200, Contact]
+type=HitDef
+trigger1=time=6
+attr=S,SA
+damage=35,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=890200
+
+[State 890200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 890210]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=890210
+velset=0,0
+
+[State 890210, Contact]
+type=HitDef
+trigger1=time=10
+attr=S,SA
+damage=64,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=890210
+
+[State 890210, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 890220]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=890220
+velset=0,0
+
+[State 890220, Contact]
+type=HitDef
+trigger1=time=17
+attr=S,SA
+damage=100,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=890220
+
+[State 890220, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 890400]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=890400
+velset=0,0
+
+[State 890400, Contact]
+type=HitDef
+trigger1=time=6
+attr=C,SA
+damage=35,0
+hitflag=MAFDE
+guardflag=L
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=890400
+
+[State 890400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 890410]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=890410
+velset=0,0
+
+[State 890410, Contact]
+type=HitDef
+trigger1=time=10
+attr=C,SA
+damage=64,0
+hitflag=MAFDE
+guardflag=L
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=890410
+
+[State 890410, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 890420]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=890420
+velset=0,0
+
+[State 890420, Contact]
+type=HitDef
+trigger1=time=17
+attr=C,SA
+damage=100,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=890420
+
+[State 890420, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 890600]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=890600
+
+[State 890600, Contact]
+type=HitDef
+trigger1=time=6
+attr=A,SA
+damage=35,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=890600
+
+[State 890600, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 890600, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 890600, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 890610]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=890610
+
+[State 890610, Contact]
+type=HitDef
+trigger1=time=10
+attr=A,SA
+damage=64,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=890610
+
+[State 890610, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 890610, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 890610, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 890620]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=890620
+
+[State 890620, Contact]
+type=HitDef
+trigger1=time=17
+attr=A,SA
+damage=100,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=890620
+
+[State 890620, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 890620, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 890620, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 891000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=891000
+velset=0,0
+
+[State 891000, Contact]
+type=HitDef
+trigger1=time=20
+attr=S,SA
+damage=125,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=891000
+
+[State 891000, Signature approach]
+type=VelSet
+trigger1=time=[5,27]
+x=3
+
+[State 891000, Signature brake]
+type=VelSet
+trigger1=time>=28
+x=0
+
+[State 891000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 891010]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=891010
+velset=2,-1
+
+[State 891010, Contact]
+type=HitDef
+trigger1=time=8
+attr=A,SA
+damage=125,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=891010
+
+[State 891010, Signature approach]
+type=VelSet
+trigger1=time=[5,27]
+x=3
+
+[State 891010, Signature brake]
+type=VelSet
+trigger1=time>=28
+x=0
+
+[State 891010, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 891010, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 891010, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 900200]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=900200
+velset=0,0
+
+[State 900200, Contact]
+type=HitDef
+trigger1=time=4
+attr=S,SA
+damage=30,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900200
+
+[State 900200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 900210]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=900210
+velset=0,0
+
+[State 900210, Contact]
+type=HitDef
+trigger1=time=8
+attr=S,SA
+damage=55,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900210
+
+[State 900210, Contact]
+type=HitDef
+trigger1=time=13
+attr=S,SA
+damage=27,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900210
+
+[State 900210, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 900220]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=900220
+velset=0,0
+
+[State 900220, Contact]
+type=HitDef
+trigger1=time=13
+attr=S,SA
+damage=90,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900220
+
+[State 900220, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 900400]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=900400
+velset=0,0
+
+[State 900400, Contact]
+type=HitDef
+trigger1=time=4
+attr=C,SA
+damage=30,0
+hitflag=MAFDE
+guardflag=L
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900400
+
+[State 900400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 900410]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=900410
+velset=0,0
+
+[State 900410, Contact]
+type=HitDef
+trigger1=time=8
+attr=C,SA
+damage=55,0
+hitflag=MAFDE
+guardflag=L
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900410
+
+[State 900410, Contact]
+type=HitDef
+trigger1=time=13
+attr=S,SA
+damage=27,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900410
+
+[State 900410, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 900420]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=900420
+velset=0,0
+
+[State 900420, Contact]
+type=HitDef
+trigger1=time=13
+attr=C,SA
+damage=90,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900420
+
+[State 900420, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 900600]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=900600
+
+[State 900600, Contact]
+type=HitDef
+trigger1=time=4
+attr=A,SA
+damage=30,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900600
+
+[State 900600, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 900600, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 900600, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 900610]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=900610
+
+[State 900610, Contact]
+type=HitDef
+trigger1=time=8
+attr=A,SA
+damage=55,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900610
+
+[State 900610, Contact]
+type=HitDef
+trigger1=time=13
+attr=A,SA
+damage=27,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900610
+
+[State 900610, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 900610, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 900610, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 900620]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=900620
+
+[State 900620, Contact]
+type=HitDef
+trigger1=time=13
+attr=A,SA
+damage=90,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=900620
+
+[State 900620, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 900620, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 900620, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 901000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=901000
+velset=0,0
+
+[State 901000, Contact]
+type=HitDef
+trigger1=time=12
+attr=S,SA
+damage=125,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=901000
+
+[State 901000, Signature approach]
+type=VelSet
+trigger1=time=[5,27]
+x=5
+
+[State 901000, Signature brake]
+type=VelSet
+trigger1=time>=28
+x=0
+
+[State 901000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 901010]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=901010
+velset=2,-1
+
+[State 901010, Contact]
+type=HitDef
+trigger1=time=8
+attr=A,SA
+damage=125,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=901010
+
+[State 901010, Signature approach]
+type=VelSet
+trigger1=time=[5,27]
+x=5
+
+[State 901010, Signature brake]
+type=VelSet
+trigger1=time>=28
+x=0
+
+[State 901010, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 901010, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 901010, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 910200]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=910200
+velset=0,0
+
+[State 910200, Contact]
+type=HitDef
+trigger1=time=9
+attr=S,SA
+damage=42,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=910200
+
+[State 910200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 910210]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=910210
+velset=0,0
+
+[State 910210, Contact]
+type=HitDef
+trigger1=time=15
+attr=S,SA
+damage=76,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=910210
+
+[State 910210, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 910220]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=910220
+velset=0,0
+
+[State 910220, Contact]
+type=HitDef
+trigger1=time=23
+attr=S,SA
+damage=120,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=910220
+
+[State 910220, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 910400]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=910400
+velset=0,0
+
+[State 910400, Contact]
+type=HitDef
+trigger1=time=9
+attr=C,SA
+damage=42,0
+hitflag=MAFDE
+guardflag=L
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=910400
+
+[State 910400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 910410]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=910410
+velset=0,0
+
+[State 910410, Contact]
+type=HitDef
+trigger1=time=15
+attr=C,SA
+damage=76,0
+hitflag=MAFDE
+guardflag=L
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=910410
+
+[State 910410, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 910420]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=910420
+velset=0,0
+
+[State 910420, Contact]
+type=HitDef
+trigger1=time=23
+attr=C,SA
+damage=120,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=910420
+
+[State 910420, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 910600]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=910600
+
+[State 910600, Contact]
+type=HitDef
+trigger1=time=9
+attr=A,SA
+damage=42,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=910600
+
+[State 910600, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 910600, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 910600, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 910610]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=910610
+
+[State 910610, Contact]
+type=HitDef
+trigger1=time=15
+attr=A,SA
+damage=76,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=910610
+
+[State 910610, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 910610, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 910610, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 910620]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=910620
+
+[State 910620, Contact]
+type=HitDef
+trigger1=time=23
+attr=A,SA
+damage=120,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=910620
+
+[State 910620, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 910620, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 910620, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 911000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=911000
+velset=0,0
+
+[State 911000, Contact]
+type=HitDef
+trigger1=time=20
+attr=S,SA
+damage=145,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=911000
+
+[State 911000, Signature approach]
+type=VelSet
+trigger1=time=[5,27]
+x=1.5
+
+[State 911000, Signature brake]
+type=VelSet
+trigger1=time>=28
+x=0
+
+[State 911000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 911010]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=911010
+velset=2,-1
+
+[State 911010, Contact]
+type=HitDef
+trigger1=time=8
+attr=A,SA
+damage=145,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=911010
+
+[State 911010, Signature approach]
+type=VelSet
+trigger1=time=[5,27]
+x=1.5
+
+[State 911010, Signature brake]
+type=VelSet
+trigger1=time>=28
+x=0
+
+[State 911010, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 911010, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 911010, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 920200]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=920200
+velset=0,0
+
+[State 920200, Contact]
+type=HitDef
+trigger1=time=8
+attr=S,SA
+damage=45,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=920200
+
+[State 920200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 920210]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=920210
+velset=0,0
+
+[State 920210, Contact]
+type=HitDef
+trigger1=time=13
+attr=S,SA
+damage=80,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=920210
+
+[State 920210, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 920220]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=920220
+velset=0,0
+
+[State 920220, Contact]
+type=HitDef
+trigger1=time=21
+attr=S,SA
+damage=130,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=920220
+
+[State 920220, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 920400]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=920400
+velset=0,0
+
+[State 920400, Contact]
+type=HitDef
+trigger1=time=8
+attr=C,SA
+damage=45,0
+hitflag=MAFDE
+guardflag=L
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=920400
+
+[State 920400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 920410]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=920410
+velset=0,0
+
+[State 920410, Contact]
+type=HitDef
+trigger1=time=13
+attr=C,SA
+damage=80,0
+hitflag=MAFDE
+guardflag=L
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=920410
+
+[State 920410, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 920420]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=920420
+velset=0,0
+
+[State 920420, Contact]
+type=HitDef
+trigger1=time=21
+attr=C,SA
+damage=130,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=920420
+
+[State 920420, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 920600]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=920600
+
+[State 920600, Contact]
+type=HitDef
+trigger1=time=8
+attr=A,SA
+damage=45,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=920600
+
+[State 920600, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 920600, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 920600, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 920610]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=920610
+
+[State 920610, Contact]
+type=HitDef
+trigger1=time=13
+attr=A,SA
+damage=80,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=920610
+
+[State 920610, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 920610, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 920610, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 920620]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=920620
+
+[State 920620, Contact]
+type=HitDef
+trigger1=time=21
+attr=A,SA
+damage=130,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=920620
+
+[State 920620, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 920620, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 920620, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 921000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=921000
+velset=0,0
+
+[State 921000, Contact]
+type=HitDef
+trigger1=time=20
+attr=S,SA
+damage=145,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=921000
+
+[State 921000, Signature approach]
+type=VelSet
+trigger1=time=[5,27]
+x=4
+
+[State 921000, Signature brake]
+type=VelSet
+trigger1=time>=28
+x=0
+
+[State 921000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 921010]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=921010
+velset=2,-1
+
+[State 921010, Contact]
+type=HitDef
+trigger1=time=8
+attr=A,SA
+damage=145,0
+hitflag=MAFDE
+guardflag=H
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=20,5
+givepower=10,5
+id=921010
+
+[State 921010, Signature approach]
+type=VelSet
+trigger1=time=[5,27]
+x=4
+
+[State 921010, Signature brake]
+type=VelSet
+trigger1=time>=28
+x=0
+
+[State 921010, Air gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 921010, Air landing]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 921010, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 880500]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=880500
+velset=0,0
+
+[State 880500, Charge meter]
+type=PowerAdd
+trigger1=time>=12
+value=12
+
+[State 880500, Charge particles]
+type=Explod
+trigger1=time>=12
+trigger1=time%16=0
+anim=879800
+ID=879700
+postype=p1
+pos=0,-20
+scale=.28,.65
+removetime=-2
+sprpriority=-1
+ownpal=1
+
+[State 880500, Release charge]
+type=ChangeState
+trigger1=time>=12
+trigger1=!command="our_holdcharge" || power>=powermax
+value=0
+ctrl=1
+
+[Statedef 880320]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=880320
+velset=0,0
+poweradd=-2000
+
+[State 880320, Finisher emphasis]
+type=SuperPause
+trigger1=!time
+time=12
+anim=-1
+movetime=12
+unhittable=0
+
+[State 880320, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,HA
+damage=0,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=0,0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=0,0
+id=880320
+p1stateno=880321
+p2stateno=879900
+
+[State 880320, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 880321]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=880321
+velset=0,0
+
+[State 880321, Remember entry direction]
+type=MapSet
+trigger1=!time
+map="our.entry_facing"
+value=facing
+
+[State 880321, Screen center in fighter coordinates]
+type=MapSet
+trigger1=1
+map="our.center"
+value=pos x+(gamewidth*.5-screenpos x)
+
+[State 880321, Confirmed cinematic protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 880321, Cinematic camera stability]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+
+[State 880321, Darken arena]
+type=BGPalFX
+trigger1=1
+time=1
+add=-100,-115,-100
+mul=180,180,200
+
+[State 880321, Begin framing]
+type=PosSet
+trigger1=time<32
+x=map(our.center)-map(our.entry_facing)*65
+y=0
+
+[State 880321, Unique form assault]
+type=PosSet
+trigger1=time=[32,349]
+x=map(our.center)+map(our.entry_facing)*cond((time/14)%2=0,-45,45)
+y=-10*abs(sin(time*.15))
+
+[State 880321, Face captured target]
+type=Turn
+trigger1=p2dist x<0
+
+[State 880321, Hold opponent in world space]
+type=TargetBind
+trigger1=time<350
+pos=(map(our.center)-pos x)*facing,-38-pos y
+
+[State 880321, Final grounded pose]
+type=PosSet
+trigger1=time>=350
+x=map(our.center)-map(our.entry_facing)*65
+y=0
+
+[State 880321, Unique strike cadence]
+type=HitAdd
+trigger1=time=[36,349]
+trigger1=time%8=0
+value=1
+
+[State 880321, Weapon impact trail]
+type=Explod
+trigger1=time=[36,349]
+trigger1=time%8=0
+anim=879800
+ID=879800
+postype=p1
+pos=28,-36
+removetime=-2
+sprpriority=5
+ownpal=1
+
+[State 880321, Final weapon impact]
+type=Explod
+trigger1=time=350
+anim=879800
+ID=879600
+postype=p1
+pos=43,-28
+scale=1.8,1.8
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 880321, Impact accent]
+type=EnvColor
+trigger1=time=350
+value=225,230,255
+time=2
+under=1
+
+[State 880321, Arise army formation]
+type=Explod
+trigger1=time=8
+anim=870710
+ID=870710
+postype=p1
+pos=(map(our.center)-pos x+-66.0)*facing,-pos y
+bindtime=0
+removetime=342
+scale=1.5,1.5
+sprpriority=-1
+ownpal=1
+
+[State 880321, Named army assault]
+type=Explod
+trigger1=time=48
+anim=870700
+ID=870720
+postype=p1
+pos=(map(our.center)-pos x-38)*facing,-pos y
+bindtime=0
+removetime=-2
+sprpriority=3
+ownpal=1
+scale=1.5,1.5
+[State 880321, Named army assault]
+type=Explod
+trigger1=time=192
+anim=870700
+ID=870720
+postype=p1
+pos=(map(our.center)-pos x-38)*facing,-pos y
+bindtime=0
+removetime=-2
+sprpriority=3
+ownpal=1
+scale=1.5,1.5
+[State 880321, Arise army formation]
+type=Explod
+trigger1=time=8
+anim=870711
+ID=870711
+postype=p1
+pos=(map(our.center)-pos x+-22.0)*facing,-pos y
+bindtime=0
+removetime=342
+scale=1.5,1.5
+sprpriority=-1
+ownpal=1
+
+[State 880321, Named army assault]
+type=Explod
+trigger1=time=84
+anim=870701
+ID=870721
+postype=p1
+pos=(map(our.center)-pos x-38)*facing,-pos y
+bindtime=0
+removetime=-2
+sprpriority=3
+ownpal=1
+scale=1.5,1.5
+[State 880321, Named army assault]
+type=Explod
+trigger1=time=228
+anim=870701
+ID=870721
+postype=p1
+pos=(map(our.center)-pos x-38)*facing,-pos y
+bindtime=0
+removetime=-2
+sprpriority=3
+ownpal=1
+scale=1.5,1.5
+[State 880321, Arise army formation]
+type=Explod
+trigger1=time=8
+anim=870712
+ID=870712
+postype=p1
+pos=(map(our.center)-pos x+22.0)*facing,-pos y
+bindtime=0
+removetime=342
+scale=1.5,1.5
+sprpriority=-1
+ownpal=1
+
+[State 880321, Named army assault]
+type=Explod
+trigger1=time=120
+anim=870702
+ID=870722
+postype=p1
+pos=(map(our.center)-pos x-38)*facing,-pos y
+bindtime=0
+removetime=-2
+sprpriority=3
+ownpal=1
+scale=1.5,1.5
+[State 880321, Named army assault]
+type=Explod
+trigger1=time=264
+anim=870702
+ID=870722
+postype=p1
+pos=(map(our.center)-pos x-38)*facing,-pos y
+bindtime=0
+removetime=-2
+sprpriority=3
+ownpal=1
+scale=1.5,1.5
+[State 880321, Arise army formation]
+type=Explod
+trigger1=time=8
+anim=870713
+ID=870713
+postype=p1
+pos=(map(our.center)-pos x+66.0)*facing,-pos y
+bindtime=0
+removetime=342
+scale=1.5,1.5
+sprpriority=-1
+ownpal=1
+
+[State 880321, Named army assault]
+type=Explod
+trigger1=time=156
+anim=870703
+ID=870723
+postype=p1
+pos=(map(our.center)-pos x-38)*facing,-pos y
+bindtime=0
+removetime=-2
+sprpriority=3
+ownpal=1
+scale=1.5,1.5
+[State 880321, Named army assault]
+type=Explod
+trigger1=time=300
+anim=870703
+ID=870723
+postype=p1
+pos=(map(our.center)-pos x-38)*facing,-pos y
+bindtime=0
+removetime=-2
+sprpriority=3
+ownpal=1
+scale=1.5,1.5
+[State 880321, Final impact]
+type=EnvShake
+trigger1=time=350
+time=18
+ampl=-5
+
+[State 880321, Single final damage]
+type=TargetLifeAdd
+trigger1=time=350
+value=-950
+kill=1
+absolute=1
+
+[State 880321, Release target]
+type=TargetState
+trigger1=time=350
+value=879901
+
+[State 880321, Target lost recovery]
+type=ChangeState
+trigger1=time>=380
+trigger1=numtarget=0
+value=0
+ctrl=1
+
+[State 880321, Recover]
+type=ChangeState
+trigger1=time>=419
+value=0
+ctrl=1
+
+[Statedef 890500]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=890500
+velset=0,0
+
+[State 890500, Charge meter]
+type=PowerAdd
+trigger1=time>=12
+value=12
+
+[State 890500, Charge particles]
+type=Explod
+trigger1=time>=12
+trigger1=time%16=0
+anim=879801
+ID=879701
+postype=p1
+pos=0,-20
+scale=.28,.65
+removetime=-2
+sprpriority=-1
+ownpal=1
+
+[State 890500, Release charge]
+type=ChangeState
+trigger1=time>=12
+trigger1=!command="our_holdcharge" || power>=powermax
+value=0
+ctrl=1
+
+[Statedef 890300]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=890300
+velset=0,0
+poweradd=-1000
+
+[State 890300, Super energy gathers]
+type=Explod
+trigger1=!time
+anim=879830
+ID=879840
+postype=p1
+pos=0,-22
+scale=.85,.85
+sprpriority=-1
+ownpal=1
+supermovetime=12
+removetime=-2
+persistent=0
+[State 890300, Super anticipation]
+type=SuperPause
+trigger1=!time
+time=8
+movetime=0
+anim=-1
+sound=-1
+darken=0
+unhittable=0
+persistent=0
+[State 890300, Arena contrast]
+type=BGPalFX
+trigger1=!time
+time=14
+mul=150,135,185
+add=0,0,0
+persistent=0
+[State 890300, Power release sound]
+type=PlaySnd
+trigger1=!time
+value=S5,54
+volumescale=90
+persistent=0
+
+
+[State 890300, Physical super movement]
+type=VelSet
+trigger1=1
+x=cond(time>=8 && time<14,3,cond(time>=20 && time<26,1.5,0))
+
+[State 890300, Contact]
+type=HitDef
+trigger1=time=14
+attr=S,HA
+damage=110,8
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=3,6
+sparkno=-1
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=28
+ground.velocity=-1.5,0
+air.velocity=-3,-4
+fall=0
+getpower=0,0
+givepower=12,5
+id=890300
+guard.sparkno=-1
+
+[State 890300, Distinct super weapon energy]
+type=Explod
+trigger1=time=14
+anim=879833
+ID=879841
+postype=p1
+pos=30,-30
+scale=.9,.9
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+
+[State 890300, Confirmed super impact]
+type=Explod
+trigger1=time=15 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.5,.5
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 890300, Super impact weight]
+type=EnvShake
+trigger1=time=15 && movehit
+time=5
+ampl=-1
+freq=65
+persistent=0
+[State 890300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=15 && movehit
+value=S5,47
+volumescale=65
+persistent=0
+
+
+[State 890300, Contact]
+type=HitDef
+trigger1=time=26
+attr=S,HA
+damage=110,8
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=7,12
+sparkno=-1
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=28
+ground.velocity=-5,-4
+air.velocity=-5,-5
+fall=1
+getpower=0,0
+givepower=12,5
+id=890300
+guard.sparkno=-1
+
+[State 890300, Distinct super weapon energy]
+type=Explod
+trigger1=time=26
+anim=879833
+ID=879841
+postype=p1
+pos=30,-30
+scale=.9,.9
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+
+[State 890300, Confirmed super impact]
+type=Explod
+trigger1=time=27 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.85,.85
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 890300, Super impact weight]
+type=EnvShake
+trigger1=time=27 && movehit
+time=10
+ampl=-3
+freq=65
+persistent=0
+[State 890300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=27 && movehit
+value=S5,47
+volumescale=100
+persistent=0
+
+
+[State 890300, Recover]
+type=ChangeState
+trigger1=time>=57
+value=0
+ctrl=1
+
+[Statedef 890320]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=890320
+velset=0,0
+poweradd=-2000
+
+[State 890320, Finisher emphasis]
+type=SuperPause
+trigger1=!time
+time=12
+anim=-1
+movetime=12
+unhittable=0
+
+[State 890320, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,HA
+damage=0,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=0,0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=0,0
+id=890320
+p1stateno=890321
+p2stateno=879900
+
+[State 890320, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 890321]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=890321
+velset=0,0
+
+[State 890321, Remember entry direction]
+type=MapSet
+trigger1=!time
+map="our.entry_facing"
+value=facing
+
+[State 890321, Screen center in fighter coordinates]
+type=MapSet
+trigger1=1
+map="our.center"
+value=pos x+(gamewidth*.5-screenpos x)
+
+[State 890321, Confirmed cinematic protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 890321, Cinematic camera stability]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+
+[State 890321, Darken arena]
+type=BGPalFX
+trigger1=1
+time=1
+add=-100,-115,-100
+mul=180,180,200
+
+[State 890321, Begin framing]
+type=PosSet
+trigger1=time<32
+x=map(our.center)-map(our.entry_facing)*65
+y=0
+
+[State 890321, Unique form assault]
+type=PosSet
+trigger1=time=[32,349]
+x=map(our.center)+map(our.entry_facing)*cond((time/32)%2=0,-58,58)
+y=0
+
+[State 890321, Face captured target]
+type=Turn
+trigger1=p2dist x<0
+
+[State 890321, Hold opponent in world space]
+type=TargetBind
+trigger1=time<350
+pos=(map(our.center)-pos x)*facing,-38-pos y
+
+[State 890321, Final grounded pose]
+type=PosSet
+trigger1=time>=350
+x=map(our.center)-map(our.entry_facing)*65
+y=0
+
+[State 890321, Unique strike cadence]
+type=HitAdd
+trigger1=time=[36,349]
+trigger1=time%14=0
+value=1
+
+[State 890321, Weapon impact trail]
+type=Explod
+trigger1=time=[36,349]
+trigger1=time%14=0
+anim=879801
+ID=879801
+postype=p1
+pos=28,-36
+removetime=-2
+sprpriority=5
+ownpal=1
+
+[State 890321, Final weapon impact]
+type=Explod
+trigger1=time=350
+anim=879801
+ID=879601
+postype=p1
+pos=43,-28
+scale=1.8,1.8
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 890321, Impact accent]
+type=EnvColor
+trigger1=time=350
+value=225,230,255
+time=2
+under=1
+
+[State 890321, Final impact]
+type=EnvShake
+trigger1=time=350
+time=18
+ampl=-5
+
+[State 890321, Single final damage]
+type=TargetLifeAdd
+trigger1=time=350
+value=-950
+kill=1
+absolute=1
+
+[State 890321, Release target]
+type=TargetState
+trigger1=time=350
+value=879901
+
+[State 890321, Target lost recovery]
+type=ChangeState
+trigger1=time>=380
+trigger1=numtarget=0
+value=0
+ctrl=1
+
+[State 890321, Recover]
+type=ChangeState
+trigger1=time>=419
+value=0
+ctrl=1
+
+[Statedef 900500]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=900500
+velset=0,0
+
+[State 900500, Charge meter]
+type=PowerAdd
+trigger1=time>=12
+value=12
+
+[State 900500, Charge particles]
+type=Explod
+trigger1=time>=12
+trigger1=time%16=0
+anim=879802
+ID=879702
+postype=p1
+pos=0,-20
+scale=.28,.65
+removetime=-2
+sprpriority=-1
+ownpal=1
+
+[State 900500, Release charge]
+type=ChangeState
+trigger1=time>=12
+trigger1=!command="our_holdcharge" || power>=powermax
+value=0
+ctrl=1
+
+[Statedef 900300]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=900300
+velset=0,0
+poweradd=-1000
+
+[State 900300, Super energy gathers]
+type=Explod
+trigger1=!time
+anim=879830
+ID=879840
+postype=p1
+pos=0,-22
+scale=.85,.85
+sprpriority=-1
+ownpal=1
+supermovetime=12
+removetime=-2
+persistent=0
+[State 900300, Super anticipation]
+type=SuperPause
+trigger1=!time
+time=8
+movetime=0
+anim=-1
+sound=-1
+darken=0
+unhittable=0
+persistent=0
+[State 900300, Arena contrast]
+type=BGPalFX
+trigger1=!time
+time=14
+mul=150,135,185
+add=0,0,0
+persistent=0
+[State 900300, Power release sound]
+type=PlaySnd
+trigger1=!time
+value=S5,54
+volumescale=90
+persistent=0
+
+
+[State 900300, Physical super movement]
+type=VelSet
+trigger1=1
+x=cond(time>=2 && time<7,5,cond(time>=14 && time<19,2,0))
+
+[State 900300, Contact]
+type=HitDef
+trigger1=time=7
+attr=S,HA
+damage=55,8
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=3,6
+sparkno=-1
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=28
+ground.velocity=-1.5,0
+air.velocity=-3,-4
+fall=0
+getpower=0,0
+givepower=12,5
+id=900300
+guard.sparkno=-1
+
+[State 900300, Distinct super weapon energy]
+type=Explod
+trigger1=time=7
+anim=879834
+ID=879841
+postype=p1
+pos=30,-30
+scale=.9,.9
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+
+[State 900300, Confirmed super impact]
+type=Explod
+trigger1=time=8 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.5,.5
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 900300, Super impact weight]
+type=EnvShake
+trigger1=time=8 && movehit
+time=5
+ampl=-1
+freq=65
+persistent=0
+[State 900300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=8 && movehit
+value=S5,47
+volumescale=65
+persistent=0
+
+
+[State 900300, Contact]
+type=HitDef
+trigger1=time=13
+attr=S,HA
+damage=55,8
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=3,6
+sparkno=-1
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=28
+ground.velocity=-1.5,0
+air.velocity=-3,-4
+fall=0
+getpower=0,0
+givepower=12,5
+id=900300
+guard.sparkno=-1
+
+[State 900300, Distinct super weapon energy]
+type=Explod
+trigger1=time=13
+anim=879834
+ID=879841
+postype=p1
+pos=30,-30
+scale=.9,.9
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+
+[State 900300, Confirmed super impact]
+type=Explod
+trigger1=time=14 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.5,.5
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 900300, Super impact weight]
+type=EnvShake
+trigger1=time=14 && movehit
+time=5
+ampl=-1
+freq=65
+persistent=0
+[State 900300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=14 && movehit
+value=S5,47
+volumescale=65
+persistent=0
+
+
+[State 900300, Contact]
+type=HitDef
+trigger1=time=19
+attr=S,HA
+damage=55,8
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=3,6
+sparkno=-1
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=28
+ground.velocity=-1.5,0
+air.velocity=-3,-4
+fall=0
+getpower=0,0
+givepower=12,5
+id=900300
+guard.sparkno=-1
+
+[State 900300, Distinct super weapon energy]
+type=Explod
+trigger1=time=19
+anim=879834
+ID=879841
+postype=p1
+pos=30,-30
+scale=.9,.9
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+
+[State 900300, Confirmed super impact]
+type=Explod
+trigger1=time=20 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.5,.5
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 900300, Super impact weight]
+type=EnvShake
+trigger1=time=20 && movehit
+time=5
+ampl=-1
+freq=65
+persistent=0
+[State 900300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=20 && movehit
+value=S5,47
+volumescale=65
+persistent=0
+
+
+[State 900300, Contact]
+type=HitDef
+trigger1=time=25
+attr=S,HA
+damage=55,8
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=7,12
+sparkno=-1
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=28
+ground.velocity=-5,-4
+air.velocity=-5,-5
+fall=1
+getpower=0,0
+givepower=12,5
+id=900300
+guard.sparkno=-1
+
+[State 900300, Distinct super weapon energy]
+type=Explod
+trigger1=time=25
+anim=879834
+ID=879841
+postype=p1
+pos=30,-30
+scale=.9,.9
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+
+[State 900300, Confirmed super impact]
+type=Explod
+trigger1=time=26 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.85,.85
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 900300, Super impact weight]
+type=EnvShake
+trigger1=time=26 && movehit
+time=10
+ampl=-3
+freq=65
+persistent=0
+[State 900300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=26 && movehit
+value=S5,47
+volumescale=100
+persistent=0
+
+
+[State 900300, Recover]
+type=ChangeState
+trigger1=time>=47
+value=0
+ctrl=1
+
+[Statedef 900320]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=900320
+velset=0,0
+poweradd=-2000
+
+[State 900320, Finisher emphasis]
+type=SuperPause
+trigger1=!time
+time=12
+anim=-1
+movetime=12
+unhittable=0
+
+[State 900320, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,HA
+damage=0,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=0,0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=0,0
+id=900320
+p1stateno=900321
+p2stateno=879900
+
+[State 900320, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 900321]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=900321
+velset=0,0
+
+[State 900321, Remember entry direction]
+type=MapSet
+trigger1=!time
+map="our.entry_facing"
+value=facing
+
+[State 900321, Screen center in fighter coordinates]
+type=MapSet
+trigger1=1
+map="our.center"
+value=pos x+(gamewidth*.5-screenpos x)
+
+[State 900321, Confirmed cinematic protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 900321, Cinematic camera stability]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+
+[State 900321, Darken arena]
+type=BGPalFX
+trigger1=1
+time=1
+add=-100,-115,-100
+mul=180,180,200
+
+[State 900321, Begin framing]
+type=PosSet
+trigger1=time<32
+x=map(our.center)-map(our.entry_facing)*65
+y=0
+
+[State 900321, Unique form assault]
+type=PosSet
+trigger1=time=[32,349]
+x=map(our.center)+map(our.entry_facing)*cond((time/10)%2=0,-38,38)
+y=-25-12*abs(sin(time*.13))
+
+[State 900321, Face captured target]
+type=Turn
+trigger1=p2dist x<0
+
+[State 900321, Hold opponent in world space]
+type=TargetBind
+trigger1=time<350
+pos=(map(our.center)-pos x)*facing,-38-pos y
+
+[State 900321, Final grounded pose]
+type=PosSet
+trigger1=time>=350
+x=map(our.center)-map(our.entry_facing)*65
+y=0
+
+[State 900321, Unique strike cadence]
+type=HitAdd
+trigger1=time=[36,349]
+trigger1=time%6=0
+value=1
+
+[State 900321, Weapon impact trail]
+type=Explod
+trigger1=time=[36,349]
+trigger1=time%6=0
+anim=879802
+ID=879802
+postype=p1
+pos=28,-36
+removetime=-2
+sprpriority=5
+ownpal=1
+
+[State 900321, Final weapon impact]
+type=Explod
+trigger1=time=350
+anim=879802
+ID=879602
+postype=p1
+pos=43,-28
+scale=1.8,1.8
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 900321, Impact accent]
+type=EnvColor
+trigger1=time=350
+value=225,230,255
+time=2
+under=1
+
+[State 900321, Final impact]
+type=EnvShake
+trigger1=time=350
+time=18
+ampl=-5
+
+[State 900321, Single final damage]
+type=TargetLifeAdd
+trigger1=time=350
+value=-950
+kill=1
+absolute=1
+
+[State 900321, Release target]
+type=TargetState
+trigger1=time=350
+value=879901
+
+[State 900321, Target lost recovery]
+type=ChangeState
+trigger1=time>=380
+trigger1=numtarget=0
+value=0
+ctrl=1
+
+[State 900321, Recover]
+type=ChangeState
+trigger1=time>=419
+value=0
+ctrl=1
+
+[Statedef 910500]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=910500
+velset=0,0
+
+[State 910500, Charge meter]
+type=PowerAdd
+trigger1=time>=12
+value=12
+
+[State 910500, Charge particles]
+type=Explod
+trigger1=time>=12
+trigger1=time%16=0
+anim=879803
+ID=879703
+postype=p1
+pos=0,-20
+scale=.28,.65
+removetime=-2
+sprpriority=-1
+ownpal=1
+
+[State 910500, Release charge]
+type=ChangeState
+trigger1=time>=12
+trigger1=!command="our_holdcharge" || power>=powermax
+value=0
+ctrl=1
+
+[Statedef 910300]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=910300
+velset=0,0
+poweradd=-1000
+
+[State 910300, Super energy gathers]
+type=Explod
+trigger1=!time
+anim=879830
+ID=879840
+postype=p1
+pos=0,-22
+scale=.85,.85
+sprpriority=-1
+ownpal=1
+supermovetime=12
+removetime=-2
+persistent=0
+[State 910300, Super anticipation]
+type=SuperPause
+trigger1=!time
+time=8
+movetime=0
+anim=-1
+sound=-1
+darken=0
+unhittable=0
+persistent=0
+[State 910300, Arena contrast]
+type=BGPalFX
+trigger1=!time
+time=14
+mul=150,135,185
+add=0,0,0
+persistent=0
+[State 910300, Power release sound]
+type=PlaySnd
+trigger1=!time
+value=S5,54
+volumescale=90
+persistent=0
+
+
+[State 910300, Physical super movement]
+type=VelSet
+trigger1=1
+x=cond(time>=14 && time<26,1.5,0)
+
+[State 910300, Contact]
+type=HitDef
+trigger1=time=26
+attr=S,HA
+damage=260,8
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=7,12
+sparkno=-1
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=28
+ground.velocity=-5,-4
+air.velocity=-5,-5
+fall=1
+getpower=0,0
+givepower=12,5
+id=910300
+guard.sparkno=-1
+
+[State 910300, Distinct super weapon energy]
+type=Explod
+trigger1=time=26
+anim=879835
+ID=879841
+postype=p1
+pos=30,-30
+scale=.9,.9
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+
+[State 910300, Confirmed super impact]
+type=Explod
+trigger1=time=27 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.85,.85
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 910300, Super impact weight]
+type=EnvShake
+trigger1=time=27 && movehit
+time=10
+ampl=-3
+freq=65
+persistent=0
+[State 910300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=27 && movehit
+value=S5,47
+volumescale=100
+persistent=0
+
+
+[State 910300, Recover]
+type=ChangeState
+trigger1=time>=67
+value=0
+ctrl=1
+
+[Statedef 910320]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=910320
+velset=0,0
+poweradd=-2000
+
+[State 910320, Finisher emphasis]
+type=SuperPause
+trigger1=!time
+time=12
+anim=-1
+movetime=12
+unhittable=0
+
+[State 910320, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,HA
+damage=0,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=0,0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=0,0
+id=910320
+p1stateno=910321
+p2stateno=879900
+
+[State 910320, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 910321]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=910321
+velset=0,0
+
+[State 910321, Remember entry direction]
+type=MapSet
+trigger1=!time
+map="our.entry_facing"
+value=facing
+
+[State 910321, Screen center in fighter coordinates]
+type=MapSet
+trigger1=1
+map="our.center"
+value=pos x+(gamewidth*.5-screenpos x)
+
+[State 910321, Confirmed cinematic protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 910321, Cinematic camera stability]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+
+[State 910321, Darken arena]
+type=BGPalFX
+trigger1=1
+time=1
+add=-100,-115,-100
+mul=180,180,200
+
+[State 910321, Begin framing]
+type=PosSet
+trigger1=time<32
+x=map(our.center)-map(our.entry_facing)*65
+y=0
+
+[State 910321, Unique form assault]
+type=PosSet
+trigger1=time=[32,349]
+x=map(our.center)-map(our.entry_facing)*48
+y=0
+
+[State 910321, Face captured target]
+type=Turn
+trigger1=p2dist x<0
+
+[State 910321, Hold opponent in world space]
+type=TargetBind
+trigger1=time<350
+pos=(map(our.center)-pos x)*facing,-38-pos y
+
+[State 910321, Final grounded pose]
+type=PosSet
+trigger1=time>=350
+x=map(our.center)-map(our.entry_facing)*65
+y=0
+
+[State 910321, Unique strike cadence]
+type=HitAdd
+trigger1=time=[36,349]
+trigger1=time%28=0
+value=1
+
+[State 910321, Weapon impact trail]
+type=Explod
+trigger1=time=[36,349]
+trigger1=time%28=0
+anim=879803
+ID=879803
+postype=p1
+pos=28,-36
+removetime=-2
+sprpriority=5
+ownpal=1
+
+[State 910321, Final weapon impact]
+type=Explod
+trigger1=time=350
+anim=879803
+ID=879603
+postype=p1
+pos=43,-28
+scale=1.8,1.8
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 910321, Impact accent]
+type=EnvColor
+trigger1=time=350
+value=225,230,255
+time=2
+under=1
+
+[State 910321, Final impact]
+type=EnvShake
+trigger1=time=350
+time=18
+ampl=-9
+
+[State 910321, Single final damage]
+type=TargetLifeAdd
+trigger1=time=350
+value=-950
+kill=1
+absolute=1
+
+[State 910321, Release target]
+type=TargetState
+trigger1=time=350
+value=879901
+
+[State 910321, Target lost recovery]
+type=ChangeState
+trigger1=time>=380
+trigger1=numtarget=0
+value=0
+ctrl=1
+
+[State 910321, Recover]
+type=ChangeState
+trigger1=time>=419
+value=0
+ctrl=1
+
+[Statedef 920500]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=920500
+velset=0,0
+
+[State 920500, Charge meter]
+type=PowerAdd
+trigger1=time>=12
+value=12
+
+[State 920500, Charge particles]
+type=Explod
+trigger1=time>=12
+trigger1=time%16=0
+anim=879804
+ID=879704
+postype=p1
+pos=0,-20
+scale=.28,.65
+removetime=-2
+sprpriority=-1
+ownpal=1
+
+[State 920500, Release charge]
+type=ChangeState
+trigger1=time>=12
+trigger1=!command="our_holdcharge" || power>=powermax
+value=0
+ctrl=1
+
+[Statedef 920300]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=920300
+velset=0,0
+poweradd=-1000
+
+[State 920300, Super energy gathers]
+type=Explod
+trigger1=!time
+anim=879830
+ID=879840
+postype=p1
+pos=0,-22
+scale=.85,.85
+sprpriority=-1
+ownpal=1
+supermovetime=12
+removetime=-2
+persistent=0
+[State 920300, Super anticipation]
+type=SuperPause
+trigger1=!time
+time=8
+movetime=0
+anim=-1
+sound=-1
+darken=0
+unhittable=0
+persistent=0
+[State 920300, Arena contrast]
+type=BGPalFX
+trigger1=!time
+time=14
+mul=150,135,185
+add=0,0,0
+persistent=0
+[State 920300, Power release sound]
+type=PlaySnd
+trigger1=!time
+value=S5,54
+volumescale=90
+persistent=0
+
+
+[State 920300, Physical super movement]
+type=VelSet
+trigger1=1
+x=cond(time>=6 && time<24,5,0)
+
+[State 920300, Contact]
+type=HitDef
+trigger1=time=14
+attr=S,HA
+damage=240,8
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=7,12
+sparkno=-1
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=28
+ground.velocity=-5,-4
+air.velocity=-5,-5
+fall=1
+getpower=0,0
+givepower=12,5
+id=920300
+guard.sparkno=-1
+
+[State 920300, Distinct super weapon energy]
+type=Explod
+trigger1=time=14
+anim=879836
+ID=879841
+postype=p1
+pos=30,-30
+scale=.9,.9
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+
+[State 920300, Confirmed super impact]
+type=Explod
+trigger1=time=15 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.85,.85
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 920300, Super impact weight]
+type=EnvShake
+trigger1=time=15 && movehit
+time=10
+ampl=-3
+freq=65
+persistent=0
+[State 920300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=15 && movehit
+value=S5,47
+volumescale=100
+persistent=0
+
+
+[State 920300, Recover]
+type=ChangeState
+trigger1=time>=61
+value=0
+ctrl=1
+
+[Statedef 920320]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=920320
+velset=0,0
+poweradd=-2000
+
+[State 920320, Finisher emphasis]
+type=SuperPause
+trigger1=!time
+time=12
+anim=-1
+movetime=12
+unhittable=0
+
+[State 920320, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,HA
+damage=0,0
+hitflag=MAFDE
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=2
+sparkxy=0,-35
+hitsound=S5,13
+guardsound=S5,13
+ground.type=High
+ground.hittime=20
+ground.velocity=0,0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=0,0
+id=920320
+p1stateno=920321
+p2stateno=879900
+
+[State 920320, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 920321]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=920321
+velset=0,0
+
+[State 920321, Remember entry direction]
+type=MapSet
+trigger1=!time
+map="our.entry_facing"
+value=facing
+
+[State 920321, Screen center in fighter coordinates]
+type=MapSet
+trigger1=1
+map="our.center"
+value=pos x+(gamewidth*.5-screenpos x)
+
+[State 920321, Confirmed cinematic protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 920321, Cinematic camera stability]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+
+[State 920321, Darken arena]
+type=BGPalFX
+trigger1=1
+time=1
+add=-100,-115,-100
+mul=180,180,200
+
+[State 920321, Begin framing]
+type=PosSet
+trigger1=time<32
+x=map(our.center)-map(our.entry_facing)*65
+y=0
+
+[State 920321, Unique form assault]
+type=PosSet
+trigger1=time=[32,349]
+x=map(our.center)+map(our.entry_facing)*cond((time/45)%2=0,-55,55)
+y=0
+
+[State 920321, Face captured target]
+type=Turn
+trigger1=p2dist x<0
+
+[State 920321, Hold opponent in world space]
+type=TargetBind
+trigger1=time<350
+pos=(map(our.center)-pos x)*facing,-38-pos y
+
+[State 920321, Final grounded pose]
+type=PosSet
+trigger1=time>=350
+x=map(our.center)-map(our.entry_facing)*65
+y=0
+
+[State 920321, Unique strike cadence]
+type=HitAdd
+trigger1=time=[36,349]
+trigger1=time%24=0
+value=1
+
+[State 920321, Weapon impact trail]
+type=Explod
+trigger1=time=[36,349]
+trigger1=time%24=0
+anim=879804
+ID=879804
+postype=p1
+pos=28,-36
+removetime=-2
+sprpriority=5
+ownpal=1
+
+[State 920321, Final weapon impact]
+type=Explod
+trigger1=time=350
+anim=879804
+ID=879604
+postype=p1
+pos=43,-28
+scale=1.8,1.8
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 920321, Impact accent]
+type=EnvColor
+trigger1=time=350
+value=225,230,255
+time=2
+under=1
+
+[State 920321, Final impact]
+type=EnvShake
+trigger1=time=350
+time=18
+ampl=-9
+
+[State 920321, Single final damage]
+type=TargetLifeAdd
+trigger1=time=350
+value=-950
+kill=1
+absolute=1
+
+[State 920321, Release target]
+type=TargetState
+trigger1=time=350
+value=879901
+
+[State 920321, Target lost recovery]
+type=ChangeState
+trigger1=time>=380
+trigger1=numtarget=0
+value=0
+ctrl=1
+
+[State 920321, Recover]
+type=ChangeState
+trigger1=time>=419
+value=0
+ctrl=1
+
+[Statedef 879900]
+type=A
+movetype=H
+physics=N
+ctrl=0
+
+[State 879900, Victim own reaction]
+type=ChangeAnim
+trigger1=!time
+value=cond(var(45)>0 && selfanimexist(var(45)*1000000+5000),var(45)*1000000+5000,cond(var(45)>0 && selfanimexist(var(45)*10000+5000),var(45)*10000+5000,cond(var(30)=1 && selfanimexist(10000+5000),10000+5000,5000)))
+
+[State 879900, Capture safety]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 879900, Capture camera stability]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+
+[State 879900, Orphan safety]
+type=SelfState
+trigger1=time>600
+value=0
+ctrl=1
+
+[Statedef 879901]
+type=A
+movetype=H
+physics=N
+ctrl=0
+
+[State 879901, Victim own falling art]
+type=ChangeAnim
+trigger1=!time
+value=cond(var(45)>0 && selfanimexist(var(45)*1000000+5050),var(45)*1000000+5050,cond(var(45)>0 && selfanimexist(var(45)*10000+5050),var(45)*10000+5050,cond(var(30)=1 && selfanimexist(10000+5050),10000+5050,5050)))
+
+[State 879901, Throw impulse]
+type=VelSet
+trigger1=!time
+x=-5
+y=-8
+
+[State 879901, Gravity]
+type=VelAdd
+trigger1=1
+y=0.44
+
+[State 879901, Land safely]
+type=SelfState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=5100
+
+[Statedef 870220]
+type=S
+movetype=I
+physics=S
+anim=0
+ctrl=0
+velset=0,0
+[State 870220, Equip]
+type=VarSet
+trigger1=time=8
+var(10)=cond(var(10)>0,0,10000)
+[State 870220, Reset domain]
+type=VarSet
+trigger1=time=8
+var(11)=0
+[State 870220, Reset source selector]
+type=VarSet
+trigger1=time=8
+var(12)=0
+[State 870220, Reveal stance]
+type=ChangeAnim
+trigger1=time=9
+value=cond(var(10)>0,876320,0)
+[State 870220, Flash]
+type=PalFX
+trigger1=time=8
+time=8
+add=35,0,65
+[State 870220, Ready]
+type=ChangeState
+trigger1=time>=24
+value=0
+ctrl=1
+
+[Statedef 876300]
+type=S
+movetype=A
+physics=S
+anim=876300
+velset=0,0
+ctrl=0
+poweradd=-1000
+[State 876300, Step into the attack]
+type=VelSet
+trigger1=1
+x=cond(time>=4 && time<10,3.5,cond(time>=18 && time<26,2,0))
+
+[State 876300, Super energy gathers]
+type=Explod
+trigger1=!time
+anim=879830
+ID=879840
+postype=p1
+pos=0,-22
+scale=.85,.85
+sprpriority=-1
+ownpal=1
+supermovetime=12
+removetime=-2
+persistent=0
+[State 876300, Super anticipation]
+type=SuperPause
+trigger1=!time
+time=8
+movetime=0
+anim=-1
+sound=-1
+darken=0
+unhittable=0
+persistent=0
+[State 876300, Arena contrast]
+type=BGPalFX
+trigger1=!time
+time=14
+mul=150,135,185
+add=0,0,0
+persistent=0
+[State 876300, Power release sound]
+type=PlaySnd
+trigger1=!time
+value=S5,54
+volumescale=90
+persistent=0
+
+[State 876300, Strike 10]
+type=HitDef
+trigger1=time=10
+attr=S,HA
+damage=60,8
+hitflag=MAF
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=-1
+guard.sparkno=-1
+sparkxy=0,-35
+ground.type=High
+ground.hittime=24
+ground.velocity=-2,0
+air.velocity=-3,-4
+fall=0
+getpower=0,0
+givepower=12,5
+[State 876300, Compact weapon trail 10]
+type=Explod
+trigger1=time=10
+anim=879831
+ID=879820
+postype=p1
+pos=32,-32
+scale=.85,.85
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+[State 876300, Weapon sound 10]
+type=PlaySnd
+trigger1=time=10
+value=S5,52
+volumescale=80
+
+[State 876300, Confirmed super impact]
+type=Explod
+trigger1=time=11 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.5,.5
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 876300, Super impact weight]
+type=EnvShake
+trigger1=time=11 && movehit
+time=5
+ampl=-1
+freq=65
+persistent=0
+[State 876300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=11 && movehit
+value=S5,47
+volumescale=65
+persistent=0
+
+[State 876300, Strike 18]
+type=HitDef
+trigger1=time=18
+attr=S,HA
+damage=60,8
+hitflag=MAF
+guardflag=MA
+priority=5,Hit
+pausetime=4,8
+sparkno=-1
+guard.sparkno=-1
+sparkxy=0,-35
+ground.type=High
+ground.hittime=24
+ground.velocity=-2,0
+air.velocity=-3,-4
+fall=0
+getpower=0,0
+givepower=12,5
+[State 876300, Compact weapon trail 18]
+type=Explod
+trigger1=time=18
+anim=879831
+ID=879820
+postype=p1
+pos=32,-32
+scale=.85,.85
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+[State 876300, Weapon sound 18]
+type=PlaySnd
+trigger1=time=18
+value=S5,52
+volumescale=80
+
+[State 876300, Confirmed super impact]
+type=Explod
+trigger1=time=19 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.5,.5
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 876300, Super impact weight]
+type=EnvShake
+trigger1=time=19 && movehit
+time=5
+ampl=-1
+freq=65
+persistent=0
+[State 876300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=19 && movehit
+value=S5,47
+volumescale=65
+persistent=0
+
+[State 876300, Strike 26]
+type=HitDef
+trigger1=time=26
+attr=S,HA
+damage=60,8
+hitflag=MAF
+guardflag=MA
+priority=5,Hit
+pausetime=7,12
+sparkno=-1
+guard.sparkno=-1
+sparkxy=0,-35
+ground.type=High
+ground.hittime=24
+ground.velocity=-5,-4
+air.velocity=-5,-5
+fall=1
+getpower=0,0
+givepower=12,5
+[State 876300, Compact weapon trail 26]
+type=Explod
+trigger1=time=26
+anim=879831
+ID=879820
+postype=p1
+pos=32,-32
+scale=.85,.85
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+[State 876300, Weapon sound 26]
+type=PlaySnd
+trigger1=time=26
+value=S5,52
+volumescale=80
+
+[State 876300, Confirmed super impact]
+type=Explod
+trigger1=time=27 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.85,.85
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 876300, Super impact weight]
+type=EnvShake
+trigger1=time=27 && movehit
+time=10
+ampl=-3
+freq=65
+persistent=0
+[State 876300, Heavy hit sound]
+type=PlaySnd
+trigger1=time=27 && movehit
+value=S5,47
+volumescale=100
+persistent=0
+
+[State 876300, Recover]
+type=ChangeState
+trigger1=time>=48
+value=0
+ctrl=1
+
+[Statedef 876310]
+type=S
+movetype=A
+physics=S
+anim=876310
+velset=0,0
+ctrl=0
+poweradd=-1000
+[State 876310, Step into the attack]
+type=VelSet
+trigger1=1
+x=cond(time>=12 && time<22,1.4,0)
+
+[State 876310, Super energy gathers]
+type=Explod
+trigger1=!time
+anim=879830
+ID=879840
+postype=p1
+pos=0,-22
+scale=.85,.85
+sprpriority=-1
+ownpal=1
+supermovetime=12
+removetime=-2
+persistent=0
+[State 876310, Super anticipation]
+type=SuperPause
+trigger1=!time
+time=8
+movetime=0
+anim=-1
+sound=-1
+darken=0
+unhittable=0
+persistent=0
+[State 876310, Arena contrast]
+type=BGPalFX
+trigger1=!time
+time=14
+mul=150,135,185
+add=0,0,0
+persistent=0
+[State 876310, Power release sound]
+type=PlaySnd
+trigger1=!time
+value=S5,54
+volumescale=90
+persistent=0
+
+[State 876310, Strike 22]
+type=HitDef
+trigger1=time=22
+attr=S,HA
+damage=220,8
+hitflag=MAF
+guardflag=MA
+priority=5,Hit
+pausetime=7,12
+sparkno=-1
+guard.sparkno=-1
+sparkxy=0,-35
+ground.type=High
+ground.hittime=24
+ground.velocity=-5,-4
+air.velocity=-5,-5
+fall=1
+getpower=0,0
+givepower=12,5
+[State 876310, Compact weapon trail 22]
+type=Explod
+trigger1=time=22
+anim=879832
+ID=879821
+postype=p1
+pos=32,-32
+scale=1,1
+sprpriority=3
+ownpal=1
+removetime=-2
+persistent=0
+[State 876310, Weapon sound 22]
+type=PlaySnd
+trigger1=time=22
+value=S5,52
+volumescale=80
+
+[State 876310, Confirmed super impact]
+type=Explod
+trigger1=time=23 && movehit
+anim=879837
+ID=879842
+postype=p1
+pos=44,-33
+scale=.85,.85
+sprpriority=5
+ownpal=1
+removetime=-2
+persistent=0
+[State 876310, Super impact weight]
+type=EnvShake
+trigger1=time=23 && movehit
+time=10
+ampl=-3
+freq=65
+persistent=0
+[State 876310, Heavy hit sound]
+type=PlaySnd
+trigger1=time=23 && movehit
+value=S5,47
+volumescale=100
+persistent=0
+
+[State 876310, Recover]
+type=ChangeState
+trigger1=time>=58
+value=0
+ctrl=1
+
+[Statedef 878400]
+type=S
+movetype=I
+physics=N
+anim=878420
+velset=0,0
+ctrl=0
+[State 878400, No unrelated collision]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 878400, No ground shadow]
+type=AssertSpecial
+trigger1=1
+flag=noshadow
+[State 878400, Approach]
+type=VelSet
+trigger1=time<10
+x=2
+[State 878400, Plant for the strike]
+type=VelSet
+trigger1=time>=10
+x=0
+[State 878400, Fade]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=cond(time<4,time*64,cond(time>34,(42-time)*32,256)),cond(time<4,256-time*64,cond(time>34,256-(42-time)*32,0))
+[State 878400, End visual assault]
+type=DestroySelf
+trigger1=time>=42
+trigger2=parent,stateno!=3030
+
+
+[Statedef 878401]
+type=S
+movetype=I
+physics=N
+anim=878421
+velset=0,0
+ctrl=0
+[State 878401, No unrelated collision]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 878401, No ground shadow]
+type=AssertSpecial
+trigger1=1
+flag=noshadow
+[State 878401, Approach]
+type=VelSet
+trigger1=time<10
+x=2
+[State 878401, Plant for the strike]
+type=VelSet
+trigger1=time>=10
+x=0
+[State 878401, Fade]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=cond(time<4,time*64,cond(time>34,(42-time)*32,256)),cond(time<4,256-time*64,cond(time>34,256-(42-time)*32,0))
+[State 878401, End visual assault]
+type=DestroySelf
+trigger1=time>=42
+trigger2=parent,stateno!=3030
+
+
+[Statedef 878402]
+type=S
+movetype=I
+physics=N
+anim=878422
+velset=0,0
+ctrl=0
+[State 878402, No unrelated collision]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 878402, No ground shadow]
+type=AssertSpecial
+trigger1=1
+flag=noshadow
+[State 878402, Approach]
+type=VelSet
+trigger1=time<10
+x=2
+[State 878402, Plant for the strike]
+type=VelSet
+trigger1=time>=10
+x=0
+[State 878402, Fade]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=cond(time<4,time*64,cond(time>34,(42-time)*32,256)),cond(time<4,256-time*64,cond(time>34,256-(42-time)*32,0))
+[State 878402, End visual assault]
+type=DestroySelf
+trigger1=time>=42
+trigger2=parent,stateno!=3030
+
+
+[Statedef 878403]
+type=S
+movetype=I
+physics=N
+anim=878423
+velset=0,0
+ctrl=0
+[State 878403, No unrelated collision]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 878403, No ground shadow]
+type=AssertSpecial
+trigger1=1
+flag=noshadow
+[State 878403, Approach]
+type=VelSet
+trigger1=time<10
+x=2
+[State 878403, Plant for the strike]
+type=VelSet
+trigger1=time>=10
+x=0
+[State 878403, Fade]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=cond(time<4,time*64,cond(time>34,(42-time)*32,256)),cond(time<4,256-time*64,cond(time>34,256-(42-time)*32,0))
+[State 878403, End visual assault]
+type=DestroySelf
+trigger1=time>=42
+trigger2=parent,stateno!=3030
+
+[Statedef 878511]
+type=S
+physics=N
+movetype=I
+ctrl=0
+anim=878511
+velset=1,0
+sprpriority=1
+[State 878511, No collision]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 878511, No floor shadow]
+type=AssertSpecial
+trigger1=1
+flag=noshadow
+[State 878511, Arrive at exchange point]
+type=VelSet
+trigger1=time>=30
+x=0
+[State 878511, Stand guard]
+type=ChangeAnim
+trigger1=time=30
+value=878512
+[State 878511, Purple exchange silhouette]
+type=PalFX
+trigger1=time>=42
+time=1
+mul=100,50,180
+add=20,0,50
+[State 878511, Swap instantly and clean up on skip]
+type=DestroySelf
+trigger1=parent,time>=48
+trigger2=parent,stateno!=191
+
+[Statedef 878510]
+type=S
+physics=N
+movetype=I
+ctrl=0
+anim=878510
+velset=0,0
+sprpriority=-2
+[State 878510, No hit collision]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 878510, No extra floor shadow]
+type=AssertSpecial
+trigger1=1
+flag=noshadow
+[State 878510, Follow arrival position]
+type=BindToParent
+trigger1=1
+pos=0,0
+[State 878510, Open and close]
+type=AngleDraw
+trigger1=1
+scale=min(1,(time+1)/20.0)*max(0,min(1,(108-time)/28.0)),min(1,(time+1)/20.0)*max(0,min(1,(108-time)/28.0))
+[State 878510, Leave no portal after an intro skip]
+type=DestroySelf
+trigger1=parent,stateno!=191
+trigger2=time>=108

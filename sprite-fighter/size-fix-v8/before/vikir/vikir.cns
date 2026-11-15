@@ -1,0 +1,3019 @@
+[Data]
+life=1000
+power=3000
+attack=100
+defence=100
+fall.defence_up=50
+liedown.time=40
+airjuggle=15
+sparkno=2
+guard.sparkno=40
+KO.echo=0
+volume=0
+[Size]
+xscale=0.9342303053
+yscale=0.9342303053
+ground.back=45
+ground.front=45
+air.back=45
+air.front=45
+height=345
+attack.dist=230
+proj.attack.dist=280
+proj.doscale=1
+head.pos=0,-310
+mid.pos=0,-170
+shadowoffset=0
+draw.offset=0,0
+[Velocity]
+walk.fwd=4.6
+walk.back=-3.4
+jump.neu=0,-12.5
+jump.fwd=4,-12.5
+jump.back=-3.4,-12.5
+[Movement]
+yaccel=.65
+stand.friction=.85
+crouch.friction=.82
+airjump.num=0
+stand.friction.threshold=.1
+
+[Statedef -2]
+type=S
+movetype=I
+physics=N
+ctrl=0
+
+[State -2, Face opponent]
+type=Turn
+trigger1=ctrl
+trigger1=statetype!=A
+trigger1=p2dist x<0
+
+[State -2, Authored movement]
+type=AssertSpecial
+trigger1=1
+flag=nowalk
+flag2=nobrake
+flag3=noautoturn
+
+[State -2, Aura duration]
+type=VarAdd
+trigger1=var(20)>0
+var(20)=-1
+
+[State -2, Aura bonus]
+type=AttackMulSet
+trigger1=1
+value=ifelse(var(20)>0,1.12,1)
+
+[State -2, Clear aura on KO]
+type=VarSet
+trigger1=life<=0
+var(20)=0
+
+[State -2, Reset disguise each round]
+type=MapSet
+trigger1=roundstate=0
+map="vikir.form"
+value=0
+
+[State -2, Reset aura each round]
+type=VarSet
+trigger1=roundstate=0
+var(20)=0
+
+[State -2, Night Hound art]
+type=ChangeAnim
+trigger1=map(vikir.form)=1
+trigger1=anim<10000
+trigger1=selfanimexist(anim+10000)
+value=anim+10000
+elem=animelemno(0)
+
+[State -2, Choco art]
+type=ChangeAnim
+trigger1=map(vikir.form)=2
+trigger1=anim<20000
+trigger1=selfanimexist((anim%10000)+20000)
+value=(anim%10000)+20000
+elem=animelemno(0)
+
+[State -2, Unmasked art]
+type=ChangeAnim
+trigger1=map(vikir.form)=0
+trigger1=anim>=10000
+trigger1=selfanimexist(anim%10000)
+value=anim%10000
+elem=animelemno(0)
+
+[State -2, Disguise from Choco]
+type=ChangeAnim
+trigger1=map(vikir.form)=1
+trigger1=anim>=20000
+trigger1=selfanimexist((anim%10000)+10000)
+value=(anim%10000)+10000
+elem=animelemno(0)
+
+[State -2, Academy art]
+type=ChangeAnim
+trigger1=map(vikir.form)=3
+trigger1=anim<30000
+trigger1=selfanimexist((anim%10000)+30000)
+value=(anim%10000)+30000
+elem=animelemno(0)
+
+[State -2, Size matches form]
+type=Width
+trigger1=1
+edge=ifelse(map(vikir.form)=2,38,45),ifelse(map(vikir.form)=2,38,45)
+player=ifelse(map(vikir.form)=2,38,45),ifelse(map(vikir.form)=2,38,45)
+
+[State -2, Observe live projectiles]
+type=MapSet
+trigger1=1
+map="guest.projectiles"
+value=numproj
+
+[State -2, Guest cooldown]
+type=VarAdd
+trigger1=var(21)>0
+var(21)=-1
+
+[State -2, Reset guest cooldown]
+type=VarSet
+trigger1=roundstate=0
+var(21)=0
+
+[State -2, Remove interrupted blessing]
+type=RemoveExplod
+trigger1=stateno!=2000
+ID=7130
+
+[State -2, Release charge ring]
+type=RemoveExplod
+trigger1=stateno!=500
+ID=8050
+
+[State -2, Clean interrupted cinematic]
+type=RemoveExplod
+trigger1=stateno!=4500 && stateno!=4510
+ID=8010
+
+[State -2, Clean interrupted cinematic]
+type=RemoveExplod
+trigger1=stateno!=4500 && stateno!=4510
+ID=8020
+
+[State -2, Clean interrupted cinematic]
+type=RemoveExplod
+trigger1=stateno!=4500 && stateno!=4510
+ID=8030
+
+[Statedef 0]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=0+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20000),0,map(vikir.form))
+velset=0,0
+
+[State 0, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 0, Ground]
+type=PosSet
+trigger1=1
+y=0
+
+[Statedef 10]
+type=C
+movetype=I
+physics=N
+ctrl=0
+anim=10+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20010),0,map(vikir.form))
+velset=0,0
+
+[State 10, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 10, Stand]
+type=ChangeState
+trigger1=command!="holddown"
+value=0
+ctrl=1
+
+[Statedef 20]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=20+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20020),0,map(vikir.form))
+
+[State 20, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 20, Walk]
+type=VelSet
+trigger1=1
+x=4.6*(.35+.65*min(1,time/8.0))
+y=0
+
+[State 20, Stop]
+type=ChangeState
+trigger1=(ailevel=0 && command!="holdfwd") || (ailevel>0 && p2bodydist x<140)
+value=22
+ctrl=1
+
+[Statedef 21]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=21+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20021),0,map(vikir.form))
+
+[State 21, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 21, Walk]
+type=VelSet
+trigger1=1
+x=-3.4*(.35+.65*min(1,time/8.0))
+y=0
+
+[State 21, Stop]
+type=ChangeState
+trigger1=(ailevel=0 && command!="holdback") || (ailevel>0 && p2bodydist x<140)
+value=22
+ctrl=1
+
+[Statedef 22]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=22+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20022),0,map(vikir.form))
+
+[State 22, Settle]
+type=VelMul
+trigger1=1
+x=0.6
+
+[State 22, Ground]
+type=PosSet
+trigger1=1
+y=0
+
+[State 22, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 40]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=40+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20040),0,map(vikir.form))
+
+[State 40, Direction]
+type=VarSet
+trigger1=time=0
+var(1)=ifelse(command="holdfwd",4,ifelse(command="holdback",-3.4,0))
+
+[State 40, Take off]
+type=ChangeState
+trigger1=time>=3
+value=50
+ctrl=1
+
+[Statedef 50]
+type=A
+movetype=I
+physics=N
+ctrl=0
+anim=41+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20041),0,map(vikir.form))
+
+[State 50, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 50, Launch]
+type=VelSet
+trigger1=time=0
+trigger1=prevstateno=40
+x=var(1)
+y=-12.5
+
+[State 50, Apex]
+type=ChangeAnim
+trigger1=vel y=[-3,3]
+trigger1=anim%10000!=42
+value=42+10000*map(vikir.form)
+
+[State 50, Descend]
+type=ChangeAnim
+trigger1=vel y>3
+trigger1=anim%10000!=43
+value=43+10000*map(vikir.form)
+
+[State 50, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 50, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[Statedef 52]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=52+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20052),0,map(vikir.form))
+velset=0,0
+
+[State 52, Ground]
+type=PosSet
+trigger1=1
+y=0
+
+[State 52, Recover]
+type=ChangeState
+trigger1=time>=5
+value=0
+ctrl=1
+
+[Statedef 200]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=200+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20200),0,map(vikir.form))
+velset=0,0
+
+[State 200, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 200, Contact]
+type=HitDef
+trigger1=time=6
+attr=S,NA
+damage=34,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-190
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=200
+
+[State 200, Sword whoosh]
+type=PlaySnd
+trigger1=time=5
+value=0,0
+
+[State 200, Sword step]
+type=VelSet
+trigger1=time=[4,8]
+x=3
+
+[State 200, Plant feet]
+type=VelSet
+trigger1=time=9
+x=0
+
+[State 200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 210]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=210+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20210),0,map(vikir.form))
+velset=0,0
+
+[State 210, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 210, Contact]
+type=HitDef
+trigger1=time=9
+attr=S,NA
+damage=55,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-190
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=210
+
+[State 210, Sword whoosh]
+type=PlaySnd
+trigger1=time=8
+value=0,0
+
+[State 210, Sword step]
+type=VelSet
+trigger1=time=[7,11]
+x=3
+
+[State 210, Plant feet]
+type=VelSet
+trigger1=time=12
+x=0
+
+[State 210, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 220]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=220+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20220),0,map(vikir.form))
+velset=0,0
+
+[State 220, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 220, Contact]
+type=HitDef
+trigger1=time=13
+attr=S,NA
+damage=82,2
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-190
+hitsound=S0,0
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=220
+
+[State 220, Sword whoosh]
+type=PlaySnd
+trigger1=time=12
+value=0,0
+
+[State 220, Sword step]
+type=VelSet
+trigger1=time=[11,15]
+x=5
+
+[State 220, Plant feet]
+type=VelSet
+trigger1=time=16
+x=0
+
+[State 220, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 400]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=400+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20400),0,map(vikir.form))
+velset=0,0
+
+[State 400, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 400, Contact]
+type=HitDef
+trigger1=time=6
+attr=C,NA
+damage=30,0
+guardflag=L
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-190
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=400
+
+[State 400, Sword whoosh]
+type=PlaySnd
+trigger1=time=5
+value=0,0
+
+[State 400, Sword step]
+type=VelSet
+trigger1=time=[4,8]
+x=3
+
+[State 400, Plant feet]
+type=VelSet
+trigger1=time=9
+x=0
+
+[State 400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 410]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=410+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20410),0,map(vikir.form))
+velset=0,0
+
+[State 410, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 410, Contact]
+type=HitDef
+trigger1=time=9
+attr=C,NA
+damage=50,1
+guardflag=L
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-190
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=410
+
+[State 410, Sword whoosh]
+type=PlaySnd
+trigger1=time=8
+value=0,0
+
+[State 410, Sword step]
+type=VelSet
+trigger1=time=[7,11]
+x=3
+
+[State 410, Plant feet]
+type=VelSet
+trigger1=time=12
+x=0
+
+[State 410, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 420]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=420+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20420),0,map(vikir.form))
+velset=0,0
+
+[State 420, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 420, Contact]
+type=HitDef
+trigger1=time=12
+attr=C,NA
+damage=76,2
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-190
+hitsound=S0,0
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=420
+
+[State 420, Sword whoosh]
+type=PlaySnd
+trigger1=time=11
+value=0,0
+
+[State 420, Sword step]
+type=VelSet
+trigger1=time=[10,14]
+x=5
+
+[State 420, Plant feet]
+type=VelSet
+trigger1=time=15
+x=0
+
+[State 420, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 600]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=600+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20600),0,map(vikir.form))
+
+[State 600, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 600, Contact]
+type=HitDef
+trigger1=time=6
+attr=A,NA
+damage=34,1
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-190
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=600
+
+[State 600, Sword whoosh]
+type=PlaySnd
+trigger1=time=5
+value=0,0
+
+[State 600, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 600, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 600, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 610]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=610+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20610),0,map(vikir.form))
+
+[State 610, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 610, Contact]
+type=HitDef
+trigger1=time=9
+attr=A,NA
+damage=52,1
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-190
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=610
+
+[State 610, Sword whoosh]
+type=PlaySnd
+trigger1=time=8
+value=0,0
+
+[State 610, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 610, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 610, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 620]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=620+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20620),0,map(vikir.form))
+
+[State 620, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 620, Contact]
+type=HitDef
+trigger1=time=12
+attr=A,NA
+damage=75,2
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-190
+hitsound=S0,0
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=620
+
+[State 620, Sword whoosh]
+type=PlaySnd
+trigger1=time=11
+value=0,0
+
+[State 620, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 620, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 620, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 190]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=190+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20190),0,map(vikir.form))
+velset=0,0
+
+[State 190, Intro]
+type=AssertSpecial
+trigger1=time<52
+flag=intro
+
+[State 190, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 191]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=191+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20191),0,map(vikir.form))
+
+[State 191, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 500]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=500+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20500),0,map(vikir.form))
+velset=0,0
+
+[State 500, Visible charging aura]
+type=PalFX
+trigger1=1
+time=2
+add=35,5,5
+sinadd=30,10,10,16
+
+[State 500, Charge floor ring]
+type=Explod
+trigger1=numexplod(8050)=0
+anim=7130
+ID=8050
+postype=p1
+pos=0,-15
+bindtime=-1
+scale=.5,.12
+removetime=-1
+ownpal=1
+sprpriority=-1
+
+[State 500, Gather power]
+type=PowerAdd
+trigger1=1
+value=10
+
+[State 500, Release]
+type=ChangeState
+trigger1=command!="hold_charge" || power>=3000
+value=0
+ctrl=1
+
+[Statedef 700]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=700+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20700),0,map(vikir.form))
+velset=0,0
+
+[State 700, Change form]
+type=MapSet
+trigger1=time=8
+map="vikir.form"
+value=(map(vikir.form)+1)%4
+
+[State 700, Mask sound]
+type=PlaySnd
+trigger1=time=8
+value=0,4
+volumescale=40
+
+[State 700, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 710]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=710+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20710),0,map(vikir.form))
+velset=0,0
+
+[State 710, Change form]
+type=MapSet
+trigger1=time=8
+map="vikir.form"
+value=0
+
+[State 710, Mask sound]
+type=PlaySnd
+trigger1=time=8
+value=0,4
+volumescale=40
+
+[State 710, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 800]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=800+10000*ifelse(map(vikir.form)=2 && !selfanimexist(20800),0,map(vikir.form))
+velset=0,0
+poweradd=-1000
+
+[State 800, Return to swordsman]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 800, Sword aura]
+type=VarSet
+trigger1=time=16
+var(20)=600
+
+[State 800, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=1000+10000*ifelse(map(vikir.form)=2 && !selfanimexist(21000),0,map(vikir.form))
+poweradd=-250
+velset=0,0
+
+[State 1000, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 1000, Contact]
+type=HitDef
+trigger1=time=8
+attr=S,SA
+damage=75,2
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=1000
+
+[State 1000, Blade sound]
+type=PlaySnd
+trigger1=time=8
+value=0,0
+
+[State 1000, Drive forward]
+type=VelSet
+trigger1=time=[5,11]
+x=13
+
+[State 1000, Stop]
+type=VelSet
+trigger1=time=12
+x=0
+
+[State 1000, Cut impact]
+type=EnvShake
+trigger1=movehit=1
+time=4
+freq=90
+ampl=2
+
+[State 1000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1100]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=1100+10000*ifelse(map(vikir.form)=2 && !selfanimexist(21100),0,map(vikir.form))
+poweradd=-500
+velset=0,0
+
+[State 1100, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 1100, Contact]
+type=HitDef
+trigger1=time=10
+attr=S,SA
+damage=100,3
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=4,7
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=-2,-4
+air.velocity=-2,-3
+fall=1
+getpower=0,0
+givepower=25,10
+id=1100
+
+[State 1100, Blade sound]
+type=PlaySnd
+trigger1=time=10
+value=0,0
+
+[State 1100, Cut impact]
+type=EnvShake
+trigger1=movehit=1
+time=4
+freq=90
+ampl=2
+
+[State 1100, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=3000+10000*ifelse(map(vikir.form)=2 && !selfanimexist(23000),0,map(vikir.form))
+poweradd=-1000
+velset=0,0
+
+[State 3000, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 3000, Super pause]
+type=SuperPause
+trigger1=time=0
+time=10
+movetime=10
+anim=-1
+sound=S0,4
+darken=1
+poweradd=0
+
+[State 3000, Contact]
+type=HitDef
+trigger1=time=10
+attr=S,HA
+damage=62,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=3000
+
+[State 3000, Blade sound]
+type=PlaySnd
+trigger1=time=10
+value=0,0
+
+[State 3000, Contact]
+type=HitDef
+trigger1=time=18
+attr=S,HA
+damage=62,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=3000
+
+[State 3000, Blade sound]
+type=PlaySnd
+trigger1=time=18
+value=0,0
+
+[State 3000, Contact]
+type=HitDef
+trigger1=time=30
+attr=S,HA
+damage=62,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=3000
+
+[State 3000, Blade sound]
+type=PlaySnd
+trigger1=time=30
+value=0,0
+
+[State 3000, Cut impact]
+type=EnvShake
+trigger1=movehit=1
+time=4
+freq=90
+ampl=3
+
+[State 3000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3100]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=3100+10000*ifelse(map(vikir.form)=2 && !selfanimexist(23100),0,map(vikir.form))
+poweradd=-1500
+velset=0,0
+
+[State 3100, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 3100, Super pause]
+type=SuperPause
+trigger1=time=0
+time=10
+movetime=10
+anim=-1
+sound=S0,4
+darken=1
+poweradd=0
+
+[State 3100, Contact]
+type=HitDef
+trigger1=time=12
+attr=S,HA
+damage=165,4
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=3100
+
+[State 3100, Blade sound]
+type=PlaySnd
+trigger1=time=12
+value=0,0
+
+[State 3100, Blood draw on confirmed contact]
+type=LifeAdd
+trigger1=movehit=1
+value=55
+absolute=1
+
+[State 3100, Cut impact]
+type=EnvShake
+trigger1=movehit=1
+time=4
+freq=90
+ampl=3
+
+[State 3100, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=4000+10000*ifelse(map(vikir.form)=2 && !selfanimexist(24000),0,map(vikir.form))
+poweradd=-2000
+velset=0,0
+
+[State 4000, Human sword body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 4000, Super pause]
+type=SuperPause
+trigger1=time=0
+time=10
+movetime=10
+anim=-1
+sound=S0,4
+darken=1
+poweradd=0
+
+[State 4000, Contact]
+type=HitDef
+trigger1=time=20
+attr=S,HA
+damage=44,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=4000
+
+[State 4000, Blade sound]
+type=PlaySnd
+trigger1=time=20
+value=0,0
+
+[State 4000, Contact]
+type=HitDef
+trigger1=time=28
+attr=S,HA
+damage=44,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=4000
+
+[State 4000, Blade sound]
+type=PlaySnd
+trigger1=time=28
+value=0,0
+
+[State 4000, Contact]
+type=HitDef
+trigger1=time=36
+attr=S,HA
+damage=44,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=4000
+
+[State 4000, Blade sound]
+type=PlaySnd
+trigger1=time=36
+value=0,0
+
+[State 4000, Contact]
+type=HitDef
+trigger1=time=44
+attr=S,HA
+damage=44,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=4000
+
+[State 4000, Blade sound]
+type=PlaySnd
+trigger1=time=44
+value=0,0
+
+[State 4000, Contact]
+type=HitDef
+trigger1=time=52
+attr=S,HA
+damage=44,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=4000
+
+[State 4000, Blade sound]
+type=PlaySnd
+trigger1=time=52
+value=0,0
+
+[State 4000, Contact]
+type=HitDef
+trigger1=time=60
+attr=S,HA
+damage=44,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-2,-3
+fall=0
+getpower=0,0
+givepower=25,10
+id=4000
+
+[State 4000, Blade sound]
+type=PlaySnd
+trigger1=time=60
+value=0,0
+
+[State 4000, Contact]
+type=HitDef
+trigger1=time=68
+attr=S,HA
+damage=44,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=28
+ground.slidetime=12
+ground.velocity=-2,-4
+air.velocity=-2,-3
+fall=1
+getpower=0,0
+givepower=25,10
+id=4000
+
+[State 4000, Blade sound]
+type=PlaySnd
+trigger1=time=68
+value=0,0
+
+[State 4000, Drive forward]
+type=VelSet
+trigger1=time=[17,71]
+x=4
+
+[State 4000, Stop]
+type=VelSet
+trigger1=time=72
+x=0
+
+[State 4000, Cut impact]
+type=EnvShake
+trigger1=movehit=1
+time=4
+freq=90
+ampl=3
+
+[State 4000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1200]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=1200+10000*ifelse(map(vikir.form)=2 && !selfanimexist(21200),0,map(vikir.form))
+velset=0,0
+
+[State 1200, Step]
+type=VelSet
+trigger1=time=[4,12]
+x=-13
+
+[State 1200, Plant]
+type=VelSet
+trigger1=time=13
+x=0
+
+[State 1200, Brief evasion]
+type=NotHitBy
+trigger1=time=[5,8]
+value=SCA
+time=1
+
+[State 1200, Pass through]
+type=PlayerPush
+trigger1=time=[4,12]
+value=0
+
+[State 1200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1300]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=1300+10000*ifelse(map(vikir.form)=2 && !selfanimexist(21300),0,map(vikir.form))
+velset=0,0
+
+[State 1300, Step]
+type=VelSet
+trigger1=time=[4,12]
+x=15
+
+[State 1300, Plant]
+type=VelSet
+trigger1=time=13
+x=0
+
+[State 1300, Brief evasion]
+type=NotHitBy
+trigger1=time=[5,8]
+value=SCA
+time=1
+
+[State 1300, Pass through]
+type=PlayerPush
+trigger1=time=[4,12]
+value=0
+
+[State 1300, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 2000]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=2000+10000*ifelse(map(vikir.form)=2 && !selfanimexist(22000),0,map(vikir.form))
+poweradd=-1250
+velset=0,0
+
+[State 2000, Guest shared cooldown]
+type=VarSet
+trigger1=time=0
+var(21)=360
+
+[State 2000, Call Dolores]
+type=Helper
+trigger1=time=4
+name=Dolores guest
+ID=7200
+stateno=7200
+postype=p1
+pos=-230,0
+ownpal=1
+keyctrl=0
+
+[State 2000, Call sound]
+type=PlaySnd
+trigger1=time=4
+value=0,4
+volumescale=60
+
+[State 2000, Dolores healing]
+type=LifeAdd
+trigger1=time=28
+trigger1=numhelper(7200)>0
+value=120
+absolute=1
+
+[State 2000, Healing sigil]
+type=Explod
+trigger1=time=24
+anim=7130
+ID=7130
+pos=0,-190
+postype=p1
+bindtime=-1
+removetime=24
+sprpriority=3
+ownpal=1
+
+[State 2000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 7200]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=7000
+velset=0,0
+
+[State 7200, Nonblocking guest]
+type=PlayerPush
+trigger1=1
+value=0
+
+[State 7200, Guest fade]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=min(256,min(time*64,(48-time)*64)),256-min(256,min(time*64,(48-time)*64))
+
+[State 7200, Guest ends]
+type=DestroySelf
+trigger1=time>=48 || root,stateno=99000 || root,life<=0 || root,movetype=H || root,stateno!=2000
+
+[Statedef 2010]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=2010+10000*ifelse(map(vikir.form)=2 && !selfanimexist(22010),0,map(vikir.form))
+poweradd=-1250
+velset=0,0
+
+[State 2010, Guest shared cooldown]
+type=VarSet
+trigger1=time=0
+var(21)=360
+
+[State 2010, Call Camu]
+type=Helper
+trigger1=time=4
+name=Camu guest
+ID=7210
+stateno=7210
+postype=p1
+pos=-230,0
+ownpal=1
+keyctrl=0
+
+[State 2010, Call sound]
+type=PlaySnd
+trigger1=time=4
+value=0,4
+volumescale=60
+
+[State 2010, Traveling projectile]
+type=Projectile
+trigger1=time=28
+projid=20100
+projanim=7110
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=80
+velocity=16,0
+offset=-75,-230
+attr=S,SP
+damage=180,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=20
+ground.velocity=-3
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 2010, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 7210]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=7010
+velset=0,0
+
+[State 7210, Nonblocking guest]
+type=PlayerPush
+trigger1=1
+value=0
+
+[State 7210, Guest fade]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=min(256,min(time*64,(48-time)*64)),256-min(256,min(time*64,(48-time)*64))
+
+[State 7210, Guest ends]
+type=DestroySelf
+trigger1=time>=48 || root,stateno=99000 || root,life<=0 || root,movetype=H || root,stateno!=2010
+
+[Statedef 2020]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=2020+10000*ifelse(map(vikir.form)=2 && !selfanimexist(22020),0,map(vikir.form))
+poweradd=-1000
+velset=0,0
+
+[State 2020, Guest shared cooldown]
+type=VarSet
+trigger1=time=0
+var(21)=360
+
+[State 2020, Call Aiyen]
+type=Helper
+trigger1=time=4
+name=Aiyen guest
+ID=7220
+stateno=7220
+postype=p1
+pos=-230,0
+ownpal=1
+keyctrl=0
+
+[State 2020, Call sound]
+type=PlaySnd
+trigger1=time=4
+value=0,4
+volumescale=60
+
+[State 2020, Traveling projectile]
+type=Projectile
+trigger1=time=34
+projid=20200
+projanim=7150
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=80
+velocity=25,-0.8
+offset=-75,-230
+attr=S,SP
+damage=48,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=20
+ground.velocity=-3
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 2020, Traveling projectile]
+type=Projectile
+trigger1=time=34
+projid=20201
+projanim=7150
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=80
+velocity=25,0
+offset=-75,-230
+attr=S,SP
+damage=48,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=20
+ground.velocity=-3
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 2020, Traveling projectile]
+type=Projectile
+trigger1=time=34
+projid=20202
+projanim=7150
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=80
+velocity=25,0.8
+offset=-75,-230
+attr=S,SP
+damage=48,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=20
+ground.velocity=-3
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 2020, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 7220]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=7020
+velset=0,0
+
+[State 7220, Nonblocking guest]
+type=PlayerPush
+trigger1=1
+value=0
+
+[State 7220, Guest fade]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=min(256,min(time*64,(48-time)*64)),256-min(256,min(time*64,(48-time)*64))
+
+[State 7220, Guest ends]
+type=DestroySelf
+trigger1=time>=48 || root,stateno=99000 || root,life<=0 || root,movetype=H || root,stateno!=2020
+
+[Statedef 2030]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=2030+10000*ifelse(map(vikir.form)=2 && !selfanimexist(22030),0,map(vikir.form))
+poweradd=-1250
+velset=0,0
+
+[State 2030, Guest shared cooldown]
+type=VarSet
+trigger1=time=0
+var(21)=360
+
+[State 2030, Call Sinclair]
+type=Helper
+trigger1=time=4
+name=Sinclair guest
+ID=7230
+stateno=7230
+postype=p1
+pos=-230,0
+ownpal=1
+keyctrl=0
+
+[State 2030, Call sound]
+type=PlaySnd
+trigger1=time=4
+value=0,4
+volumescale=60
+
+[State 2030, Traveling projectile]
+type=Projectile
+trigger1=time=28
+projid=20300
+projanim=7120
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=80
+velocity=20,0
+offset=-75,-230
+attr=S,SP
+damage=180,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=20
+ground.velocity=-3
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 2030, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 7230]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=7030
+velset=0,0
+
+[State 7230, Nonblocking guest]
+type=PlayerPush
+trigger1=1
+value=0
+
+[State 7230, Guest fade]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=min(256,min(time*64,(48-time)*64)),256-min(256,min(time*64,(48-time)*64))
+
+[State 7230, Guest ends]
+type=DestroySelf
+trigger1=time>=48 || root,stateno=99000 || root,life<=0 || root,movetype=H || root,stateno!=2030
+
+[Statedef 1400]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=1400+10000*ifelse(map(vikir.form)=2 && !selfanimexist(21400),0,map(vikir.form))
+velset=0,0
+
+[State 1400, Traveling projectile]
+type=Projectile
+trigger1=time=28
+projid=1400
+projanim=7140
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=80
+velocity=27,0
+offset=115,-270
+attr=S,SP
+damage=82,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=20
+ground.velocity=-3
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 1400, Bow release sound]
+type=PlaySnd
+trigger1=time=28
+value=0,0
+
+[State 1400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4500]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=4500+10000*ifelse(map(vikir.form)=2 && !selfanimexist(24500),0,map(vikir.form))
+poweradd=-3000
+velset=0,0
+
+[State 4500, Restore human body]
+type=MapSet
+trigger1=time=0
+map="vikir.form"
+value=ifelse(map(vikir.form)=2,0,map(vikir.form))
+
+[State 4500, Execution announcement]
+type=SuperPause
+trigger1=time=0
+time=18
+movetime=18
+anim=-1
+sound=S0,4
+darken=1
+poweradd=0
+
+[State 4500, Hound eyes cut in]
+type=Explod
+trigger1=time=0
+anim=8020
+ID=8020
+postype=left
+pos=640,320
+bindtime=-1
+removetime=22
+supermovetime=22
+pausemovetime=22
+ownpal=1
+sprpriority=5
+
+[State 4500, Opening dash]
+type=VelSet
+trigger1=time=[19,25]
+x=18
+
+[State 4500, Stop opener]
+type=VelSet
+trigger1=time=26
+x=0
+
+[State 4500, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,HA
+damage=55,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,2
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4500
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4500, Confirmed execution]
+type=ChangeState
+trigger1=movehit
+value=4510
+
+[State 4500, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4510]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=4510+10000*ifelse(map(vikir.form)=2 && !selfanimexist(24510),0,map(vikir.form))
+velset=0,0
+
+[State 4510, Cinematic safety]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 4510, No body push]
+type=PlayerPush
+trigger1=1
+value=0
+
+[State 4510, Hold confirmed target]
+type=TargetBind
+trigger1=time<88
+trigger1=numtarget>0
+time=1
+pos=185,0
+
+[State 4510, Crimson background]
+type=BGPalFX
+trigger1=time<104
+time=2
+color=0
+mul=100,30,45
+
+[State 4510, Blade afterimages]
+type=AfterImage
+trigger1=time=0
+time=104
+length=12
+timegap=2
+framegap=2
+trans=add
+palcolor=0
+palbright=50,0,0
+palmul=.8,.25,.25
+
+[State 4510, Fang storm]
+type=Explod
+trigger1=time=16
+anim=8010
+ID=8010
+postype=p1
+pos=180,-220
+bindtime=-1
+removetime=62
+ownpal=1
+sprpriority=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=16
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=16
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=19
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=19
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=22
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=22
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=25
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=25
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=28
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=28
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=31
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=31
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=34
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=34
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=37
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=37
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=40
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=40
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=43
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=43
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=46
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=46
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=49
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=49
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=52
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=52
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=55
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=55
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=58
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=58
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=61
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=61
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=64
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=64
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=67
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=67
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=70
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=70
+time=2
+freq=100
+ampl=3
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=73
+attr=S,HA
+damage=14,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,1
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,0
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=0
+air.velocity=0,0
+fall=0
+getpower=0,0
+givepower=25,10
+id=4510
+p2stateno=4515
+guard.sparkno=-1
+kill=0
+
+[State 4510, Fang camera impact]
+type=EnvShake
+trigger1=time=73
+time=2
+freq=100
+ampl=3
+
+[State 4510, Final cleave flash]
+type=PalFX
+trigger1=time=88
+time=5
+add=120,60,60
+color=0
+
+[State 4510, Final shockwave]
+type=Explod
+trigger1=time=88
+anim=8030
+ID=8030
+postype=p1
+pos=210,-210
+bindtime=1
+removetime=16
+ownpal=1
+sprpriority=4
+
+[State 4510, Final impact sound]
+type=PlaySnd
+trigger1=time=88
+value=0,3
+
+[State 4510, Final camera impact]
+type=EnvShake
+trigger1=time=88
+time=16
+freq=65
+ampl=10
+
+[State 4510, Contact]
+type=HitDef
+trigger1=time=88
+attr=S,HA
+damage=220,6
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,8
+sparkno=-1
+sparkxy=-10,-180
+hitsound=S0,3
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=30
+ground.slidetime=12
+ground.velocity=-10,-8
+air.velocity=-10,-8
+fall=1
+getpower=0,0
+givepower=25,10
+id=4510
+guard.sparkno=-1
+
+[State 4510, Abort without a target]
+type=ChangeState
+trigger1=time<88
+trigger1=numtarget=0
+value=0
+ctrl=1
+
+[State 4510, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4515]
+type=S
+movetype=H
+physics=N
+ctrl=0
+velset=0,0
+
+[State 4515, Victim hurt pose]
+type=ChangeAnim
+trigger1=time=0
+value=5000
+
+[State 4515, Freeze victim pose]
+type=ChangeAnim
+trigger1=animtime=0
+value=5000
+
+[State 4515, Release interrupted victim]
+type=SelfState
+trigger1=time>150 || enemynear,stateno!=4510 && enemynear,stateno!=4500
+value=0
+ctrl=1

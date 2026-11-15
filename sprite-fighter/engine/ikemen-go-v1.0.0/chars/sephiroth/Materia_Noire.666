@@ -1,0 +1,2499 @@
+;ange sans coeur state
+[Statedef 664034]
+type=A
+physics=N
+movetype=H
+velset=0,0
+ctrl=0
+
+;[State 664034]
+;type=HitOverride
+;trigger1=1
+;time=-1
+;attr=SCA,AA,AT,AP
+;slot=0
+;stateno= 664034
+;ignorehitpause=1
+
+[State 664034]
+type=changeanim2
+triggerall = alive = 1
+trigger1= 1
+value= 5110
+
+[State 664034]
+type=posset
+trigger1= 1
+y=0
+
+[State 664034]
+type=lifeset
+trigger1= 1
+value= 1
+ignorehitpause=1
+
+[State 664034]
+type= selfstate
+trigger1= animtime = 0
+value=5110
+ignorehitpause=1
+
+;--------------------------------------------------------------------------------
+[Statedef 80000]
+type    = S
+movetype= A
+physics = S
+juggle = 0
+velset = 0,0
+anim = 602
+ctrl = 0
+sprpriority = 0
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+;time = 1
+;facing = 0
+pos = 0,10
+ignorehitpause = 1
+
+[State 0, AttackDist]
+type = AttackDist
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+flag2 = invisible
+ignorehitpause = 1
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+ignorehitpause = 1
+
+[State 0, TargetLifeAdd]
+type = TargetLifeAdd
+trigger1 = 1
+value = -1
+absolute = 1
+ignorehitpause = 1
+pausemovetime = -1
+supermovetime = -1
+kill = 1
+
+[State 0, TargetPowerAdd]
+type = TargetPowerAdd
+trigger1 = 1
+value = -5
+absolute = 1
+ignorehitpause = 1
+pausemovetime = -1
+supermovetime = -1
+kill = 1
+
+[State 1000, 5]
+type = HitDef
+trigger1 = numtarget=0&&enemynear(!(enemynear,alive)),gethitvar(damage)>0
+attr = S, SA
+animtype  = Hard
+priority  = 5
+guardflag = 
+hitflag = MAFD
+numhits = 0
+sparkno = -1
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+
+[State 1000, 5]
+type = HitDef
+triggerall = P2MoveType = H
+trigger1 = numtarget=0
+attr = S, SA
+animtype  = Hard
+priority  = 5
+guardflag = 
+hitflag = MAFD
+numhits = 0
+sparkno = -1
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+p2stateno = 2
+
+[State 1000, 5]
+type = null;HitDef
+trigger1 = numtarget=0&&enemynear(!(enemynear,alive)),gethitvar(damage)>0
+attr = S, SA
+animtype  = Hard
+priority  = 5
+guardflag = 
+hitflag = MAFD
+numhits = 0
+sparkno = -1
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+p2stateno = 2
+
+[State 0, HitAdd]
+type = null;HitAdd
+trigger1 = p2movetype!=H
+trigger1 = root,stateno!=7620
+value = -100
+ignorehitpause = 1
+
+[State 0, ReversalDef]
+type = ReversalDef
+trigger1 = numtarget>0
+reversal.attr = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+pausetime = 0,0
+numhits = 0
+sparkno = -1
+hitsound = -1
+ignorehitpause = 1
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = numtarget >0&&movetype=A
+movetype = I
+ignorehitpause = 1
+
+;------------------------------------------------------------------------------
+[Statedef 104010]
+type    = A
+movetype= I
+physics = N
+sprpriority = 4
+velset = 0,0
+
+[State 24100]
+type = SelfState
+trigger1 = name = "seph"
+value = 50
+ignorehitpause = 1
+
+[State 104010]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+
+[State 104010]
+type = screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+[State 104010]
+type = RemoveExplod
+trigger1 = 1
+trigger2 = !time
+ignorehitpause = 1
+pausemovetime = 999999
+supermovetime = 999999
+
+[State 104010]
+type = assertspecial
+trigger1 = name != "seph"
+flag = nostandguard
+flag2 = nocrouchguard
+flag3 = noairguard
+ignorehitpause = 1
+
+[state 104010]
+type = destroyself
+trigger1 = ishelper
+
+[State 104010]
+type = lifeset
+triggerall = name != "seph"
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 104010]
+type = powerset
+triggerall = name != "seph"
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 104010]
+type = ChangeAnim
+trigger1 = time = 0
+value = ifelse(SelfAnimExist(5070),5070,0)
+
+[State 104010]
+type = VelAdd
+Trigger1 = time > 0
+y = .39
+
+[State 104010]
+type = ChangeState
+trigger1 = !alive
+;trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 5150
+
+;---------------------------------------------------------------------------------------------------------
+;materia noire (fin des pourris invincible ! :p)
+[Statedef 664033]
+type=A
+physics=N
+movetype=H
+velset=0,0
+ctrl=0
+anim = 602
+
+;[State 664033]
+;type=ChangeAnim
+;trigger1= 1
+;value=root,anim
+;elem=root,animelemno(-1)
+;ignorehitpause=1
+
+type=HitOverride
+trigger1=1
+time=-1
+attr=SCA,AA,AT,AP
+slot=0
+stateno= 664033
+ignorehitpause=1
+
+[State 664033]
+type=changeanim2
+triggerall = alive = 1
+trigger1= 1
+value= 602
+
+[State 664033]
+type = Projectile
+trigger1= timemod = 1,0
+projanim = 602
+projID = 92006
+projpriority = 7
+projsprpriority = 2
+;projremove = 0
+;projremovetime = 23
+postype = p2
+;offset = 50,-70
+velocity = 0
+attr = S, HP ,A,NT
+damage = Ceil(ifelse(gethitvar(damage)>0,gethitvar(damage),0.5*root,var(0)))
+getpower = 100000
+givepower = -100000
+animtype = diagup
+hitflag = MAFD
+guardflag = 
+sparkno = -1
+guard.sparkno = -1
+;sparkxy = -1
+;hitsound = S202,2
+;guardsound = S200,2
+pausetime = 0,0
+ground.hittime = 20
+p2stateno = 104010
+ground.type = high
+ground.slidetime = 25
+ground.velocity = -10,-8.5
+fall = 1
+fall.recover = 0
+fall.damage=214748368888888888888888888888888888888888
+ignorehitpause = 9999999999
+
+[State 664033]
+type=posset
+trigger1= 1
+y=0
+
+[State 664033]
+type=lifeset
+trigger1= 1
+value=0
+ignorehitpause=1
+
+[State 664033]
+type=selfstate
+triggerall= alive != 1
+trigger1= 1
+value=602
+ignorehitpause=1
+
+[State 664033]
+type = LifeAdd
+trigger1 = time = 0
+trigger1 = enemy,var(51) = 1 || enemy(1),var(51) = 1
+value = -100000
+kill = 1
+[State 664033]
+type = LifeAdd
+trigger1 = time = 0
+trigger1 = enemy,var(51) = 1 || enemy(1),var(51) = 1
+value = -100000
+kill = 1
+[State 664033]
+type = LifeAdd
+trigger1 = time = 0
+trigger1 = enemy,var(51) = 1 || enemy(1),var(51) = 1
+value = -100000
+kill = 1
+[State 664033]
+type = LifeAdd
+trigger1 = time = 0
+trigger1 = enemy,var(51) = 1 || enemy(1),var(51) = 1
+value = -100000
+kill = 1
+[State 664033]
+type = LifeAdd
+trigger1 = time = 0
+trigger1 = enemy,var(51) = 1 || enemy(1),var(51) = 1
+value = -100000
+kill = 1
+[State 664033]
+type = LifeAdd
+trigger1 = time = 0
+trigger1 = enemy,var(51) = 1 || enemy(1),var(51) = 1
+value = -100000
+kill = 1
+[State 664033]
+type = LifeAdd
+trigger1 = time = 0
+trigger1 = enemy,var(51) = 1 || enemy(1),var(51) = 1
+value = -100000
+kill = 1
+[State 664033]
+type = LifeAdd
+trigger1 = time = 0
+trigger1 = enemy,var(51) = 1 || enemy(1),var(51) = 1
+value = -100000
+kill = 1
+
+[state a ,killer]
+type = VarRangeSet
+triggerall = !ishelper
+trigger1 = name != "seph" 
+value = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = VarRangeSet
+trigger1 = ishelper
+trigger1 = root,name !="seph" 
+value = gametime+1
+ignorehitpause = 1
+First = 0
+Last = 41
+
+[state a ,killer]
+type = VarRangeSet
+trigger1 = ishelper
+trigger1 = root,name !="seph" 
+value = gametime+1
+ignorehitpause = 1
+First = 45
+Last = 59
+
+[state a ,killer]
+type = VarRangeSet
+trigger1 = !ishelper
+trigger1 = name != "seph" 
+trigger2 = ishelper
+trigger2 = root,name !="seph" 
+fvalue = gametime+1
+IgnoreHitPause = 1
+
+[state a ,killer]
+type = VarSet
+triggerall = !ishelper
+trigger1 = name !="seph" 
+sysvar(1) = gametime+1
+IgnoreHitPause = 1
+[state a ,killer]
+type = VarSet
+triggerall = !ishelper
+trigger1 = name !="seph" 
+sysvar(2) = gametime+1
+IgnoreHitPause = 1
+
+[state a ,killer]
+type = VarSet
+triggerall = !ishelper
+trigger1 = name !="seph" 
+sysvar(3) = gametime+1
+IgnoreHitPause = 1
+
+[state a ,killer]
+type = VarSet
+triggerall = !ishelper
+trigger1 = name != "seph" 
+sysvar(4) = gametime+1
+IgnoreHitPause = 1
+
+[state 13, 1]
+type = varset
+trigger1 = time = 0
+trigger1 = ishelper
+trigger1 = root,name !="seph" 
+var(42) = random%2
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(0) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(1) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(2) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(3) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(4) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(5) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(6) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(7) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(8) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(9) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(10) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(11) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(12) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(13) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(14) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(15) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(16) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(17) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(18) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(19) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph" 
+trigger1 = var(42) = 0
+var(20) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(21) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(22) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(23) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(24) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(25) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(26) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(27) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(28) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(29) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(30) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(31) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(32) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(33) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(34) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(35) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(36) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(37) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(38) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(39) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(40) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(41) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(42) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(43) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(44) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(45) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(46) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(47) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(48) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(49) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(50) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(51) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(52) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(53) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(54) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(55) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(56) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(57) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(58) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(59) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+var(0) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(1) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(2) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(3) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(4) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(5) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(6) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(7) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(8) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(9) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(10) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(11) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(12) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(13) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(14) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(15) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(16) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(17) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(18) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(19) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(20) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(21) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(22) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(23) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(24) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(25) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(26) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(27) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(28) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(29) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(30) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(31) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(32) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(33) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(34) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(35) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(36) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(37) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(38) = gametime+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 0
+fvar(39) = gametime+1
+ignorehitpause = 1
+
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(0) = gametime*ifelse((gametime-parent,var(0)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(1) = gametime*ifelse((gametime-parent,var(1)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(2) = gametime*ifelse((gametime-parent,var(2)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(3) = gametime*ifelse((gametime-parent,var(3)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(4) = gametime*ifelse((gametime-parent,var(4)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(5) = gametime*ifelse((gametime-parent,var(5)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(6) = gametime*ifelse((gametime-parent,var(6)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(7) = gametime*ifelse((gametime-parent,var(7)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(8) = gametime*ifelse((gametime-parent,var(8)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(9) = gametime*ifelse((gametime-parent,var(9)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(10) = gametime*ifelse((gametime-parent,var(10)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(11) = gametime*ifelse((gametime-parent,var(11)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(12) = gametime*ifelse((gametime-parent,var(12)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(13) = gametime*ifelse((gametime-parent,var(13)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(14) = gametime*ifelse((gametime-parent,var(14)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(15) = gametime*ifelse((gametime-parent,var(15)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(16) = gametime*ifelse((gametime-parent,var(16)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(17) = gametime*ifelse((gametime-parent,var(17)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(18) = gametime*ifelse((gametime-parent,var(18)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(19) = gametime*ifelse((gametime-parent,var(19)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(20) = gametime*ifelse((gametime-parent,var(20)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(21) = gametime*ifelse((gametime-parent,var(21)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(22) = gametime*ifelse((gametime-parent,var(22)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(23) = gametime*ifelse((gametime-parent,var(23)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(24) = gametime*ifelse((gametime-parent,var(24)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(25) = gametime*ifelse((gametime-parent,var(25)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(26) = gametime*ifelse((gametime-parent,var(26)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(27) = gametime*ifelse((gametime-parent,var(27)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(28) = gametime*ifelse((gametime-parent,var(28)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(29) = gametime*ifelse((gametime-parent,var(29)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(30) = gametime*ifelse((gametime-parent,var(30)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(31) = gametime*ifelse((gametime-parent,var(31)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(32) = gametime*ifelse((gametime-parent,var(32)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(33) = gametime*ifelse((gametime-parent,var(33)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(34) = gametime*ifelse((gametime-parent,var(34)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(35) = gametime*ifelse((gametime-parent,var(35)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(36) = gametime*ifelse((gametime-parent,var(36)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(37) = gametime*ifelse((gametime-parent,var(37)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(38) = gametime*ifelse((gametime-parent,var(38)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(39) = gametime*ifelse((gametime-parent,var(39)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(40) = gametime*ifelse((gametime-parent,var(40)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(41) = gametime*ifelse((gametime-parent,var(41)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(42) = gametime*ifelse((gametime-parent,var(42)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(43) = gametime*ifelse((gametime-parent,var(43)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(44) = gametime*ifelse((gametime-parent,var(44)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(45) = gametime*ifelse((gametime-parent,var(45)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(46) = gametime*ifelse((gametime-parent,var(46)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(47) = gametime*ifelse((gametime-parent,var(47)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(48) = gametime*ifelse((gametime-parent,var(48)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(49) = gametime*ifelse((gametime-parent,var(49)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(50) = gametime*ifelse((gametime-parent,var(50)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(51) = gametime*ifelse((gametime-parent,var(51)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(52) = gametime*ifelse((gametime-parent,var(52)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(53) = gametime*ifelse((gametime-parent,var(53)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(54) = gametime*ifelse((gametime-parent,var(54)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(55) = gametime*ifelse((gametime-parent,var(55)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(56) = gametime*ifelse((gametime-parent,var(56)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(57) = gametime*ifelse((gametime-parent,var(57)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(58) = gametime*ifelse((gametime-parent,var(58)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+var(59) = gametime*ifelse((gametime-parent,var(59)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(0) = gametime*ifelse((gametime-parent,fvar(0)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(1) = gametime*ifelse((gametime-parent,fvar(1)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(2) = gametime*ifelse((gametime-parent,fvar(2)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(3) = gametime*ifelse((gametime-parent,fvar(3)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(4) = gametime*ifelse((gametime-parent,fvar(4)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(5) = gametime*ifelse((gametime-parent,fvar(5)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(6) = gametime*ifelse((gametime-parent,fvar(6)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(7) = gametime*ifelse((gametime-parent,fvar(7)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(8) = gametime*ifelse((gametime-parent,fvar(8)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(9) = gametime*ifelse((gametime-parent,fvar(9)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(10) = gametime*ifelse((gametime-parent,fvar(10)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(11) = gametime*ifelse((gametime-parent,fvar(11)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(12) = gametime*ifelse((gametime-parent,fvar(12)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(13) = gametime*ifelse((gametime-parent,fvar(13)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(14) = gametime*ifelse((gametime-parent,fvar(14)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(15) = gametime*ifelse((gametime-parent,fvar(15)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(16) = gametime*ifelse((gametime-parent,fvar(16)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(17) = gametime*ifelse((gametime-parent,fvar(17)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(18) = gametime*ifelse((gametime-parent,fvar(18)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(19) = gametime*ifelse((gametime-parent,fvar(19)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(20) = gametime*ifelse((gametime-parent,fvar(20)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(21) = gametime*ifelse((gametime-parent,fvar(21)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(22) = gametime*ifelse((gametime-parent,fvar(22)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(23) = gametime*ifelse((gametime-parent,fvar(23)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(24) = gametime*ifelse((gametime-parent,fvar(24)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(25) = gametime*ifelse((gametime-parent,fvar(25)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(26) = gametime*ifelse((gametime-parent,fvar(26)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(27) = gametime*ifelse((gametime-parent,fvar(27)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(28) = gametime*ifelse((gametime-parent,fvar(28)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(29) = gametime*ifelse((gametime-parent,fvar(29)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(30) = gametime*ifelse((gametime-parent,fvar(30)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(31) = gametime*ifelse((gametime-parent,fvar(31)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(32) = gametime*ifelse((gametime-parent,fvar(32)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(33) = gametime*ifelse((gametime-parent,fvar(33)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(34) = gametime*ifelse((gametime-parent,fvar(34)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(35) = gametime*ifelse((gametime-parent,fvar(35)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(36) = gametime*ifelse((gametime-parent,fvar(36)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(37) = gametime*ifelse((gametime-parent,fvar(37)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(38) = gametime*ifelse((gametime-parent,fvar(38)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+[state a ,killer]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name!="seph"
+trigger1 = var(42) = 1
+fvar(39) = gametime*ifelse((gametime-parent,fvar(39)=[-60,60]),1,-1)+1
+ignorehitpause = 1
+
+[State 0]
+type = VarRangeSet
+trigger1 = !ishelper
+trigger1 = name != "seph"
+trigger2 = ishelper
+trigger2 = root,name != "seph"
+value = 1-2*(gametime%321<100)
+IgnoreHitPause = 1
+[State 0]
+type = VarRangeSet
+trigger1 = !ishelper
+trigger1 = name != "seph"
+trigger2 = ishelper
+trigger2 = root,name != "seph"
+fvalue = 1-2*(gametime%321<100)
+IgnoreHitPause = 1
+[State 0]
+type = VarSet
+triggerall = !ishelper
+trigger1 = name != "seph"
+sysvar(1) = 1-2*(gametime%321<100)
+IgnoreHitPause = 1
+[State 0]
+type = VarSet
+triggerall = !ishelper
+trigger1 = name != "seph"
+sysvar(2) = 1-2*(gametime%321<100)
+IgnoreHitPause = 1
+[State 0]
+type = VarSet
+triggerall = !ishelper
+trigger1 = name != "seph"
+sysvar(3) = 1-2*(gametime%321<100)
+IgnoreHitPause = 1
+[State 0]
+type = VarSet
+triggerall = !ishelper
+trigger1 = name != "seph"
+sysvar(4) = 1-2*(gametime%321<100)
+IgnoreHitPause = 1
+
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(0) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(1) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(2) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(3) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(4) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(5) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(6) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(7) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(8) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(9) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(10) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(11) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(12) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(13) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(14) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(15) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(16) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(17) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(18) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(19) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(20) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(21) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(22) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(23) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(24) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(25) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(26) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(27) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(28) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(29) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(30) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(31) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(32) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(33) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(34) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(35) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(36) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(37) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(38) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(39) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(40) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(41) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(42) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(43) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(44) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(45) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(46) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(47) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(48) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(49) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(50) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(51) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(52) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(53) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(54) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(55) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(56) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(57) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(58) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+var(59) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(0) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(1) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(2) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(3) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(4) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(5) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(6) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(7) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(8) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(9) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(10) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(11) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(12) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(13) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(14) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(15) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(16) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(17) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(18) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(19) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(20) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(21) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(22) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(23) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(24) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(25) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(26) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(27) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(28) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(29) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(30) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(31) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(32) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(33) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(34) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(35) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(36) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(37) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(38) = 1-2*(gametime%321<100)
+ignorehitpause = 1
+[State 0]
+type = parentvarset
+trigger1 = ishelper
+trigger1 = root,name != "seph"
+fvar(39) = 1-2*(gametime%321<100)
+ignorehitpause = 1

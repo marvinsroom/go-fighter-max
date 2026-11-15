@@ -1,0 +1,33 @@
+[Statedef -2]
+[State -2, No KO]
+type=AssertSpecial
+trigger1=!ishelper
+flag=globalnoko
+[State -2, Helper reset]
+type=DestroySelf
+triggerall=ishelper
+trigger1=root,stateno=99000
+ignorehitpause=1
+[Statedef 99000]
+type=S
+movetype=I
+physics=N
+anim=0
+ctrl=0
+velset=0,0
+[State 99000, Position]
+type=PosSet
+trigger1=1
+x=map(test.startx)
+y=0
+[State 99000, Direction]
+type=Turn
+trigger1=facing!=map(test.facing)
+[State 99000, Clear]
+type=RemoveExplod
+trigger1=1
+[State 99000, Ready]
+type=ChangeState
+trigger1=time>=4
+value=0
+ctrl=1

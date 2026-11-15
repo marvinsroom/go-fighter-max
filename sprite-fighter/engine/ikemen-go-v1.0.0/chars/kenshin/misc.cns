@@ -1,0 +1,290 @@
+;----------------------------------------------------------------------         
+; -2 States
+;---------------------------------------------------------------------------
+[Statedef -2]
+
+[State -2, Credit]
+type = DisplayToClipboard
+trigger1 = 1
+text="Himura Kenshin by Aoshi24 and Warner "
+
+;Ready for Amakake!!!
+[State -2, 7]
+type = VarSet
+trigger1 = Var(10) <= 0
+v = 10
+value = 10
+ignorehitpause = 1
+
+[State -2, 8]
+type = VarAdd
+trigger1 = Var(10) >= 0
+v = 10
+value = -1
+ignorehitpause = 1
+
+[State -2, 9]
+type = PalFX
+trigger1 = alive = 1
+trigger1 = lose = 0 
+trigger1 = win = 0
+trigger1 = Var(10) >= 5
+trigger1 = life <= 200
+trigger1 = power >= 3000
+time = 2
+add = 80, 60, 40
+ignorehitpause = 1
+
+[State -2, 10]
+type = PalFX
+trigger1 = alive = 1
+trigger1 = lose = 0 
+trigger1 = win = 0
+trigger1 = Var(10) < 5
+trigger1 = life <= 200
+trigger1 = power >= 3000
+time = 2
+add = 0, 0, 0
+ignorehitpause = 1
+
+;Hurt
+[State -3, hurt]
+type = PlaySnd
+triggerall = p1name = "HIMURA KENSHIN"
+triggerall = alive && time = 1
+trigger1 = stateno = 5001 || stateno = 5011
+trigger1 = random < ifelse ((anim % 10) = 1, 400, 750)
+trigger2 = stateno = 5040 || stateno = 5050
+trigger2 = random < 500
+trigger3 = stateno = 5070
+trigger4 = stateno = 5100 && random < 340
+value = S1,var(5)
+channel = 0
+ignorehitpause = 1
+
+[State 180, VarRandom]
+type = VarRandom
+triggerall = p1name = "HIMURA KENSHIN"
+trigger1 = 1
+v = 5
+range = 0,5
+
+[State -2, wall]
+type = Explod
+triggerall = time = 1
+triggerall = stateno = 45
+trigger1 = ((command = "holdup")  && (command = "holdfwd")  && (backedgebodydist <= 1)) 
+anim = F72
+pos = -10,-54
+facing = 1
+sprpriority = 2
+bindtime = 2
+supermove = 1
+trans = add
+
+[State -2, wall]
+type = Explod
+triggerall = time = 1
+triggerall = stateno = 45
+trigger1 = ((command = "holdup") && (command = "holdback")  && (frontedgebodydist <= 1)) 
+anim = F72
+pos = 10,-54
+facing = -1
+sprpriority = 2
+bindtime = 2
+supermove = 1
+trans = add
+
+[State -2, wall]
+type = Explod
+triggerall = time = 1
+trigger1 = stateno = 102
+;trigger1 = ((command = "FF")  && (backedgebodydist <= 1)) 
+anim = F72
+pos = -30,-54
+facing = 1
+sprpriority = 2
+bindtime = 2
+supermove = 1
+trans = add
+
+[State -2, Varset]
+type = VarSet
+triggerall = (P2name != "Himura Kenshin")||(P4name != "Himura Kenshin")
+trigger1 = Win = 1
+v = 4
+value = 1
+
+[State -2, Varset]
+type = VarSet
+trigger1 = P2name = "SHINOMORI AOSHI"
+trigger2 = P4name = "SHINOMORI AOSHI"
+v = 6
+value = 1
+
+[State -2, Varset]
+type = VarSet
+trigger1 = P2name = "SETA SOUJIRO"
+trigger2 = P4name = "SETA SOUJIRO"
+v = 7
+value = 1
+
+[State -2, Varset]
+type = VarSet
+trigger1 = P2name = "SAITO HAJIME"
+trigger2 = P4name = "SAITO HAJIME"
+v = 8
+value = 1
+
+[State -2]
+type = PlaySnd
+triggerall = Time = 1
+trigger1 = StateNo = 40
+trigger2 = StateNo = 45
+trigger3 = StateNo = 105
+value = s0, 6
+
+[State -2, Snd 1]
+type = PlaySnd
+triggerall = time = 1
+trigger1 = StateNo = 52
+trigger2 = Anim = 47
+value = s0, 16
+volume = 255
+
+[State -2, 4]
+type = PlaySnd
+trigger1 = stateno = 100
+trigger1 = time = 1
+value    = s0,18
+;volume   = -200
+channel  = 3
+loop = 1
+
+[State -2, 4]
+type = StopSnd
+trigger1 = stateno != 100
+channel  = 3
+
+[State -2, 4]
+type = PlaySnd
+trigger1 = stateno = 101
+trigger1 = time = 1
+value    = s0,19
+channel  = 4
+
+[State -2, 7]
+type = VarSet
+trigger1 = stateno = 1040
+trigger1 = time = 1
+trigger2 = stateno = 8111
+trigger2 = time = 1
+v = 8
+value = 70
+ignorehitpause = 1
+
+[State -2, 8]
+type = VarAdd
+trigger1 = Var(8) > 0
+v = 8
+value = -1
+ignorehitpause = 1
+
+[state -2]
+type     = assertspecial
+trigger1 = roundstate = 0
+trigger2 = roundstate = 1
+trigger3 = roundstate = 4
+flag    = NoBarDisplay
+;flag2   = nofg
+
+[State -2, wall jump reset]
+type     = varset
+trigger1 = stateno=50 && prevstateno=45
+var(20)  = 1
+
+[State -2, Wall Jump reset]
+type     = varset
+trigger1 = statetype!=A
+var(20)  = 0
+
+[State -2, 9]
+type = VarSet
+trigger1 = P2name = "SHINOMORI AOSHI"
+trigger1 = P2stateno = [7050,7052]
+trigger2 = P2name = "SHINOMORI AOSHI"
+trigger2 = P2stateno = [8050,8052]
+trigger3 = P2name = "SETA SOUJIRO"
+trigger3 = P2stateno = 1020
+trigger4 = P2name = "SETA SOUJIRO"
+trigger4 = P2stateno = 1305
+v = 40
+value = 1
+
+[State -2, 10]
+type = VarSet
+trigger1 = P2name = "SHINOMORI AOSHI"
+trigger1 = P2stateno != [7050,7052]
+trigger2 = P2name = "SHINOMORI AOSHI"
+trigger2 = P2stateno != [8050,8052]
+trigger3 = P2name = "SETA SOUJIRO"
+trigger3 = P2stateno != 1020
+trigger4 = P2name = "SETA SOUJIRO"
+trigger4 = P2stateno != 1305
+v = 40
+value = 0
+
+;--------------------------------------------------------
+[State -2, Damage Dampener]
+type = VarAdd
+trigger1 = hitpausetime = 1 
+trigger1 = P2Movetype = H 
+trigger1 = MoveHit
+v = 50
+value = 1
+ignorehitpause = 1
+
+[State -2, VarSet]
+type = VarSet
+trigger1 = P2Movetype != H
+v = 50 
+value = 0
+
+;-----------------------------------------------------------------------------
+;Normal Damage
+[State -2, Attack MulSet 1]
+type = AttackMulSet
+triggerall = stateno = 3014
+trigger2 = hitdefattr = SCA, HA, HP
+trigger1 = Var(50) >= 0
+value = 1
+
+[State -2, Attack MulSet 1]
+type = AttackMulSet
+triggerall = stateno < 3000
+trigger1 = Var(50) <= 0
+value = 1
+
+[State -2, Attack MulSet 2]
+type = AttackMulSet
+triggerall = stateno < 3000
+trigger1 = Var(50) = [1,4]
+value = 0.75
+
+[State -2, Attack MulSet 3]
+type = AttackMulSet
+triggerall = stateno < 3000
+trigger1 = Var(50) = [5,10]
+value = 0.42
+
+[State -2, Attack MulSet 4]
+type = AttackMulSet
+;triggerall = stateno < 3000
+trigger1 = Var(50) = [11,14]
+value = 0.3
+
+[State -2, Attack MulSet 5]
+type = AttackMulSet
+;triggerall = stateno < 3000
+trigger1 = Var(50) > 15
+value = 0.1

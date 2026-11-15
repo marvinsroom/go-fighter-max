@@ -1,0 +1,1682 @@
+[statedef -2  ]
+;---------------------------------------------------------------------------
+;AI
+;---------------------------------------------------------------------------
+[State 0]
+type = Explod
+TRIGGERALL = NUMEXPLOD(6016) = 0
+trigger1 = movehit = 0
+trigger1 = movecontact = 1
+anim = 60166
+ID = 6016
+pos = 10,-30
+postype = p2  ;p2,front,back,left,right
+removetime = -2
+ontop = 1
+scale = 1.0/2,1.0/2
+ownpal = 1
+ignorehitpause =  1
+[State 0]
+type = Explod
+trigger1 = HELPER,movehit = 0
+trigger1 = HELPER,movecontact = 1
+anim = 60166
+ID = 60166
+pos = 10,-30
+postype = p2  ;p2,front,back,left,right
+removetime = -2
+ontop = 1
+scale = 1.0/2,1.0/2
+ownpal = 1
+ignorehitpause =  1
+
+
+
+
+[State 0, VelMul]
+type = VelMul
+triggerall = var(42) = 1
+trigger1 = var(6) = 1
+x = 2
+y = 2
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = ishelper(133251)
+value =  133251
+
+[State 0, BGPalFX]
+type = BGPalFX
+triggerall = fvar(4)= 1
+trigger1 = timemod=2,0
+time = 10
+add = -100,-30,-100
+mul = 250,224,120
+sinadd = -10,-10,-10,10
+invertall = 1
+color = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, Pause]
+type = Pause
+triggerall =fvar(4)=1
+trigger1 = timemod=2,0
+triggerall =p2bodydist x <50
+triggerall =p2bodydist y >-100
+time = 1
+movetime = 1
+[State 0, HitOverride]
+type = HitOverride
+triggerall = fvar(4)= 1
+triggerall = var(2) = 1 |var(10) = 1
+trigger1 = p2movetype = a
+attr = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 5
+stateno = 1101
+ignorehitpause = 1
+
+[State 200, Eliminar]
+type = varset
+triggerall =fvar(4)= 1
+trigger1 = lose
+trigger2= win
+trigger3 = life = 0
+trigger4 = drawgame
+trigger5 = var(56) = 0
+fv = 4
+value = 0
+
+
+
+[State 0, VarSet]
+type = VarSet
+triggerall = fvar(4) =1
+trigger1 = time >= 200
+fv = 4   ;fv = 10
+value = 0
+;ignorehitpause =
+;persistent =
+[State -1, AI on]
+type = VarSet
+triggerAll = var(50) < 1
+triggerAll = RoundState = 2
+trigger1 = AILevel > 0
+v = 50
+value = 1
+Ignorehitpause = 1
+
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = VAR(19) = 1
+value = -GETHITVAR(DAMAGE)/2
+
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = CONST720P(12)
+v = 30    ;fv = 10
+value =1
+
+
+[State -1, AI OFF]
+type = VarSet
+trigger1 = var(50) > 0
+trigger1 = RoundState != 2
+trigger2 = AILevel = 0
+v = 50
+value = 0
+Ignorehitpause = 1
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = var(8) = 2
+value = 2
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = var(15) = 1
+scale = 1.4,1.4
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = var(16) = 1
+scale = 1.2,1.2
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = var(14) = 1
+scale = 1.2,1.2
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = var(4) = 1
+scale = .87,.87
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, Width]
+type = Width
+trigger1 = var(8) = 1
+trigger1 = 1
+player = 20,20
+ [State 0, Width]
+type = Width
+trigger1 = var(8) = 2
+trigger1 = 1
+player = 30,30
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = Var(56) = 0
+scale = 1,1
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = var(9) = 1
+scale = 1.2,1.2
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = var(9) = 2
+scale = 1.2,1.2
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = var(10) = 1
+scale = 1.1,1.1
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, Tamaño]
+type = AngleDraw
+trigger1 = var(8) = 1
+scale = 1.3+fvar(8),1.3+fvar(8)
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, Tamaño]
+type = AngleDraw
+trigger1 = var(18) = 1 |var(19) = 1
+scale = 1.2,1.2
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, VarSet]
+type = VarSet
+trigger1 = stateno = 9200
+fv = 8    ;fv = 10
+value = .7
+[State 0, VarSet]
+type = VarSet
+trigger1 = stateno != 9200
+fv = 8    ;fv = 10
+value = 0
+[State 0, Trans]
+type = Trans
+trigger1 = var(18) = 1 |var(19) = 1
+trigger1 = fvar(18)<= 500
+trigger1 = fvar(18)>0
+trans = addalpha
+alpha = 150,200
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+
+[State 0, BGPalFX]
+type = BGPalFX
+trigger1 = fvar(32)<= 1000
+trigger1 = fvar(32)>0
+time = 10
+add =-100,-100,-100
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+
+
+[State 0, VarSet]
+type = Varadd
+trigger1 = fvar(32)<= 1000
+trigger1 = fvar(32)>0
+trigger1 = time%2 = 0
+fv = 32  ;fv = 10
+value = -1
+[State 0, VarSet]
+type = VarSet
+trigger1 = fvar(32)<=0
+fv =32   ;fv = 10
+value = 0
+[State 0, VarSet]
+type = Varadd
+trigger1 = var(18) = 1 |var(19) = 1
+trigger1 = fvar(18)<= 500
+trigger1 = fvar(18)>0
+trigger1 = time%2 = 0
+fv = 18   ;fv = 10
+value = -1
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(18) = 1|var(19) = 1
+trigger1 = fvar(18)<=0
+fv = 18   ;fv = 10
+value = 0
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = var(18) = 1 |var(19) = 1
+trigger1 = fvar(18)<= 500
+trigger1 = fvar(18)>0
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 1
+ignorehitpause = 1
+
+;ignorehitpause =
+;persistent =
+
+[State 0, Tamaño]
+type = AngleDraw
+trigger1 = var(5) = 1
+scale = 1.2,1.2
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, Tamaño]
+type = AngleDraw
+trigger1 = var(8) = 2
+scale = 1,1
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, Tamaño]
+type = AngleDraw
+trigger1 = var(13) = 1
+scale = 1.1,1.1
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, Tamaño]
+type = AngleDraw
+trigger1 = var(17) = 1
+scale = 1.15,1.15
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, RemoveExplod]
+type = RemoveExplod
+triggerALL = ISHELPER(8050)
+TRIGGER1 = STATENO!= 8050
+TRIGGER2 = STATENO!= 8051
+id =  220
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+ [State 0, VarSet]
+type = VarSet
+triggerall = var(2) = 0
+triggerall = var(3) = 0
+triggerall = var(4) = 0
+triggerall = var(5) = 0
+triggerall = var(6) = 0
+triggerall = var(7) = 0
+triggerall = var(8) = 0
+triggerall = var(9) = 0
+triggerall = var(10) = 0
+triggerall = var(11) = 0
+triggerall = var(12) = 0
+triggerall = var(13) = 0
+triggerall = var(14) = 0
+triggerall = var(15) = 0
+triggerall = var(16) = 0
+triggerall = var(17) = 0
+triggerall = var(18) = 0
+triggerall = var(19) = 0
+triggerall = var(20) = 0
+triggerall = var(21) = 0
+triggerall = var(22) = 0
+trigger1=  1
+v = 59    ;fv = 10
+value = 0
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(8) = 2
+v =56    ;fv = 10
+value = 1
+;ignorehitpause =
+;persistent =
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(2) = 1
+trigger2 = var(3) = 1  |var(3) = 2
+trigger3 = var(4) = 1
+trigger4 = var(5) = 1
+trigger5 = var(6) = 1
+trigger6 = var(7) = 1
+trigger7 = var(8) >= 1
+trigger8=  var(22) = 1
+trigger9 = var(9) = 1|var(9) = 2
+trigger10 = var(10) = 1
+trigger11 = var(11) = 1 |var(11) = 2
+trigger12 = var(12) = 1
+trigger13 = var(13) = 1
+trigger14 = var(14) = 1
+trigger15 = var(15) = 1
+trigger16 = var(16) = 1
+trigger17 = var(17) = 1
+trigger18 = var(18) = 1
+trigger19= var(19) = 1
+trigger20 = var(20) = 1| var(21) = 1 |var(22) = 1
+v = 56    ;fv = 10
+value = 1
+[State 0, VarSet]
+type = VarSet
+trigger1= var(23) = 1
+trigger2 = var(21) = 1
+v = 56    ;fv = 10
+value = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(2) = 0
+triggerall = var(3) = 0
+triggerall = var(3) != 2
+triggerall = var(4) = 0
+triggerall = var(5) = 0
+triggerall = var(6) = 0
+triggerall = var(7) = 0
+triggerall = var(8) = 0
+triggerall = var(8) != 2
+triggerall = var(9) = 0
+triggerall = var(9) != 2
+triggerall = var(10) = 0
+triggerall = var(11) = 0
+triggerall = var(11) != 2
+triggerall = var(12) = 0
+triggerall = var(13) = 0
+triggerall = var(14) = 0
+triggerall = var(15) = 0
+triggerall = var(16) = 0
+triggerall = var(17) = 0
+triggerall = var(18) = 0
+triggerall = var(19) = 0
+triggerall = var(20) = 0
+triggerall = var(21) = 0
+triggerall = var(22) = 0
+trigger1=1
+v = 56    ;fv = 10
+value = 0
+;ignorehitpause =
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(53)<=0
+anim =9070
+ID = 60166
+pos = ifelse(teamside = 2,307,13),170
+postype = left
+removetime = -2
+ontop = 1
+scale = .035,.035
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(53)=[1,125]
+anim =9071
+ID = 60166
+pos = ifelse(teamside = 2,307,13),170
+postype = left
+removetime = -2
+ontop = 1
+scale = .035,.035
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(53)=[126,250]
+anim =9072
+ID = 60166
+pos = ifelse(teamside = 2,307,13),170
+postype = left
+removetime = -2
+ontop = 1
+scale = .035,.035
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(53)=[251,375]
+anim =9073
+ID = 60166
+pos = ifelse(teamside = 2,307,13),170
+postype = left
+removetime = -2
+ontop = 1
+scale = .035,.035
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+ANGLE =-90
+PRIORITY = 9999
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(53)=[376,500]
+anim =9074
+ID = 60166
+pos = ifelse(teamside = 2,307,13),170
+postype = left
+removetime = -2
+ontop = 1
+scale = .035,.035
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(53)=[501,625]
+anim =9075
+ID = 60166
+pos = ifelse(teamside = 2,307,13),170
+postype = left
+removetime = -2
+ontop = 1
+scale = .035,.035
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(53)=[626,750]
+anim =9076
+ID = 60166
+pos = ifelse(teamside = 2,307,13),170
+postype = left
+removetime = -2
+ontop = 1
+scale = .035,.035
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(53)=[751,875]
+anim =9077
+ID = 60166
+pos = ifelse(teamside = 2,307,13),170
+postype = left
+removetime = -2
+ontop = 1
+scale = .035,.035
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(53)=[876,1000]
+anim =9078
+ID = 60166
+pos = ifelse(teamside = 2,307,13),170
+postype = left
+removetime = -2
+ontop = 1
+scale = .035,.035
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-------------------------------------
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(56) = 0
+trigger1 =stateno = ifelse(var(50) =1,10001 ,10000)
+anim =9089
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+bindtime=1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(56) = 0
+trigger1 =stateno != ifelse(var(50) =1,10001 ,10000)
+anim =9090
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+bindtime=1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(2) = 1
+anim =9091
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(10) = 1
+anim =90911
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+;ignorehitpause =
+;persistent =
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(3) = 1
+anim =9092
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+;ignorehitpause =
+;persistent =
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(3) = 2
+anim =90922
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(5) = 1
+anim =9093
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(4) = 1
+anim =9094
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(9) = 1 | var(9) = 2
+anim =9095
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(6) = 1
+anim =9096
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(7) = 1
+anim =9097
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(8) = 1
+anim =9098
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(8) >= 2
+anim =90992
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(11) = 1
+anim =9190
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(11) = 2
+anim =9191
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(12) = 1
+anim =9192
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(13) = 1
+anim =9193
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(14) = 1
+anim =9194
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(15) = 1
+anim =9195
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(16) = 1
+anim =9196
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(17) = 1
+anim =9197
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(18) = 1
+anim =9198
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(19) = 1
+anim =9199
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(20) = 1
+anim =9290
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(21) = 1
+anim =9291
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(30) = 1
+trigger1 = var(22) = 1
+anim =91999
+ID = 60166
+pos = ifelse(teamside = 2,322,-2),165
+postype = left
+removetime = -2
+ontop = 1
+scale = .06,.06
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(53)<=0
+anim =9070
+ID = 60166
+pos = ifelse(teamside = 2,301,19),225
+postype = left
+removetime = -2
+ontop = 1
+scale = .05,.05
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(53)=[1,125]
+anim =9071
+ID = 60166
+pos = ifelse(teamside = 2,301,19),225
+postype = left
+removetime = -2
+ontop = 1
+scale = .05,.05
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(53)=[126,250]
+anim =9072
+ID = 60166
+pos = ifelse(teamside = 2,301,19),225
+postype = left
+removetime = -2
+ontop = 1
+scale = .05,.05
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(53)=[251,375]
+anim =9073
+ID = 60166
+pos = ifelse(teamside = 2,301,19),225
+postype = left
+removetime = -2
+ontop = 1
+scale = .05,.05
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+ANGLE =-90
+PRIORITY = 9999
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(53)=[376,500]
+anim =9074
+ID = 60166
+pos = ifelse(teamside = 2,301,19),225
+postype = left
+removetime = -2
+ontop = 1
+scale = .05,.05
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(53)=[501,625]
+anim =9075
+ID = 60166
+pos = ifelse(teamside = 2,301,19),225
+postype = left
+removetime = -2
+ontop = 1
+scale = .05,.05
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(53)=[626,750]
+anim =9076
+ID = 60166
+pos = ifelse(teamside = 2,301,19),225
+postype = left
+removetime = -2
+ontop = 1
+scale = .05,.05
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(53)=[751,875]
+anim =9077
+ID = 60166
+pos = ifelse(teamside = 2,301,19),225
+postype = left
+removetime = -2
+ontop = 1
+scale = .05,.05
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-----------------------------------
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(53)=[876,1000]
+anim =9078
+ID = 60166
+pos = ifelse(teamside = 2,301,19),225
+postype = left
+removetime = -2
+ontop = 1
+scale = .05,.05
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+ANGLE =-90
+
+;-------------------------------------
+;-------------------------------------
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(56) = 0
+trigger1 =stateno = ifelse(var(50) =1,10001 ,10000)
+anim =9089
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+bindtime=1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(56) = 0
+trigger1 =stateno != ifelse(var(50) =1,10001 ,10000)
+anim =9090
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = LEFT
+removetime = -2
+ontop = 1
+bindtime=1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(2) = 1
+anim =9091
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(10) = 1
+anim =90911
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+;ignorehitpause =
+;persistent =
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(3) = 1
+anim =9092
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+;ignorehitpause =
+;persistent =
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(3) = 2
+anim =90922
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(5) = 1
+anim =9093
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(4) = 1
+anim =9094
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(9) = 1 | var(9) = 2
+anim =9095
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(6) = 1
+anim =9096
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(7) = 1
+anim =9097
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(8) = 1
+anim =9098
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(8) >= 2
+anim =90992
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = !ishelper
+trigger1 = var(31) = 1
+trigger1 = var(11) = 1
+anim =9190
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(11) = 2
+anim =9191
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(12) = 1
+anim =9192
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(13) = 1
+anim =9193
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(14) = 1
+anim =9194
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(15) = 1
+anim =9195
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(16) = 1
+anim =9196
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(17) = 1
+anim =9197
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(18) = 1
+anim =9198
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(20) = 1
+anim =9290
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(19) = 1
+anim =9199
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(21) = 1
+anim =9291
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999
+[State 0]
+type = Explod
+trigger1 = var(31) = 1
+trigger1 = var(22) = 1
+anim =91999
+ID = 60166
+pos = ifelse(teamside = 2,321,-2),219
+postype = left
+removetime = -2
+ontop = 1
+scale = .08,.08
+ownpal = 1
+FACING = IFELSE(TEAMSIDE = 2,-1,1)
+ignorehitpause =  1
+SPRPRIORITY = 9999
+PRIORITY = 9999

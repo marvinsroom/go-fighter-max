@@ -1,0 +1,166 @@
+
+;supernova
+[StateDef 4700]
+type = A
+physics = N
+movetype = A
+poweradd = -5000
+velset = 0,0
+anim = 3000
+ctrl = 0
+
+[state 4700]
+type = explod
+trigger1 = time = 0
+supermove = 1
+sprpriority = -1
+anim = 4202
+removetime = 80
+
+[state 4700]
+type = explod
+trigger1 = time = 0
+supermove = 1
+sprpriority = 2
+anim = 1081
+removetime = 80
+
+[State 4700]
+type = PlaySnd
+trigger1 = Time = 0
+value = 4000,1
+channel = 1
+
+[State 4700]
+type = NotHitBy
+trigger1 = Time >= 60
+time = 1
+value = SCA
+
+[State 4700]
+type = AssertSpecial
+trigger1 = Anim = 3001
+flag = Invisible
+
+[State 4700]
+type = ChangeAnim
+trigger1 = Time = 60
+value = 3001
+
+[State 4700]
+type = AfterImage
+trigger1 = Time = 60
+time = 60
+lenght = 5
+removetime = 12
+trans = Sub
+timegap = 2
+framegap = 1
+
+[State 4700]
+type = ChangeState
+trigger1 = Time = 120
+value = 4701
+
+;-----------------------------------------------------------------------------
+;movie
+[statedef 4701]
+type = A
+physics = N
+movetype = A
+anim = 602
+
+[State 4701]
+type = Pause
+trigger1 = Time = 0
+time = 1500
+movetime = 1500
+
+[State 4701]
+type = BGPalFX
+trigger1 = Time = [0,30]
+time = 1
+add = Time/30.0*-255,Time/30.0*-255,Time/30.0*-255
+
+[State 4701]
+type = AssertSpecial
+trigger1 = Time = [0,1500]
+flag = NoBG
+flag2 = NoFG
+flag3 = NoBarDisplay
+
+[State 4701]
+type = Explod
+trigger1 = Time = [30,60]
+removetime = IfElse(Time<60,IfElse(Time%2=0,1,5),30)
+bindtime = -1
+pausemovetime = -1
+anim = 4104
+postype = Back
+pos = 160,exp(2*ln((Time-30)/30.0))*120
+scale = (Time-30)/6.0,(Time-30)/6.0
+sprproirity = Time
+
+[State 4701]
+type = Explod
+trigger1 = Time = 100
+removetime = 150
+pausemovetime = -1
+anim = 4103
+postype = Back
+velocity = -0.5,-0.8
+sprpriority = 100
+
+[State 4701]
+type = Explod
+trigger1 = Time = 100
+removetime = 150
+pausemovetime = -1
+anim = 41000
+postype = Back
+pos = 160,120
+facing = -1
+velocity = -0.1,-0.2
+scale = 0.5,0.5
+sprpriority = 101
+id = 5107
+
+[State 4701]
+type = ModifyExplod
+trigger1 = Time = [100,480]
+id = 5107
+scale = 0.5+(Time-100)/240.0,0.5+(Time-100)/240.0
+
+[State 4701]
+type = Explod
+trigger1 = Time = 100
+removetime = 60
+pausemovetime = - 1
+postype = Back
+pos = 20,-10
+velocity = 2,2
+anim = 41003
+scale = 3,3
+sprpriority = 102
+id = 5108
+
+[State 4701]
+type = ModifyExplod
+trigger1 = Time = [100,490]
+id = 5108
+scale = 3-(Time-100)/20.0,3-(Time-100)/20.0
+
+[State 4701]
+type = ChangeAnim
+trigger1 = Time = 1500
+value = 3001
+
+[State 4701]
+type = ChangeState
+trigger1 = Time >= 1560
+value = 0
+ctrl = 1
+
+
+
+

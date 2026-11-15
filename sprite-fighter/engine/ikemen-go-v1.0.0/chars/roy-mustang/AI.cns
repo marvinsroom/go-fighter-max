@@ -1,0 +1,234 @@
+;===============================================================================
+; INTELIGENCIA ARTIFICIAL:
+;===============================================================================
+[Statedef -3]
+
+
+[State 0, Power Charge]
+type = ChangeState
+triggerall = statetype != A
+triggerall = power < 3000
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x > 120
+trigger1 = random < (ailevel * 100)/4
+value = 195
+
+[State 0, Power Charge End]
+type = ChangeState
+triggerall = time >= 12
+triggerall = stateno = 195
+triggerall = ailevel > 0
+trigger1 = (p2bodydist x < 70) || (enemy,numproj > 0)
+trigger2 = power = 3000
+value = 196
+
+[State 0, Ultimate action]
+type = ChangeState
+triggerall = power >= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x <= 35
+trigger1 = random < (ailevel * 100)
+value = 3000
+
+[state -3, Golpe 1]
+type = changestate
+value = 200
+triggerall = var(59) = 1
+triggerall = p2life != 0
+triggerall = p2statetype != A
+triggerall = statetype = S
+trigger1 = p2bodydist x <= 23
+trigger1 = p2statetype != A
+trigger1 = ctrl = 1
+trigger1 = random < (ailevel * 100)
+
+[state 0,]
+type = changestate
+value = 1000
+triggerall = power >= 1000
+triggerall = var(59) = 1
+triggerall = p2life != 0
+triggerall = MoveType != H
+triggerall = p2statetype != A
+triggerall = statetype = S
+trigger1 = StateNo = 200
+trigger1 = movecontact
+
+
+[state -3, Golpe 4]
+type = changestate
+value = 400
+triggerall = var(59) = 1
+triggerall = p2life != 0
+triggerall = MoveType != H
+triggerall = statetype = C
+trigger1 = StateNo = 210
+trigger1 = movecontact
+trigger1 = p2bodydist x <= 25
+trigger1 = random < (ailevel * 100)/2
+
+[State 0, A Aire]
+type = ChangeState
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = random < (ailevel * 100)
+trigger1 = StateNo = 400
+value = 600
+
+[State 0, A Aire]
+type = ChangeState
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 600
+
+[State 0, B Aire]
+type = ChangeState
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 33
+trigger1 = random < (ailevel * 100)
+value = 610
+
+[state -3, Volcan]
+type = changestate
+value = 400
+triggerall = var(59) = 1
+triggerall = p2life != 0
+triggerall = p2statetype != A
+triggerall = statetype = C
+trigger1 = ctrl = 1
+trigger1 = p2bodydist x <= 25
+trigger1 = p2statetype != A
+trigger1 = random < (ailevel * 100)/4
+
+
+[state -2, ]
+type = changestate
+value = 1250
+triggerall = NumHelper(1255) < 1
+triggerall = Var(59) = 1
+triggerall = P2life != 0
+triggerall = power >= 1000
+triggerall = StateType = S
+triggerall = ctrl = 1
+trigger1 = random < (ailevel * 100)/2
+trigger1 = p2bodydist x >= 70
+
+[state -2, ]
+type = changestate
+value = 1050
+triggerall = Var(59) = 1
+triggerall = P2life != 0
+triggerall = power >= 1000
+triggerall = StateType = S
+triggerall = ctrl = 1
+trigger1 = random < (ailevel * 100)/2
+trigger1 = p2bodydist x >= 60
+
+
+[state -2, ]
+type = changestate
+value = 1100
+triggerall = Var(59) = 1
+triggerall = P2life != 0
+triggerall = power >= 1000
+triggerall = StateType = S
+triggerall = ctrl = 1
+trigger1 = random < (ailevel * 100)/2
+triggerall = p2bodydist x >= 70
+
+[state -2, ]
+type = changestate
+value = 1100
+triggerall = Var(59) = 1
+triggerall = P2life != 0
+triggerall = power >= 1000
+triggerall = StateType = S
+triggerall = ctrl = 1
+trigger1 = random < (ailevel * 100)/2
+trigger1 = p2bodydist x = [40,55]
+
+[state -2, ]
+type = changestate
+value = 1200
+triggerall = Var(59) = 1
+triggerall = P2life != 0
+triggerall = power >= 1000
+triggerall = StateType = S
+triggerall = ctrl = 1
+trigger1 = random < (ailevel * 100)/2
+trigger1 = p2bodydist x = [30,35]
+
+
+[state -2, ]
+type = changestate
+value = 1000
+triggerall = Var(59) = 1
+triggerall = P2life != 0
+triggerall = power >= 1000
+triggerall = StateType = S
+triggerall = ctrl = 1
+trigger1 = random < (ailevel * 100)/2
+trigger1 = P2bodydist X <= 30
+
+[state -2, ]
+type = changestate
+value = 1150
+triggerall = Var(59) = 1
+triggerall = P2life != 0
+triggerall = power >= 1000
+triggerall = StateType = S
+triggerall = ctrl = 1
+trigger1 = random < (ailevel * 100)/2
+trigger1 = p2bodydist x <= 23
+
+
+[state -2,]
+type = changestate
+value = 1050
+triggerall = Var(59) = 1
+triggerall = P2life != 0
+triggerall = power >= 1000
+triggerall = StateType = S
+triggerall = ctrl = 1
+trigger1 = random < (ailevel * 100)/2
+trigger1 = p2bodydist x <= 25
+
+[State -3, Landing Sound]
+type = PlaySnd
+triggerall = Time = 1
+trigger1 = stateno = 52 ;Jump land
+trigger2 = stateno = 106 ;Run-back land
+value = 52, 1
+
+
+;===============================================================================
+; Limitador Air Jump:
+;-------------------------------------------------------------------------------
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(5) = 0 && (stateno = 105||stateno = 110||stateno = 112)
+v = 5
+value = 1
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = var(5) = 1 && pos y >= 0
+v = 5
+value = 0
+
+
+[State 0, Solucion Stand Aire]
+type = ChangeState
+triggerall = stateno = 0||stateno = 20
+trigger1 = pos y < 0
+value = 50
+ctrl = 1

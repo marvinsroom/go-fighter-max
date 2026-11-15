@@ -1,0 +1,28 @@
+
+[Statedef 879650]
+type=S
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+[State 879650, Hold frame]
+type=ChangeAnim
+trigger1=anim!=12000000+map(stature.pose)
+value=12000000+map(stature.pose)
+[State 879650, Ground root]
+type=PosSet
+trigger1=1
+x=ifelse(map(stature.combat)=1,-10.0,-32.0)
+y=0
+[State 879650, Facing]
+type=Turn
+trigger1=facing!=map(stature.facing)
+[State 879650, Native scale]
+type=MapSet
+trigger1=1
+map="stature.native_scale"
+value=const(size.yscale)
+[State 879650, Prevent turning]
+type=AssertSpecial
+trigger1=1
+flag=noautoturn

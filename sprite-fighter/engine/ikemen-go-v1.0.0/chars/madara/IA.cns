@@ -1,0 +1,1028 @@
+[Statedef -2]
+;===========================================================================
+;Basic:
+;===========================================================================
+[State 0, Run]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+triggerall = stateno != 60
+triggerall = stateno != 65
+triggerall = stateno != 70
+triggerall = stateno != 75
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x > 100
+trigger1 = random < (ailevel * 100)/2
+value = ifelse(pos y >= 0,60,65)
+
+[State 0, Run Atras]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+triggerall = stateno != 60
+triggerall = stateno != 65
+triggerall = stateno != 70
+triggerall = stateno != 75
+triggerall = backedgebodydist > 50
+triggerall = ailevel > 0 && roundstate = 2 && p2stateno != 500
+triggerall = ctrl
+triggerall = p2bodydist x < 100 && p2movetype = A
+trigger1 = random < (ailevel * 100)/4
+value = ifelse(pos y >= 0,70,75)
+
+[State 0, Correr Adelante Rikudou Mode]
+type = ChangeState
+triggerall = var(2) >= 3
+TriggerAll = Var(59) = 1
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x > 100
+triggerall = p2bodydist y = [-3,3]
+trigger1 = random < (ailevel * 100)/2
+value = 11060
+
+[State 0, Correr Atras Rikudou Mode]
+type = ChangeState
+triggerall = var(2) >= 3
+TriggerAll = Var(59) = 1
+triggerall = backedgebodydist > 50
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 100 && p2movetype = A
+triggerall = p2bodydist y = [-3,3]
+trigger1 = random < (ailevel * 100)/4
+value = 11070
+
+[State 0, Guard]
+type = ChangeState
+TriggerAll = Var(59) = 1
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = (p2bodydist x < 50 && p2movetype = A) || (enemy,numproj > 0 && p2movetype = A) || (enemy,numproj > 0)
+trigger1 = random < (ailevel * 100)/2
+value = ifelse(statetype = A,132,130)
+
+[State 0, Guard]
+type = assertspecial
+TriggerAll = Var(59) = 1
+trigger1 = ailevel > 0 && roundstate = 2
+flag = nostandguard
+flag2 = nocrouchguard
+flag3 = noairguard
+ignorehitpause = 1
+;===============================================================================
+;--------------------------Ataques IA-------------------------------------------
+;===============================================================================
+;-----------------------Supers--------------------------------------------------
+;===============================================================================
+[State 0, Kyubi Susanoo]
+type = ChangeState
+triggerall = var(2) = 0
+TriggerAll = Var(59) = 1
+triggerall = numhelper(12001) = 0
+Triggerall = power >= 5000
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,100]
+trigger1 = p2stateno != [5000,5210]
+trigger1 = random < (ailevel * 100)*2
+value = 8000
+
+[State 0, SUSANOO Perfect]
+type = ChangeState
+triggerall = var(2) = [1,5]
+triggerall = var(2) != 3
+TriggerAll = Var(59) = 1
+triggerall = var(33) < 0
+triggerall = power >= ifelse(var(2)<=1,5000,3000)
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = random < (ailevel * 100)*2
+value = 8100
+
+[State 0, Chibaku Tensei]
+type = ChangeState
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+triggerall = numhelper(8231) = 0
+Triggerall = power >= 5000
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = p2dist x = [300,1000]
+trigger1 = p2dist y = [-150,150]
+triggerall = p2bodydist x > 100
+trigger1 = random < (ailevel * 100)*0.125
+value = 8200
+
+[State 0, Tengai Shinsei]
+type = ChangeState
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+triggerall = power >= 5000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [90,200]
+trigger1 = random < (ailevel * 100)
+value = 8300
+
+[State 0, Super Shinra Tensei]
+type = ChangeState
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+triggerall = power >= 5000
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,350]
+trigger1 = random < (ailevel * 100)*2
+value = 8400
+
+[State 0, Chibaku Tensei]
+type = ChangeState
+triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+triggerall = numhelper(8231) = 0
+Triggerall = power >= 5000
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = p2dist x = [300,1000]
+trigger1 = p2dist y = [-150,150]
+triggerall = p2bodydist x > 100
+trigger1 = random < (ailevel * 100)*2
+value = 22200
+
+[State 0, Tengai Ryusei]
+type = ChangeState
+triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+Triggerall = power >= 4500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-150,150]
+trigger1 = random < (ailevel * 100)*.25
+value = 11700
+
+[State 0, Infinity Tsukuyomi]
+type = ChangeState
+triggerall = var(2) = 5
+triggerall = life <= lifemax/4
+TriggerAll = Var(59) = 1
+Triggerall = power >= 6000
+Triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = random < (ailevel * 100)*.5
+value = 27501
+;===============================================================================
+;-------------------------Sharingan Especiales--------------------------------------------
+;===============================================================================
+[State 0, A]
+type = ChangeState
+triggerall = var(2) = 0
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [0,30]
+triggerall = p2bodydist y = [-10,50]
+trigger1 = random < (ailevel * 100)
+value = 200
+
+[State 0, A Aire]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist y < -30
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 210
+
+[State 0, Katon]
+type = changestate
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+Triggerall = numhelper(1001) = 0
+Triggerall = power >= 200
+triggerall = RoundState = 2 && ailevel > 0
+triggerall = StateType != A
+triggerall = p2bodydist x = [50,150]
+trigger1 = Ctrl
+trigger1 = Random = [100,200]
+value = 1000
+
+[State 0, Katon Ryuen Hoka]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+Triggerall = power >= 1000
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x > 100
+trigger1 = random < (ailevel * 100)/2
+value = 1100
+
+[State 0, Haijingakure no Jutsu]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+Triggerall = power >= 1000
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = p2bodydist x < 50
+trigger1 = p2bodydist x > 5
+trigger1 = random < (ailevel * 100)/8
+value = 1200
+
+[State 0, Sub no Jutsu]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+triggerall = numhelper(3001) = 0
+Triggerall = power >= 100
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl 
+triggerall = p2bodydist x = [30,200]
+trigger1 = random < (ailevel * 100)
+value = 3000
+
+[State 0, Uchihagaeshi]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+Triggerall = power >= 500
+Triggerall = statetype != A
+triggerall = pos y = 0
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = p2bodydist x < 100
+trigger1 = random < (ailevel * 100)/2
+trigger1 = p2movetype = A
+trigger2 = p2bodydist x = [50,100]
+trigger2 = random < (ailevel * 100)/8
+value = 3100
+
+[State -2, Kawarimi]
+type = ChangeState
+Triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+Triggerall = RoundState = 2 && ailevel > 0
+Triggerall = moveType = H
+Triggerall = life > 0
+Triggerall = stateno = [5000,5210]
+trigger1 = ctrl
+trigger1 = random < (ailevel * 100)*7.5
+trigger2 = random < 4
+value = 3010
+
+[State 0, Katon Goka Messhitsu]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+Triggerall = power >= 1500
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl 
+triggerall = p2bodydist x = [100,200]
+trigger1 = random < (ailevel * 100)
+value = 6100
+
+[State 0, Katon Goka Mekkyaku]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+Triggerall = power >= 1500
+Triggerall = statetype != A
+Triggerall = stateno != [5000,5210]
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x > 75
+trigger1 = random < (ailevel * 100)*.35
+value = 6200
+
+[State 0, Katon Goka Messhitsu Aire]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+Triggerall = power >= 1500
+Triggerall = pos y = [-20,500]
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl 
+triggerall = p2bodydist x = [100,200]
+trigger1 = random < (ailevel * 100)*.35
+value = 6110
+
+[State 0, Kuchiyose Kyubi]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+triggerall = numhelper(12000) <= 0
+triggerall = numhelper(12001) <= 0
+Triggerall = power >= 1500
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl 
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)*2
+value = 12000
+
+[State 0, Genjutsu]
+type = ChangeState
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+triggerall = ctrl
+value = 16000
+trigger1 = p2dist x = [0,100]
+trigger1 = p2dist y = [-100,50]
+trigger1 = random < (ailevel * 100)*.25
+trigger1 = p2stateno != [5000,5210]
+triggerall = power >= 500
+trigger1 = pos y = 0 && statetype != A
+;===========================================================================
+; EMS:
+;===========================================================================
+[State 0, A]
+type = ChangeState
+triggerall = var(2) = 1
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [0,30]
+triggerall = p2bodydist y = [-10,50]
+trigger1 = random < (ailevel * 100)
+value = 300
+
+[State 0, Susano Aura]
+type = ChangeState
+triggerall = var(2) >= 1
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+Triggerall = power >= 500
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl 
+trigger1 = p2bodydist x < 200
+trigger1 = random < (ailevel * 100)/2
+trigger1 = p2movetype = A
+trigger2 = p2bodydist x = [50,100]
+trigger2 = random < (ailevel * 100)/4
+value = 2000
+
+[State 0, Fuuton Aire]
+type = ChangeState
+triggerall = var(2) >= 1
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+triggerall = pos y < -80
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,100]
+triggerall = PrevStateNo = 2002
+trigger1 = random < (ailevel * 100)/4
+value = 2010
+
+[State 0, Susano Aura Aire]
+type = ChangeState
+triggerall = var(2) >= 1
+triggerall = var(2) <= 2
+TriggerAll = Var(59) = 1
+triggerall = pos y < -80
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,100]
+triggerall = p2bodydist y >= -30
+trigger1 = random < (ailevel * 100)/4
+value = 2020
+
+[State -1, Mokuryuu no Jutsu]
+type = ChangeState
+Triggerall = var(2) = [1,2]
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = power >= 1500
+triggerall = ailevel > 0 && roundstate = 2
+trigger1 = ctrl
+trigger1 = random < (ailevel * 130)
+triggerall = p2bodydist x = [-1500,1500]
+triggerall = p2bodydist x != [-400,400]
+triggerall = p2bodydist y = [-500,0]
+value = 2100
+
+[State -1, Susano Combo]
+type = ChangeState
+Triggerall = var(2) = [1,2]
+TriggerAll = Var(59) = 1
+trigger1 = p2dist x = [10,100]
+trigger1 = p2dist y = [-50,50]
+trigger1 = random < (ailevel * 130)*.25
+triggerall = pos y = 0 && statetype != A
+triggerall = power >= 800
+triggerall = ctrl
+value = 4000
+
+[State -1, Kanseitai Susano'o]
+type = ChangeState
+Triggerall = var(2) = [1,2]
+TriggerAll = Var(59) = 1
+triggerall = power >= 2500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-600,600]
+triggerall = p2bodydist y = [-350,11]
+trigger1 = random < (ailevel * 85)
+value = 4100
+
+[State 0, Wood Clone Susanoos]
+type = ChangeState
+triggerall = power >= 4000
+triggerall = var(2) = [1,2]
+TriggerAll = Var(59) = 1
+triggerall = ailevel > 0
+Triggerall = numhelper(6001) = 0
+Triggerall = numhelper(6002) = 0
+Triggerall = numhelper(6003) = 0
+Triggerall = numhelper(6004) = 0
+Triggerall = numhelper(6005) = 0
+Triggerall = numhelper(6006) = 0
+Triggerall = numhelper(6007) = 0
+Triggerall = numhelper(6008) = 0
+Triggerall = numhelper(6010) = 0
+triggerall = stateno != 6000
+trigger1 = alive && roundstate = 2
+triggerall = statetype != A
+triggerall = pos y = 0
+trigger1 = random < (ailevel * 12.5)
+triggerall = ctrl
+value = 6000
+ignorehitpause = 1
+
+[State 0, Susano Goka Messhitsu]
+type = ChangeState
+triggerall = power >= 3000
+triggerall = var(2) = [1,2]
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = p2bodydist x = [100,200]
+trigger1 = random < (ailevel * 100)
+value = 6300
+
+[State 0, Tsukyomi]
+type = ChangeState
+triggerall = var(2) = [1,2]
+triggerall = power >= 300
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = p2bodydist x < 100
+trigger1 = random < (ailevel * 100)/4
+trigger2 = p2bodydist x > 100
+trigger2 = random < (ailevel * 100)/2
+trigger2 = p2movetype = A
+value = 17000
+;===========================================================================
+; Rinnegan:
+;===========================================================================
+[State 0, A]
+type = ChangeState
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [0,30]
+triggerall = p2bodydist y = [-10,50]
+trigger1 = random < (ailevel * 100)
+value = 400
+
+[State -1, Mokuton, Jukai Kotan]
+type = ChangeState
+triggerall = ailevel > 0
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+trigger1 = p2dist x = [150,800]
+trigger1 = p2dist y = [-150,50]
+trigger1 = random < 500
+triggerall = ctrl
+triggerall = power >= 2500
+triggerall = numhelper(2201) = 0
+triggerall = numhelper(2202) = 0
+triggerall = numhelper(2203) = 0
+triggerall = numhelper(2301) = 0
+value = 2200
+
+[State -1, Mokuton, Kajukai Korin]
+type = ChangeState
+triggerall = ailevel > 0
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ctrl
+triggerall = power >= 2500
+triggerall = numhelper(2201) != 0
+triggerall = numhelper(2202) != 0
+triggerall = numhelper(2301) = 1
+triggerall = helper(2301), stateno = 2301
+trigger1 = random < 800
+value = 2300
+
+[State -1, Weapon Throw]
+type = ChangeState
+triggerall = ailevel > 0
+triggerall = var(2) >= 2
+TriggerAll = Var(59) = 1
+value = 3200
+trigger1 = statetype != A
+trigger1 = ctrl
+trigger1 = random < (ailevel * 100)*2
+trigger1 = p2dist x >= 75
+trigger1 = p2dist x < 300
+
+[State -1, Shinra]
+type = ChangeState
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+value = cond(enemy, pos y + pos y > -20,4200,4210)
+triggerall = ctrl
+triggerall = stateno != cond(enemy, pos y + pos y > -20,4200,4210)
+trigger1 = p2dist x = [50,400]
+trigger1 = p2dist y = [-350,100]
+trigger1 = random < (ailevel * 100)*2
+trigger1 = p2stateno != [5000,5210]
+triggerall = power >= 1000
+triggerall = pos y = 0 && statetype != A
+
+[State 0, Bansho Tenin]
+type = ChangeState
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+triggerall = power >= 300
+triggerall = power <= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [78,235]
+triggerall = p2bodydist y = [-90,60]
+trigger1 = random < (ailevel * 115)
+value = 4300
+
+[State 0, Shinra Tensei]
+type = ChangeState
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+triggerall = power >= 500
+triggerall = power <= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-77,77]
+triggerall = p2bodydist y = [-80,30]
+trigger1 = random < (ailevel * 110)
+value = 4310
+
+[State 0, Shinra Tensei Aire]
+type = ChangeState
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+triggerall = power >= 300
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist y = [-5,5]
+triggerall = p2bodydist x = [50,200]
+trigger1 = random < (ailevel * 100)/8
+value = 4320
+
+[State -1, Kuchiyose: Gedo Mazo]
+type = ChangeState
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+value = 14000
+triggerall = ailevel > 0
+triggerall = power >= 3000
+trigger1 = statetype = S
+trigger1 = ctrl
+trigger1 = random < (ailevel * 100)*2
+trigger1 = p2dist x >= 0
+trigger1 = p2dist x < 400
+;===========================================================================
+; Rikudou Mode:
+;===========================================================================
+[State 0, A]
+type = ChangeState
+triggerall = var(2) = 3
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [0,30]
+triggerall = p2bodydist y = [-10,50]
+trigger1 = random < (ailevel * 100)
+value = 11300
+
+[State 0, A]
+type = ChangeState
+triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [0,65]
+trigger1 = random < (ailevel * 100)
+value = 11300
+
+[State 0, A Aire]
+type = ChangeState
+triggerall = var(2) >= 3
+TriggerAll = Var(59) = 1
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+triggerall = p2bodydist y < -30
+trigger1 = random < (ailevel * 100)
+value = 11600
+
+[State 0, Gudodama Throw]
+type = ChangeState
+triggerall = var(2) >= 3
+TriggerAll = Var(59) = 1
+triggerall = numhelper(11480) = 0
+triggerall = power >= 200
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,200]
+trigger1 = random < (ailevel * 100)/8
+value = 11400
+
+[State 0, Bansho Kokuin]
+type = ChangeState
+triggerall = var(2) = [3,5]
+TriggerAll = Var(59) = 1
+triggerall = numhelper(27020) = 0
+Triggerall = power >= 1000
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = p2bodydist x = [5,170]
+trigger1 = p2bodydist y = [-70,40]
+trigger1 = random < (ailevel * 130)
+value = 27000
+
+[State 0, Black Dome]
+type = ChangeState
+triggerall = var(2) = [3,5]
+TriggerAll = Var(59) = 1
+Triggerall = power >= 1000
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl 
+triggerall = p2bodydist x = [100,200]
+trigger1 = random < (ailevel * 100)
+value = 27100
+
+[State 0, Senpo Enton Raiha]
+type = ChangeState
+triggerall = var(2) = [3,5]
+TriggerAll = Var(59) = 1
+Triggerall = power >= 1500
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,150]
+trigger1 = random < (ailevel * 100)
+value = 27200
+
+[State 0, Enton Raiha]
+type = ChangeState
+triggerall = var(2) >= 3
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [0,65]
+trigger1 = random < (ailevel * 100)
+value = 11402
+
+[State 0, Limbo Thunder Loop]
+type = ChangeState
+triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+triggerall = numhelper(11420) = 0
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,200]
+trigger1 = random < (ailevel * 100)/8
+value = 11401
+
+[State 0, Raiha]
+type = ChangeState
+triggerall = var(2) >= 3
+TriggerAll = Var(59) = 1
+triggerall = numhelper(11404) = 0
+triggerall = power >= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = p2bodydist x = [30,150]
+trigger1 = random < (ailevel * 100)*2
+value = 11403
+
+[State -1, Senpou Ranton: Kouga]
+type = ChangeState
+triggerall = var(2) >= 3
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = power >= 650
+triggerall = p2stateno != 5150
+triggerall = p2bodydist x = [150,1100]
+triggerall = p2bodydist y = [-45,25]
+triggerall = ctrl
+trigger1 = random < (ailevel * 185)
+value = 11200
+
+[State 0, Ranton: Kouga Aire]
+type = ChangeState
+triggerall = var(2) >= 3
+TriggerAll = Var(59) = 1
+triggerall = power >= 200
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist y = [-3,3]
+triggerall = p2bodydist x = [50,200]
+trigger1 = random < (ailevel * 100)/8
+value = 11620
+
+[State 0, HitOverride]
+type = HitOverride
+triggerall = power >= 2000
+triggerall = var(2) = 3
+TriggerAll = Var(59) = 1
+triggerall = stateno != [15000,15999] ; Limbo Clones
+triggerall = stateno != 11520
+triggerall = stateno != 11521
+triggerall = ailevel > 0
+trigger1 = numhelper(11405) = 0 && numhelper(11410) = 0 && random <= 60
+attr = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT,AA,AP,AT
+stateno = 11520
+time = 5
+ignorehitpause = 1
+
+[State 0, HitOverride]
+type = HitOverride
+triggerall = power >= 2000
+triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+triggerall = stateno != [15000,15999] ; Limbo Clones
+triggerall = stateno != 11520
+triggerall = stateno != 11521
+triggerall = ailevel > 0
+trigger1 = numhelper(11405) = 0 && numhelper(11410) = 0 && random <= 80
+attr = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT,AA,AP,AT
+stateno = 11520
+time = 5
+ignorehitpause = 1
+
+[State 0, Shin Yukai Kotan]
+type = ChangeState
+triggerall = var(2) = [3,5]
+TriggerAll = Var(59) = 1
+Triggerall = power >= 1500
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-100,100]
+trigger1 = random < (ailevel * 100)*1.25
+value = 27400
+
+[State -2, Kawarimi]
+type = ChangeState
+Triggerall = var(2) = [3,5]
+TriggerAll = Var(59) = 1
+Triggerall = RoundState = 2 && ailevel > 0
+Triggerall = moveType = H
+Triggerall = life > 0
+Triggerall = stateno = [5000,5210]
+trigger1 = ctrl
+trigger1 = Random = [0,600]
+trigger2 = random < 4
+value = 22680
+
+[State -1, Kanseitai Susano'o]
+type = ChangeState
+Triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+triggerall = power >= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-2500,2500]
+triggerall = p2bodydist y = [-350,11]
+trigger1 = random < (ailevel * 85)
+value = 85083
+
+[State -1, Shinra]
+type = ChangeState
+triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+value = cond(enemy, pos y + pos y > -20,4200,4210)
+triggerall = stateno != cond(enemy, pos y + pos y > -20,4200,4210)
+triggerall = ctrl
+trigger1 = p2dist x = [50,400]
+trigger1 = p2dist y = [-350,100]
+trigger1 = random < (ailevel * 100)*2
+trigger1 = p2stateno != [5000,5210]
+triggerall = power >= 1000
+triggerall = pos y = 0 && statetype != A
+
+[State 0, Bansho Tenin]
+type = ChangeState
+triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+triggerall = power >= 300
+triggerall = power <= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [78,235]
+triggerall = p2bodydist y = [-90,60]
+trigger1 = random < (ailevel * 115)
+value = 4300
+
+[State 0, Shinra Tensei]
+type = ChangeState
+triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+triggerall = power >= 500
+triggerall = power <= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-77,77]
+triggerall = p2bodydist y = [-80,30]
+trigger1 = random < (ailevel * 110)
+value = 4310
+
+[State 0, Shinra Tensei Aire]
+type = ChangeState
+triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist y < -30
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 11610
+
+[State 0, Limbo Bunshin no Jutsu]
+type = ChangeState
+triggerall = var(2) = 3
+TriggerAll = Var(59) = 1
+triggerall = numhelper(15000) = 0
+Triggerall = power >= 500
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 30
+trigger1 = random < (ailevel * 100)
+value = 27300
+
+[State 0, Limbo Bunshin no Jutsu]
+type = ChangeState
+triggerall = var(2) = 5
+TriggerAll = Var(59) = 1
+triggerall = numhelper(15000) = 0
+Triggerall = power >= 300
+Triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 30
+trigger1 = random < (ailevel * 100)
+value = 27300
+
+[State -1, Limbo]
+type = ChangeState
+triggerall = var(2) >= 3
+TriggerAll = Var(59) = 1
+value = 22310
+triggerall = ctrl
+trigger1 = p2dist x = [0,1000]
+trigger1 = p2dist y = [-100,50]
+trigger1 = random < (ailevel * 100)*.25
+trigger1 = p2stateno != [5000,5210]
+triggerall = power >= 500
+trigger1 = pos y = 0 && statetype = S
+
+[State -1, Healing]
+type = ChangeState
+triggerall = var(2) >= 3
+triggerall = power >= 3000
+triggerall = p2bodydist x = [150,1500]
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = life <= lifemax/2
+trigger1 = statetype != A
+trigger1 = ctrl
+trigger1 = random < (ailevel * 130)
+value = 21080
+
+[State -1, Rinnegan Genjutsu]
+type = ChangeState
+triggerall = var(2) >= 3
+triggerall = p2bodydist x = [150,1500]
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = life < lifemax/2
+trigger1 = statetype != A
+trigger1 = ctrl
+trigger1 = random < (ailevel * 130)/2
+value = 21081
+;===========================================================================
+;Ataques Normales:
+;===========================================================================
+[State 0, EMS]
+type = ChangeState
+triggerall = var(2) = 0
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0
+triggerall = stateno = 0
+triggerall = ctrl
+trigger1 = random < (ailevel * 100)*(3+(lifemax-life)/100)
+value = 11000
+
+[State -1, Rinnegan]
+type = ChangeState
+triggerall = var(2) = 1
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0
+triggerall = life < lifemax/2
+triggerall = ctrl
+trigger1 = random < (ailevel * 100)*(4+(lifemax-life)/100)
+value = 11010
+
+[State 0, Rikudou Mode]
+type = ChangeState
+triggerall = var(2) = 2
+TriggerAll = Var(59) = 1
+triggerall = var(25) = 1
+triggerall = life < lifemax/4
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = random < (ailevel * 100)*(5+(lifemax-life)/100)
+value = 11020
+
+[State 0, Rinne Sharingan Rikudou Mode]
+type = ChangeState
+triggerall = var(2) = 3
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = random < (ailevel * 100)*(3+(lifemax-life)/100)
+value = 11030
+
+[State 0, Power Charge]
+type = ChangeState
+TriggerAll = Var(59) = 1
+triggerall = statetype != A
+triggerall = power < powermax*.5
+triggerall = stateno != [10000,10001]
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x > 200
+trigger1 = random < (ailevel * 100)/4
+value = 10000
+
+[State 0, Power Charge End]
+type = ChangeState
+TriggerAll = Var(59) = 1
+triggerall = time >= 18
+triggerall = stateno = 10000
+triggerall = ailevel > 0
+trigger1 = (p2bodydist x < 50) || (enemy,numproj > 0 && enemy,movetype = A && abs(enemy,pos x - pos x) < 150) || enemy,numproj > 0
+trigger2 = power >= powermax*.5
+value = 10001

@@ -1,0 +1,2485 @@
+[Data]
+life=1000
+power=3000
+attack=100
+defence=100
+fall.defence_up=50
+liedown.time=40
+airjuggle=15
+sparkno=2
+guard.sparkno=40
+KO.echo=0
+volume=0
+[Size]
+xscale=0.9559864451
+yscale=0.9559864451
+ground.back=45
+ground.front=45
+air.back=45
+air.front=45
+height=345
+attack.dist=210
+proj.attack.dist=280
+proj.doscale=1
+head.pos=0,-310
+mid.pos=0,-170
+shadowoffset=0
+draw.offset=0,0
+[Velocity]
+walk.fwd=2.8
+walk.back=-2.1
+jump.neu=0,-12.5
+jump.fwd=3.5,-12.5
+jump.back=-3,-12.5
+[Movement]
+yaccel=.65
+stand.friction=.85
+crouch.friction=.82
+airjump.num=0
+stand.friction.threshold=.1
+
+[Statedef -2]
+type=S
+movetype=I
+physics=N
+ctrl=0
+
+[State -2, Transformation cooldown]
+type=VarAdd
+trigger1=var(31)>0
+var(31)=-1
+
+[State -2, Synchronize form animation]
+type=ChangeAnim
+trigger1=var(30)!=var(33) && anim!=3900 && anim!=3901
+value=ifelse(var(30)=1 && selfanimexist(10000+(anim%10000)),10000+(anim%10000),(anim%10000))
+elem=animelemno(0)
+ignorehitpause=1
+
+[State -2, Remember form bank]
+type=VarSet
+trigger1=var(30)!=var(33)
+var(33)=var(30)
+ignorehitpause=1
+
+[State -2, Face opponent]
+type=Turn
+trigger1=ctrl
+trigger1=statetype!=A
+trigger1=p2dist x<0
+
+[State -2, No automatic turn]
+type=AssertSpecial
+trigger1=1
+flag=noautoturn
+
+[State -2, Cinematic cleanup]
+type=RemoveExplod
+trigger1=stateno!=3210
+ID=6401
+
+[State -2, Cinematic cleanup]
+type=RemoveExplod
+trigger1=stateno!=3210
+ID=6402
+
+[State -2, Cinematic cleanup]
+type=RemoveExplod
+trigger1=stateno!=3210
+ID=6403
+
+[State -2, Cinematic cleanup]
+type=RemoveExplod
+trigger1=stateno!=3210
+ID=6404
+
+[State -2, Cinematic cleanup]
+type=RemoveExplod
+trigger1=stateno!=3210
+ID=6405
+
+[Statedef 0]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(0)),10000+(0),(0))
+velset=0,0
+
+[State 0, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 0, Ground]
+type=PosSet
+trigger1=1
+y=0
+
+[Statedef 10]
+type=C
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(10)),10000+(10),(10))
+velset=0,0
+
+[State 10, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 10, Stand]
+type=ChangeState
+trigger1=command!="holddown"
+value=0
+ctrl=1
+
+[Statedef 20]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(20)),10000+(20),(20))
+
+[State 20, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 20, Walk]
+type=VelSet
+trigger1=1
+x=2.8
+y=0
+
+[State 20, Stop]
+type=ChangeState
+trigger1=(ailevel=0 && command!="holdfwd") || (ailevel>0 && p2bodydist x<140)
+value=0
+ctrl=1
+
+[Statedef 21]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(21)),10000+(21),(21))
+
+[State 21, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 21, Walk]
+type=VelSet
+trigger1=1
+x=-2.1
+y=0
+
+[State 21, Stop]
+type=ChangeState
+trigger1=(ailevel=0 && command!="holdback") || (ailevel>0 && p2bodydist x<140)
+value=0
+ctrl=1
+
+[Statedef 40]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(40)),10000+(40),(40))
+
+[State 40, Direction]
+type=VarSet
+trigger1=time=0
+var(1)=ifelse(command="holdfwd",3.5,ifelse(command="holdback",-3,0))
+
+[State 40, Take off]
+type=ChangeState
+trigger1=time>=3
+value=50
+ctrl=1
+
+[Statedef 50]
+type=A
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(41)),10000+(41),(41))
+
+[State 50, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 50, Launch]
+type=VelSet
+trigger1=time=0
+trigger1=prevstateno=40
+x=var(1)
+y=-12.5
+
+[State 50, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 50, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[Statedef 52]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(52)),10000+(52),(52))
+velset=0,0
+
+[State 52, Ground]
+type=PosSet
+trigger1=1
+y=0
+
+[State 52, Recover]
+type=ChangeState
+trigger1=time>=5
+value=0
+ctrl=1
+
+[Statedef 200]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(200)),10000+(200),(200))
+poweradd=15
+velset=0,0
+
+[State 200, Contact]
+type=HitDef
+trigger1=time=6
+attr=S,NA
+damage=30,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=200
+
+[State 200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 210]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(210)),10000+(210),(210))
+poweradd=15
+velset=0,0
+
+[State 210, Contact]
+type=HitDef
+trigger1=time=11
+attr=S,NA
+damage=52,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=210
+
+[State 210, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 220]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(220)),10000+(220),(220))
+poweradd=15
+velset=0,0
+
+[State 220, Contact]
+type=HitDef
+trigger1=time=18
+attr=S,NA
+damage=82,2
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=220
+
+[State 220, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 400]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(400)),10000+(400),(400))
+poweradd=15
+velset=0,0
+
+[State 400, Contact]
+type=HitDef
+trigger1=time=7
+attr=C,NA
+damage=26,0
+guardflag=L
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=400
+
+[State 400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 410]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(410)),10000+(410),(410))
+poweradd=15
+velset=0,0
+
+[State 410, Contact]
+type=HitDef
+trigger1=time=15
+attr=C,NA
+damage=58,1
+guardflag=L
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=410
+
+[State 410, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 420]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(420)),10000+(420),(420))
+poweradd=15
+velset=0,0
+
+[State 420, Contact]
+type=HitDef
+trigger1=time=12
+attr=C,NA
+damage=78,2
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=420
+
+[State 420, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 600]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(600)),10000+(600),(600))
+poweradd=15
+
+[State 600, Contact]
+type=HitDef
+trigger1=time=7
+attr=A,NA
+damage=34,1
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=600
+
+[State 600, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 600, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 600, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 610]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(610)),10000+(610),(610))
+poweradd=15
+
+[State 610, Contact]
+type=HitDef
+trigger1=time=10
+attr=A,NA
+damage=58,1
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=610
+
+[State 610, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 610, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 610, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 620]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(620)),10000+(620),(620))
+poweradd=15
+
+[State 620, Contact]
+type=HitDef
+trigger1=time=15
+attr=A,NA
+damage=72,2
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=620
+
+[State 620, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 620, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 620, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 1000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(1000)),10000+(1000),(1000))
+velset=0,0
+poweradd=0
+
+[State 1000, Invention shot]
+type=Projectile
+trigger1=time=18
+projid=1000
+projanim=6400
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=140
+velocity=8,0
+offset=120,-275
+attr=S,SP
+damage=48,2
+guardflag=MA
+hitflag=MAF
+pausetime=0,8
+ground.type=High
+ground.hittime=22
+ground.velocity=-3
+air.velocity=-5,-5
+fall=0
+getpower=50,10
+givepower=20,10
+hitsound=S0,1
+
+[State 1000, Scientific cue]
+type=PlaySnd
+trigger1=time=18
+value=0,3
+
+[State 1000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(3000)),10000+(3000),(3000))
+velset=0,0
+poweradd=-1000
+
+[State 3000, Overcharge pause]
+type=SuperPause
+trigger1=time=0
+time=12
+anim=-1
+movetime=0
+unhittable=0
+
+[State 3000, Invention shot]
+type=Projectile
+trigger1=time=40
+projid=3000
+projanim=6406
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=140
+velocity=15,0
+offset=120,-275
+attr=S,HP
+damage=210,2
+guardflag=MA
+hitflag=MAF
+pausetime=0,8
+ground.type=High
+ground.hittime=22
+ground.velocity=-5,-5
+air.velocity=-5,-5
+fall=1
+getpower=0,0
+givepower=20,10
+hitsound=S0,1
+
+[State 3000, Scientific cue]
+type=PlaySnd
+trigger1=time=40
+value=0,3
+
+[State 3000, Malfunction sparks]
+type=Explod
+trigger1=time=16
+anim=6405
+postype=p1
+pos=120,-275
+scale=.4,.4
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 3000, Sputter recoil]
+type=VelSet
+trigger1=time=16
+x=-3
+
+[State 3000, Sputter cue]
+type=PlaySnd
+trigger1=time=16
+value=0,3
+
+[State 3000, Malfunction sparks]
+type=Explod
+trigger1=time=28
+anim=6405
+postype=p1
+pos=120,-275
+scale=.4,.4
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 3000, Sputter recoil]
+type=VelSet
+trigger1=time=28
+x=-3
+
+[State 3000, Sputter cue]
+type=PlaySnd
+trigger1=time=28
+value=0,3
+
+[State 3000, Malfunction sparks]
+type=Explod
+trigger1=time=40
+anim=6405
+postype=p1
+pos=120,-275
+scale=.4,.4
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 3000, Sputter recoil]
+type=VelSet
+trigger1=time=40
+x=-7
+
+[State 3000, Sputter cue]
+type=PlaySnd
+trigger1=time=40
+value=0,3
+
+[State 3000, Recoil drag]
+type=VelMul
+trigger1=time>16
+x=0.84
+
+[State 3000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1100]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(1100)),10000+(1100),(1100))
+velset=0,0
+
+[State 1100, Contact]
+type=HitDef
+trigger1=time=20
+attr=S,SA
+damage=85,2
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=1100
+
+[State 1100, Trip forward]
+type=VelSet
+trigger1=time=[14,27]
+x=5
+
+[State 1100, Stop stumble]
+type=VelSet
+trigger1=time>=28
+x=0
+
+[State 1100, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1200]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(1200)),10000+(1200),(1200))
+velset=0,0
+
+[State 1200, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,SA
+damage=90,2
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=1200
+
+[State 1200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1300]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(1300)),10000+(1300),(1300))
+velset=0,0
+
+[State 1300, Back off]
+type=VelSet
+trigger1=time<18
+x=-5
+
+[State 1300, Stop]
+type=VelSet
+trigger1=time>=18
+x=0
+
+[State 1300, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 800]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(800)),10000+(800),(800))
+velset=0,0
+
+[State 800, Grab]
+type=HitDef
+trigger1=time=5
+attr=S,NT
+hitflag=M-
+priority=1,Miss
+sparkno=-1
+guard.dist=0
+pausetime=0,0
+p1stateno=801
+p2stateno=8250
+fall=1
+numhits=0
+getpower=0,0
+givepower=0,0
+id=800
+
+[State 800, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 810]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(810)),10000+(810),(810))
+velset=0,0
+
+[State 810, Grab]
+type=HitDef
+trigger1=time=5
+attr=S,NT
+hitflag=M-
+priority=1,Miss
+sparkno=-1
+guard.dist=0
+pausetime=0,0
+p1stateno=811
+p2stateno=8250
+fall=1
+numhits=0
+getpower=0,0
+givepower=0,0
+id=810
+
+[State 810, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 801]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(801)),10000+(801),(801))
+velset=0,0
+
+[State 801, Hold]
+type=TargetBind
+trigger1=time<18
+pos=100,-30
+
+[State 801, Throw damage]
+type=TargetLifeAdd
+trigger1=time=18
+value=-105
+kill=1
+
+[State 801, Let go]
+type=TargetState
+trigger1=time=18
+value=8260
+
+[State 801, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 811]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(811)),10000+(811),(811))
+velset=0,0
+
+[State 811, Back throw]
+type=Turn
+trigger1=time=0
+
+[State 811, Hold]
+type=TargetBind
+trigger1=time<18
+pos=100,-30
+
+[State 811, Throw damage]
+type=TargetLifeAdd
+trigger1=time=18
+value=-105
+kill=1
+
+[State 811, Let go]
+type=TargetState
+trigger1=time=18
+value=8260
+
+[State 811, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3200]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(3200)),10000+(3200),(3200))
+velset=0,0
+poweradd=-2000
+
+[State 3200, Invention pause]
+type=SuperPause
+trigger1=time=0
+time=12
+anim=-1
+movetime=0
+unhittable=0
+
+[State 3200, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,HA
+damage=0,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=0,0
+givepower=0,0
+id=3200
+p1stateno=3210
+p2stateno=8250
+
+[State 3200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3210]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(3210)),10000+(3210),(3210))
+velset=0,0
+
+[State 3210, Sequence protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 3210, Frame laboratory]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+
+[State 3210, Frame inventor]
+type=PosSet
+trigger1=1
+x=camerapos x-facing*260
+y=0
+
+[State 3210, Blueprint laboratory]
+type=Explod
+trigger1=time=0
+anim=6401
+ID=6401
+postype=left
+pos=0,0
+bindtime=-1
+removetime=240
+sprpriority=-10
+ownpal=1
+
+[State 3210, Urkelbot arrives]
+type=Explod
+trigger1=time=0
+anim=6402
+ID=6402
+postype=left
+pos=640-facing*70,660
+facing=facing
+bindtime=-1
+removetime=48
+sprpriority=2
+ownpal=1
+
+[State 3210, Start experiment]
+type=TargetBind
+trigger1=time<48
+pos=180,-time*2
+
+[State 3210, Robot juggle]
+type=TargetBind
+trigger1=time=[48,149]
+pos=260+40*sin(time*.15),-130-100*abs(sin(time*.08))
+
+[State 3210, Uppercut windup]
+type=TargetBind
+trigger1=time=[150,179]
+pos=260,-60-(time-150)*3
+
+[State 3210, Robot piston punch]
+type=Explod
+trigger1=time=48
+anim=6403
+ID=6403
+postype=left
+pos=640-facing*70,660
+facing=facing
+bindtime=-1
+removetime=48
+sprpriority=3
+ownpal=1
+
+[State 3210, Robot piston punch]
+type=Explod
+trigger1=time=96
+anim=6403
+ID=6403
+postype=left
+pos=640-facing*70,660
+facing=facing
+bindtime=-1
+removetime=54
+sprpriority=3
+ownpal=1
+
+[State 3210, Robot piston punch]
+type=Explod
+trigger1=time=150
+anim=6403
+ID=6403
+postype=left
+pos=640-facing*70,660
+facing=facing
+bindtime=-1
+removetime=90
+sprpriority=3
+ownpal=1
+
+[State 3210, Flying gears]
+type=Explod
+trigger1=time=24
+anim=6404
+ID=6404
+postype=p1
+pos=220,-240
+velocity=-2,-1
+removetime=24
+sprpriority=5
+ownpal=1
+
+[State 3210, Science shock]
+type=Explod
+trigger1=time=24
+anim=6405
+ID=6405
+postype=p1
+pos=220,-170
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 3210, Malfunction cue]
+type=PlaySnd
+trigger1=time=24
+value=0,3
+
+[State 3210, Machine shakes]
+type=EnvShake
+trigger1=time=24
+time=10
+ampl=5
+freq=85
+
+[State 3210, Flying gears]
+type=Explod
+trigger1=time=48
+anim=6404
+ID=6404
+postype=p1
+pos=220,-240
+velocity=-2,-1
+removetime=24
+sprpriority=5
+ownpal=1
+
+[State 3210, Science shock]
+type=Explod
+trigger1=time=48
+anim=6405
+ID=6405
+postype=p1
+pos=220,-170
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 3210, Malfunction cue]
+type=PlaySnd
+trigger1=time=48
+value=0,3
+
+[State 3210, Machine shakes]
+type=EnvShake
+trigger1=time=48
+time=10
+ampl=5
+freq=85
+
+[State 3210, Flying gears]
+type=Explod
+trigger1=time=72
+anim=6404
+ID=6404
+postype=p1
+pos=220,-240
+velocity=-2,-1
+removetime=24
+sprpriority=5
+ownpal=1
+
+[State 3210, Science shock]
+type=Explod
+trigger1=time=72
+anim=6405
+ID=6405
+postype=p1
+pos=220,-170
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 3210, Malfunction cue]
+type=PlaySnd
+trigger1=time=72
+value=0,3
+
+[State 3210, Machine shakes]
+type=EnvShake
+trigger1=time=72
+time=10
+ampl=5
+freq=85
+
+[State 3210, Flying gears]
+type=Explod
+trigger1=time=96
+anim=6404
+ID=6404
+postype=p1
+pos=220,-240
+velocity=-2,-1
+removetime=24
+sprpriority=5
+ownpal=1
+
+[State 3210, Science shock]
+type=Explod
+trigger1=time=96
+anim=6405
+ID=6405
+postype=p1
+pos=220,-170
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 3210, Malfunction cue]
+type=PlaySnd
+trigger1=time=96
+value=0,3
+
+[State 3210, Machine shakes]
+type=EnvShake
+trigger1=time=96
+time=10
+ampl=5
+freq=85
+
+[State 3210, Flying gears]
+type=Explod
+trigger1=time=120
+anim=6404
+ID=6404
+postype=p1
+pos=220,-240
+velocity=-2,-1
+removetime=24
+sprpriority=5
+ownpal=1
+
+[State 3210, Science shock]
+type=Explod
+trigger1=time=120
+anim=6405
+ID=6405
+postype=p1
+pos=220,-170
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 3210, Malfunction cue]
+type=PlaySnd
+trigger1=time=120
+value=0,3
+
+[State 3210, Machine shakes]
+type=EnvShake
+trigger1=time=120
+time=10
+ampl=5
+freq=85
+
+[State 3210, Flying gears]
+type=Explod
+trigger1=time=150
+anim=6404
+ID=6404
+postype=p1
+pos=220,-240
+velocity=-2,-1
+removetime=24
+sprpriority=5
+ownpal=1
+
+[State 3210, Science shock]
+type=Explod
+trigger1=time=150
+anim=6405
+ID=6405
+postype=p1
+pos=220,-170
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 3210, Malfunction cue]
+type=PlaySnd
+trigger1=time=150
+value=0,3
+
+[State 3210, Machine shakes]
+type=EnvShake
+trigger1=time=150
+time=10
+ampl=5
+freq=85
+
+[State 3210, Flying gears]
+type=Explod
+trigger1=time=180
+anim=6404
+ID=6404
+postype=p1
+pos=220,-240
+velocity=-2,-1
+removetime=24
+sprpriority=5
+ownpal=1
+
+[State 3210, Science shock]
+type=Explod
+trigger1=time=180
+anim=6405
+ID=6405
+postype=p1
+pos=220,-170
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 3210, Malfunction cue]
+type=PlaySnd
+trigger1=time=180
+value=0,3
+
+[State 3210, Machine shakes]
+type=EnvShake
+trigger1=time=180
+time=10
+ampl=14
+freq=85
+
+[State 3210, Robot impact flash]
+type=EnvColor
+trigger1=time=180
+value=255,239,135
+time=6
+under=0
+
+[State 3210, Resolve once]
+type=TargetLifeAdd
+trigger1=time=180
+value=-400
+kill=1
+
+[State 3210, Release]
+type=TargetState
+trigger1=time=180
+value=8260
+
+[State 3210, Recover]
+type=ChangeState
+trigger1=time>=239
+value=0
+ctrl=1
+
+[Statedef 8250]
+type=S
+movetype=H
+physics=N
+ctrl=0
+
+[State 8250, Own character reaction]
+type=ChangeAnim
+trigger1=time=0
+value=ifelse(var(30)=1 && selfanimexist(10000+(ifelse(var(30)=1 && selfanimexist(15000),15000,5000))),10000+(ifelse(var(30)=1 && selfanimexist(15000),15000,5000)),(ifelse(var(30)=1 && selfanimexist(15000),15000,5000)))
+
+[State 8250, Captured protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 8250, No camera pull]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+
+[State 8250, Orphan safety]
+type=SelfState
+trigger1=time>300
+value=0
+ctrl=1
+
+[Statedef 8260]
+type=A
+movetype=H
+physics=N
+ctrl=0
+
+[State 8260, Own character reaction]
+type=ChangeAnim
+trigger1=time=0
+value=ifelse(var(30)=1 && selfanimexist(10000+(ifelse(var(30)=1 && selfanimexist(15050),15050,5050))),10000+(ifelse(var(30)=1 && selfanimexist(15050),15050,5050)),(ifelse(var(30)=1 && selfanimexist(15050),15050,5050)))
+
+[State 8260, Launch]
+type=VelSet
+trigger1=time=0
+x=-6
+y=-9
+
+[State 8260, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 8260, Land]
+type=SelfState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=5100
+
+[Statedef 9000]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(0)),10000+(0),(0))
+
+[State 9000, Reset life]
+type=LifeSet
+trigger1=1
+value=1000
+
+[State 9000, Reset meter]
+type=PowerSet
+trigger1=1
+value=3000
+
+[State 9000, Reset form]
+type=VarSet
+trigger1=1
+var(30)=0
+
+[State 9000, Reset cooldown]
+type=VarSet
+trigger1=1
+var(31)=0
+
+[State 9000, Reset position]
+type=PosSet
+trigger1=1
+x=ifelse(teamside=1,-60,60)
+y=0
+
+[State 9000, Reset speed]
+type=VelSet
+trigger1=1
+x=0
+y=0
+
+[State 9000, Clear effects]
+type=RemoveExplod
+trigger1=1
+
+[State 9000, Ready]
+type=ChangeState
+trigger1=1
+value=0
+ctrl=1
+
+[Statedef 3900]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(3900)),10000+(3900),(3900))
+velset=0,0
+poweradd=-1000
+
+[State 3900, Commit form]
+type=VarSet
+trigger1=time=24
+var(30)=1
+
+[State 3900, Switch cooldown]
+type=VarSet
+trigger1=time=24
+var(31)=120
+
+[State 3900, Transform flash]
+type=PalFX
+trigger1=time=24
+time=7
+add=120,110,90
+mul=256,256,256
+
+[State 3900, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3901]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(3901)),10000+(3901),(3901))
+velset=0,0
+poweradd=0
+
+[State 3901, Commit form]
+type=VarSet
+trigger1=time=24
+var(30)=0
+
+[State 3901, Switch cooldown]
+type=VarSet
+trigger1=time=24
+var(31)=120
+
+[State 3901, Transform flash]
+type=PalFX
+trigger1=time=24
+time=7
+add=120,110,90
+mul=256,256,256
+
+[State 3901, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4100]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4100)),10000+(4100),(4100))
+poweradd=15
+velset=0,0
+
+[State 4100, Contact]
+type=HitDef
+trigger1=time=6
+attr=S,NA
+damage=34,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=4100
+
+[State 4100, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4110]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4110)),10000+(4110),(4110))
+poweradd=15
+velset=0,0
+
+[State 4110, Contact]
+type=HitDef
+trigger1=time=9
+attr=S,NA
+damage=56,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=4110
+
+[State 4110, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4120]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4120)),10000+(4120),(4120))
+poweradd=15
+velset=0,0
+
+[State 4120, Contact]
+type=HitDef
+trigger1=time=15
+attr=S,NA
+damage=90,2
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=4120
+
+[State 4120, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4140]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4140)),10000+(4140),(4140))
+poweradd=15
+velset=0,0
+
+[State 4140, Contact]
+type=HitDef
+trigger1=time=6
+attr=C,NA
+damage=30,0
+guardflag=L
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=4140
+
+[State 4140, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 4150]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4150)),10000+(4150),(4150))
+poweradd=15
+velset=0,0
+
+[State 4150, Contact]
+type=HitDef
+trigger1=time=13
+attr=C,NA
+damage=60,1
+guardflag=L
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=4150
+
+[State 4150, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 4160]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4160)),10000+(4160),(4160))
+poweradd=15
+velset=0,0
+
+[State 4160, Contact]
+type=HitDef
+trigger1=time=10
+attr=C,NA
+damage=78,2
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=4160
+
+[State 4160, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 4180]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4180)),10000+(4180),(4180))
+poweradd=15
+
+[State 4180, Contact]
+type=HitDef
+trigger1=time=9
+attr=A,NA
+damage=65,1
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=4180
+
+[State 4180, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 4180, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 4180, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 4300]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4300)),10000+(4300),(4300))
+velset=0,0
+
+[State 4300, Contact]
+type=HitDef
+trigger1=time=10
+attr=S,SA
+damage=60,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=4300
+
+[State 4300, Smooth approach]
+type=VelSet
+trigger1=time<15
+x=5
+
+[State 4300, Plant feet]
+type=VelSet
+trigger1=time>=15
+x=0
+
+[State 4300, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4310]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4310)),10000+(4310),(4310))
+velset=0,0
+
+[State 4310, Contact]
+type=HitDef
+trigger1=time=20
+attr=S,SA
+damage=95,2
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-4,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=4310
+
+[State 4310, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4330]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4330)),10000+(4330),(4330))
+velset=0,0
+
+[State 4330, Smooth retreat]
+type=VelSet
+trigger1=time<16
+x=-6
+
+[State 4330, Stop]
+type=VelSet
+trigger1=time>=16
+x=0
+
+[State 4330, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4400]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4400)),10000+(4400),(4400))
+velset=0,0
+poweradd=-1000
+
+[State 4400, Style pause]
+type=SuperPause
+trigger1=time=0
+time=12
+anim=-1
+movetime=0
+unhittable=0
+
+[State 4400, Contact]
+type=HitDef
+trigger1=time=14
+attr=S,HA
+damage=0,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=0,0
+givepower=0,0
+id=4400
+p1stateno=4410
+p2stateno=8250
+
+[State 4400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4500]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4500)),10000+(4500),(4500))
+velset=0,0
+poweradd=-2000
+
+[State 4500, Style pause]
+type=SuperPause
+trigger1=time=0
+time=12
+anim=-1
+movetime=0
+unhittable=0
+
+[State 4500, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,HA
+damage=0,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=6,8
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=-3
+air.velocity=-4,-5
+fall=0
+getpower=0,0
+givepower=0,0
+id=4500
+p1stateno=4510
+p2stateno=8250
+
+[State 4500, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4410]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4410)),10000+(4410),(4410))
+velset=0,0
+
+[State 4410, Confirmed protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 4410, Keep camera still]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+
+[State 4410, Frame Stefan]
+type=PosSet
+trigger1=1
+x=camerapos x-facing*180
+y=0
+
+[State 4410, Fluid combo]
+type=TargetBind
+trigger1=time<96
+pos=150+25*sin(time*.3),-abs(sin(time*.045))*160
+
+[State 4410, Silhouette trails]
+type=AfterImage
+trigger1=time=20
+time=84
+length=10
+timegap=2
+framegap=2
+trans=add
+
+[State 4410, Golden impact]
+type=Explod
+trigger1=time=24
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4410, Combo cue]
+type=PlaySnd
+trigger1=time=24
+value=0,1
+
+[State 4410, Impact shake]
+type=EnvShake
+trigger1=time=24
+time=8
+ampl=4
+freq=90
+
+[State 4410, Golden impact]
+type=Explod
+trigger1=time=48
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4410, Combo cue]
+type=PlaySnd
+trigger1=time=48
+value=0,1
+
+[State 4410, Impact shake]
+type=EnvShake
+trigger1=time=48
+time=8
+ampl=4
+freq=90
+
+[State 4410, Golden impact]
+type=Explod
+trigger1=time=72
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4410, Combo cue]
+type=PlaySnd
+trigger1=time=72
+value=0,1
+
+[State 4410, Impact shake]
+type=EnvShake
+trigger1=time=72
+time=8
+ampl=4
+freq=90
+
+[State 4410, Golden impact]
+type=Explod
+trigger1=time=96
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4410, Combo cue]
+type=PlaySnd
+trigger1=time=96
+value=0,1
+
+[State 4410, Impact shake]
+type=EnvShake
+trigger1=time=96
+time=8
+ampl=12
+freq=90
+
+[State 4410, Resolve once]
+type=TargetLifeAdd
+trigger1=time=96
+value=-245
+kill=1
+
+[State 4410, Release]
+type=TargetState
+trigger1=time=96
+value=8260
+
+[State 4410, Recover]
+type=ChangeState
+trigger1=time>=143
+value=0
+ctrl=1
+
+[Statedef 4510]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=ifelse(var(30)=1 && selfanimexist(10000+(4510)),10000+(4510),(4510))
+velset=0,0
+
+[State 4510, Confirmed protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 4510, Keep camera still]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+
+[State 4510, Frame Stefan]
+type=PosSet
+trigger1=1
+x=camerapos x-facing*180
+y=0
+
+[State 4510, Fluid combo]
+type=TargetBind
+trigger1=time<180
+pos=150+25*sin(time*.3),-abs(sin(time*.045))*160
+
+[State 4510, Silhouette trails]
+type=AfterImage
+trigger1=time=20
+time=168
+length=10
+timegap=2
+framegap=2
+trans=add
+
+[State 4510, Golden impact]
+type=Explod
+trigger1=time=24
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4510, Combo cue]
+type=PlaySnd
+trigger1=time=24
+value=0,1
+
+[State 4510, Impact shake]
+type=EnvShake
+trigger1=time=24
+time=8
+ampl=4
+freq=90
+
+[State 4510, Golden impact]
+type=Explod
+trigger1=time=48
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4510, Combo cue]
+type=PlaySnd
+trigger1=time=48
+value=0,1
+
+[State 4510, Impact shake]
+type=EnvShake
+trigger1=time=48
+time=8
+ampl=4
+freq=90
+
+[State 4510, Golden impact]
+type=Explod
+trigger1=time=72
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4510, Combo cue]
+type=PlaySnd
+trigger1=time=72
+value=0,1
+
+[State 4510, Impact shake]
+type=EnvShake
+trigger1=time=72
+time=8
+ampl=4
+freq=90
+
+[State 4510, Golden impact]
+type=Explod
+trigger1=time=96
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4510, Combo cue]
+type=PlaySnd
+trigger1=time=96
+value=0,1
+
+[State 4510, Impact shake]
+type=EnvShake
+trigger1=time=96
+time=8
+ampl=4
+freq=90
+
+[State 4510, Golden impact]
+type=Explod
+trigger1=time=120
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4510, Combo cue]
+type=PlaySnd
+trigger1=time=120
+value=0,1
+
+[State 4510, Impact shake]
+type=EnvShake
+trigger1=time=120
+time=8
+ampl=4
+freq=90
+
+[State 4510, Golden impact]
+type=Explod
+trigger1=time=150
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4510, Combo cue]
+type=PlaySnd
+trigger1=time=150
+value=0,1
+
+[State 4510, Impact shake]
+type=EnvShake
+trigger1=time=150
+time=8
+ampl=4
+freq=90
+
+[State 4510, Golden impact]
+type=Explod
+trigger1=time=180
+anim=6407
+ID=6407
+postype=p1
+pos=150,-180
+removetime=-2
+sprpriority=6
+ownpal=1
+
+[State 4510, Combo cue]
+type=PlaySnd
+trigger1=time=180
+value=0,1
+
+[State 4510, Impact shake]
+type=EnvShake
+trigger1=time=180
+time=8
+ampl=12
+freq=90
+
+[State 4510, Resolve once]
+type=TargetLifeAdd
+trigger1=time=180
+value=-390
+kill=1
+
+[State 4510, Release]
+type=TargetState
+trigger1=time=180
+value=8260
+
+[State 4510, Recover]
+type=ChangeState
+trigger1=time>=239
+value=0
+ctrl=1

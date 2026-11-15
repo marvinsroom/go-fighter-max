@@ -1,0 +1,2647 @@
+[Data]
+life=1000
+power=3000
+attack=100
+defence=100
+fall.defence_up=50
+liedown.time=40
+airjuggle=15
+sparkno=2
+guard.sparkno=40
+KO.echo=0
+volume=0
+[Size]
+xscale=0.9408000278
+yscale=0.9408000278
+ground.back=45
+ground.front=45
+air.back=45
+air.front=45
+height=345
+attack.dist=230
+proj.attack.dist=280
+proj.doscale=1
+head.pos=0,-310
+mid.pos=0,-170
+shadowoffset=0
+draw.offset=0,0
+[Velocity]
+walk.fwd=4.6
+walk.back=-3.4
+jump.neu=0,-12.5
+jump.fwd=4,-12.5
+jump.back=-3.4,-12.5
+[Movement]
+yaccel=.65
+stand.friction=.85
+crouch.friction=.82
+airjump.num=0
+stand.friction.threshold=.1
+
+[Statedef -2]
+type=S
+movetype=I
+physics=N
+ctrl=0
+
+[State -2, Face]
+type=Turn
+trigger1=ctrl
+trigger1=statetype!=A
+trigger1=p2dist x<0
+
+[State -2, Own movement]
+type=AssertSpecial
+trigger1=1
+flag=nowalk
+flag2=nobrake
+flag3=noautoturn
+
+[State -2, Veil cooldown]
+type=VarAdd
+trigger1=var(10)>0
+var(10)=-1
+
+[State -2, Snare cooldown]
+type=VarAdd
+trigger1=var(11)>0
+var(11)=-1
+
+[State -2, Clear cinematic]
+type=RemoveExplod
+trigger1=stateno!=4001 && stateno!=3201
+ID=7006
+
+[State -2, Clear cinematic]
+type=RemoveExplod
+trigger1=stateno!=4001 && stateno!=3201
+ID=7007
+
+[State -2, Clear cinematic]
+type=RemoveExplod
+trigger1=stateno!=4001 && stateno!=3201
+ID=7008
+
+[Statedef 0]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=0
+velset=0,0
+
+[State 0, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 0, Ground]
+type=PosSet
+trigger1=1
+y=0
+
+[Statedef 10]
+type=C
+movetype=I
+physics=N
+ctrl=0
+anim=10
+velset=0,0
+
+[State 10, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 10, Stand]
+type=ChangeState
+trigger1=command!="holddown"
+value=0
+ctrl=1
+
+[Statedef 20]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=20
+
+[State 20, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 20, Walk]
+type=VelSet
+trigger1=1
+x=4.6*(.35+.65*min(1,time/8.0))
+y=0
+
+[State 20, Stop]
+type=ChangeState
+trigger1=(ailevel=0 && command!="holdfwd") || (ailevel>0 && p2bodydist x<140)
+value=22
+ctrl=1
+
+[Statedef 21]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=21
+
+[State 21, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 21, Walk]
+type=VelSet
+trigger1=1
+x=-3.4*(.35+.65*min(1,time/8.0))
+y=0
+
+[State 21, Stop]
+type=ChangeState
+trigger1=(ailevel=0 && command!="holdback") || (ailevel>0 && p2bodydist x<140)
+value=22
+ctrl=1
+
+[Statedef 22]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=22
+
+[State 22, Settle]
+type=VelMul
+trigger1=1
+x=0.6
+
+[State 22, Ground]
+type=PosSet
+trigger1=1
+y=0
+
+[State 22, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 40]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=40
+
+[State 40, Direction]
+type=VarSet
+trigger1=time=0
+var(1)=ifelse(command="holdfwd",4,ifelse(command="holdback",-3.4,0))
+
+[State 40, Take off]
+type=ChangeState
+trigger1=time>=3
+value=50
+ctrl=1
+
+[Statedef 50]
+type=A
+movetype=I
+physics=N
+ctrl=0
+anim=41
+
+[State 50, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 50, Launch]
+type=VelSet
+trigger1=time=0
+trigger1=prevstateno=40
+x=var(1)
+y=-12.5
+
+[State 50, Apex]
+type=ChangeAnim
+trigger1=vel y=[-3,3]
+trigger1=anim!=42
+value=42
+
+[State 50, Descend]
+type=ChangeAnim
+trigger1=vel y>3
+trigger1=anim!=43
+value=43
+
+[State 50, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 50, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[Statedef 52]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=52
+velset=0,0
+
+[State 52, Ground]
+type=PosSet
+trigger1=1
+y=0
+
+[State 52, Recover]
+type=ChangeState
+trigger1=time>=5
+value=0
+ctrl=1
+
+[Statedef 200]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=200
+velset=0,0
+
+[State 200, Contact]
+type=HitDef
+trigger1=time=6
+attr=S,NA
+damage=34,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=3,6
+sparkno=S7011
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=27
+ground.slidetime=12
+ground.velocity=-1.8
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=200
+
+[State 200, Cut sound]
+type=PlaySnd
+trigger1=time=5
+value=0,0
+
+[State 200, Contact weight]
+type=EnvShake
+trigger1=movehit=1
+time=4
+freq=90
+ampl=1
+
+[State 200, Step into cut]
+type=VelSet
+trigger1=time=[4,8]
+x=1.6
+
+[State 200, Plant feet]
+type=VelSet
+trigger1=time=9
+x=0
+
+[State 200, Cut trail]
+type=Explod
+trigger1=time=6
+anim=7009
+ID=7009
+pos=160,-190
+scale=.85,.65
+removetime=5
+sprpriority=3
+ownpal=1
+
+[State 200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 210]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=210
+velset=0,0
+
+[State 210, Contact]
+type=HitDef
+trigger1=time=9
+attr=S,NA
+damage=55,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=5,8
+sparkno=S7111
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=27
+ground.slidetime=12
+ground.velocity=-1.8
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=210
+
+[State 210, Cut sound]
+type=PlaySnd
+trigger1=time=8
+value=0,0
+
+[State 210, Contact weight]
+type=EnvShake
+trigger1=movehit=1
+time=6
+freq=90
+ampl=2
+
+[State 210, Step into cut]
+type=VelSet
+trigger1=time=[7,11]
+x=3.4000000000000004
+
+[State 210, Plant feet]
+type=VelSet
+trigger1=time=12
+x=0
+
+[State 210, Silk from fingertips]
+type=Helper
+trigger1=time=9
+trigger1=numhelper(8600)=0
+name=Silk filament
+ID=8600
+stateno=8600
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 210, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 220]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=220
+velset=0,0
+
+[State 220, Contact]
+type=HitDef
+trigger1=time=13
+attr=S,NA
+damage=82,2
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=7,11
+sparkno=S7011
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=27
+ground.slidetime=12
+ground.velocity=-3,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=220
+
+[State 220, Cut sound]
+type=PlaySnd
+trigger1=time=12
+value=0,0
+
+[State 220, Contact weight]
+type=EnvShake
+trigger1=movehit=1
+time=8
+freq=90
+ampl=3
+
+[State 220, Step into cut]
+type=VelSet
+trigger1=time=[11,15]
+x=5.2
+
+[State 220, Plant feet]
+type=VelSet
+trigger1=time=16
+x=0
+
+[State 220, Cut trail]
+type=Explod
+trigger1=time=13
+anim=7009
+ID=7009
+pos=160,-190
+scale=.85,.65
+removetime=5
+sprpriority=3
+ownpal=1
+
+[State 220, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 400]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=400
+velset=0,0
+
+[State 400, Contact]
+type=HitDef
+trigger1=time=6
+attr=C,NA
+damage=30,0
+guardflag=L
+hitflag=MAF
+priority=4,Hit
+pausetime=3,6
+sparkno=S7011
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=27
+ground.slidetime=12
+ground.velocity=-1.8
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=400
+
+[State 400, Cut sound]
+type=PlaySnd
+trigger1=time=5
+value=0,0
+
+[State 400, Contact weight]
+type=EnvShake
+trigger1=movehit=1
+time=4
+freq=90
+ampl=1
+
+[State 400, Step into cut]
+type=VelSet
+trigger1=time=[4,8]
+x=1.6
+
+[State 400, Plant feet]
+type=VelSet
+trigger1=time=9
+x=0
+
+[State 400, Cut trail]
+type=Explod
+trigger1=time=6
+anim=7009
+ID=7009
+pos=160,-190
+scale=.85,.65
+removetime=5
+sprpriority=3
+ownpal=1
+
+[State 400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 410]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=410
+velset=0,0
+
+[State 410, Contact]
+type=HitDef
+trigger1=time=9
+attr=C,NA
+damage=52,1
+guardflag=L
+hitflag=MAF
+priority=4,Hit
+pausetime=5,8
+sparkno=S7111
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=27
+ground.slidetime=12
+ground.velocity=-1.8
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=410
+
+[State 410, Cut sound]
+type=PlaySnd
+trigger1=time=8
+value=0,0
+
+[State 410, Contact weight]
+type=EnvShake
+trigger1=movehit=1
+time=6
+freq=90
+ampl=2
+
+[State 410, Step into cut]
+type=VelSet
+trigger1=time=[7,11]
+x=3.4000000000000004
+
+[State 410, Plant feet]
+type=VelSet
+trigger1=time=12
+x=0
+
+[State 410, Silk from fingertips]
+type=Helper
+trigger1=time=9
+trigger1=numhelper(8600)=0
+name=Silk filament
+ID=8600
+stateno=8600
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 410, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 420]
+type=C
+movetype=A
+physics=N
+ctrl=0
+anim=420
+velset=0,0
+
+[State 420, Contact]
+type=HitDef
+trigger1=time=12
+attr=C,NA
+damage=76,2
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=7,11
+sparkno=S7011
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=27
+ground.slidetime=12
+ground.velocity=-3,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=420
+
+[State 420, Cut sound]
+type=PlaySnd
+trigger1=time=11
+value=0,0
+
+[State 420, Contact weight]
+type=EnvShake
+trigger1=movehit=1
+time=8
+freq=90
+ampl=3
+
+[State 420, Step into cut]
+type=VelSet
+trigger1=time=[10,14]
+x=5.2
+
+[State 420, Plant feet]
+type=VelSet
+trigger1=time=15
+x=0
+
+[State 420, Cut trail]
+type=Explod
+trigger1=time=12
+anim=7009
+ID=7009
+pos=160,-190
+scale=.85,.65
+removetime=5
+sprpriority=3
+ownpal=1
+
+[State 420, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=10
+ctrl=1
+
+[Statedef 600]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=600
+
+[State 600, Contact]
+type=HitDef
+trigger1=time=6
+attr=A,NA
+damage=35,1
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=3,6
+sparkno=S7011
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=27
+ground.slidetime=12
+ground.velocity=-1.8
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=600
+
+[State 600, Cut sound]
+type=PlaySnd
+trigger1=time=5
+value=0,0
+
+[State 600, Contact weight]
+type=EnvShake
+trigger1=movehit=1
+time=4
+freq=90
+ampl=1
+
+[State 600, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 600, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 600, Cut trail]
+type=Explod
+trigger1=time=6
+anim=7009
+ID=7009
+pos=160,-190
+scale=.85,.65
+removetime=5
+sprpriority=3
+ownpal=1
+
+[State 600, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 610]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=610
+
+[State 610, Contact]
+type=HitDef
+trigger1=time=9
+attr=A,NA
+damage=52,1
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=5,8
+sparkno=S7111
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=27
+ground.slidetime=12
+ground.velocity=-1.8
+air.velocity=-4,-5
+fall=0
+getpower=45,10
+givepower=25,10
+id=610
+
+[State 610, Cut sound]
+type=PlaySnd
+trigger1=time=8
+value=0,0
+
+[State 610, Contact weight]
+type=EnvShake
+trigger1=movehit=1
+time=6
+freq=90
+ampl=2
+
+[State 610, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 610, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 610, Silk from fingertips]
+type=Helper
+trigger1=time=9
+trigger1=numhelper(8600)=0
+name=Silk filament
+ID=8600
+stateno=8600
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 610, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 620]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=620
+
+[State 620, Contact]
+type=HitDef
+trigger1=time=12
+attr=A,NA
+damage=74,2
+guardflag=H
+hitflag=MAF
+priority=4,Hit
+pausetime=7,11
+sparkno=S7011
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Hard
+ground.type=Low
+ground.hittime=27
+ground.slidetime=12
+ground.velocity=-3,-5
+air.velocity=-4,-5
+fall=1
+getpower=45,10
+givepower=25,10
+id=620
+
+[State 620, Cut sound]
+type=PlaySnd
+trigger1=time=11
+value=0,0
+
+[State 620, Contact weight]
+type=EnvShake
+trigger1=movehit=1
+time=8
+freq=90
+ampl=3
+
+[State 620, Gravity]
+type=VelAdd
+trigger1=1
+y=0.65
+
+[State 620, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[State 620, Cut trail]
+type=Explod
+trigger1=time=12
+anim=7009
+ID=7009
+pos=160,-190
+scale=.85,.65
+removetime=5
+sprpriority=3
+ownpal=1
+
+[State 620, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[Statedef 190]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=190
+velset=0,0
+
+[State 190, Intro]
+type=AssertSpecial
+trigger1=time<60
+flag=intro
+
+[State 190, Reveal]
+type=Trans
+trigger1=time<12
+trans=addalpha
+alpha=min(256,time*24),256-min(256,time*24)
+
+[State 190, Arrival step]
+type=VelSet
+trigger1=time=[0,12]
+x=5
+
+[State 190, Settle]
+type=VelSet
+trigger1=time=13
+x=0
+
+[State 190, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 191]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=191
+
+[State 191, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 500]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=500
+velset=0,0
+
+[State 500, Gather]
+type=PowerAdd
+trigger1=1
+value=10
+
+[State 500, Charge threads]
+type=Explod
+trigger1=time%16=0
+anim=7009
+pos=0,-190
+scale=.22,.35
+removetime=15
+sprpriority=2
+ownpal=1
+
+[State 500, Release]
+type=ChangeState
+trigger1=command!="hold_charge" || power>=3000
+value=0
+ctrl=1
+
+[Statedef 1000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=1000
+velset=0,0
+poweradd=-250
+
+[State 1000, Cooldown]
+type=VarSet
+trigger1=time=0
+var(11)=90
+
+[State 1000, Snare]
+type=Helper
+trigger1=time=6
+name=Silk snare
+ID=8100
+stateno=8100
+postype=p1
+pos=200,0
+ownpal=1
+keyctrl=0
+
+[State 1000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 8100]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=7010
+velset=0,0
+
+[State 8100, Thread footprint]
+type=AngleDraw
+trigger1=1
+scale=1,1
+
+[State 8100, Trap drawing]
+type=Offset
+trigger1=1
+y=-290
+
+[State 8100, Contact]
+type=HitDef
+trigger1=time=1
+attr=S,SP
+damage=35,1
+guardflag=L
+hitflag=MAF
+priority=4,Hit
+pausetime=0,0
+sparkno=2
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=45
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-4,-5
+fall=0
+getpower=0,0
+givepower=0,0
+id=8100
+
+[State 8100, Expire]
+type=DestroySelf
+trigger1=time>=160 || movecontact || root,stateno=99000 || root,life<=0
+
+[Statedef 1100]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=1100
+poweradd=-500
+velset=0,0
+
+[State 1100, Hidden dagger]
+type=Projectile
+trigger1=time=8
+projid=1100
+projanim=7005
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=65
+velocity=17,0
+offset=100,-240
+attr=S,SP
+damage=35,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=18
+ground.velocity=-2
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 1100, Release whistle]
+type=PlaySnd
+trigger1=time=8
+value=0,0
+
+[State 1100, Hidden dagger]
+type=Projectile
+trigger1=time=16
+projid=1100
+projanim=7005
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=65
+velocity=17,0
+offset=100,-180
+attr=S,SP
+damage=35,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=18
+ground.velocity=-2
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 1100, Release whistle]
+type=PlaySnd
+trigger1=time=16
+value=0,0
+
+[State 1100, Hidden dagger]
+type=Projectile
+trigger1=time=24
+projid=1100
+projanim=7005
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=65
+velocity=17,0
+offset=100,-120
+attr=S,SP
+damage=35,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=18
+ground.velocity=-2
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 1100, Release whistle]
+type=PlaySnd
+trigger1=time=24
+value=0,0
+
+[State 1100, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1200]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=1200
+velset=0,0
+poweradd=-500
+
+[State 1200, Cooldown]
+type=VarSet
+trigger1=time=0
+var(10)=60
+
+[State 1200, Silent motion]
+type=VelSet
+trigger1=time=[4,15]
+x=15
+
+[State 1200, Stop]
+type=VelSet
+trigger1=time>=16
+x=0
+
+[State 1200, Brief evasion]
+type=NotHitBy
+trigger1=time=[6,12]
+value=SCA
+time=1
+
+[State 1200, Fade]
+type=Trans
+trigger1=time=[4,17]
+trans=addalpha
+alpha=100,156
+
+[State 1200, Pass through]
+type=PlayerPush
+trigger1=time=[4,17]
+value=0
+
+[State 1200, Motion trail]
+type=AfterImage
+trigger1=time=4
+time=15
+length=6
+timegap=2
+framegap=2
+palcolor=0
+palbright=16,20,30
+palcontrast=160,170,200
+trans=add
+
+[State 1200, Recover]
+type=ChangeState
+trigger1=time>=24
+value=0
+ctrl=1
+
+[Statedef 1300]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=1300
+velset=0,0
+poweradd=0
+
+[State 1300, Cooldown]
+type=VarSet
+trigger1=time=0
+var(10)=60
+
+[State 1300, Silent motion]
+type=VelSet
+trigger1=time=[4,19]
+x=-10
+
+[State 1300, Stop]
+type=VelSet
+trigger1=time>=20
+x=0
+
+[State 1300, Brief evasion]
+type=NotHitBy
+trigger1=time=[6,12]
+value=SCA
+time=1
+
+[State 1300, Fade]
+type=Trans
+trigger1=time=[4,17]
+trans=addalpha
+alpha=100,156
+
+[State 1300, Pass through]
+type=PlayerPush
+trigger1=time=[4,17]
+value=0
+
+[State 1300, Motion trail]
+type=AfterImage
+trigger1=time=4
+time=15
+length=6
+timegap=2
+framegap=2
+palcolor=0
+palbright=16,20,30
+palcontrast=160,170,200
+trans=add
+
+[State 1300, Recover]
+type=ChangeState
+trigger1=time>=28
+value=0
+ctrl=1
+
+[Statedef 1120]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=1120
+velset=0,0
+poweradd=-500
+
+[State 1120, Contact]
+type=HitDef
+trigger1=time=10
+attr=S,SA
+damage=10,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,0
+sparkno=S7111
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-4,-5
+fall=0
+getpower=0,0
+givepower=0,0
+id=1120
+p1stateno=1121
+p2stateno=8250
+
+[State 1120, Silk from fingertips]
+type=Helper
+trigger1=time=10
+trigger1=numhelper(8600)=0
+name=Silk filament
+ID=8600
+stateno=8600
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 1120, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3200]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=3200
+velset=0,0
+poweradd=-2000
+
+[State 3200, Contact]
+type=HitDef
+trigger1=time=10
+attr=S,HA
+damage=10,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,0
+sparkno=S7111
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-4,-5
+fall=0
+getpower=0,0
+givepower=0,0
+id=3200
+p1stateno=3201
+p2stateno=8250
+
+[State 3200, Silk from fingertips]
+type=Helper
+trigger1=time=10
+trigger1=numhelper(8600)=0
+name=Silk filament
+ID=8600
+stateno=8600
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 3200, Silk from fingertips]
+type=Helper
+trigger1=time=10
+trigger1=numhelper(8601)=0
+name=Silk filament
+ID=8601
+stateno=8601
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 3200, Silk from fingertips]
+type=Helper
+trigger1=time=10
+trigger1=numhelper(8602)=0
+name=Silk filament
+ID=8602
+stateno=8602
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 3200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 4000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=4000
+velset=0,0
+poweradd=-3000
+
+[State 4000, Contact]
+type=HitDef
+trigger1=time=10
+attr=S,HA
+damage=10,0
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,0
+sparkno=S7111
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-4,-5
+fall=0
+getpower=0,0
+givepower=0,0
+id=4000
+p1stateno=4001
+p2stateno=8250
+
+[State 4000, Silk from fingertips]
+type=Helper
+trigger1=time=10
+trigger1=numhelper(8600)=0
+name=Silk filament
+ID=8600
+stateno=8600
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 4000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3000]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=3000
+poweradd=-1000
+velset=0,0
+
+[State 3000, Super beat]
+type=SuperPause
+trigger1=time=0
+time=10
+movetime=10
+anim=-1
+sound=S0,4
+darken=1
+poweradd=0
+
+[State 3000, Contact]
+type=HitDef
+trigger1=time=10
+attr=S,HA
+damage=65,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=S7111
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-4,-5
+fall=0
+getpower=0,0
+givepower=10,0
+id=3000
+
+[State 3000, Cut snap]
+type=PlaySnd
+trigger1=time=10
+value=0,0
+
+[State 3000, Contact]
+type=HitDef
+trigger1=time=19
+attr=S,HA
+damage=65,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=S7111
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-4,-5
+fall=0
+getpower=0,0
+givepower=10,0
+id=3000
+
+[State 3000, Cut snap]
+type=PlaySnd
+trigger1=time=19
+value=0,0
+
+[State 3000, Contact]
+type=HitDef
+trigger1=time=28
+attr=S,HA
+damage=65,1
+guardflag=MA
+hitflag=MAF
+priority=4,Hit
+pausetime=0,5
+sparkno=S7111
+sparkxy=-10,-180
+hitsound=S0,1
+guardsound=S0,2
+animtype=Medium
+ground.type=High
+ground.hittime=20
+ground.slidetime=12
+ground.velocity=0
+air.velocity=-4,-5
+fall=0
+getpower=0,0
+givepower=10,0
+id=3000
+
+[State 3000, Cut snap]
+type=PlaySnd
+trigger1=time=28
+value=0,0
+
+[State 3000, Contact weight]
+type=EnvShake
+trigger1=movehit=1
+time=5
+freq=90
+ampl=3
+
+[State 3000, Silk from fingertips]
+type=Helper
+trigger1=time=10
+trigger1=numhelper(8600)=0
+name=Silk filament
+ID=8600
+stateno=8600
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 3000, Recover]
+type=ChangeState
+trigger1=time>=48
+value=0
+ctrl=1
+
+[Statedef 3100]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=3100
+poweradd=-1500
+velset=0,0
+
+[State 3100, Super beat]
+type=SuperPause
+trigger1=time=0
+time=10
+movetime=10
+anim=-1
+sound=S0,4
+darken=1
+poweradd=0
+
+[State 3100, Hidden dagger]
+type=Projectile
+trigger1=time=10
+projid=3100
+projanim=7005
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=65
+velocity=24,0
+offset=100,-280
+attr=S,SP
+damage=50,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=18
+ground.velocity=-2
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 3100, Dagger rush]
+type=PlaySnd
+trigger1=time=10
+value=0,0
+
+[State 3100, Hidden dagger]
+type=Projectile
+trigger1=time=12
+projid=3100
+projanim=7005
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=65
+velocity=24,0
+offset=100,-245
+attr=S,SP
+damage=50,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=18
+ground.velocity=-2
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 3100, Dagger rush]
+type=PlaySnd
+trigger1=time=12
+value=0,0
+
+[State 3100, Hidden dagger]
+type=Projectile
+trigger1=time=13
+projid=3100
+projanim=7005
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=65
+velocity=24,0
+offset=100,-210
+attr=S,SP
+damage=50,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=18
+ground.velocity=-2
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 3100, Dagger rush]
+type=PlaySnd
+trigger1=time=13
+value=0,0
+
+[State 3100, Hidden dagger]
+type=Projectile
+trigger1=time=18
+projid=3100
+projanim=7005
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=65
+velocity=24,0
+offset=100,-175
+attr=S,SP
+damage=50,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=18
+ground.velocity=-2
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 3100, Dagger rush]
+type=PlaySnd
+trigger1=time=18
+value=0,0
+
+[State 3100, Hidden dagger]
+type=Projectile
+trigger1=time=20
+projid=3100
+projanim=7005
+projhitanim=-1
+projremanim=-1
+projremove=1
+projremovetime=65
+velocity=24,0
+offset=100,-140
+attr=S,SP
+damage=50,3
+guardflag=MA
+hitflag=MAF
+pausetime=0,5
+ground.type=High
+ground.hittime=18
+ground.velocity=-2
+air.velocity=-3,-3
+getpower=0,0
+givepower=10,0
+hitsound=S0,0
+
+[State 3100, Dagger rush]
+type=PlaySnd
+trigger1=time=20
+value=0,0
+
+[State 3100, Recover]
+type=ChangeState
+trigger1=time>=52
+value=0
+ctrl=1
+
+[Statedef 1121]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=1121
+velset=0,0
+
+[State 1121, Scene root]
+type=VarSet
+trigger1=time=0
+var(21)=pos x
+
+[State 1121, Scene facing]
+type=VarSet
+trigger1=time=0
+var(22)=facing
+
+[State 1121, Protected choreography]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 1121, Silk from fingertips]
+type=Helper
+trigger1=time=0
+trigger1=numhelper(8600)=0
+name=Silk filament
+ID=8600
+stateno=8600
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 1121, Hold opponent]
+type=TargetBind
+trigger1=time<38
+time=1
+pos=((var(21)+240*var(22))-pos x)*facing,0
+
+[State 1121, Thread damage]
+type=TargetLifeAdd
+trigger1=time=8
+value=-40
+kill=0
+absolute=1
+
+[State 1121, Fine cut]
+type=Explod
+trigger1=time=8
+anim=7111
+pos=((var(21)+240*var(22))-pos x)*facing,-180
+removetime=4
+sprpriority=4
+ownpal=1
+
+[State 1121, Cut sound]
+type=PlaySnd
+trigger1=time=8
+value=0,0
+
+[State 1121, Cut impact]
+type=EnvShake
+trigger1=time=8
+time=4
+freq=95
+ampl=3
+
+[State 1121, Thread damage]
+type=TargetLifeAdd
+trigger1=time=18
+value=-40
+kill=0
+absolute=1
+
+[State 1121, Fine cut]
+type=Explod
+trigger1=time=18
+anim=7111
+pos=((var(21)+240*var(22))-pos x)*facing,-180
+removetime=4
+sprpriority=4
+ownpal=1
+
+[State 1121, Cut sound]
+type=PlaySnd
+trigger1=time=18
+value=0,0
+
+[State 1121, Cut impact]
+type=EnvShake
+trigger1=time=18
+time=4
+freq=95
+ampl=3
+
+[State 1121, Final thread]
+type=TargetLifeAdd
+trigger1=time=28
+value=-30
+kill=1
+absolute=1
+
+[State 1121, Closing cut]
+type=Explod
+trigger1=time=28
+anim=7111
+pos=((var(21)+240*var(22))-pos x)*facing,-190
+removetime=4
+sprpriority=4
+ownpal=1
+
+[State 1121, Final weight]
+type=EnvShake
+trigger1=time=28
+time=5
+freq=80
+ampl=3
+
+[State 1121, Final impact]
+type=PlaySnd
+trigger1=time=28
+value=0,3
+volumescale=100
+
+[State 1121, Release]
+type=TargetState
+trigger1=time=38
+value=8260
+
+[State 1121, Recover]
+type=ChangeState
+trigger1=time>=48
+value=0
+ctrl=1
+
+[Statedef 3201]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=3201
+velset=0,0
+
+[State 3201, Scene root]
+type=VarSet
+trigger1=time=0
+var(21)=pos x
+
+[State 3201, Scene facing]
+type=VarSet
+trigger1=time=0
+var(22)=facing
+
+[State 3201, Protected choreography]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 3201, Silk from fingertips]
+type=Helper
+trigger1=time=0
+trigger1=numhelper(8600)=0
+name=Silk filament
+ID=8600
+stateno=8600
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 3201, Silk from fingertips]
+type=Helper
+trigger1=time=0
+trigger1=numhelper(8601)=0
+name=Silk filament
+ID=8601
+stateno=8601
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 3201, Silk from fingertips]
+type=Helper
+trigger1=time=0
+trigger1=numhelper(8602)=0
+name=Silk filament
+ID=8602
+stateno=8602
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 3201, Hold opponent]
+type=TargetBind
+trigger1=time<90
+time=1
+pos=((var(21)+240*var(22))-pos x)*facing,0
+
+[State 3201, Thread damage]
+type=TargetLifeAdd
+trigger1=time=20
+value=-40
+kill=0
+absolute=1
+
+[State 3201, Fine cut]
+type=Explod
+trigger1=time=20
+anim=7111
+pos=((var(21)+240*var(22))-pos x)*facing,-180
+removetime=4
+sprpriority=4
+ownpal=1
+
+[State 3201, Cut sound]
+type=PlaySnd
+trigger1=time=20
+value=0,0
+
+[State 3201, Cut impact]
+type=EnvShake
+trigger1=time=20
+time=4
+freq=95
+ampl=3
+
+[State 3201, Thread damage]
+type=TargetLifeAdd
+trigger1=time=28
+value=-40
+kill=0
+absolute=1
+
+[State 3201, Fine cut]
+type=Explod
+trigger1=time=28
+anim=7111
+pos=((var(21)+240*var(22))-pos x)*facing,-180
+removetime=4
+sprpriority=4
+ownpal=1
+
+[State 3201, Cut sound]
+type=PlaySnd
+trigger1=time=28
+value=0,0
+
+[State 3201, Cut impact]
+type=EnvShake
+trigger1=time=28
+time=4
+freq=95
+ampl=3
+
+[State 3201, Thread damage]
+type=TargetLifeAdd
+trigger1=time=40
+value=-40
+kill=0
+absolute=1
+
+[State 3201, Fine cut]
+type=Explod
+trigger1=time=40
+anim=7111
+pos=((var(21)+240*var(22))-pos x)*facing,-180
+removetime=4
+sprpriority=4
+ownpal=1
+
+[State 3201, Cut sound]
+type=PlaySnd
+trigger1=time=40
+value=0,0
+
+[State 3201, Cut impact]
+type=EnvShake
+trigger1=time=40
+time=4
+freq=95
+ampl=3
+
+[State 3201, Thread damage]
+type=TargetLifeAdd
+trigger1=time=48
+value=-40
+kill=0
+absolute=1
+
+[State 3201, Fine cut]
+type=Explod
+trigger1=time=48
+anim=7111
+pos=((var(21)+240*var(22))-pos x)*facing,-180
+removetime=4
+sprpriority=4
+ownpal=1
+
+[State 3201, Cut sound]
+type=PlaySnd
+trigger1=time=48
+value=0,0
+
+[State 3201, Cut impact]
+type=EnvShake
+trigger1=time=48
+time=4
+freq=95
+ampl=3
+
+[State 3201, Thread damage]
+type=TargetLifeAdd
+trigger1=time=74
+value=-40
+kill=0
+absolute=1
+
+[State 3201, Fine cut]
+type=Explod
+trigger1=time=74
+anim=7111
+pos=((var(21)+240*var(22))-pos x)*facing,-180
+removetime=4
+sprpriority=4
+ownpal=1
+
+[State 3201, Cut sound]
+type=PlaySnd
+trigger1=time=74
+value=0,0
+
+[State 3201, Cut impact]
+type=EnvShake
+trigger1=time=74
+time=4
+freq=95
+ampl=3
+
+[State 3201, Final thread]
+type=TargetLifeAdd
+trigger1=time=80
+value=-90
+kill=1
+absolute=1
+
+[State 3201, Closing cut]
+type=Explod
+trigger1=time=80
+anim=7111
+pos=((var(21)+240*var(22))-pos x)*facing,-190
+removetime=4
+sprpriority=4
+ownpal=1
+
+[State 3201, Final weight]
+type=EnvShake
+trigger1=time=80
+time=5
+freq=80
+ampl=3
+
+[State 3201, Final impact]
+type=PlaySnd
+trigger1=time=80
+value=0,3
+volumescale=100
+
+[State 3201, Release]
+type=TargetState
+trigger1=time=90
+value=8260
+
+[State 3201, Recover]
+type=ChangeState
+trigger1=time>=100
+value=0
+ctrl=1
+
+[Statedef 4001]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=4001
+velset=0,0
+
+[State 4001, Center composition]
+type=PosSet
+trigger1=time=0
+x=-120*facing
+y=0
+
+[State 4001, Scene root]
+type=VarSet
+trigger1=time=0
+var(21)=pos x
+
+[State 4001, Scene facing]
+type=VarSet
+trigger1=time=0
+var(22)=facing
+
+[State 4001, Protected choreography]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 4001, Silk from fingertips]
+type=Helper
+trigger1=time=0
+trigger1=numhelper(8600)=0
+name=Silk filament
+ID=8600
+stateno=8600
+postype=p1
+pos=0,0
+ownpal=1
+keyctrl=0
+
+[State 4001, Ink silence]
+type=Explod
+trigger1=time=0
+anim=7006
+ID=7006
+postype=left
+pos=0,0
+bindtime=-1
+removetime=148
+sprpriority=-2
+ownpal=1
+
+[State 4001, Cold glance]
+type=Explod
+trigger1=time=0
+anim=7110
+ID=7110
+postype=left
+pos=0,0
+bindtime=-1
+removetime=8
+sprpriority=6
+ownpal=1
+
+[State 4001, Single unseen pass]
+type=PosSet
+trigger1=time=60
+x=var(21)+360*var(22)
+
+[State 4001, Face victim]
+type=Turn
+trigger1=time=60
+
+[State 4001, Unseen step]
+type=Trans
+trigger1=time=[60,62]
+trans=addalpha
+alpha=0,256
+
+[State 4001, Cloth pass]
+type=PlaySnd
+trigger1=time=60
+value=0,4
+volumescale=45
+
+[State 4001, Hold opponent]
+type=TargetBind
+trigger1=time<146
+time=1
+pos=((var(21)+240*var(22))-pos x)*facing,0
+
+[State 4001, Final thread]
+type=TargetLifeAdd
+trigger1=time=132
+value=-470
+kill=1
+absolute=1
+
+[State 4001, Closing cut]
+type=Explod
+trigger1=time=132
+anim=7111
+pos=((var(21)+240*var(22))-pos x)*facing,-190
+removetime=4
+sprpriority=4
+ownpal=1
+
+[State 4001, Final weight]
+type=EnvShake
+trigger1=time=132
+time=2
+freq=80
+ampl=1
+
+[State 4001, Final impact]
+type=PlaySnd
+trigger1=time=132
+value=0,0
+volumescale=60
+
+[State 4001, Release]
+type=TargetState
+trigger1=time=138
+value=8260
+
+[State 4001, Recover]
+type=ChangeState
+trigger1=time>=156
+value=0
+ctrl=1
+
+[Statedef 8250]
+type=S
+movetype=H
+physics=N
+ctrl=0
+velset=0,0
+
+[State 8250, Victim own proportions]
+type=ChangeAnim
+trigger1=time=0
+value=5000
+
+[State 8250, Quiet stillness]
+type=ChangeAnim
+trigger1=(enemynear,stateno)=4001
+trigger1=(enemynear,time)<132
+trigger1=anim!=0
+value=0
+
+[State 8250, Finish reaction]
+type=ChangeAnim
+trigger1=(enemynear,stateno)=4001
+trigger1=(enemynear,time)>=132
+trigger1=anim!=5000
+value=5000
+
+[State 8250, Protected]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 8250, Escape safety]
+type=SelfState
+trigger1=time>=340
+value=0
+ctrl=1
+
+[Statedef 8260]
+type=L
+movetype=H
+physics=N
+ctrl=0
+velset=0,0
+
+[State 8260, Own knockdown]
+type=ChangeAnim
+trigger1=time=0
+value=ifelse(selfanimexist(5110),5110,5000)
+
+[State 8260, Ground]
+type=PosSet
+trigger1=1
+y=0
+
+[State 8260, Get up]
+type=SelfState
+trigger1=time>=18
+value=5120
+
+[Statedef 8600]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=7100
+velset=0,0
+
+[State 8600, End with owner action]
+type=DestroySelf
+trigger1=!((root,stateno)=210 || (root,stateno)=410 || (root,stateno)=610 || (root,stateno)=1120 || (root,stateno)=1121 || (root,stateno)=3000 || (root,stateno)=3200 || (root,stateno)=3201 || (root,stateno)=4000 || (root,stateno)=4001) || (root,life)<=0
+
+[State 8600, Normal filament fades]
+type=DestroySelf
+trigger1=time>=12 && ((root,stateno)=210 || (root,stateno)=410 || (root,stateno)=610)
+
+[State 8600, Strand index]
+type=VarSet
+trigger1=time=0
+var(0)=0
+
+[State 8600, Follow facing]
+type=Turn
+trigger1=facing!=(root,facing)
+
+[State 8600, Registered fingertip X]
+type=VarSet
+trigger1=1
+fvar(2)=ifelse((root,anim)=210,ifelse((root,animelemno(0))=1,15.000,ifelse((root,animelemno(0))=2,234.211,ifelse((root,animelemno(0))=3,45.000,35.000))),ifelse((root,anim)=410,ifelse((root,animelemno(0))=1,0.000,ifelse((root,animelemno(0))=2,290.789,ifelse((root,animelemno(0))=3,40.000,45.000))),ifelse((root,anim)=610,ifelse((root,animelemno(0))=1,50.000,ifelse((root,animelemno(0))=2,234.211,ifelse((root,animelemno(0))=3,45.000,100.000))),ifelse((root,anim)=1120,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,58.000)))),ifelse((root,anim)=1121,ifelse((root,animelemno(0))=1,234.211,ifelse((root,animelemno(0))=2,45.000,ifelse((root,animelemno(0))=3,234.211,ifelse((root,animelemno(0))=4,45.000,ifelse((root,animelemno(0))=5,35.000,58.000))))),ifelse((root,anim)=3000,ifelse((root,animelemno(0))=1,15.000,ifelse((root,animelemno(0))=2,234.211,ifelse((root,animelemno(0))=3,45.000,ifelse((root,animelemno(0))=4,234.211,ifelse((root,animelemno(0))=5,45.000,ifelse((root,animelemno(0))=6,234.211,ifelse((root,animelemno(0))=7,45.000,ifelse((root,animelemno(0))=8,35.000,58.000)))))))),ifelse((root,anim)=3200,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,58.000)))),ifelse((root,anim)=3201,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,ifelse((root,animelemno(0))=5,170.845,ifelse((root,animelemno(0))=6,30.000,ifelse((root,animelemno(0))=7,50.000,ifelse((root,animelemno(0))=8,25.000,ifelse((root,animelemno(0))=9,196.633,ifelse((root,animelemno(0))=10,30.000,35.000)))))))))),ifelse((root,anim)=4000,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,58.000)))),ifelse((root,anim)=4001,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,196.633,ifelse((root,animelemno(0))=3,25.000,ifelse((root,animelemno(0))=4,-60.000,ifelse((root,animelemno(0))=5,234.241,ifelse((root,animelemno(0))=6,148.281,ifelse((root,animelemno(0))=7,80.000,ifelse((root,animelemno(0))=8,25.000,ifelse((root,animelemno(0))=9,196.633,ifelse((root,animelemno(0))=10,30.000,35.000)))))))))),25))))))))))
+
+[State 8600, Registered fingertip Y]
+type=VarSet
+trigger1=1
+fvar(3)=ifelse((root,anim)=210,ifelse((root,animelemno(0))=1,-280.000,ifelse((root,animelemno(0))=2,-269.737,ifelse((root,animelemno(0))=3,-230.000,-185.000))),ifelse((root,anim)=410,ifelse((root,animelemno(0))=1,-70.000,ifelse((root,animelemno(0))=2,-32.895,ifelse((root,animelemno(0))=3,-70.000,-60.000))),ifelse((root,anim)=610,ifelse((root,animelemno(0))=1,-250.000,ifelse((root,animelemno(0))=2,-269.737,ifelse((root,animelemno(0))=3,-230.000,-75.000))),ifelse((root,anim)=1120,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,-160.000)))),ifelse((root,anim)=1121,ifelse((root,animelemno(0))=1,-269.737,ifelse((root,animelemno(0))=2,-230.000,ifelse((root,animelemno(0))=3,-269.737,ifelse((root,animelemno(0))=4,-230.000,ifelse((root,animelemno(0))=5,-185.000,-160.000))))),ifelse((root,anim)=3000,ifelse((root,animelemno(0))=1,-280.000,ifelse((root,animelemno(0))=2,-269.737,ifelse((root,animelemno(0))=3,-230.000,ifelse((root,animelemno(0))=4,-269.737,ifelse((root,animelemno(0))=5,-230.000,ifelse((root,animelemno(0))=6,-269.737,ifelse((root,animelemno(0))=7,-230.000,ifelse((root,animelemno(0))=8,-185.000,-160.000)))))))),ifelse((root,anim)=3200,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,-160.000)))),ifelse((root,anim)=3201,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,ifelse((root,animelemno(0))=5,-101.003,ifelse((root,animelemno(0))=6,-240.000,ifelse((root,animelemno(0))=7,-170.000,ifelse((root,animelemno(0))=8,-245.000,ifelse((root,animelemno(0))=9,-300.860,ifelse((root,animelemno(0))=10,-170.000,-170.000)))))))))),ifelse((root,anim)=4000,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,-160.000)))),ifelse((root,anim)=4001,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-300.860,ifelse((root,animelemno(0))=3,-245.000,ifelse((root,animelemno(0))=4,-150.000,ifelse((root,animelemno(0))=5,-233.166,ifelse((root,animelemno(0))=6,-84.885,ifelse((root,animelemno(0))=7,-130.000,ifelse((root,animelemno(0))=8,-245.000,ifelse((root,animelemno(0))=9,-300.860,ifelse((root,animelemno(0))=10,-170.000,-170.000)))))))))),-230))))))))))
+
+[State 8600, Attach at hand]
+type=BindToRoot
+trigger1=1
+time=1
+pos=fvar(2),fvar(3)
+
+[State 8600, Hand to victim X]
+type=VarSet
+trigger1=1
+fvar(0)=(root,p2dist x)-fvar(2)
+
+[State 8600, Hand to victim Y]
+type=VarSet
+trigger1=1
+fvar(1)=(root,p2dist y)-fvar(3)-ifelse((root,stateno)=410,30,205-var(0)*35)
+
+[State 8600, Aim filament]
+type=AngleSet
+trigger1=1
+value=ifelse(fvar(0)<0,180+atan(fvar(1)/max(1,abs(fvar(0))))*57.29578,-atan(fvar(1)/max(1,abs(fvar(0))))*57.29578)
+
+[State 8600, Reach victim]
+type=AngleDraw
+trigger1=1
+scale=max(.01,(fvar(0)*fvar(0)+fvar(1)*fvar(1))**.5/240),1
+
+[State 8600, Taut shimmer]
+type=ChangeAnim
+trigger1=time>=8
+trigger1=anim=7100
+value=7101
+
+[State 8600, Final snap]
+type=ChangeAnim
+trigger1=(root,stateno)=4001
+trigger1=(root,time)>=128
+trigger1=anim!=7102
+value=7102
+
+[State 8600, Snap vanishes]
+type=DestroySelf
+trigger1=anim=7102
+trigger1=animtime=0
+
+[State 8600, Subtle opacity]
+type=VarSet
+trigger1=1
+var(1)=ifelse((root,stateno)=4001,ifelse((root,time)<108,65,180),180)
+
+[State 8600, Silk transparency]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=var(1),256-var(1)
+
+[State 8600, No body collision]
+type=PlayerPush
+trigger1=1
+value=0
+
+[State 8600, Draw over sleeves]
+type=SprPriority
+trigger1=1
+value=3
+
+[Statedef 8601]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=7100
+velset=0,0
+
+[State 8601, End with owner action]
+type=DestroySelf
+trigger1=!((root,stateno)=210 || (root,stateno)=410 || (root,stateno)=610 || (root,stateno)=1120 || (root,stateno)=1121 || (root,stateno)=3000 || (root,stateno)=3200 || (root,stateno)=3201 || (root,stateno)=4000 || (root,stateno)=4001) || (root,life)<=0
+
+[State 8601, Normal filament fades]
+type=DestroySelf
+trigger1=time>=12 && ((root,stateno)=210 || (root,stateno)=410 || (root,stateno)=610)
+
+[State 8601, Strand index]
+type=VarSet
+trigger1=time=0
+var(0)=1
+
+[State 8601, Follow facing]
+type=Turn
+trigger1=facing!=(root,facing)
+
+[State 8601, Registered fingertip X]
+type=VarSet
+trigger1=1
+fvar(2)=ifelse((root,anim)=210,ifelse((root,animelemno(0))=1,15.000,ifelse((root,animelemno(0))=2,234.211,ifelse((root,animelemno(0))=3,45.000,35.000))),ifelse((root,anim)=410,ifelse((root,animelemno(0))=1,0.000,ifelse((root,animelemno(0))=2,290.789,ifelse((root,animelemno(0))=3,40.000,45.000))),ifelse((root,anim)=610,ifelse((root,animelemno(0))=1,50.000,ifelse((root,animelemno(0))=2,234.211,ifelse((root,animelemno(0))=3,45.000,100.000))),ifelse((root,anim)=1120,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,58.000)))),ifelse((root,anim)=1121,ifelse((root,animelemno(0))=1,234.211,ifelse((root,animelemno(0))=2,45.000,ifelse((root,animelemno(0))=3,234.211,ifelse((root,animelemno(0))=4,45.000,ifelse((root,animelemno(0))=5,35.000,58.000))))),ifelse((root,anim)=3000,ifelse((root,animelemno(0))=1,15.000,ifelse((root,animelemno(0))=2,234.211,ifelse((root,animelemno(0))=3,45.000,ifelse((root,animelemno(0))=4,234.211,ifelse((root,animelemno(0))=5,45.000,ifelse((root,animelemno(0))=6,234.211,ifelse((root,animelemno(0))=7,45.000,ifelse((root,animelemno(0))=8,35.000,58.000)))))))),ifelse((root,anim)=3200,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,58.000)))),ifelse((root,anim)=3201,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,ifelse((root,animelemno(0))=5,170.845,ifelse((root,animelemno(0))=6,30.000,ifelse((root,animelemno(0))=7,50.000,ifelse((root,animelemno(0))=8,25.000,ifelse((root,animelemno(0))=9,196.633,ifelse((root,animelemno(0))=10,30.000,35.000)))))))))),ifelse((root,anim)=4000,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,58.000)))),ifelse((root,anim)=4001,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,196.633,ifelse((root,animelemno(0))=3,25.000,ifelse((root,animelemno(0))=4,-60.000,ifelse((root,animelemno(0))=5,234.241,ifelse((root,animelemno(0))=6,148.281,ifelse((root,animelemno(0))=7,80.000,ifelse((root,animelemno(0))=8,25.000,ifelse((root,animelemno(0))=9,196.633,ifelse((root,animelemno(0))=10,30.000,35.000)))))))))),25))))))))))
+
+[State 8601, Registered fingertip Y]
+type=VarSet
+trigger1=1
+fvar(3)=ifelse((root,anim)=210,ifelse((root,animelemno(0))=1,-280.000,ifelse((root,animelemno(0))=2,-269.737,ifelse((root,animelemno(0))=3,-230.000,-185.000))),ifelse((root,anim)=410,ifelse((root,animelemno(0))=1,-70.000,ifelse((root,animelemno(0))=2,-32.895,ifelse((root,animelemno(0))=3,-70.000,-60.000))),ifelse((root,anim)=610,ifelse((root,animelemno(0))=1,-250.000,ifelse((root,animelemno(0))=2,-269.737,ifelse((root,animelemno(0))=3,-230.000,-75.000))),ifelse((root,anim)=1120,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,-160.000)))),ifelse((root,anim)=1121,ifelse((root,animelemno(0))=1,-269.737,ifelse((root,animelemno(0))=2,-230.000,ifelse((root,animelemno(0))=3,-269.737,ifelse((root,animelemno(0))=4,-230.000,ifelse((root,animelemno(0))=5,-185.000,-160.000))))),ifelse((root,anim)=3000,ifelse((root,animelemno(0))=1,-280.000,ifelse((root,animelemno(0))=2,-269.737,ifelse((root,animelemno(0))=3,-230.000,ifelse((root,animelemno(0))=4,-269.737,ifelse((root,animelemno(0))=5,-230.000,ifelse((root,animelemno(0))=6,-269.737,ifelse((root,animelemno(0))=7,-230.000,ifelse((root,animelemno(0))=8,-185.000,-160.000)))))))),ifelse((root,anim)=3200,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,-160.000)))),ifelse((root,anim)=3201,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,ifelse((root,animelemno(0))=5,-101.003,ifelse((root,animelemno(0))=6,-240.000,ifelse((root,animelemno(0))=7,-170.000,ifelse((root,animelemno(0))=8,-245.000,ifelse((root,animelemno(0))=9,-300.860,ifelse((root,animelemno(0))=10,-170.000,-170.000)))))))))),ifelse((root,anim)=4000,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,-160.000)))),ifelse((root,anim)=4001,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-300.860,ifelse((root,animelemno(0))=3,-245.000,ifelse((root,animelemno(0))=4,-150.000,ifelse((root,animelemno(0))=5,-233.166,ifelse((root,animelemno(0))=6,-84.885,ifelse((root,animelemno(0))=7,-130.000,ifelse((root,animelemno(0))=8,-245.000,ifelse((root,animelemno(0))=9,-300.860,ifelse((root,animelemno(0))=10,-170.000,-170.000)))))))))),-230))))))))))
+
+[State 8601, Attach at hand]
+type=BindToRoot
+trigger1=1
+time=1
+pos=fvar(2),fvar(3)
+
+[State 8601, Hand to victim X]
+type=VarSet
+trigger1=1
+fvar(0)=(root,p2dist x)-fvar(2)
+
+[State 8601, Hand to victim Y]
+type=VarSet
+trigger1=1
+fvar(1)=(root,p2dist y)-fvar(3)-ifelse((root,stateno)=410,30,205-var(0)*35)
+
+[State 8601, Aim filament]
+type=AngleSet
+trigger1=1
+value=ifelse(fvar(0)<0,180+atan(fvar(1)/max(1,abs(fvar(0))))*57.29578,-atan(fvar(1)/max(1,abs(fvar(0))))*57.29578)
+
+[State 8601, Reach victim]
+type=AngleDraw
+trigger1=1
+scale=max(.01,(fvar(0)*fvar(0)+fvar(1)*fvar(1))**.5/240),1
+
+[State 8601, Taut shimmer]
+type=ChangeAnim
+trigger1=time>=8
+trigger1=anim=7100
+value=7101
+
+[State 8601, Final snap]
+type=ChangeAnim
+trigger1=(root,stateno)=4001
+trigger1=(root,time)>=128
+trigger1=anim!=7102
+value=7102
+
+[State 8601, Snap vanishes]
+type=DestroySelf
+trigger1=anim=7102
+trigger1=animtime=0
+
+[State 8601, Subtle opacity]
+type=VarSet
+trigger1=1
+var(1)=ifelse((root,stateno)=4001,ifelse((root,time)<108,65,180),180)
+
+[State 8601, Silk transparency]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=var(1),256-var(1)
+
+[State 8601, No body collision]
+type=PlayerPush
+trigger1=1
+value=0
+
+[State 8601, Draw over sleeves]
+type=SprPriority
+trigger1=1
+value=3
+
+[Statedef 8602]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=7100
+velset=0,0
+
+[State 8602, End with owner action]
+type=DestroySelf
+trigger1=!((root,stateno)=210 || (root,stateno)=410 || (root,stateno)=610 || (root,stateno)=1120 || (root,stateno)=1121 || (root,stateno)=3000 || (root,stateno)=3200 || (root,stateno)=3201 || (root,stateno)=4000 || (root,stateno)=4001) || (root,life)<=0
+
+[State 8602, Normal filament fades]
+type=DestroySelf
+trigger1=time>=12 && ((root,stateno)=210 || (root,stateno)=410 || (root,stateno)=610)
+
+[State 8602, Strand index]
+type=VarSet
+trigger1=time=0
+var(0)=2
+
+[State 8602, Follow facing]
+type=Turn
+trigger1=facing!=(root,facing)
+
+[State 8602, Registered fingertip X]
+type=VarSet
+trigger1=1
+fvar(2)=ifelse((root,anim)=210,ifelse((root,animelemno(0))=1,15.000,ifelse((root,animelemno(0))=2,234.211,ifelse((root,animelemno(0))=3,45.000,35.000))),ifelse((root,anim)=410,ifelse((root,animelemno(0))=1,0.000,ifelse((root,animelemno(0))=2,290.789,ifelse((root,animelemno(0))=3,40.000,45.000))),ifelse((root,anim)=610,ifelse((root,animelemno(0))=1,50.000,ifelse((root,animelemno(0))=2,234.211,ifelse((root,animelemno(0))=3,45.000,100.000))),ifelse((root,anim)=1120,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,58.000)))),ifelse((root,anim)=1121,ifelse((root,animelemno(0))=1,234.211,ifelse((root,animelemno(0))=2,45.000,ifelse((root,animelemno(0))=3,234.211,ifelse((root,animelemno(0))=4,45.000,ifelse((root,animelemno(0))=5,35.000,58.000))))),ifelse((root,anim)=3000,ifelse((root,animelemno(0))=1,15.000,ifelse((root,animelemno(0))=2,234.211,ifelse((root,animelemno(0))=3,45.000,ifelse((root,animelemno(0))=4,234.211,ifelse((root,animelemno(0))=5,45.000,ifelse((root,animelemno(0))=6,234.211,ifelse((root,animelemno(0))=7,45.000,ifelse((root,animelemno(0))=8,35.000,58.000)))))))),ifelse((root,anim)=3200,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,58.000)))),ifelse((root,anim)=3201,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,ifelse((root,animelemno(0))=5,170.845,ifelse((root,animelemno(0))=6,30.000,ifelse((root,animelemno(0))=7,50.000,ifelse((root,animelemno(0))=8,25.000,ifelse((root,animelemno(0))=9,196.633,ifelse((root,animelemno(0))=10,30.000,35.000)))))))))),ifelse((root,anim)=4000,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,170.845,ifelse((root,animelemno(0))=3,30.000,ifelse((root,animelemno(0))=4,50.000,58.000)))),ifelse((root,anim)=4001,ifelse((root,animelemno(0))=1,20.000,ifelse((root,animelemno(0))=2,196.633,ifelse((root,animelemno(0))=3,25.000,ifelse((root,animelemno(0))=4,-60.000,ifelse((root,animelemno(0))=5,234.241,ifelse((root,animelemno(0))=6,148.281,ifelse((root,animelemno(0))=7,80.000,ifelse((root,animelemno(0))=8,25.000,ifelse((root,animelemno(0))=9,196.633,ifelse((root,animelemno(0))=10,30.000,35.000)))))))))),25))))))))))
+
+[State 8602, Registered fingertip Y]
+type=VarSet
+trigger1=1
+fvar(3)=ifelse((root,anim)=210,ifelse((root,animelemno(0))=1,-280.000,ifelse((root,animelemno(0))=2,-269.737,ifelse((root,animelemno(0))=3,-230.000,-185.000))),ifelse((root,anim)=410,ifelse((root,animelemno(0))=1,-70.000,ifelse((root,animelemno(0))=2,-32.895,ifelse((root,animelemno(0))=3,-70.000,-60.000))),ifelse((root,anim)=610,ifelse((root,animelemno(0))=1,-250.000,ifelse((root,animelemno(0))=2,-269.737,ifelse((root,animelemno(0))=3,-230.000,-75.000))),ifelse((root,anim)=1120,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,-160.000)))),ifelse((root,anim)=1121,ifelse((root,animelemno(0))=1,-269.737,ifelse((root,animelemno(0))=2,-230.000,ifelse((root,animelemno(0))=3,-269.737,ifelse((root,animelemno(0))=4,-230.000,ifelse((root,animelemno(0))=5,-185.000,-160.000))))),ifelse((root,anim)=3000,ifelse((root,animelemno(0))=1,-280.000,ifelse((root,animelemno(0))=2,-269.737,ifelse((root,animelemno(0))=3,-230.000,ifelse((root,animelemno(0))=4,-269.737,ifelse((root,animelemno(0))=5,-230.000,ifelse((root,animelemno(0))=6,-269.737,ifelse((root,animelemno(0))=7,-230.000,ifelse((root,animelemno(0))=8,-185.000,-160.000)))))))),ifelse((root,anim)=3200,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,-160.000)))),ifelse((root,anim)=3201,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,ifelse((root,animelemno(0))=5,-101.003,ifelse((root,animelemno(0))=6,-240.000,ifelse((root,animelemno(0))=7,-170.000,ifelse((root,animelemno(0))=8,-245.000,ifelse((root,animelemno(0))=9,-300.860,ifelse((root,animelemno(0))=10,-170.000,-170.000)))))))))),ifelse((root,anim)=4000,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-101.003,ifelse((root,animelemno(0))=3,-240.000,ifelse((root,animelemno(0))=4,-170.000,-160.000)))),ifelse((root,anim)=4001,ifelse((root,animelemno(0))=1,-245.000,ifelse((root,animelemno(0))=2,-300.860,ifelse((root,animelemno(0))=3,-245.000,ifelse((root,animelemno(0))=4,-150.000,ifelse((root,animelemno(0))=5,-233.166,ifelse((root,animelemno(0))=6,-84.885,ifelse((root,animelemno(0))=7,-130.000,ifelse((root,animelemno(0))=8,-245.000,ifelse((root,animelemno(0))=9,-300.860,ifelse((root,animelemno(0))=10,-170.000,-170.000)))))))))),-230))))))))))
+
+[State 8602, Attach at hand]
+type=BindToRoot
+trigger1=1
+time=1
+pos=fvar(2),fvar(3)
+
+[State 8602, Hand to victim X]
+type=VarSet
+trigger1=1
+fvar(0)=(root,p2dist x)-fvar(2)
+
+[State 8602, Hand to victim Y]
+type=VarSet
+trigger1=1
+fvar(1)=(root,p2dist y)-fvar(3)-ifelse((root,stateno)=410,30,205-var(0)*35)
+
+[State 8602, Aim filament]
+type=AngleSet
+trigger1=1
+value=ifelse(fvar(0)<0,180+atan(fvar(1)/max(1,abs(fvar(0))))*57.29578,-atan(fvar(1)/max(1,abs(fvar(0))))*57.29578)
+
+[State 8602, Reach victim]
+type=AngleDraw
+trigger1=1
+scale=max(.01,(fvar(0)*fvar(0)+fvar(1)*fvar(1))**.5/240),1
+
+[State 8602, Taut shimmer]
+type=ChangeAnim
+trigger1=time>=8
+trigger1=anim=7100
+value=7101
+
+[State 8602, Final snap]
+type=ChangeAnim
+trigger1=(root,stateno)=4001
+trigger1=(root,time)>=128
+trigger1=anim!=7102
+value=7102
+
+[State 8602, Snap vanishes]
+type=DestroySelf
+trigger1=anim=7102
+trigger1=animtime=0
+
+[State 8602, Subtle opacity]
+type=VarSet
+trigger1=1
+var(1)=ifelse((root,stateno)=4001,ifelse((root,time)<108,65,180),180)
+
+[State 8602, Silk transparency]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=var(1),256-var(1)
+
+[State 8602, No body collision]
+type=PlayerPush
+trigger1=1
+value=0
+
+[State 8602, Draw over sleeves]
+type=SprPriority
+trigger1=1
+value=3

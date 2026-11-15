@@ -1,0 +1,2363 @@
+; KFM's constants and state file.
+; There are comments scattered through this file, so you may like to
+; take a look if would like to learn more about the cns.
+
+[Data]
+;Amount of life to start with
+life = 1000
+;attack power (more is stronger)
+attack = 100
+;defensive power (more is stronger)
+defence = 100
+;Percentage to increase defense everytime player is knocked down
+fall.defence_up = 50
+;Time which player lies down for, before getting up
+liedown.time = 60
+;Number of points for juggling
+airjuggle = 15
+;Default hit spark number for HitDefs
+sparkno = 2
+;Default guard spark number
+guard.sparkno = 40
+;1 to enable echo on KO
+KO.echo = 0
+;Volume offset (negative for softer)
+volume = 0
+;Variables with this index and above will not have their values
+;reset to 0 between rounds or matches. There are 60 int variables,
+;indexed from 0 to 59, and 40 float variables, indexed from 0 to 39.
+;If omitted, then it defaults to 60 and 40 for integer and float
+;variables repectively, meaning that none are persistent, i.e. all
+;are reset. If you want your variables to persist between matches,
+;you need to override state 5900 from common1.cns.
+IntPersistIndex = 60
+FloatPersistIndex = 40
+
+[Size]
+xscale = 1.018867924           ;Horizontal scaling factor.
+yscale = 1.018867924           ;Vertical scaling factor.
+ground.back=10
+ground.front=11
+air.back=10
+air.front=10
+height=53
+attack.dist = 160    ;Default attack distance
+proj.attack.dist = 90 ;Default attack distance for projectiles
+proj.doscale = 0     ;Set to 1 to scale projectiles too
+head.pos=0,-45
+mid.pos=0,-27
+shadowoffset = 0     ;Number of pixels to vertically offset the shadow
+draw.offset = 0,0    ;Player drawing offset in pixels (x, y). Recommended 0,0
+
+[Velocity]
+walk.fwd=1.5
+walk.back=-1.2
+run.fwd=3.2,0
+run.back=-2.7,-3.2
+jump.neu=0,-5.2
+jump.back=-1.5,-5.2
+jump.fwd=1.6,-5.2
+runjump.back = -2.55,-8.1 ;Running jump speeds (opt)
+runjump.fwd = 4,-8.1      ;.
+airjump.neu = 0,-8.1      ;.
+airjump.back = -2.55      ;Air jump speeds (opt)
+airjump.fwd = 2.5         ;.
+air.gethit.groundrecover = -.15,-3.5  ;Velocity for ground recovery state (x, y) **MUGEN 1.0**
+air.gethit.airrecover.mul = .5,.2     ;Multiplier for air recovery velocity (x, y) **MUGEN 1.0**
+air.gethit.airrecover.add = 0,-4.5    ;Velocity offset for air recovery (x, y) **MUGEN 1.0**
+air.gethit.airrecover.back = -1       ;Extra x-velocity for holding back during air recovery **MUGEN 1.0**
+air.gethit.airrecover.fwd = 0         ;Extra x-velocity for holding forward during air recovery **MUGEN 1.0**
+air.gethit.airrecover.up = -2         ;Extra y-velocity for holding up during air recovery **MUGEN 1.0**
+air.gethit.airrecover.down = 1.5      ;Extra y-velocity for holding down during air recovery **MUGEN 1.0**
+
+[Movement]
+airjump.num = 1       ;Number of air jumps allowed (opt)
+airjump.height = 35   ;Minimum distance from ground before you can air jump (opt)
+yaccel=.36
+stand.friction = .85  ;Friction coefficient when standing
+crouch.friction = .82 ;Friction coefficient when crouching
+stand.friction.threshold = 2          ;If player's speed drops below this threshold while standing, stop his movement **MUGEN 1.0**
+crouch.friction.threshold = .05       ;If player's speed drops below this threshold while crouching, stop his movement **MUGEN 1.0**
+air.gethit.groundlevel = 25           ;Y-position at which a falling player is considered to hit the ground **MUGEN 1.0**
+air.gethit.groundrecover.ground.threshold = -20 ;Y-position below which falling player can use the recovery command **MUGEN 1.0**
+air.gethit.groundrecover.groundlevel = 10   ;Y-position at which player in the ground recovery state touches the ground **MUGEN 1.0**
+air.gethit.airrecover.threshold = -1  ;Y-velocity above which player may use the air recovery command **MUGEN 1.0**
+air.gethit.airrecover.yaccel = .35    ;Vertical acceleration for player in the air recovery state **MUGEN 1.0**
+air.gethit.trip.groundlevel = 15      ;Y-position at which player in the tripped state touches the ground **MUGEN 1.0**
+down.bounce.offset = 0, 20            ;Offset for player bouncing off the ground (x, y) **MUGEN 1.0**
+down.bounce.yaccel = .4               ;Vertical acceleration for player bouncing off the ground **MUGEN 1.0**
+down.bounce.groundlevel = 12          ;Y-position at which player bouncing off the ground touches the ground again **MUGEN 1.0**
+down.friction.threshold = .05         ;If the player's speed drops below this threshold while lying down, stop his movement **MUGEN 1.0**
+
+
+[Quotes]
+victory1="This time, I will see it through."
+
+[Statedef 20]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=20
+velset=0,0
+
+[State 20, Walk control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 20, Walk]
+type=VelSet
+trigger1=1
+x=ifelse(AILevel>0,1.5,ifelse(command="holdback",-1.2,ifelse(command="holdfwd",1.5,0)))
+y=0
+
+[State 20, Stride]
+type=ChangeAnim
+trigger1=vel x>0 && anim!=20
+value=20
+
+[State 20, Stride]
+type=ChangeAnim
+trigger1=vel x<0 && anim!=21
+value=21
+
+[State 20, Stop]
+type=ChangeState
+trigger1=(AILevel=0 && command!="holdfwd" && command!="holdback") || (AILevel>0 && p2bodydist x<30)
+value=0
+ctrl=1
+
+[Statedef 170]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=170
+velset=0,0
+
+[Statedef 175]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=170
+velset=0,0
+
+[Statedef 180]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=181
+velset=0,0
+
+[State 180, Victory]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[Statedef 181]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=181
+velset=0,0
+
+[State 181, Victory]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[Statedef 190]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=190
+velset=0,0
+
+[State 190, Entrance]
+type=AssertSpecial
+trigger1=roundstate<2 && time<72
+flag=intro
+
+[State 190, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 191]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=190
+velset=0,0
+
+[State 191, Entrance]
+type=AssertSpecial
+trigger1=roundstate<2 && time<72
+flag=intro
+
+[State 191, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 195]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=181
+velset=0,0
+
+[State 195, Victory]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[Statedef -3]
+
+[State -3, Buffer strike]
+type=MapSet
+trigger1=!ishelper && time>1 && (stateno=200 || stateno=210 || stateno=220 || stateno=230 || stateno=240 || stateno=250 || stateno=260) && command="a"
+map="fighter.buffer"
+value=1
+
+[State -3, Buffer strike]
+type=MapSet
+trigger1=!ishelper && time>1 && (stateno=200 || stateno=210 || stateno=220 || stateno=230 || stateno=240 || stateno=250 || stateno=260) && command="b"
+map="fighter.buffer"
+value=2
+
+[State -3, Buffer strike]
+type=MapSet
+trigger1=!ishelper && time>1 && (stateno=200 || stateno=210 || stateno=220 || stateno=230 || stateno=240 || stateno=250 || stateno=260) && command="c"
+map="fighter.buffer"
+value=3
+
+[State -3, Buffer window]
+type=MapSet
+trigger1=!ishelper && (command="a" || command="b" || command="c")
+map="fighter.buffer_ticks"
+value=12
+
+[State -3, Buffer decay]
+type=MapAdd
+trigger1=!ishelper && map(fighter.buffer_ticks)>0
+map="fighter.buffer_ticks"
+value=-1
+
+[Statedef 200]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=200
+velset=0,0
+poweradd=20
+
+[State 200, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 200, Step]
+type=VelSet
+trigger1=time<4
+x=1.5
+
+[State 200, Plant]
+type=VelSet
+trigger1=time>=4
+x=0
+
+[State 200, Weapon wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=75
+
+[State 200, Contact]
+type=HitDef
+trigger1=time=6
+attr=S,NA
+damage=35,4
+guardflag=MA
+hitflag=MAF
+pausetime=4,6
+animtype=Medium
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-32
+
+[State 200, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=7 && time<=22 && ((map(fighter.buffer)=1 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=9 && 1=1))
+value=210
+
+[State 200, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=7 && time<=22 && ((map(fighter.buffer)=2 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=9 && 2=1))
+value=230
+
+[State 200, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=7 && time<=22 && ((map(fighter.buffer)=3 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=9 && 3=1))
+value=260
+
+[State 200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 210]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=210
+velset=0,0
+poweradd=20
+
+[State 210, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 210, Step]
+type=VelSet
+trigger1=time<4
+x=1.5
+
+[State 210, Plant]
+type=VelSet
+trigger1=time>=4
+x=0
+
+[State 210, Weapon wind]
+type=PlaySnd
+trigger1=time=4
+value=0,5
+volumescale=75
+
+[State 210, Contact]
+type=HitDef
+trigger1=time=7
+attr=S,NA
+damage=45,4
+guardflag=MA
+hitflag=MAF
+pausetime=4,6
+animtype=Medium
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-32
+
+[State 210, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=8 && time<=22 && ((map(fighter.buffer)=1 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=10 && 1=1))
+value=220
+
+[State 210, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=8 && time<=22 && ((map(fighter.buffer)=2 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=10 && 2=1))
+value=220
+
+[State 210, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=8 && time<=22 && ((map(fighter.buffer)=3 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=10 && 3=1))
+value=260
+
+[State 210, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 220]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=220
+velset=0,0
+poweradd=20
+
+[State 220, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 220, Step]
+type=VelSet
+trigger1=time<4
+x=1.5
+
+[State 220, Plant]
+type=VelSet
+trigger1=time>=4
+x=0
+
+[State 220, Weapon wind]
+type=PlaySnd
+trigger1=time=5
+value=0,5
+volumescale=75
+
+[State 220, Contact]
+type=HitDef
+trigger1=time=8
+attr=S,NA
+damage=60,4
+guardflag=MA
+hitflag=MAF
+pausetime=4,6
+animtype=Hard
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=3,-3
+air.velocity=2,-3
+fall=1
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-32
+
+[State 220, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 230]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=230
+velset=0,0
+poweradd=20
+
+[State 230, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 230, Step]
+type=VelSet
+trigger1=time<4
+x=1.5
+
+[State 230, Plant]
+type=VelSet
+trigger1=time>=4
+x=0
+
+[State 230, Weapon wind]
+type=PlaySnd
+trigger1=time=4
+value=0,5
+volumescale=75
+
+[State 230, Contact]
+type=HitDef
+trigger1=time=7
+attr=S,NA
+damage=45,4
+guardflag=MA
+hitflag=MAF
+pausetime=4,6
+animtype=Medium
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-32
+
+[State 230, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=8 && time<=22 && ((map(fighter.buffer)=1 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=10 && 1=1))
+value=240
+
+[State 230, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=8 && time<=22 && ((map(fighter.buffer)=2 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=10 && 2=1))
+value=240
+
+[State 230, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=8 && time<=22 && ((map(fighter.buffer)=3 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=10 && 3=1))
+value=260
+
+[State 230, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 240]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=240
+velset=0,0
+poweradd=20
+
+[State 240, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 240, Step]
+type=VelSet
+trigger1=time<4
+x=1.5
+
+[State 240, Plant]
+type=VelSet
+trigger1=time>=4
+x=0
+
+[State 240, Weapon wind]
+type=PlaySnd
+trigger1=time=4
+value=0,5
+volumescale=75
+
+[State 240, Contact]
+type=HitDef
+trigger1=time=7
+attr=S,NA
+damage=55,4
+guardflag=MA
+hitflag=MAF
+pausetime=4,6
+animtype=Medium
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-32
+
+[State 240, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=8 && time<=24 && ((map(fighter.buffer)=1 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=10 && 1=1))
+value=250
+
+[State 240, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=8 && time<=24 && ((map(fighter.buffer)=2 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=10 && 2=1))
+value=250
+
+[State 240, Confirmed chain]
+type=ChangeState
+trigger1=MoveContact && time>=8 && time<=24 && ((map(fighter.buffer)=3 && map(fighter.buffer_ticks)>0) || (AILevel>0 && time>=10 && 3=1))
+value=260
+
+[State 240, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 250]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=250
+velset=0,0
+poweradd=20
+
+[State 250, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 250, Step]
+type=VelSet
+trigger1=time<4
+x=1.5
+
+[State 250, Plant]
+type=VelSet
+trigger1=time>=4
+x=0
+
+[State 250, Weapon wind]
+type=PlaySnd
+trigger1=time=6
+value=0,5
+volumescale=75
+
+[State 250, Contact]
+type=HitDef
+trigger1=time=9
+attr=S,NA
+damage=70,4
+guardflag=MA
+hitflag=MAF
+pausetime=4,6
+animtype=Hard
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=3,-3
+air.velocity=2,-3
+fall=1
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-32
+
+[State 250, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 260]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=260
+velset=0,0
+poweradd=20
+
+[State 260, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 260, Step]
+type=VelSet
+trigger1=time<4
+x=1.5
+
+[State 260, Plant]
+type=VelSet
+trigger1=time>=4
+x=0
+
+[State 260, Weapon wind]
+type=PlaySnd
+trigger1=time=7
+value=0,5
+volumescale=75
+
+[State 260, Contact]
+type=HitDef
+trigger1=time=10
+attr=S,NA
+damage=80,4
+guardflag=MA
+hitflag=MAF
+pausetime=4,6
+animtype=Hard
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=3,-3
+air.velocity=2,-3
+fall=1
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-32
+
+[State 260, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 400]
+type=C
+movetype=A
+physics=C
+ctrl=0
+anim=400
+velset=0,0
+poweradd=20
+
+[State 400, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 400, Weapon wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=75
+
+[State 400, Contact]
+type=HitDef
+trigger1=time=6
+attr=C,NA
+damage=30,4
+guardflag=L
+hitflag=MAF
+pausetime=4,6
+animtype=Medium
+ground.type=Low
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-16
+
+[State 400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=11
+ctrl=1
+
+[Statedef 410]
+type=C
+movetype=A
+physics=C
+ctrl=0
+anim=410
+velset=0,0
+poweradd=20
+
+[State 410, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 410, Weapon wind]
+type=PlaySnd
+trigger1=time=5
+value=0,5
+volumescale=75
+
+[State 410, Contact]
+type=HitDef
+trigger1=time=8
+attr=C,NA
+damage=50,4
+guardflag=L
+hitflag=MAF
+pausetime=4,6
+animtype=Hard
+ground.type=Low
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=3,-3
+air.velocity=2,-3
+fall=1
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-16
+
+[State 410, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=11
+ctrl=1
+
+[Statedef 420]
+type=C
+movetype=A
+physics=C
+ctrl=0
+anim=420
+velset=0,0
+poweradd=20
+
+[State 420, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 420, Weapon wind]
+type=PlaySnd
+trigger1=time=7
+value=0,5
+volumescale=75
+
+[State 420, Contact]
+type=HitDef
+trigger1=time=10
+attr=C,NA
+damage=70,4
+guardflag=L
+hitflag=MAF
+pausetime=4,6
+animtype=Hard
+ground.type=Low
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=3,-3
+air.velocity=2,-3
+fall=1
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-16
+
+[State 420, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=11
+ctrl=1
+
+[Statedef 600]
+type=A
+movetype=A
+physics=A
+ctrl=0
+anim=600
+poweradd=20
+
+[State 600, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 600, Weapon wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=75
+
+[State 600, Contact]
+type=HitDef
+trigger1=time=6
+attr=A,NA
+damage=35,4
+guardflag=H
+hitflag=MAF
+pausetime=4,6
+animtype=Medium
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-32
+
+[State 600, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[State 600, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+ctrl=1
+
+[Statedef 610]
+type=A
+movetype=A
+physics=A
+ctrl=0
+anim=610
+poweradd=20
+
+[State 610, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 610, Weapon wind]
+type=PlaySnd
+trigger1=time=5
+value=0,5
+volumescale=75
+
+[State 610, Contact]
+type=HitDef
+trigger1=time=8
+attr=A,NA
+damage=50,4
+guardflag=H
+hitflag=MAF
+pausetime=4,6
+animtype=Medium
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-32
+
+[State 610, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[State 610, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+ctrl=1
+
+[Statedef 620]
+type=A
+movetype=A
+physics=A
+ctrl=0
+anim=620
+poweradd=20
+
+[State 620, Consume strike]
+type=MapSet
+trigger1=!time
+map="fighter.buffer"
+value=0
+
+[State 620, Weapon wind]
+type=PlaySnd
+trigger1=time=7
+value=0,5
+volumescale=75
+
+[State 620, Contact]
+type=HitDef
+trigger1=time=10
+attr=A,NA
+damage=70,4
+guardflag=H
+hitflag=MAF
+pausetime=4,6
+animtype=Hard
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=3,-3
+air.velocity=2,-3
+fall=1
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=20,5
+givepower=10,5
+sparkxy=0,-32
+
+[State 620, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=50
+ctrl=1
+
+[State 620, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+ctrl=1
+
+[Statedef 1000]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=1000
+velset=0,0
+poweradd=-500
+
+[State 1000, Technique wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=80
+
+[State 1000, Palm weight transfer]
+type=VelSet
+trigger1=time=[5,9]
+x=1.8
+
+[State 1000, Plant palm strike]
+type=VelSet
+trigger1=time=10
+x=0
+
+[State 1000, Contact]
+type=HitDef
+trigger1=time=14
+attr=S,SA
+damage=120,4
+guardflag=MA
+hitflag=MAF
+pausetime=5,7
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=10
+ground.velocity=3.5
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=0,0
+givepower=10,5
+sparkxy=0,-32
+
+[State 1000, Shinsu choreography]
+type=Explod
+trigger1=time=14
+anim=9100
+ID=9100
+pos=32,-29
+postype=p1
+bindtime=1
+removetime=14
+scale=.13,.12
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 1000, Technique impact]
+type=EnvShake
+trigger1=time=15 && MoveHit
+time=4
+ampl=-2
+freq=75
+
+[State 1000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1100]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=1100
+velset=0,0
+poweradd=-700
+
+[State 1100, Technique wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=80
+
+[State 1100, Drive through space]
+type=VelSet
+trigger1=time=[5,12]
+x=4
+
+[State 1100, Plant the piercer]
+type=VelSet
+trigger1=time=13
+x=0
+
+[State 1100, Piercer afterimages]
+type=AfterImage
+trigger1=time=4
+time=13
+length=4
+timegap=1
+framegap=2
+palcolor=0
+palbright=0,15,35
+palcontrast=140,200,230
+trans=add1
+
+[State 1100, Contact]
+type=HitDef
+trigger1=time=12
+attr=S,SA
+damage=150,4
+guardflag=MA
+hitflag=MAF
+pausetime=7,10
+animtype=Hard
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=5,-4
+air.velocity=2,-3
+fall=1
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=0,0
+givepower=10,5
+sparkxy=0,-32
+
+[State 1100, Shinsu choreography]
+type=Explod
+trigger1=time=7
+anim=9101
+ID=9101
+pos=18,-29
+postype=p1
+bindtime=1
+removetime=16
+scale=.18,.12
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 1100, Piercer impact]
+type=EnvShake
+trigger1=MoveHit
+time=5
+ampl=-3
+freq=75
+persistent=0
+
+[State 1100, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1200]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=1200
+velset=0,0
+poweradd=-600
+
+[State 1200, Technique wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=80
+
+[State 1200, Reverse incoming strike]
+type=ReversalDef
+trigger1=time=1
+reversal.attr=SCA,NA,SA,HA
+pausetime=6,10
+p1stateno=1201
+p2stateno=3050
+sparkno=-1
+hitsound=S0,6
+
+[State 1200, Shinsu choreography]
+type=Explod
+trigger1=time=1
+anim=9102
+ID=9102
+pos=9,-28
+postype=p1
+bindtime=-1
+removetime=32
+scale=.12,.17
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 1200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1300]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=1300
+velset=0,0
+poweradd=-500
+
+[State 1300, Technique wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=80
+
+[State 1300, Shinsu choreography]
+type=Explod
+trigger1=time=3
+anim=9103
+ID=9103
+pos=17,-32
+postype=p1
+bindtime=-1
+removetime=13
+scale=.055,.055
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 1300, Release baang]
+type=Helper
+trigger1=time=16
+name="Shinsu Baang"
+ID=10001
+stateno=10001
+postype=p1
+pos=28,-31
+ownpal=1
+keyctrl=0
+
+[State 1300, Release tone]
+type=PlaySnd
+trigger1=time=16
+value=0,3
+
+[State 1300, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 2000]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=2000
+velset=0,0
+poweradd=-1500
+
+[State 2000, Technique wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=80
+
+[State 2000, Butterfly advancing footwork]
+type=VelSet
+trigger1=time=[2,5]
+x=2
+
+[State 2000, Butterfly stance]
+type=VelSet
+trigger1=time=6
+x=0
+
+[State 2000, Contact]
+type=HitDef
+trigger1=time=12
+attr=S,HA
+damage=90,4
+guardflag=MA
+hitflag=MAF
+pausetime=5,7
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=0,0
+givepower=10,5
+sparkxy=0,-32
+
+[State 2000, Shinsu choreography]
+type=Explod
+trigger1=time=12
+anim=9104
+ID=9104
+pos=32,-29
+postype=p1
+bindtime=1
+removetime=14
+scale=.13,.12
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 2000, Technique impact]
+type=EnvShake
+trigger1=time=13 && MoveHit
+time=4
+ampl=-2
+freq=75
+
+[State 2000, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,HA
+damage=90,4
+guardflag=MA
+hitflag=MAF
+pausetime=5,7
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=0,0
+givepower=10,5
+sparkxy=0,-32
+
+[State 2000, Shinsu choreography]
+type=Explod
+trigger1=time=24
+anim=9104
+ID=9104
+pos=32,-29
+postype=p1
+bindtime=1
+removetime=14
+scale=.13,.12
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 2000, Technique impact]
+type=EnvShake
+trigger1=time=25 && MoveHit
+time=4
+ampl=-2
+freq=75
+
+[State 2000, Contact]
+type=HitDef
+trigger1=time=36
+attr=S,HA
+damage=90,4
+guardflag=MA
+hitflag=MAF
+pausetime=5,7
+animtype=Hard
+ground.type=High
+ground.hittime=28
+ground.slidetime=10
+ground.velocity=3,-3
+air.velocity=2,-3
+fall=1
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=0,0
+givepower=10,5
+sparkxy=0,-32
+
+[State 2000, Shinsu choreography]
+type=Explod
+trigger1=time=36
+anim=9104
+ID=9104
+pos=32,-29
+postype=p1
+bindtime=1
+removetime=14
+scale=.13,.12
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 2000, Technique impact]
+type=EnvShake
+trigger1=time=37 && MoveHit
+time=4
+ampl=-2
+freq=75
+
+[State 2000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 2100]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=2100
+velset=0,0
+poweradd=-1000
+
+[State 2100, Technique wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=80
+
+[State 2100, Reverse incoming strike]
+type=ReversalDef
+trigger1=time=1
+reversal.attr=SCA,NA,SA,HA
+pausetime=6,10
+p1stateno=2101
+p2stateno=3050
+sparkno=-1
+hitsound=S0,6
+
+[State 2100, Shinsu choreography]
+type=Explod
+trigger1=time=1
+anim=9102
+ID=9102
+pos=9,-28
+postype=p1
+bindtime=-1
+removetime=32
+scale=.22,.26
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 2100, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 2200]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=2200
+velset=0,0
+poweradd=-2000
+
+[State 2200, Technique wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=80
+
+[State 2200, Contact]
+type=HitDef
+trigger1=time=20
+attr=S,HA
+damage=160,4
+guardflag=MA
+hitflag=MAF
+pausetime=5,7
+animtype=Medium
+ground.type=High
+ground.hittime=28
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=0,0
+givepower=10,5
+sparkxy=0,-32
+
+[State 2200, Shinsu choreography]
+type=Explod
+trigger1=time=20
+anim=9105
+ID=9105
+pos=32,-29
+postype=p1
+bindtime=1
+removetime=20
+scale=.22,.23
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 2200, Technique impact]
+type=EnvShake
+trigger1=time=21 && MoveHit
+time=4
+ampl=-4
+freq=75
+
+[State 2200, Contact]
+type=HitDef
+trigger1=time=34
+attr=S,HA
+damage=160,4
+guardflag=MA
+hitflag=MAF
+pausetime=5,7
+animtype=Hard
+ground.type=High
+ground.hittime=28
+ground.slidetime=10
+ground.velocity=3,-3
+air.velocity=2,-3
+fall=1
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=0,0
+givepower=10,5
+sparkxy=0,-32
+
+[State 2200, Shinsu choreography]
+type=Explod
+trigger1=time=34
+anim=9105
+ID=9105
+pos=32,-29
+postype=p1
+bindtime=1
+removetime=20
+scale=.22,.23
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 2200, Technique impact]
+type=EnvShake
+trigger1=time=35 && MoveHit
+time=4
+ampl=-4
+freq=75
+
+[State 2200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3000]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=3000
+velset=0,0
+poweradd=-3000
+
+[State 3000, Technique wind]
+type=PlaySnd
+trigger1=time=3
+value=0,5
+volumescale=80
+
+[State 3000, Ultimate declaration]
+type=SuperPause
+trigger1=!time
+time=12
+movetime=0
+anim=-1
+darken=1
+p2defmul=1
+poweradd=0
+
+[State 3000, Gathering roar]
+type=PlaySnd
+trigger1=!time
+value=0,7
+
+[State 3000, Shinsu choreography]
+type=Explod
+trigger1=time=1
+anim=9107
+ID=9107
+pos=0,-2
+postype=p1
+bindtime=1
+removetime=35
+scale=.22,.055
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3000, Shinsu choreography]
+type=Explod
+trigger1=time=12
+anim=9103
+ID=9103
+pos=20,-35
+postype=p1
+bindtime=1
+removetime=22
+scale=.09,.09
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3000, Contact]
+type=HitDef
+trigger1=time=24
+attr=S,HA
+damage=40,12
+guardflag=MA
+hitflag=MAF
+pausetime=4,6
+animtype=Medium
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=.25
+air.velocity=2,-3
+fall=0
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=0,0
+givepower=20,10
+sparkxy=0,-32
+p1stateno=3001
+p2stateno=3050
+
+[State 3000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1201]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=1201
+velset=0,0
+
+[State 1201, Counter contact]
+type=TargetBind
+trigger1=time<10 && NumTarget>0
+pos=34,0
+time=1
+
+[State 1201, Counter damage]
+type=TargetLifeAdd
+trigger1=!time && NumTarget>0
+value=-120
+
+[State 1201, Counter release]
+type=TargetState
+trigger1=time=10 && NumTarget>0
+value=3051
+
+[State 1201, Shinsu choreography]
+type=Explod
+trigger1=time=0
+anim=9100
+ID=9100
+pos=28,-30
+postype=p1
+bindtime=1
+removetime=18
+scale=.18,.18
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 1201, Counter punch]
+type=PlaySnd
+trigger1=!time
+value=0,6
+
+[State 1201, Counter impact]
+type=EnvShake
+trigger1=!time
+time=5
+ampl=-3
+freq=70
+
+[State 1201, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 2101]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=2101
+velset=0,0
+
+[State 2101, Counter contact]
+type=TargetBind
+trigger1=time<10 && NumTarget>0
+pos=34,0
+time=1
+
+[State 2101, Counter damage]
+type=TargetLifeAdd
+trigger1=!time && NumTarget>0
+value=-200
+
+[State 2101, Counter release]
+type=TargetState
+trigger1=time=10 && NumTarget>0
+value=3051
+
+[State 2101, Shinsu choreography]
+type=Explod
+trigger1=time=0
+anim=9105
+ID=9105
+pos=28,-30
+postype=p1
+bindtime=1
+removetime=18
+scale=.18,.18
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 2101, Counter punch]
+type=PlaySnd
+trigger1=!time
+value=0,6
+
+[State 2101, Counter impact]
+type=EnvShake
+trigger1=!time
+time=5
+ampl=-3
+freq=70
+
+[State 2101, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 10001]
+type=A
+movetype=A
+physics=N
+ctrl=0
+anim=9010
+velset=4.8,0
+
+[State 10001, Baang silhouette]
+type=AngleDraw
+trigger1=1
+scale=.10,.10
+
+[State 10001, Contact]
+type=HitDef
+trigger1=time=0
+attr=A,SP
+damage=100,4
+guardflag=MA
+hitflag=MAF
+pausetime=0,6
+animtype=Hard
+ground.type=High
+ground.hittime=26
+ground.slidetime=10
+ground.velocity=3,-3
+air.velocity=2,-3
+fall=1
+sparkno=S9120
+guard.sparkno=S9121
+hitsound=S0,6
+guardsound=S0,1
+getpower=0,0
+givepower=10,5
+sparkxy=0,-32
+
+[State 10001, Shinsu choreography]
+type=Explod
+trigger1=time=0
+anim=9114
+ID=9114
+pos=0,0
+postype=p1
+bindtime=1
+removetime=12
+scale=.045,.045
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 10001, Baang impact]
+type=EnvShake
+trigger1=MoveHit
+time=4
+ampl=-2
+freq=75
+
+[State 10001, Retire baang]
+type=DestroySelf
+trigger1=time>=65 || MoveContact || root,stateno=99000 || frontedgebodydist<-40 || root,life<=0
+
+[Statedef 800]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=800
+velset=0,0
+
+[State 800, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 700]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=700
+velset=0,0
+
+[State 700, Gather strength]
+type=PowerAdd
+trigger1=1
+value=15
+
+[State 700, Shinsu choreography]
+type=Explod
+trigger1=time=0
+anim=9107
+ID=9107
+pos=0,-2
+postype=p1
+bindtime=1
+removetime=20
+scale=.16,.04
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 700, Finish charging]
+type=ChangeState
+trigger1=command!="hold_s" || power>=3000
+value=0
+ctrl=1
+
+[Statedef 900]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=900
+velset=0,0
+
+[State 900, Evade]
+type=VelSet
+trigger1=time<12
+x=-2
+
+[State 900, Settle]
+type=VelSet
+trigger1=time>=12
+x=0
+
+[State 900, Evade window]
+type=NotHitBy
+trigger1=time=[3,12]
+value=SCA
+time=1
+
+[State 900, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 100]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=100
+velset=4,0
+
+[State 100, Dash recovery]
+type=ChangeState
+trigger1=time>=18
+value=0
+ctrl=1
+
+[Statedef 105]
+type=S
+movetype=I
+physics=N
+ctrl=0
+anim=105
+velset=-3,0
+
+[State 105, Dash recovery]
+type=ChangeState
+trigger1=time>=18
+value=0
+ctrl=1
+
+[Statedef 3001]
+type=S
+movetype=A
+physics=N
+ctrl=0
+anim=3001
+velset=0,0
+
+[State 3001, Cinematic room]
+type=PosAdd
+trigger1=!time && frontedgebodydist<88
+x=-(88-frontedgebodydist)
+
+[State 3001, Visible attacker]
+type=SprPriority
+trigger1=1
+value=3
+
+[State 3001, Captured opponent]
+type=TargetBind
+trigger1=time<140 && NumTarget>0
+pos=48+ifelse(time>=92,10,0),ifelse(time<24,0,ifelse(time<60,-10,ifelse(time<128,-22,-10)))
+time=1
+
+[State 3001, Protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[State 3001, Contrast]
+type=BGPalFX
+trigger1=!time
+time=148
+mul=95,95,135
+
+[State 3001, Anticipation]
+type=SuperPause
+trigger1=!time
+time=8
+movetime=0
+anim=-1
+darken=0
+p2defmul=1
+poweradd=0
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=0
+anim=9108
+ID=9108
+pos=10,-42
+postype=p1
+bindtime=1
+removetime=96
+scale=.24,.25
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=0
+anim=9107
+ID=9107
+pos=0,-2
+postype=p1
+bindtime=1
+removetime=144
+scale=.30,.075
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=24
+anim=9109
+ID=9109
+pos=48,-37
+postype=p1
+bindtime=1
+removetime=70
+scale=.17,.23
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=56
+anim=9110
+ID=9110
+pos=48,-42
+postype=p1
+bindtime=1
+removetime=28
+scale=.14,.34
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=88
+anim=9115
+ID=9115
+pos=28,-37
+postype=p1
+bindtime=1
+removetime=40
+scale=.27,.30
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=112
+anim=9112
+ID=9112
+pos=23,-32
+postype=p1
+bindtime=1
+removetime=34
+scale=.48,.32
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=128
+anim=9114
+ID=9114
+pos=58,-33
+postype=p1
+bindtime=1
+removetime=24
+scale=.24,.30
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=24
+anim=9113
+ID=9113
+pos=-15,-30
+postype=p1
+bindtime=1
+removetime=96
+scale=.19,.22
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=88
+anim=9111
+ID=9111
+pos=40,-40
+postype=p1
+bindtime=1
+removetime=40
+scale=.26,.28
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Cinematic contact]
+type=TargetLifeAdd
+trigger1=time=28 && NumTarget>0
+value=-80
+kill=0
+
+[State 3001, Impact]
+type=EnvShake
+trigger1=time=28
+time=5
+ampl=-3
+freq=75
+
+[State 3001, Impact sound]
+type=PlaySnd
+trigger1=time=28
+value=0,6
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=28
+anim=9114
+ID=9114
+pos=48,-35
+postype=p1
+bindtime=1
+removetime=14
+scale=.10,.13
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Cinematic contact]
+type=TargetLifeAdd
+trigger1=time=60 && NumTarget>0
+value=-100
+kill=0
+
+[State 3001, Impact]
+type=EnvShake
+trigger1=time=60
+time=5
+ampl=-4
+freq=75
+
+[State 3001, Impact sound]
+type=PlaySnd
+trigger1=time=60
+value=0,6
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=60
+anim=9114
+ID=9114
+pos=48,-35
+postype=p1
+bindtime=1
+removetime=14
+scale=.10,.13
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Cinematic contact]
+type=TargetLifeAdd
+trigger1=time=92 && NumTarget>0
+value=-120
+kill=0
+
+[State 3001, Impact]
+type=EnvShake
+trigger1=time=92
+time=5
+ampl=-5
+freq=75
+
+[State 3001, Impact sound]
+type=PlaySnd
+trigger1=time=92
+value=0,6
+
+[State 3001, Shinsu choreography]
+type=Explod
+trigger1=time=92
+anim=9114
+ID=9114
+pos=48,-35
+postype=p1
+bindtime=1
+removetime=14
+scale=.10,.13
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 3001, Cinematic contact]
+type=TargetLifeAdd
+trigger1=time=128 && NumTarget>0
+value=-330
+kill=1
+
+[State 3001, Impact]
+type=EnvShake
+trigger1=time=128
+time=12
+ampl=-8
+freq=75
+
+[State 3001, Impact sound]
+type=PlaySnd
+trigger1=time=128
+value=0,8
+
+[State 3001, Flash]
+type=BGPalFX
+trigger1=time=128
+time=5
+add=105,100,100
+mul=225,220,255
+
+[State 3001, Settle contrast]
+type=BGPalFX
+trigger1=time=144
+time=20
+mul=240,240,250
+
+[State 3001, Release]
+type=TargetState
+trigger1=time=140 && NumTarget>0
+value=3052
+
+[State 3001, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3050]
+type=S
+movetype=H
+physics=N
+ctrl=0
+velset=0,0
+
+[State 3050, Own hurt art]
+type=ChangeAnim
+trigger1=!time
+value=5000
+
+[State 3050, Victim visible]
+type=SprPriority
+trigger1=1
+value=4
+
+[State 3050, Camera]
+type=ScreenBound
+trigger1=1
+value=1
+movecamera=1,1
+
+[State 3050, Emergency release]
+type=SelfState
+trigger1=time>=220
+value=5050
+ctrl=0
+
+[Statedef 3051]
+type=A
+movetype=H
+physics=N
+ctrl=0
+velset=2,-3
+
+[State 3051, Own physics]
+type=SelfState
+trigger1=1
+value=5050
+ctrl=0
+
+[Statedef 3052]
+type=A
+movetype=H
+physics=N
+ctrl=0
+velset=6,-5
+
+[State 3052, Own physics]
+type=SelfState
+trigger1=1
+value=5050
+ctrl=0

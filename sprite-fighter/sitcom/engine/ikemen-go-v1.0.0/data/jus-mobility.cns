@@ -1,0 +1,553 @@
+; Shared illustrated-roster mobility. Never uses source var/fvar slots.
+; All numeric distances/velocities explicitly use 320x240 world units.
+; No invulnerability, collision removal or damage is granted by movement.
+[Statedef -4]
+
+[State -4, Flight toggle debounce]
+type=MapAdd
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=map(jus.flight_lock)>0
+map="jus.flight_lock"
+value=-1
+
+[State -4, Reset once grounded or round finished]
+type=MapSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=statetype!=A && pos y>=0
+trigger2=roundstate!=2
+map="jus.airdash_used"
+value=0
+
+[State -4, Reset air chain]
+type=MapSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=statetype!=A && pos y>=0
+trigger2=roundstate!=2
+map="jus.airchain"
+value=0
+
+[State -4, Reset launcher budget on landing]
+type=MapSet
+triggerall=!ishelper
+trigger1=statetype!=A && pos y>=0
+trigger2=roundstate!=2
+map="jus.launched"
+value=0
+
+[State -4, Reset previous cancelled state]
+type=MapSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=statetype!=A && pos y>=0
+trigger2=roundstate!=2
+map="jus.cancel_state"
+value=0
+
+[State -4, Landing impact dust]
+type=MakeDust
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=roundstate=2
+triggerall=hitpausetime=0
+trigger1=map(jus.previous_y)<const240p(-2) && pos y>=0
+pos=0,0
+spacing=2
+
+[State -4, Heavy landing shake]
+type=EnvShake
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=roundstate=2
+trigger1=map(jus.previous_y)<const240p(-2) && pos y>=0
+triggerall=map(jus.previous_vy)>const240p(3.5)
+time=7
+ampl=2
+freq=70
+
+[State -4, Ground slam shockwave]
+type=Explod
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=roundstate=2
+triggerall=map(jus.previous_y)<const240p(-2) && pos y>=0
+triggerall=map(jus.previous_vy)>const240p(3.5)
+trigger1=movetype=H
+anim=GO5410
+id=8797109
+postype=p1
+pos=0,0
+scale=.25,.07
+sprpriority=-1
+ownpal=1
+removetime=16
+
+[State -4, Wall impact shake on actual damage]
+type=EnvShake
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=roundstate=2
+triggerall=life<map(jus.previous_life)
+triggerall=movetype=H
+trigger1=frontedgedist<const240p(12)
+trigger2=backedgedist<const240p(12)
+time=10
+ampl=3
+freq=85
+
+[State -4, Remember vertical position]
+type=Explod
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=roundstate=2
+triggerall=map(jus.previous_y)<const240p(-2) && pos y>=0
+trigger1=1
+anim=JS0
+id=8797118
+postype=p1
+pos=0,0
+sprpriority=1
+ownpal=1
+removetime=16
+
+[State -4, Persistent floor scar from actual slammed body]
+type=Explod
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=roundstate=2
+triggerall=map(jus.previous_y)<const240p(-2) && pos y>=0
+triggerall=map(jus.previous_vy)>const240p(3.5)
+triggerall=numexplod(8797119)<4
+trigger1=movetype=H
+anim=JS103
+id=8797119
+postype=p1
+pos=0,0
+sprpriority=-3
+ownpal=1
+removetime=-1
+
+[State -4, Training arena reactive slab left]
+type=Helper
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=playerno=1 && roundstate=2
+triggerall=stagevar(info.name)="Training Room 720"
+trigger1=numhelper(8797110)=0
+name="Arena slab left"
+id=8797110
+stateno=8797110
+postype=p1
+pos=0,0
+keyctrl=0
+ownpal=1
+size.xscale=1
+size.yscale=1
+
+[State -4, Training arena reactive slab right]
+type=Helper
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=playerno=1 && roundstate=2
+triggerall=stagevar(info.name)="Training Room 720"
+trigger1=numhelper(8797111)=0
+name="Arena slab right"
+id=8797111
+stateno=8797110
+postype=p1
+pos=0,0
+keyctrl=0
+ownpal=1
+size.xscale=1
+size.yscale=1
+
+[State -4, Remember vertical position]
+type=MapSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=1
+map="jus.previous_y"
+value=pos y
+
+[State -4, Remember fall speed]
+type=MapSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=1
+map="jus.previous_vy"
+value=vel y
+
+[State -4, Remember life]
+type=MapSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=1
+map="jus.previous_life"
+value=life
+
+; Hold Up on a confirmed grounded NORMAL hit to launch. Guards, whiffs,
+; projectiles, throws and cinematic supers never qualify.
+[State -4, Issue one confirmed launch]
+type=MapSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=roundstate=2 && hitpausetime=0 && pausetime=0
+triggerall=statetype!=A && movetype=A && movehit && numtarget>0
+triggerall=hitdefattr=SCA,NA
+triggerall=command="jus.up" && power>=100
+triggerall=target,movetype=H
+triggerall=target,statetype!=A
+triggerall=target,map(jus.launched)=0
+triggerall=target,map(jus.launch_request)=0
+triggerall=target,alive
+trigger1=1
+map="jus.launch_issued"
+value=1
+
+[State -4, Launcher victim request]
+type=MapSet
+triggerall=!ishelper && map(jus.enabled)
+triggerall=numtarget>0
+trigger1=map(jus.launch_issued)=1
+redirectid=target,id
+map="jus.launch_request"
+value=1
+
+[State -4, Launcher cost]
+type=PowerAdd
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=map(jus.launch_issued)=1
+value=-100
+
+[State -4, Consume the attacker's own launch request]
+type=MapSet
+triggerall=!ishelper && map(jus.enabled)
+trigger1=1
+map="jus.launch_issued"
+value=0
+
+[State -4, Victim own state launch]
+type=SelfState
+triggerall=!ishelper
+triggerall=map(jus.launch_request)=1
+triggerall=movetype=H
+trigger1=roundstate=2
+value=8797103
+ctrl=0
+
+; Bounded normal-attack air chains: up to two additional confirmed cancels.
+[State -4, Remember cancellable air state]
+type=MapSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=roundstate=2 && hitpausetime=0 && pausetime=0
+triggerall=statetype=A && movetype=A && movehit && time>=5
+triggerall=hitdefattr=SCA,NA
+triggerall=map(jus.airchain)<2
+triggerall=map(jus.cancel_state)!=stateno
+trigger1=1
+map="jus.cancel_ready"
+value=1
+
+[State -4, Count air cancel]
+type=MapAdd
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=map(jus.cancel_ready)=1
+map="jus.airchain"
+value=1
+
+[State -4, Remember cancelled state]
+type=MapSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=map(jus.cancel_ready)=1
+map="jus.cancel_state"
+value=stateno
+
+[State -4, Confirmed air cancel control]
+type=CtrlSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=map(jus.cancel_ready)=1
+value=1
+
+[State -4, Clear air cancel request]
+type=MapSet
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+trigger1=1
+map="jus.cancel_ready"
+value=0
+
+[State -4, Flight toggle]
+type=ChangeState
+triggerall=!ishelper
+triggerall=map(jus.enabled) && map(jus.flight_allowed)
+triggerall=roundstate=2 && hitpausetime=0 && pausetime=0
+triggerall=statetype=A && ctrl && movetype!=H
+triggerall=pos y<const240p(-15) && power>=300
+triggerall=stateno!=8797102
+triggerall=map(jus.flight_lock)=0
+triggerall=command="jus.up"
+trigger1=command="jus.flight"
+value=8797102
+ctrl=1
+
+[State -4, Air dash or pursuit]
+type=ChangeState
+triggerall=!ishelper
+triggerall=map(jus.enabled)
+triggerall=roundstate=2 && hitpausetime=0 && pausetime=0
+triggerall=statetype=A && ctrl && movetype!=H
+triggerall=pos y<const240p(-8)
+triggerall=map(jus.airdash_used)=0
+triggerall=!(map(jus.flight_allowed) && command="jus.up")
+trigger1=command="jus.airdash"
+value=8797101
+ctrl=0
+
+; Keep the current form's actual airborne drawing and hurt boxes.
+[Statedef 8797101]
+type=A
+movetype=I
+physics=N
+ctrl=0
+[State 8797101, Spend airborne dash]
+type=MapSet
+trigger1=time=0
+map="jus.airdash_used"
+value=1
+[State 8797101, Dash direction]
+type=MapSet
+trigger1=time=0
+map="jus.dash_direction"
+value=ifelse(command="jus.back",-1,1)
+[State 8797101, Dash velocity]
+type=VelSet
+trigger1=time<8
+x=const240p(5.5)*map(jus.dash_direction)
+y=0
+[State 8797101, Pursue actual airborne hit target]
+type=VelSet
+triggerall=time<8 && numtarget>0
+triggerall=command!="jus.back"
+triggerall=target,movetype=H
+trigger1=target,statetype=A
+triggerall=target,id=enemynear,id
+x=max(-const240p(5.5),min(const240p(5.5),p2dist x/8))
+y=max(-const240p(4),min(const240p(4),p2dist y/8))
+[State 8797101, Motion trails]
+type=AfterImage
+trigger1=time=0
+time=10
+length=5
+timegap=1
+framegap=1
+palcontrast=130,155,190
+paladd=0,0,0
+palmul=.65,.7,.8
+trans=add
+[State 8797101, Finish with vulnerable recovery]
+type=SelfState
+trigger1=time>=10
+value=50
+ctrl=1
+
+; Sustained flight is limited to selected flyers, drains meter every tick,
+; has no invulnerability, and is interrupted by the character's own hits/attacks.
+[Statedef 8797102]
+type=A
+movetype=I
+physics=N
+ctrl=1
+velset=0,0
+[State 8797102, Flight steering owns Up input]
+type=AssertSpecial
+trigger1=1
+flag=noairjump
+[State 8797102, Flight cost]
+type=PowerAdd
+trigger1=1
+value=-5
+[State 8797102, Flight steering]
+type=VelSet
+trigger1=1
+x=const240p(2.6)*((command="jus.forward")-(command="jus.back"))
+y=const240p(2.3)*((command="jus.down")-(command="jus.up"))
+[State 8797102, Ceiling]
+type=PosSet
+trigger1=pos y+vel y<const240p(-180)
+y=const240p(-180)
+[State 8797102, Stop at ceiling]
+type=VelSet
+trigger1=pos y<=const240p(-180) && vel y<0
+y=0
+[State 8797102, Exit flight]
+type=MapSet
+trigger1=power<5
+trigger2=time>10 && command="jus.flight" && command="jus.up"
+trigger3=pos y>=const240p(-3)
+map="jus.flight_lock"
+value=14
+[State 8797102, Return to native fall]
+type=SelfState
+trigger1=power<5
+trigger2=time>10 && command="jus.flight" && command="jus.up"
+trigger3=pos y>=const240p(-3)
+value=50
+ctrl=1
+
+[Statedef 8797103]
+type=A
+movetype=H
+physics=A
+ctrl=0
+[State 8797103, Clear request]
+type=MapSet
+trigger1=time=0
+map="jus.launch_request"
+value=0
+[State 8797103, One launch until landing]
+type=MapSet
+trigger1=time=0
+map="jus.launched"
+value=1
+[State 8797103, Launch velocity]
+type=VelSet
+trigger1=time=0
+x=-const240p(1)
+y=-const240p(5.8)
+[State 8797103, Real hit reaction then native fall]
+type=SelfState
+trigger1=time>=14
+value=5050
+ctrl=0
+
+; Post-state movement tuning: source commands/forms still choose animations,
+; but smaller characters can cross the arena and jump over another fighter.
+[Statedef +1]
+[State +1, World walk pace]
+type=VelSet
+triggerall=!ishelper && map(jus.enabled)
+triggerall=roundstate=2 && hitpausetime=0 && pausetime=0
+triggerall=statetype=S && movetype=I
+trigger1=stateno=20 && vel x!=0
+x=ifelse(vel x>0,const240p(1.9),const240p(-1.5))
+[State +1, World dash pace]
+type=VelSet
+triggerall=!ishelper && map(jus.enabled)
+triggerall=roundstate=2 && hitpausetime=0 && pausetime=0
+triggerall=statetype=S && movetype=I
+trigger1=stateno=100 && vel x>0
+trigger2=stateno=105 && vel x<0
+x=ifelse(vel x>0,const240p(4.5),const240p(-3.8))
+[State +1, Jump lift]
+type=VelSet
+triggerall=!ishelper && map(jus.enabled)
+triggerall=roundstate=2 && pausetime=0
+triggerall=stateno=50 && time=0
+trigger1=prevstateno=40
+trigger2=prevstateno=45
+y=-const240p(6.4)
+[State +1, Jump gravity]
+type=VelAdd
+triggerall=!ishelper && map(jus.enabled)
+triggerall=roundstate=2 && hitpausetime=0 && pausetime=0
+trigger1=stateno=50
+y=const240p(.32)-const(movement.yaccel)
+
+; Decorative stage objects have no hit/guard boxes, cannot become combat
+; targets, and never consume a HitDef or increment a fighter's combo count.
+; Their damage advances only when a real fighter is hit near the slab.
+[Statedef 8797110]
+type=S
+movetype=I
+physics=N
+anim=JS100
+ctrl=0
+sprpriority=-3
+velset=0,0
+[State 8797110, Props never pull the fight camera]
+type=ScreenBound
+trigger1=1
+value=0
+movecamera=0,0
+[State 8797110, Props never push fighters]
+type=PlayerPush
+trigger1=1
+value=0
+[State 8797110, Keep the illustrated slab's own shading]
+type=AssertSpecial
+trigger1=1
+flag=noshadow
+[State 8797110, Fixed world position]
+type=PosSet
+trigger1=time=0
+x=const240p(95)*ifelse(ishelper(8797110),-1,1)-camerapos x
+y=0
+[State 8797110, Restore stage damage after a form clears helpers]
+type=MapSet
+trigger1=time=0
+map="jus.prop_damage"
+value=ifelse(ishelper(8797110),parent,map(jus.prop_left),parent,map(jus.prop_right))
+[State 8797110, Detect nearby actual damage]
+type=MapSet
+triggerall=time>0
+triggerall=map(jus.prop_damage)<3
+trigger1=parent,life<map(jus.prop_parent_life)
+trigger1=abs(parent,pos x-pos x)<const240p(24)
+trigger1=parent,movetype=H
+trigger2=enemynear,life<map(jus.prop_enemy_life)
+trigger2=abs(p2dist x)<const240p(24)
+trigger2=enemynear,movetype=H
+map="jus.prop_break"
+value=1
+[State 8797110, Advance stage damage]
+type=MapAdd
+trigger1=map(jus.prop_break)=1
+map="jus.prop_damage"
+value=1
+[State 8797110, Store left damage on root]
+type=ParentMapSet
+triggerall=ishelper(8797110)
+trigger1=1
+map="jus.prop_left"
+value=map(jus.prop_damage)
+[State 8797110, Store right damage on root]
+type=ParentMapSet
+triggerall=ishelper(8797111)
+trigger1=1
+map="jus.prop_right"
+value=map(jus.prop_damage)
+[State 8797110, Current damage drawing]
+type=ChangeAnim
+trigger1=1
+value=JS(100+map(jus.prop_damage))
+[State 8797110, Impact debris]
+type=Explod
+trigger1=map(jus.prop_break)=1
+anim=JS1
+postype=p1
+pos=0,0
+ownpal=1
+sprpriority=2
+removetime=16
+[State 8797110, Clear break event]
+type=MapSet
+trigger1=1
+map="jus.prop_break"
+value=0
+[State 8797110, Track root actual life]
+type=MapSet
+trigger1=1
+map="jus.prop_parent_life"
+value=parent,life
+[State 8797110, Track opponent actual life]
+type=MapSet
+trigger1=1
+map="jus.prop_enemy_life"
+value=enemynear,life

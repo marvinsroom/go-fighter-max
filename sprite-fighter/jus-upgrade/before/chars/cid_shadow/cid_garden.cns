@@ -1,0 +1,856 @@
+
+[Statedef 7920]
+type=S
+movetype=A
+physics=S
+anim=7920
+ctrl=0
+velset=0,0
+poweradd=-3000
+
+[State 7920, Reset evidence]
+type=MapSet
+trigger1=!time
+map="garden.blackout"
+value=0
+
+[State 7920, Reset evidence]
+type=MapSet
+trigger1=!time
+map="garden.finish"
+value=0
+
+[State 7920, Reset evidence]
+type=MapSet
+trigger1=!time
+map="garden.actor0"
+value=0
+
+[State 7920, Reset evidence]
+type=MapSet
+trigger1=!time
+map="garden.actor1"
+value=0
+
+[State 7920, Reset evidence]
+type=MapSet
+trigger1=!time
+map="garden.actor2"
+value=0
+
+[State 7920, Reset evidence]
+type=MapSet
+trigger1=!time
+map="garden.actor3"
+value=0
+
+[State 7920, Reset evidence]
+type=MapSet
+trigger1=!time
+map="garden.actor4"
+value=0
+
+[State 7920, Reset evidence]
+type=MapSet
+trigger1=!time
+map="garden.actor5"
+value=0
+
+[State 7920, Reset evidence]
+type=MapSet
+trigger1=!time
+map="garden.actor6"
+value=0
+[State 7920, Power pause]
+type=SuperPause
+trigger1=!time
+time=10
+movetime=0
+anim=-1
+sound=-1
+darken=0
+unhittable=0
+[State 7920, Advance]
+type=VelSet
+trigger1=time=[8,19]
+x=3
+[State 7920, Stop]
+type=VelSet
+trigger1=time>=20
+x=0
+[State 7920, Opening sword catch]
+type=HitDef
+trigger1=time=16
+attr=S,HA
+damage=20,2
+getpower=0,0
+hitflag=MAF
+guardflag=MA
+animtype=Hard
+pausetime=0,5
+ground.type=High
+ground.hittime=20
+ground.velocity=0,0
+air.velocity=0,0
+p2stateno=7929
+sparkno=-1
+guard.sparkno=-1
+[State 7920, Confirm team assault]
+type=ChangeState
+trigger1=movehit && numtarget>0
+value=7921
+[State 7920, Block or miss recovery]
+type=ChangeState
+trigger1=time>=34
+value=0
+ctrl=1
+[Statedef 7921]
+type=S
+movetype=A
+physics=N
+anim=7921
+ctrl=0
+velset=0,0
+sprpriority=10
+[State 7921, Give the formation room]
+type=PosAdd
+trigger1=!time
+x=-60
+[State 7921, Hold captured opponent]
+type=TargetBind
+trigger1=time<200 && numtarget>0
+time=1
+pos=120,0
+[State 7921, Cinematic protection]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 7921, Arena contrast]
+type=BGPalFX
+trigger1=!time
+time=232
+mul=85,75,120
+add=0,0,0
+[State 7921, Formation voice]
+type=PlaySnd
+trigger1=!time
+value=S10,6
+channel=7
+[State 7921, Blackout]
+type=Explod
+trigger1=time=188
+ID=7940
+anim=7940
+postype=left
+pos=0,0
+scale=screenwidth/16,screenheight/16
+sprpriority=99999
+ontop=1
+bindtime=-1
+removetime=24
+ownpal=1
+supermovetime=999
+pausemovetime=999
+[State 7921, Blackout evidence]
+type=MapSet
+trigger1=time=188
+map="garden.blackout"
+value=1
+[State 7921, Heavy finishing hit]
+type=TargetLifeAdd
+trigger1=time=200 && numtarget>0
+value=-220
+kill=1
+absolute=1
+[State 7921, Finisher evidence]
+type=MapSet
+trigger1=time=200
+map="garden.finish"
+value=1
+[State 7921, Finisher impact]
+type=EnvShake
+trigger1=time=200
+time=18
+ampl=-8
+freq=60
+[State 7921, Finisher sound]
+type=PlaySnd
+trigger1=time=200
+value=S5,49
+volumescale=100
+[State 7921, Release opponent]
+type=TargetState
+trigger1=time=200 && numtarget>0
+value=7949
+[State 7921, Clear blackout]
+type=RemoveExplod
+trigger1=time>=212
+ID=7940
+[State 7921, Finish]
+type=ChangeState
+trigger1=time>=232
+value=0
+ctrl=1
+[State 7921, alpha enters]
+type=Helper
+trigger1=time=0
+name="alpha Seven Shadows"
+ID=7950
+stateno=7950
+postype=p1
+pos=-50,-8
+ownpal=1
+keyctrl=0
+size.xscale=1.65
+size.yscale=1.65
+[State 7921, Observe alpha]
+type=MapSet
+trigger1=numhelper(7950)>0
+map="garden.actor0"
+value=1
+
+[State 7921, alpha strike]
+type=TargetLifeAdd
+trigger1=time=60 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, alpha hit count]
+type=HitAdd
+trigger1=time=60 && numtarget>0
+value=1
+
+[State 7921, alpha strike]
+type=TargetLifeAdd
+trigger1=time=64 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, alpha hit count]
+type=HitAdd
+trigger1=time=64 && numtarget>0
+value=1
+
+[State 7921, alpha visible impact]
+type=Explod
+trigger1=time=60
+anim=7941
+postype=p1
+pos=120,-35
+scale=1,1
+sprpriority=15
+ownpal=1
+removetime=-2
+[State 7921, beta enters]
+type=Helper
+trigger1=time=4
+name="beta Seven Shadows"
+ID=7951
+stateno=7951
+postype=p1
+pos=-10,-8
+ownpal=1
+keyctrl=0
+size.xscale=1.65
+size.yscale=1.65
+[State 7921, Observe beta]
+type=MapSet
+trigger1=numhelper(7951)>0
+map="garden.actor1"
+value=1
+
+[State 7921, beta strike]
+type=TargetLifeAdd
+trigger1=time=78 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, beta hit count]
+type=HitAdd
+trigger1=time=78 && numtarget>0
+value=1
+
+[State 7921, beta strike]
+type=TargetLifeAdd
+trigger1=time=82 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, beta hit count]
+type=HitAdd
+trigger1=time=82 && numtarget>0
+value=1
+
+[State 7921, beta visible impact]
+type=Explod
+trigger1=time=78
+anim=7941
+postype=p1
+pos=120,-35
+scale=1,1
+sprpriority=15
+ownpal=1
+removetime=-2
+[State 7921, gamma enters]
+type=Helper
+trigger1=time=8
+name="gamma Seven Shadows"
+ID=7952
+stateno=7952
+postype=p1
+pos=30,-8
+ownpal=1
+keyctrl=0
+size.xscale=1.65
+size.yscale=1.65
+[State 7921, Observe gamma]
+type=MapSet
+trigger1=numhelper(7952)>0
+map="garden.actor2"
+value=1
+
+[State 7921, gamma strike]
+type=TargetLifeAdd
+trigger1=time=96 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, gamma hit count]
+type=HitAdd
+trigger1=time=96 && numtarget>0
+value=1
+
+[State 7921, gamma strike]
+type=TargetLifeAdd
+trigger1=time=100 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, gamma hit count]
+type=HitAdd
+trigger1=time=100 && numtarget>0
+value=1
+
+[State 7921, gamma visible impact]
+type=Explod
+trigger1=time=96
+anim=7941
+postype=p1
+pos=120,-35
+scale=1,1
+sprpriority=15
+ownpal=1
+removetime=-2
+[State 7921, delta enters]
+type=Helper
+trigger1=time=12
+name="delta Seven Shadows"
+ID=7953
+stateno=7953
+postype=p1
+pos=70,-8
+ownpal=1
+keyctrl=0
+size.xscale=1.65
+size.yscale=1.65
+[State 7921, Observe delta]
+type=MapSet
+trigger1=numhelper(7953)>0
+map="garden.actor3"
+value=1
+
+[State 7921, delta strike]
+type=TargetLifeAdd
+trigger1=time=114 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, delta hit count]
+type=HitAdd
+trigger1=time=114 && numtarget>0
+value=1
+
+[State 7921, delta strike]
+type=TargetLifeAdd
+trigger1=time=118 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, delta hit count]
+type=HitAdd
+trigger1=time=118 && numtarget>0
+value=1
+
+[State 7921, delta visible impact]
+type=Explod
+trigger1=time=114
+anim=7941
+postype=p1
+pos=120,-35
+scale=1,1
+sprpriority=15
+ownpal=1
+removetime=-2
+[State 7921, epsilon enters]
+type=Helper
+trigger1=time=16
+name="epsilon Seven Shadows"
+ID=7954
+stateno=7954
+postype=p1
+pos=-30,0
+ownpal=1
+keyctrl=0
+size.xscale=1.65
+size.yscale=1.65
+[State 7921, Observe epsilon]
+type=MapSet
+trigger1=numhelper(7954)>0
+map="garden.actor4"
+value=1
+
+[State 7921, epsilon strike]
+type=TargetLifeAdd
+trigger1=time=132 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, epsilon hit count]
+type=HitAdd
+trigger1=time=132 && numtarget>0
+value=1
+
+[State 7921, epsilon strike]
+type=TargetLifeAdd
+trigger1=time=136 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, epsilon hit count]
+type=HitAdd
+trigger1=time=136 && numtarget>0
+value=1
+
+[State 7921, epsilon visible impact]
+type=Explod
+trigger1=time=132
+anim=7941
+postype=p1
+pos=120,-35
+scale=1,1
+sprpriority=15
+ownpal=1
+removetime=-2
+[State 7921, zeta enters]
+type=Helper
+trigger1=time=20
+name="zeta Seven Shadows"
+ID=7955
+stateno=7955
+postype=p1
+pos=10,0
+ownpal=1
+keyctrl=0
+size.xscale=1.65
+size.yscale=1.65
+[State 7921, Observe zeta]
+type=MapSet
+trigger1=numhelper(7955)>0
+map="garden.actor5"
+value=1
+
+[State 7921, zeta strike]
+type=TargetLifeAdd
+trigger1=time=150 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, zeta hit count]
+type=HitAdd
+trigger1=time=150 && numtarget>0
+value=1
+
+[State 7921, zeta strike]
+type=TargetLifeAdd
+trigger1=time=154 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, zeta hit count]
+type=HitAdd
+trigger1=time=154 && numtarget>0
+value=1
+
+[State 7921, zeta visible impact]
+type=Explod
+trigger1=time=150
+anim=7941
+postype=p1
+pos=120,-35
+scale=1,1
+sprpriority=15
+ownpal=1
+removetime=-2
+[State 7921, eta enters]
+type=Helper
+trigger1=time=24
+name="eta Seven Shadows"
+ID=7956
+stateno=7956
+postype=p1
+pos=50,0
+ownpal=1
+keyctrl=0
+size.xscale=1.65
+size.yscale=1.65
+[State 7921, Observe eta]
+type=MapSet
+trigger1=numhelper(7956)>0
+map="garden.actor6"
+value=1
+
+[State 7921, eta strike]
+type=TargetLifeAdd
+trigger1=time=168 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, eta hit count]
+type=HitAdd
+trigger1=time=168 && numtarget>0
+value=1
+
+[State 7921, eta strike]
+type=TargetLifeAdd
+trigger1=time=172 && numtarget>0
+value=-20
+kill=0
+absolute=1
+[State 7921, eta hit count]
+type=HitAdd
+trigger1=time=172 && numtarget>0
+value=1
+
+[State 7921, eta visible impact]
+type=Explod
+trigger1=time=168
+anim=7941
+postype=p1
+pos=120,-35
+scale=1,1
+sprpriority=15
+ownpal=1
+removetime=-2
+[Statedef 7929]
+type=S
+movetype=H
+physics=N
+anim=5000
+ctrl=0
+velset=0,0
+[State 7929, Safe victim timeout]
+type=SelfState
+trigger1=time>=265
+value=0
+ctrl=1
+[Statedef 7949]
+type=A
+movetype=H
+physics=N
+anim=5000
+ctrl=0
+velset=-3,-6
+[State 7949, Finisher fall]
+type=VelAdd
+trigger1=1
+y=.4
+[State 7949, Land]
+type=SelfState
+trigger1=pos y>=0 && time>3
+value=5100
+[State 7949, Safety recovery]
+type=SelfState
+trigger1=time>=120
+value=0
+ctrl=1
+
+
+[Statedef 7950]
+type=S
+movetype=I
+physics=N
+anim=7950
+ctrl=0
+velset=0,0
+sprpriority=2
+[State 7950, Spell actor]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 7950, Enter from shadow]
+type=Trans
+trigger1=time<8
+trans=addalpha
+alpha=time*32,256-time*32
+[State 7950, Move to strike]
+type=BindToRoot
+trigger1=parent,time>=48 && parent,time<72
+pos=75,0
+[State 7950, Play attack]
+type=ChangeAnim
+trigger1=parent,time=48
+value=7951
+[State 7950, Return to formation]
+type=BindToRoot
+trigger1=parent,time<48 || parent,time>=72
+pos=-50,-8
+[State 7950, Recover stance]
+type=ChangeAnim
+trigger1=parent,time=72
+value=7950
+[State 7950, End]
+type=DestroySelf
+trigger1=root,stateno!=7921
+trigger2=root,time>=184
+
+
+[Statedef 7951]
+type=S
+movetype=I
+physics=N
+anim=7952
+ctrl=0
+velset=0,0
+sprpriority=3
+[State 7951, Spell actor]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 7951, Enter from shadow]
+type=Trans
+trigger1=time<8
+trans=addalpha
+alpha=time*32,256-time*32
+[State 7951, Move to strike]
+type=BindToRoot
+trigger1=parent,time>=66 && parent,time<90
+pos=75,0
+[State 7951, Play attack]
+type=ChangeAnim
+trigger1=parent,time=66
+value=7953
+[State 7951, Return to formation]
+type=BindToRoot
+trigger1=parent,time<66 || parent,time>=90
+pos=-10,-8
+[State 7951, Recover stance]
+type=ChangeAnim
+trigger1=parent,time=90
+value=7952
+[State 7951, End]
+type=DestroySelf
+trigger1=root,stateno!=7921
+trigger2=root,time>=184
+
+
+[Statedef 7952]
+type=S
+movetype=I
+physics=N
+anim=7954
+ctrl=0
+velset=0,0
+sprpriority=4
+[State 7952, Spell actor]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 7952, Enter from shadow]
+type=Trans
+trigger1=time<8
+trans=addalpha
+alpha=time*32,256-time*32
+[State 7952, Move to strike]
+type=BindToRoot
+trigger1=parent,time>=84 && parent,time<108
+pos=75,0
+[State 7952, Play attack]
+type=ChangeAnim
+trigger1=parent,time=84
+value=7955
+[State 7952, Return to formation]
+type=BindToRoot
+trigger1=parent,time<84 || parent,time>=108
+pos=30,-8
+[State 7952, Recover stance]
+type=ChangeAnim
+trigger1=parent,time=108
+value=7954
+[State 7952, End]
+type=DestroySelf
+trigger1=root,stateno!=7921
+trigger2=root,time>=184
+
+
+[Statedef 7953]
+type=S
+movetype=I
+physics=N
+anim=7956
+ctrl=0
+velset=0,0
+sprpriority=2
+[State 7953, Spell actor]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 7953, Enter from shadow]
+type=Trans
+trigger1=time<8
+trans=addalpha
+alpha=time*32,256-time*32
+[State 7953, Move to strike]
+type=BindToRoot
+trigger1=parent,time>=102 && parent,time<126
+pos=75,0
+[State 7953, Play attack]
+type=ChangeAnim
+trigger1=parent,time=102
+value=7957
+[State 7953, Return to formation]
+type=BindToRoot
+trigger1=parent,time<102 || parent,time>=126
+pos=70,-8
+[State 7953, Recover stance]
+type=ChangeAnim
+trigger1=parent,time=126
+value=7956
+[State 7953, End]
+type=DestroySelf
+trigger1=root,stateno!=7921
+trigger2=root,time>=184
+
+
+[Statedef 7954]
+type=S
+movetype=I
+physics=N
+anim=7958
+ctrl=0
+velset=0,0
+sprpriority=3
+[State 7954, Spell actor]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 7954, Enter from shadow]
+type=Trans
+trigger1=time<8
+trans=addalpha
+alpha=time*32,256-time*32
+[State 7954, Move to strike]
+type=BindToRoot
+trigger1=parent,time>=120 && parent,time<144
+pos=75,0
+[State 7954, Play attack]
+type=ChangeAnim
+trigger1=parent,time=120
+value=7959
+[State 7954, Return to formation]
+type=BindToRoot
+trigger1=parent,time<120 || parent,time>=144
+pos=-30,0
+[State 7954, Recover stance]
+type=ChangeAnim
+trigger1=parent,time=144
+value=7958
+[State 7954, End]
+type=DestroySelf
+trigger1=root,stateno!=7921
+trigger2=root,time>=184
+
+
+[Statedef 7955]
+type=S
+movetype=I
+physics=N
+anim=7960
+ctrl=0
+velset=0,0
+sprpriority=4
+[State 7955, Spell actor]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 7955, Enter from shadow]
+type=Trans
+trigger1=time<8
+trans=addalpha
+alpha=time*32,256-time*32
+[State 7955, Move to strike]
+type=BindToRoot
+trigger1=parent,time>=138 && parent,time<162
+pos=75,0
+[State 7955, Play attack]
+type=ChangeAnim
+trigger1=parent,time=138
+value=7961
+[State 7955, Return to formation]
+type=BindToRoot
+trigger1=parent,time<138 || parent,time>=162
+pos=10,0
+[State 7955, Recover stance]
+type=ChangeAnim
+trigger1=parent,time=162
+value=7960
+[State 7955, End]
+type=DestroySelf
+trigger1=root,stateno!=7921
+trigger2=root,time>=184
+
+
+[Statedef 7956]
+type=S
+movetype=I
+physics=N
+anim=7962
+ctrl=0
+velset=0,0
+sprpriority=2
+[State 7956, Spell actor]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 7956, Enter from shadow]
+type=Trans
+trigger1=time<8
+trans=addalpha
+alpha=time*32,256-time*32
+[State 7956, Move to strike]
+type=BindToRoot
+trigger1=parent,time>=156 && parent,time<180
+pos=75,0
+[State 7956, Play attack]
+type=ChangeAnim
+trigger1=parent,time=156
+value=7963
+[State 7956, Return to formation]
+type=BindToRoot
+trigger1=parent,time<156 || parent,time>=180
+pos=50,0
+[State 7956, Recover stance]
+type=ChangeAnim
+trigger1=parent,time=180
+value=7962
+[State 7956, End]
+type=DestroySelf
+trigger1=root,stateno!=7921
+trigger2=root,time>=184

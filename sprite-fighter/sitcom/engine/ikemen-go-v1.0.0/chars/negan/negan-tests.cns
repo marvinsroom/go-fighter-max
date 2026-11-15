@@ -1,0 +1,158 @@
+[Statedef -3]
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=1
+name="L"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=2
+name="M"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=3
+name="H"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=4
+name="skill"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=5
+name="super_short"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=6
+name="ultimate_short"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=7
+name="throw"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=8
+name="special_light"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=9
+name="special_medium"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=10
+name="special_heavy"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=11
+name="anti_air"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=12
+name="back_light"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=13
+name="transform"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=14
+name="back_medium"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=15
+name="back_heavy"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=16
+name="side_switch"
+buffer.time=1
+[State -3, Back throw]
+type=AssertCommand
+trigger1=map(test.backthrow)>0
+name="holdback"
+[State -3, Consume pulse]
+type=MapSet
+trigger1=map(test.pulse)>0
+map="test.pulse"
+value=0
+[State -3, Consume throw direction]
+type=MapSet
+trigger1=map(test.backthrow)>0
+map="test.backthrow"
+value=0
+[State -3, Hold down]
+type=AssertInput
+trigger1=map(test.down)>0
+flag=D
+[State -3, Down command]
+type=AssertCommand
+trigger1=map(test.down)>0
+name="holddown"
+[State -3, Hold guard]
+type=AssertInput
+trigger1=map(test.guard)>0
+flag=B
+[State -3, Guard command]
+type=AssertCommand
+trigger1=map(test.guard)>0
+name="holdback"
+[State -3, Enter guard]
+type=ChangeState
+triggerall=map(test.guard)>0
+trigger1=stateno=0 || stateno=10 || stateno=21
+value=ifelse(map(test.down)>0,131,130)
+ctrl=0
+[State -3, Walk forward]
+type=AssertCommand
+trigger1=map(test.walk)=1
+name="holdfwd"
+[State -3, Walk back]
+type=AssertCommand
+trigger1=map(test.walk)=-1
+name="holdback"
+
+[Statedef 9001]
+type=S
+movetype=I
+physics=N
+anim=0
+ctrl=0
+[State 9001, Far]
+type=PosSet
+trigger1=1
+x=ifelse(teamside=1,500,-500)
+y=0
+[State 9001, Ready]
+type=ChangeState
+trigger1=time>1
+value=0
+ctrl=1

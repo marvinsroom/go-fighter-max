@@ -1,0 +1,430 @@
+[StateDef 3000]
+type = S
+movetype = I
+physics = S
+juggle = 0
+velset = 0,0
+ctrl = 0
+anim = 1350
+poweradd = -3000
+sprpriority = 2
+
+[State 0, timevar]
+type = VarSet
+trigger1 = time = 0
+v = 16
+value = 48
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time  = 0
+value = S9,2
+volume = 0
+channel = -1
+
+[State 0, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = var(16)
+pos = 9999,-9999
+darken = 1
+movetime = var(16)
+
+[State 0, Explod (mugshot :P )]
+type = Explod
+trigger1 = time= 0
+anim = 6000
+ID =    9999
+pos = -5,40
+removetime = var(16)
+postype = back
+facing = 1
+vfacing = 1
+sprpriority = -9
+bindtime = 1
+scale= 1,1
+vel = 0,0
+accel = 0,0
+ownpal = 1
+supermove = 1
+supermovetime = 9999
+
+[State 0, ModifyExplod]
+type = ModifyExplod
+trigger1 =  time = [0,7]
+ID =  9999
+scale = 5-.5*time, 5-.5*time
+
+[State 0, Explod (dust)]
+type = Explod
+trigger1 = time = 0
+anim = 6002
+ID = 3000
+pos = 0,10
+ownpal =1
+supermove = 1
+supermovetime = 9999
+sprpriority =1
+
+[State 0, Explod (dust)]
+type = Explod
+trigger1 = time = 0
+anim = 6006
+ID = 3000
+pos = 0,10
+ownpal = 1
+supermove = 1
+supermovetime = 9999
+sprpriority =1
+
+[State 0, PalFXWiz (yellow)]
+type = PalFX
+trigger1 = time= 0
+time = var(16)
+add = 50,50,1
+mul = 254,254,0
+sinadd = 49,51,49,3
+invertall = 0
+color = 200
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = time = 0
+time = var(16)
+freq = 60
+ampl = -4
+phase = 90
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = time = var(16)
+value = 3001
+ctrl = 0
+
+;=======================================================================
+
+[StateDef 3001]
+type = S
+movetype = A
+physics = S
+juggle = 0
+velset = 0,0
+ctrl = 0
+anim = 2000
+poweradd = 0
+sprpriority = 2
+
+[State 0, Explod (dust)]
+type = Explod
+trigger1 = time = 0
+anim = 6002
+ID = 3000
+pos = 0,10
+ownpal =1
+supermove = 1
+supermovetime = 9999
+sprpriority =1
+
+[State 0, HitBy]
+type = HitBy
+trigger1 = 1
+value =
+
+[State 3001, AfterImage]
+type = AfterImage
+trigger1 = Time = 0
+time = 20
+framegap = 2
+length = 12
+PalBright = 0,0,0
+PalContrast = 128,128,128
+PalAdd = 0,0,0
+PalMul = 1,1,1
+Trans = Add1
+
+[State 3001, 1]
+type = PosAdd
+trigger1 = Time > 2
+x = 6
+
+[State 3001, 2]
+type = VelSet
+trigger1 = Time = 3
+x = 2
+
+[State 3001, 3]
+type = VelAdd
+trigger1 = Time > 2
+x = .15
+
+[State 3001, hit]
+type = hitdef
+trigger1 = time = 0
+attr = S, ha
+damage = 0,0
+animtype = light
+hitflag = maf
+guardflag = ma
+numhits = 0
+sparkno = -1
+guard.sparkno = s8000
+sparkxy = 0,-70
+hitsound = -1
+guardsound = S3,0
+pausetime = 0,5
+ground.hittime = 15
+ground.type = high
+ground.slidetime = 5
+ground.velocity = 0,0
+air.velocity = 0,0
+p2facing = 1
+kill = 0
+guard.kill = 0
+getpower = 0
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = movecontact = 1
+value = 3005
+ctrl = 0
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = time = 25
+value = 0
+ctrl = 1
+
+;======================================================================
+
+[StateDef 3005]
+type = S
+movetype = A
+physics = S
+juggle = 0
+velset = 0,0
+ctrl = 0
+anim = 2002
+poweradd = 0
+sprpriority = 2
+
+[State 2350, hitdef]
+type = HitDef
+trigger1 = time = 0
+attr = S, SA
+hitflag = MAF
+guardflag = MA
+animtype = Medium
+air.animtype = Medium
+priority = 5,Hit
+damage = 50,10
+pausetime = 15,0   ;   <-----------here
+sparkno = S6005
+guard.sparkno = s8000
+sparkxy = -40,-40
+hitsound = S1,7
+guardsound = S3,0
+ground.type = Low
+air.type = Low
+ground.slidetime = 150
+guard.slidetime = 0
+ground.hittime = 150
+guard.hittime = 0
+air.hittime = 25
+ground.velocity = -5,0
+air.velocity = -3,0
+givepower = 40, 20
+getpower = 30,20
+recover = 0
+air.recover =0
+envshake.time = 12
+envshake.freq = 120
+envshake.ampl = 6
+p2stateno = 3106
+
+[State 0, HitBy]
+type = HitBy
+trigger1 =  1
+value =
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 20
+value = S0,1
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = random < 600
+trigger1 = time = 0
+value = S3,2
+volume = 0
+channel = -1
+
+
+[State 0, EnvColor]
+type = EnvColor
+trigger1 = movehit = 1
+value = 255,255,255
+time = 155
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = movehit = 1
+value = 3006
+ctrl = 0
+
+
+;=======================
+[StateDef 3006]
+type = S
+movetype = A
+physics = S
+juggle = 0
+velset = 0,0
+ctrl = 0
+anim = 12345
+poweradd = 0
+sprpriority = 2
+
+[State 0, HitBy]
+type = HitBy
+trigger1 =  1
+value =
+
+[State 801, explod]
+type = Explod
+trigger1 = ((GameTime%5) = 0) && time > 20
+anim = 6005
+id = 801
+sprpriority = 2
+postype = P2
+random = 80,70
+bindtime = -1
+ownpal = 1
+pos = 20,-40
+ontop =1
+
+[State 801, explod]
+type = null
+trigger1 = ((GameTime%6) = 0)  && time > 20
+anim = 6005
+id = 801
+sprpriority = 2
+postype = P2
+random = 80,70
+bindtime = -1
+ownpal = 1
+pos = 20,-40;-50
+ontop = 1
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = ((GameTime%6) = 0)  && time > 20
+value = S1,7
+volume = 0
+channel = -1
+freqmul = 1.0
+loop = 0
+pan = 0
+
+[State 0, HitAdd]
+type = HitAdd
+trigger1 =  time = 125
+value = 33
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = animtime = 0
+value = 3181
+ctrl = 0
+
+
+
+
+;================================intro
+
+[StateDef 3181]
+type = S
+movetype = I
+physics = S
+juggle = 0
+velset = 0,0
+ctrl = 0
+anim = 182
+poweradd = 0
+sprpriority = 2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S7,2
+volume = 0
+channel = -1
+
+[State 181, 1]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = time = 149
+value = 0
+ctrl = 1
+
+
+;===============================================================
+
+[StateDef 3106]
+type = S
+movetype = A
+physics = S
+juggle = 0
+velset = 0,0
+ctrl = 0
+anim = 12345
+poweradd = 0
+sprpriority = 2
+
+[State 0, PosSet]
+type = PosSet
+trigger1 = pos Y < 0
+y = 0
+
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = nokoslow
+
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = time = 0
+value = -50
+kill = 1
+
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = time = 50
+value = -450
+kill = 1
+
+[State 0, end]
+type = changeanim
+trigger1 = time = 180
+value = 5110
+ctrl = 0
+
+[state 0, changestate]
+type = selfstate
+trigger1 = time = 300
+value = 5120
+ctrl = 0
+
+
+
+
+
+

@@ -1,0 +1,186 @@
+[Statedef -3]
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=1
+name="L"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=2
+name="M"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=3
+name="H"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=4
+name="skill"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=5
+name="super_short"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=6
+name="ultimate_short"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=7
+name="throw"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=8
+name="three"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=9
+name="feint"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=10
+name="freeze"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=11
+name="windmill"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=12
+name="taxi"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=13
+name="M"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=14
+name="transform"
+buffer.time=1
+
+[State -3, Hold test walk forward]
+type=AssertCommand
+trigger1=map(test.walk)=1
+name="holdfwd"
+[State -3, Hold test walk backward]
+type=AssertCommand
+trigger1=map(test.walk)=-1
+name="holdback"
+[State -3, Track foreign cinematic]
+type=MapSet
+triggerall=var(30)=1
+trigger1=numexplod(6000)>0 || numexplod(6001)>0 || numexplod(6400)>0 || numexplod(6401)>0
+map="test.foreignCinematic"
+value=1
+[State -3, Track Agent backdrop]
+type=MapSet
+trigger1=numexplod(6420)>0
+map="test.agentBackdrop"
+value=1
+[State -3, Track orbital beam]
+type=MapSet
+trigger1=numexplod(6422)>0
+map="test.agentBeam"
+value=1
+[State -3, Test form]
+type=VarSet
+trigger1=map(test.form)>0
+var(30)=map(test.form)-1
+[State -3, Test cooldown]
+type=VarSet
+trigger1=map(test.form)>0
+var(31)=0
+[State -3, Test flash cooldown]
+type=VarSet
+trigger1=map(test.form)>0
+var(32)=0
+[State -3, Consume form setup]
+type=MapSet
+trigger1=map(test.form)>0
+map="test.form"
+value=0
+[State -3, Forward medium direction]
+type=AssertCommand
+trigger1=map(test.pulse)=13
+name="holdfwd"
+[State -3, Consume test command]
+type=MapSet
+trigger1=map(test.pulse)>0
+map="test.pulse"
+value=0
+[State -3, Hold test down]
+type=AssertInput
+trigger1=map(test.down)>0
+flag=D
+[State -3, Down command]
+type=AssertCommand
+trigger1=map(test.down)>0
+name="holddown"
+[State -3, Hold test back]
+type=AssertInput
+trigger1=map(test.guard)>0
+flag=B
+[State -3, Back command]
+type=AssertCommand
+trigger1=map(test.guard)>0
+name="holdback"
+[State -3, Back throw direction]
+type=AssertCommand
+trigger1=map(test.backthrow)>0
+name="holdback"
+[State -3, Consume back throw direction]
+type=MapSet
+trigger1=map(test.backthrow)>0
+map="test.backthrow"
+value=0
+[State -3, Stay in real guard states]
+type=ChangeState
+triggerall=map(test.guard)>0
+trigger1=stateno=0 || stateno=10 || stateno=21
+value=ifelse(map(test.down)>0,131,130)
+ctrl=0
+[Statedef 9001]
+type=S
+physics=N
+ctrl=0
+[State 9001, Far whiff target]
+type=PosSet
+trigger1=1
+x=600
+y=0
+[State 9001, Stop]
+type=VelSet
+trigger1=1
+x=0
+y=0
+[State 9001, Reset]
+type=ChangeState
+trigger1=1
+value=0
+ctrl=1

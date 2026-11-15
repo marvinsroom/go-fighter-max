@@ -1,0 +1,62 @@
+; Hood-adjusting taunt. No damage, resource change or invulnerability.
+[Statedef 7900]
+type=S
+movetype=I
+physics=S
+anim=7900
+ctrl=0
+velset=0,0
+sprpriority=2
+
+[State 7900, Voice]
+type=PlaySnd
+trigger1=time=28
+value=S10,6
+channel=7
+volumescale=80
+
+[State 7900, Purple aura]
+type=Explod
+triggerall=time=[28,112]
+trigger1=time%24=4
+anim=550
+ID=7901
+postype=p1
+pos=0,0
+bindtime=-1
+removetime=24
+scale=.24*const(size.xscale),.24*const(size.yscale)
+sprpriority=-2
+ownpal=1
+removeongethit=1
+
+[State 7900, Aura glints]
+type=Explod
+triggerall=time=[36,108]
+trigger1=time%18=0
+anim=580
+ID=7902
+postype=p1
+pos=-8,-30
+bindtime=1
+removetime=24
+scale=.08,.08
+sprpriority=3
+ownpal=1
+removeongethit=1
+
+[State 7900, End aura]
+type=RemoveExplod
+trigger1=animtime=0
+ID=7901
+
+[State 7900, End glints]
+type=RemoveExplod
+trigger1=animtime=0
+ID=7902
+
+[State 7900, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1

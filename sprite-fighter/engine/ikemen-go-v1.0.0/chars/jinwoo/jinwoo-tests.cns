@@ -1,0 +1,218 @@
+[Statedef -3]
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=1
+name="L"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=2
+name="M"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=3
+name="H"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=4
+name="skill"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=5
+name="super_short"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=6
+name="ultimate_short"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=7
+name="throw"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=8
+name="dagger"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=9
+name="knight"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=10
+name="lunge"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=11
+name="retreat"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=12
+name="step"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=13
+name="igris"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=14
+name="beru"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=15
+name="iron"
+buffer.time=1
+
+[State -3, Test command]
+type=AssertCommand
+trigger1=map(test.pulse)=16
+name="tank"
+buffer.time=1
+
+[State -3, Setup form]
+type=VarSet
+trigger1=map(test.form)>0
+var(30)=map(test.form)-1
+[State -3, Clear setup cooldown]
+type=VarSet
+trigger1=map(test.form)>0
+var(31)=0
+[State -3, Consume form setup]
+type=MapSet
+trigger1=map(test.form)>0
+map="test.form"
+value=0
+[State -3, Army seen]
+type=MapSet
+trigger1=numexplod(6402)>0 || numexplod(6403)>0
+map="test.armySeen"
+value=1
+[State -3, Army missing during cinematic]
+type=MapSet
+triggerall=stateno=3210
+triggerall=time>2 && time<418
+trigger1=numexplod(6402)=0 && numexplod(6403)=0
+map="test.armyMissing"
+value=1
+[State -3, Army excluded from Stefan]
+type=MapSet
+triggerall=var(30)=1
+trigger1=numexplod(6402)>0 || numexplod(6403)>0
+map="test.armyLeak"
+value=1
+[State -3, Back throw]
+type=AssertCommand
+trigger1=map(test.backthrow)>0
+name="holdback"
+[State -3, Transform test command]
+type=AssertCommand
+trigger1=map(test.pulse)=17
+name="transform"
+buffer.time=1
+
+[State -3, Consume pulse]
+type=MapSet
+trigger1=map(test.pulse)>0
+map="test.pulse"
+value=0
+[State -3, Consume throw direction]
+type=MapSet
+trigger1=map(test.backthrow)>0
+map="test.backthrow"
+value=0
+[State -3, Hold down]
+type=AssertInput
+trigger1=map(test.down)>0
+flag=D
+[State -3, Down command]
+type=AssertCommand
+trigger1=map(test.down)>0
+name="holddown"
+[State -3, Hold guard]
+type=AssertInput
+trigger1=map(test.guard)>0
+flag=B
+[State -3, Guard command]
+type=AssertCommand
+trigger1=map(test.guard)>0
+name="holdback"
+[State -3, Enter guard]
+type=ChangeState
+triggerall=map(test.guard)>0
+trigger1=stateno=0 || stateno=10 || stateno=21
+value=ifelse(map(test.down)>0,131,130)
+ctrl=0
+[State -3, Walk forward]
+type=AssertCommand
+trigger1=map(test.walk)=1
+name="holdfwd"
+[State -3, Walk back]
+type=AssertCommand
+trigger1=map(test.walk)=-1
+name="holdback"
+
+[State -3, Shadow wave seen]
+type=MapSet
+trigger1=numexplod(6700)>0
+map="test.shadow0"
+value=1
+
+[State -3, Shadow wave seen]
+type=MapSet
+trigger1=numexplod(6701)>0
+map="test.shadow1"
+value=1
+
+[State -3, Shadow wave seen]
+type=MapSet
+trigger1=numexplod(6702)>0
+map="test.shadow2"
+value=1
+
+[State -3, Shadow wave seen]
+type=MapSet
+trigger1=numexplod(6703)>0
+map="test.shadow3"
+value=1
+
+[Statedef 9010]
+type=S
+movetype=I
+physics=N
+ctrl=0
+[State 9010, Forced test form]
+type=VarSet
+trigger1=1
+var(45)=map(test.shadowform)
+[State 9010, Ready]
+type=ChangeState
+trigger1=1
+value=0
+ctrl=1

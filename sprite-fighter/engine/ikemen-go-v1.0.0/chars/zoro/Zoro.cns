@@ -1,0 +1,1039 @@
+[Data]
+life=1000
+power=3000
+attack=100
+defence=100
+fall.defence_up=50
+liedown.time=40
+airjuggle=15
+sparkno=2
+guard.sparkno=40
+KO.echo=0
+volume=0
+[Size]
+xscale=1
+yscale=1
+ground.back=38
+ground.front=38
+air.back=34
+air.front=34
+height=150
+attack.dist=180
+proj.attack.dist=220
+proj.doscale=1
+head.pos=0,-135
+mid.pos=0,-75
+shadowoffset=0
+draw.offset=0,0
+[Velocity]
+walk.fwd=4.5
+walk.back=-3.5
+jump.neu=0,-10.5
+jump.fwd=4,-10.5
+jump.back=-3.5,-10.5
+[Movement]
+yaccel=.55
+stand.friction=.85
+crouch.friction=.82
+airjump.num=0
+stand.friction.threshold=.1
+
+[Statedef -2]
+type=S
+movetype=I
+physics=N
+ctrl=0
+
+[State -2, Face opponent]
+type=Turn
+trigger1=ctrl
+trigger1=statetype!=A
+trigger1=p2dist x<0
+
+[State -2, Authored movement]
+type=AssertSpecial
+trigger1=1
+flag=nowalk
+flag2=nobrake
+flag3=noautoturn
+
+[Statedef 0]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=0
+velset=0,0
+
+[State 0, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 0, Crouch]
+type=ChangeState
+trigger1=command="holddown"
+value=10
+
+[State 0, Jump]
+type=ChangeState
+trigger1=command="holdup"
+value=40
+
+[State 0, Walk]
+type=ChangeState
+trigger1=command="holdfwd" || command="holdback"
+value=20
+
+[Statedef 10]
+type=C
+movetype=I
+physics=C
+ctrl=0
+anim=10
+
+[State 10, Settle]
+type=ChangeState
+trigger1=animtime=0
+value=11
+ctrl=1
+
+[Statedef 11]
+type=C
+movetype=I
+physics=C
+ctrl=0
+anim=11
+
+[State 11, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 11, Stand]
+type=ChangeState
+trigger1=command!="holddown"
+value=12
+
+[Statedef 12]
+type=C
+movetype=I
+physics=C
+ctrl=0
+anim=12
+
+[State 12, Stand]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 20]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=20
+velset=0,0
+
+[State 20, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 20, Move]
+type=VelSet
+trigger1=1
+x=ifelse(command="holdback",-3.5,4.5)
+y=0
+
+[State 20, Back art]
+type=ChangeAnim
+trigger1=command="holdback" && anim!=21
+value=21
+
+[State 20, Forward art]
+type=ChangeAnim
+trigger1=command="holdfwd" && anim!=20
+value=20
+
+[State 20, Stop]
+type=ChangeState
+trigger1=command!="holdfwd" && command!="holdback"
+value=0
+ctrl=1
+
+[Statedef 40]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=40
+
+[State 40, Launch]
+type=VelSet
+trigger1=time=3
+x=ifelse(command="holdback",-3.5,ifelse(command="holdfwd",4,0))
+y=-10.5
+
+[State 40, Air]
+type=ChangeState
+trigger1=time>=3
+value=50
+
+[Statedef 50]
+type=A
+movetype=I
+physics=A
+ctrl=0
+anim=50
+
+[State 50, Control]
+type=CtrlSet
+trigger1=1
+value=1
+
+[State 50, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+
+[Statedef 52]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=52
+
+[State 52, Ground]
+type=PosSet
+trigger1=1
+y=0
+
+[State 52, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 100]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=100
+velset=0,0
+
+[State 100, Dash]
+type=VelSet
+trigger1=time<8
+x=12
+
+[State 100, Stop]
+type=VelSet
+trigger1=time=8
+x=0
+
+[State 100, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 105]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=105
+velset=0,0
+
+[State 105, Dash]
+type=VelSet
+trigger1=time<8
+x=-10
+
+[State 105, Stop]
+type=VelSet
+trigger1=time=8
+x=0
+
+[State 105, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 190]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=190
+velset=0,0
+
+[State 190, Intro]
+type=AssertSpecial
+trigger1=roundstate<2 && time<45
+flag=intro
+
+[State 190, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 180]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=180
+velset=0,0
+
+[State 180, Victory]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[Statedef 181]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=180
+velset=0,0
+
+[State 181, Victory]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+
+[Statedef 200]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=200
+velset=0,0
+
+[State 200, Contact]
+type=HitDef
+trigger1=time=5
+attr=S,NA
+damage=35,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=1,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=20,5
+givepower=10,5
+
+[State 200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 210]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=210
+velset=0,0
+
+[State 210, Contact]
+type=HitDef
+trigger1=time=6
+attr=S,NA
+damage=55,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=1,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=20,5
+givepower=10,5
+
+[State 210, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 220]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=220
+velset=0,0
+
+[State 220, Contact]
+type=HitDef
+trigger1=time=7
+attr=S,NA
+damage=80,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Hard
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=3,-4
+air.velocity=2,-4
+fall=1
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=20,5
+givepower=10,5
+
+[State 220, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 400]
+type=C
+movetype=A
+physics=C
+ctrl=0
+anim=400
+velset=0,0
+
+[State 400, Contact]
+type=HitDef
+trigger1=time=5
+attr=S,NA
+damage=42,5
+guardflag=L
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=1,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=20,5
+givepower=10,5
+
+[State 400, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=11
+ctrl=1
+
+[Statedef 600]
+type=A
+movetype=A
+physics=A
+ctrl=0
+anim=600
+
+[State 600, Contact]
+type=HitDef
+trigger1=time=5
+attr=S,NA
+damage=50,5
+guardflag=H
+hitflag=MAF
+pausetime=4,7
+animtype=Hard
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=2,-4
+air.velocity=2,-4
+fall=1
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=20,5
+givepower=10,5
+
+[State 600, Land]
+type=ChangeState
+trigger1=vel y>0
+trigger1=pos y>=0
+value=52
+ctrl=1
+
+[State 600, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 700]
+type=S
+movetype=I
+physics=S
+ctrl=0
+anim=700
+velset=0,0
+
+[State 700, Charge]
+type=PowerAdd
+trigger1=1
+value=18
+
+[State 700, Release]
+type=ChangeState
+trigger1=command!="holdcharge" || power>=3000
+value=0
+ctrl=1
+
+[Statedef 1000]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=1000
+poweradd=-250
+velset=0,0
+
+[State 1000, Advance]
+type=VelSet
+trigger1=time=[4,9]
+x=8
+
+[State 1000, Contact]
+type=HitDef
+trigger1=time=6
+attr=S,SA
+damage=85,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=2,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=20,5
+givepower=10,5
+
+[State 1000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1100]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=1100
+poweradd=-500
+velset=0,0
+
+[State 1100, Advance]
+type=VelSet
+trigger1=time=[5,10]
+x=3
+
+[State 1100, Contact]
+type=HitDef
+trigger1=time=7
+attr=S,SA
+damage=105,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Hard
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=4,-5
+air.velocity=2,-4
+fall=1
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=20,5
+givepower=10,5
+
+[State 1100, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 1200]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=1200
+poweradd=-750
+velset=0,0
+
+[State 1200, Advance]
+type=VelSet
+trigger1=time=[5,10]
+x=3
+
+[State 1200, Contact]
+type=HitDef
+trigger1=time=7
+attr=S,SA
+damage=125,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Hard
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=4,-5
+air.velocity=2,-4
+fall=1
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=20,5
+givepower=10,5
+
+[State 1200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3000]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=3000
+poweradd=-1000
+velset=0,0
+
+[State 3000, Super pause]
+type=SuperPause
+trigger1=time=0
+time=12
+movetime=12
+anim=-1
+sound=S1,2
+darken=1
+poweradd=0
+
+[State 3000, Contact]
+type=HitDef
+trigger1=time=10
+attr=S,HA
+damage=70,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=0,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=0,0
+givepower=10,5
+
+[State 3000, Impact]
+type=EnvShake
+trigger1=movehit && time=10
+time=4
+freq=90
+ampl=3
+
+[State 3000, Contact]
+type=HitDef
+trigger1=time=15
+attr=S,HA
+damage=80,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Hard
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=5,-7
+air.velocity=2,-4
+fall=1
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=0,0
+givepower=10,5
+
+[State 3000, Impact]
+type=EnvShake
+trigger1=movehit && time=15
+time=4
+freq=90
+ampl=3
+
+[State 3000, Drive]
+type=VelSet
+trigger1=time=[7,15]
+x=8
+
+[State 3000, Stop]
+type=VelSet
+trigger1=time=16
+x=0
+
+[State 3000, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3100]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=3100
+poweradd=-2000
+velset=0,0
+
+[State 3100, Super pause]
+type=SuperPause
+trigger1=time=0
+time=12
+movetime=12
+anim=-1
+sound=S1,2
+darken=1
+poweradd=0
+
+[State 3100, Contact]
+type=HitDef
+trigger1=time=12
+attr=S,HA
+damage=65,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=0,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=0,0
+givepower=10,5
+
+[State 3100, Impact]
+type=EnvShake
+trigger1=movehit && time=12
+time=4
+freq=90
+ampl=3
+
+[State 3100, Contact]
+type=HitDef
+trigger1=time=19
+attr=S,HA
+damage=65,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=0,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=0,0
+givepower=10,5
+
+[State 3100, Impact]
+type=EnvShake
+trigger1=movehit && time=19
+time=4
+freq=90
+ampl=3
+
+[State 3100, Contact]
+type=HitDef
+trigger1=time=26
+attr=S,HA
+damage=120,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Hard
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=5,-7
+air.velocity=2,-4
+fall=1
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=0,0
+givepower=10,5
+
+[State 3100, Impact]
+type=EnvShake
+trigger1=movehit && time=26
+time=4
+freq=90
+ampl=3
+
+[State 3100, Drive]
+type=VelSet
+trigger1=time=[9,26]
+x=2
+
+[State 3100, Stop]
+type=VelSet
+trigger1=time=27
+x=0
+
+[State 3100, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1
+
+[Statedef 3200]
+type=S
+movetype=A
+physics=S
+ctrl=0
+anim=3200
+poweradd=-3000
+velset=0,0
+
+[State 3200, Super pause]
+type=SuperPause
+trigger1=time=0
+time=20
+movetime=20
+anim=-1
+sound=S1,2
+darken=1
+poweradd=0
+
+[State 3200, Contact]
+type=HitDef
+trigger1=time=18
+attr=S,HA
+damage=45,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=0,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=0,0
+givepower=10,5
+
+[State 3200, Impact]
+type=EnvShake
+trigger1=movehit && time=18
+time=7
+freq=90
+ampl=5
+
+[State 3200, Contact]
+type=HitDef
+trigger1=time=25
+attr=S,HA
+damage=45,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=0,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=0,0
+givepower=10,5
+
+[State 3200, Impact]
+type=EnvShake
+trigger1=movehit && time=25
+time=7
+freq=90
+ampl=5
+
+[State 3200, Contact]
+type=HitDef
+trigger1=time=37
+attr=S,HA
+damage=55,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=0,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=0,0
+givepower=10,5
+
+[State 3200, Impact]
+type=EnvShake
+trigger1=movehit && time=37
+time=7
+freq=90
+ampl=5
+
+[State 3200, Contact]
+type=HitDef
+trigger1=time=49
+attr=S,HA
+damage=55,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Medium
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=0,0
+air.velocity=2,-4
+fall=0
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=0,0
+givepower=10,5
+
+[State 3200, Impact]
+type=EnvShake
+trigger1=movehit && time=49
+time=7
+freq=90
+ampl=5
+
+[State 3200, Contact]
+type=HitDef
+trigger1=time=58
+attr=S,HA
+damage=160,5
+guardflag=MA
+hitflag=MAF
+pausetime=4,7
+animtype=Hard
+ground.type=High
+ground.hittime=24
+ground.slidetime=12
+ground.velocity=5,-7
+air.velocity=2,-4
+fall=1
+sparkno=2
+guard.sparkno=40
+hitsound=S1,0
+guardsound=S1,1
+getpower=0,0
+givepower=10,5
+
+[State 3200, Impact]
+type=EnvShake
+trigger1=movehit && time=58
+time=7
+freq=90
+ampl=5
+
+[State 3200, Drive]
+type=VelSet
+trigger1=time=[15,58]
+x=2
+
+[State 3200, Stop]
+type=VelSet
+trigger1=time=59
+x=0
+
+[State 3200, Recover]
+type=ChangeState
+trigger1=animtime=0
+value=0
+ctrl=1

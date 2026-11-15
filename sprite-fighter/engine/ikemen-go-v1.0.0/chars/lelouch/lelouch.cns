@@ -1,0 +1,944 @@
+;===================================
+;　基本設定・基本動作・通常技 の設定
+;  ===================================
+[Data]
+life = 1000          ;スタート時の体力総計
+power = 8000
+attack = 100         ;攻撃力パーセンテージ （多いほど強くなります Def:100%）
+defence = 100        ;防御力パーセンテージ （多いほど強くなります Def:100%）
+fall.defence_up = 50 ;ダウン時に攻撃された時に一時的に上がる防御力のパーセンテージ
+liedown.time = 60    ;ダウンしてから起き上がるまでの時間
+airjuggle = 60       ;ジャグルポイント数
+sparkno = 2        ;ディフォルトのスパーク番号
+guard.sparkno = 40 ;ガード時のディフォルトスパーク番
+KO.echo = 0          ;1にするとKOされた時に声にエコーがかかります
+volume = 0           ;ボリュームオフセット (negative for softer)
+
+[Size]
+xscale = 1           ;水平方向の縮尺
+yscale = 1           ;垂直方向の縮尺
+ground.back = 15     ;キャラクターの幅（後方、地上）
+ground.front = 15     ;キャラクターの幅（前方、地上）
+air.back = 15        ;キャラクターの幅（後方、空中）
+air.front = 15       ;キャラクターの幅（前方、空中）
+z.width = 3          ;Player width (into and out)（現在使用されていないと思われます）
+height = 50	     ;キャラクターの高さ
+attack.width = 4,4   ;Default attack width: back, front（現在使用されていないと思われます）
+attack.dist = 160    ;攻撃時に相手がガード体勢に入る最低距離（最大320）
+proj.attack.dist = 90 ;相手がガード体勢に入る発射物との最低距離（最大320）
+proj.doscale = 0     ;xscale, yscaleの設定が発射物にも適用するかどうか（1で有効）
+head.pos = -5, -90   ;頭の大体の座標（BindToTarget使用時に必要です。）
+mid.pos = -5, -60    ;体中心の大体の座標（BindToTarget使用時に必要です。）
+shadowoffset = 0     ;影の垂直方向オフセット
+
+[Movement]
+airjump.num = 1      ;空中ジャンプの回数 （オプション）
+airjump.height = 35  ;空中ジャンプに必要な最低限の高さ （オプション）
+yaccel = .43         ;垂直方向にかかる加速度（重力）
+stand.friction = .85  ;立ち状態での摩擦係数
+crouch.friction = .82 ;しゃがみ状態での摩擦係数
+
+[Velocity]
+walk.fwd  = 1.2      ;前に歩く時の速度
+walk.back = -1     ;後ろに歩く時の速度
+run.fwd  =  6, 0 ;前に走る時の速度 (x, y) ホップさせる時はyを0以下にします
+run.back = -5, -3 ;後ろに走る時の速度 (x, y) 走らせる時はyを0にします
+jump.neu = 0,-9.1    ;ジャンプ時の垂直移動速度 (x, y)
+jump.back = -3.2    ;後ろにジャンプした時の水平移動速度
+jump.fwd = 3.2       ;前にジャンプした時の水平移動速度
+runjump.back = -2.55,-8.1 ;後ろに走りながらのジャンプ時の速度指定 (オプション)
+runjump.fwd = 4,-8.1      ;前に走りながらのジャンプ時の速度指定 (オプション)
+airjump.neu = 0,-8.1      ;空中ジャンプ時の垂直移動速度  (オプション)
+airjump.back = -3.55,-8.1 ;空中で後ろにジャンプした時の水平移動速度
+airjump.fwd = 3.5,-8.1    ;空中で前にジャンプした時の水平移動速度
+
+
+
+;var50 ダメキャン用
+;var59 AI用
+
+;-----------------------
+;敗北
+[Statedef 170]
+type = S
+ctrl = 0
+anim = 170
+velset = 0,0,0
+
+[State 170 , 1]
+type = NotHitBy
+trigger1 = Time >= 0
+value = SCA
+time = 1
+
+;-----------------------
+;---------------------------------------------------------------------------
+; 勝利ポーズ分岐
+; CNS レベル: 基本
+[Statedef 180]
+type = S
+ctrl = 0
+anim = 181
+velset = 0,0
+
+[State 180, ステート変更]
+type = ChangeState
+trigger1 = Time = 0
+trigger1 = random <= 500
+value = 181
+
+
+[State 181, 音を鳴らす]
+type = PlaySnd
+trigger1 = AnimElem= 1
+value = s400,20
+
+[State 181, 無敵]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+
+
+;---------------------------------------------------------------------------
+; 勝利ポーズ
+; CNS レベル: 基本
+[Statedef 181]
+type = S
+ctrl = 0
+anim = 181
+velset = 0,0
+
+[State 181, 音を鳴らす]
+type = PlaySnd
+trigger1 = AnimElem= 1
+value = s400,9
+
+[State 181, 無敵]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+
+;-----------------------------------------------------------------
+;---------------------------------------------------------------------------
+; イントロ（試合開始直前のアクション）
+; CNS レベル: 基本
+[Statedef 191]
+type = S
+ctrl = 0
+anim = 190
+velset = 0,0
+
+[State 191, アニメ変更] ;画面フェードインの間だけアニメーションを繰り返し、止まっているように見せています
+type = ChangeAnim
+trigger1 = RoundState = 0
+value = 190
+
+[State 191, 特殊効果] ;「ROUND1, FIGHT!」のアナウンスが始まるまでは、このコントローラを使ってください
+type = AssertSpecial
+trigger1 = 1
+flag = Intro ;イントロの状態になります
+
+[State 191, 音を鳴らす]
+type = PlaySnd
+trigger1 = AnimElem= 2
+value = s400,8
+
+[State 191, ステート変更]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0 ;common1.cns参照
+
+;---------------------------------------------------------------------------
+; RUN_FWD
+[Statedef 100]
+type    = S
+physics = S
+anim = 100
+sprpriority = 1
+
+[State 100, 1]
+type = VelSet
+trigger1 = 1
+x = const(velocity.run.fwd.x)
+
+[State 100, 2] ;Prevent run from canceling into walk
+type = AssertSpecial
+trigger1 = 1
+flag = NoWalk
+
+[State 100, 3] ;Prevent from turning
+type = AssertSpecial
+trigger1 = 1
+flag = NoAutoTurn
+
+[State 100, 4]
+type = ChangeState
+trigger1 = command != "holdfwd"
+value = 0
+
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+; RUN_BACK
+[Statedef 105]
+type    = A
+physics = A
+ctrl = 0
+anim = 105
+sprpriority = 1
+
+[State 910, NoHitBy]
+type = NotHitBy
+trigger1 = Time = 0
+value = SAC, NT, ST, HT ,NA, SA, HA ,NP, SP, HP
+time = -1
+
+[State 105, 1]
+type = VelSet
+trigger1 = Time = 0
+x = const(velocity.run.back.x)
+y = const(velocity.run.back.y)
+
+[State 105, 2]
+type = CtrlSet
+trigger1 = Time = 2
+value = 1
+
+[State 105, 3]
+type = ChangeState
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 0;106
+
+;---------------------------------------------------------------
+; 空中ダッシュ
+[Statedef 110]
+type = A
+ctrl = 1
+physics = N
+anim = 110
+velset = 0,0
+
+[State 3560, Effect]
+type = Explod
+trigger1 = time = 0
+anim = 4100
+scale = 0.5,0.5
+postype = p1
+pos = 0,-30
+sprpriority = 4
+;supermove = 1
+ownpal = 1
+removeongethit = 1
+facing = 1
+
+[State 110]
+type = PlaySnd
+trigger1 = time = 0
+value = s0,2
+
+[State 115, 軸位置移動]
+type = velset
+trigger1 = time = 0
+x = 6
+
+[State 115, ステート変更]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 51
+ctrl = 1
+
+;-------------------------------------------------------------------------------------------------
+;---------------------------------------------------------------
+;空中バックダッシュ
+[Statedef 115]
+type = A
+ctrl = 1
+physics = N
+anim = 115
+velset = 0,0
+
+[State 3560, Effect]
+type = Explod
+trigger1 = time = 0
+anim = 4100
+scale = 0.5,0.5
+postype = p1
+pos = 0,-30
+sprpriority = 4
+;supermove = 1
+ownpal = 1
+removeongethit = 1
+facing = -1
+
+[State 110]
+type = PlaySnd
+trigger1 = time = 0
+value = s0,2
+
+[State 115, 軸位置移動]
+type = velset
+trigger1 = time = 0
+x = -6
+
+[State 115, ステート変更]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 51
+ctrl = 1
+
+;----------------------------------------------------------------
+[Statedef -2]
+
+[state 156, ヘルパーカメラ固定]
+type = screenbound
+trigger1 = ishelper
+value = 0
+ignorehitpause = 1
+
+[state -3]
+type = lifeset
+Triggerall = !ishelper
+triggerall = 500 <= lifemax
+triggerall = alive
+triggerall = palno >= 7
+trigger1 = var(50)-life > 500
+trigger2 = gethitvar(damage) >= 500
+value = var(50)
+IgnoreHitPause = 1
+SuperMoveTime = 999999
+PauseMoveTime = 999999
+
+[state -3]
+type = lifeset
+Triggerall = !ishelper
+triggerall = palno >= 7
+trigger1 = movetype != H && var(50) > life
+trigger2 = roundstate >= 3
+value = lifemax
+IgnoreHitPause = 1
+SuperMoveTime = 999999
+PauseMoveTime = 999999
+
+[State -1,ゲジマシ]
+type = poweradd
+triggerall = !ishelper
+trigger1 = palno >= 7
+value = 10
+
+[State -2,]
+type = nothitby
+triggerall = !ishelper 
+trigger1 = palno >= 7
+value = SCA
+
+[state -2,]
+type = nothitby
+triggerall = !ishelper
+trigger1 = roundstate != 2
+value = SCA
+
+[state -2,]
+type = nothitby
+triggerall = !ishelper
+trigger1 = statetype = L
+value = SCA
+
+[State -2,]
+type = nothitby
+triggerall = life = [750,900]
+trigger1 = PalNo = 4
+value = ,AP,AT
+
+[State -2,]
+type = nothitby
+triggerall = life = [650,749]
+trigger1 = PalNo = 4
+value = ,AA
+
+[State -2,]
+type = nothitby
+triggerall = life = [450,600]
+trigger1 = PalNo = 4
+value = ,AP,AT
+
+[State -2,]
+type = nothitby
+triggerall = life = [180,449]
+trigger1 = PalNo = 4
+value = ,AA,AP
+
+[State -2,]
+type = nothitby
+triggerall = life = [50,100]
+trigger1 = PalNo = 4
+value = ,AA,AT
+
+[State -2,]
+type = nothitby
+triggerall = life = [0,49]
+trigger1 = PalNo = 4
+value = ,AA,AP,AT
+
+[state -2, ]
+type = nothitby
+triggerall = movetype = H
+triggerall = life <= 800
+trigger1 = palno = 4
+value = SCA
+
+[State ]
+type = assertspecial
+triggerAll = !IsHelper
+triggerall = palno >= 7
+trigger1 = var(50)-life > 500
+trigger2 = gethitvar(damage) >= 500
+flag = Noko
+
+[State -2, ];ガー不
+type = Assertspecial
+triggerall = !ishelper
+trigger1 = palno >= 7
+flag = unguardable
+ignorehitpause = 1
+
+;-| タゲ取得フラグ |---------------------------------------------------------------------------------------------------
+[State -2, マーキングフラグリセット]
+type = VarSet
+triggerall = !ishelper       ;本体だよー
+triggerall = var(0)
+triggerall = numhelper(10000)
+trigger1 = roundstate < 1
+trigger2 = !helper(10000),var(2)
+var(0) = 0
+ignorehitpause = 1
+[State -2, マーキングフラグセット]
+type = VarSet
+triggerall = !ishelper
+triggerall = !var(0)
+triggerall = numhelper(10000)
+trigger1 = helper(10000),var(2)
+var(0) = 1
+ignorehitpause = 1
+
+;-| タゲ取得ヘルパー |---------------------------------------------------------------------------------------------------
+[State -2, 当身型マーキングヘルパー]
+type = Helper
+triggerall = !ishelper
+triggerall = palno != 3
+trigger1 = !numHelper(10000)
+helpertype = player
+name = "Marking1"
+stateno = 10000
+ID = 10000
+postype = p1
+pos = 0, 0
+supermovetime = 2147483647
+pausemovetime = 2147483647
+ignorehitpause = 1
+
+[State -2, 相手ライフ監視0-1]
+type = VarSet
+triggerall = ishelper(10000) ;ヘルパーだよー
+trigger1 = enemy(0),Life = enemy(0),LifeMax
+var(0) = enemy(0),Life
+ignorehitpause = 1
+
+[State -2, 相手ライフ監視0-2]
+type = VarSet
+triggerall = ishelper(10000)
+trigger1 = enemy(0),Life < var(0)
+var(0) = enemy(0),Life
+Ignorehitpause = 1
+
+[State -2, 相手ライフ監視1-1]
+type = VarSet
+triggerall = ishelper(10000)
+trigger1 = enemy(1),Life = enemy(1),LifeMax
+var(1) = enemy(1),Life
+ignorehitpause = 1
+
+[State -2, 相手ライフ監視1-2]
+type = VarSet
+triggerall = ishelper(10000)
+trigger1 = enemy(1),Life  < var(1)
+var(1) = enemy(1),Life
+ignorehitpause = 1
+
+[State -2, 固定]
+type = SelfState
+trigger1 = ishelper(10000)
+value = 10000
+ignorehitpause = 1
+
+
+[State -2, 保護1]
+Type = SelfState
+Triggerall = IsHelper(10000)
+trigger1 = Stateno != 10000
+Trigger2 = GameTime != sysvar(4)
+Value = 10000
+ignorehitpause = 1
+
+[State -2, 保護2]
+Type = SelfState
+Triggerall = IsHelper(20000)
+trigger1 = Stateno != 20000
+Trigger2 = GameTime != sysvar(4)
+Value = 20000
+ignorehitpause = 1
+
+[State -2, 保護]
+Type = SelfState
+Triggerall = IsHelper(20001)
+trigger1 = Stateno != 20001
+Trigger2 = GameTime != sysvar(4)
+Value = 20001
+ignorehitpause = 1
+;----------------------------------------------------------------
+[Statedef -3]
+
+[state GT]
+type=varset
+trigger1 = 1
+sysvar(4) = gametime
+ignorehitpause = 1
+
+[State -3, 音を鳴らす]
+type = PlaySnd
+triggerall = !ishelper 
+triggerall = Time = 1
+trigger1 = stateno = 52  ;ジャンプ後の着地
+trigger2 = stateno = 105 ;バックステップ後の着地
+value = s0, 1
+
+[state -3]
+type = varset
+Triggerall = !ishelper
+trigger1 = movetype = A
+trigger2 = roundstate = 1
+var(50) = life
+IgnoreHitPause = 1
+
+[State -3,00]AI用しゃがみ滑り防止
+type = velset
+triggerall = !ishelper 
+triggerall = var(59)
+trigger1 = StateNo = [400,450]
+trigger1 = Time = 1
+x = 0
+ignorehitpause = 0
+
+;AI用スイッチ
+[State -3, AIflg]
+type = VarSet
+triggerall = !ishelper 
+triggerall = var(59) != 1
+trigger1 = command = "CPU_01"
+trigger2 = command = "CPU_02"
+trigger3 = command = "CPU_03"
+trigger4 = command = "CPU_04"
+trigger5 = command = "CPU_05"
+trigger6 = command = "CPU_06"
+trigger7 = command = "CPU_07"
+trigger8 = command = "CPU_08"
+trigger9 = command = "CPU_09"
+trigger10= command = "CPU_10"
+trigger11= command = "CPU_11"
+trigger12= command = "CPU_12"
+trigger13= command = "CPU_13"
+trigger14= command = "CPU_14"
+trigger15= command = "CPU_15"
+trigger16= command = "CPU_16"
+trigger17= command = "CPU_17"
+trigger18= command = "CPU_18"
+trigger19= command = "CPU_19"
+trigger20= command = "CPU_20"
+trigger21= command = "CPU_21"
+trigger22= command = "CPU_22"
+trigger23= command = "CPU_23"
+trigger24= command = "CPU_24"
+trigger25= command = "CPU_25"
+trigger26= command = "CPU_26"
+trigger27= command = "CPU_27"
+trigger28= command = "CPU_28"
+trigger29= command = "CPU_29"
+trigger30= command = "CPU_30"
+trigger31= command = "CPU_31"
+trigger32= command = "CPU_32"
+trigger33= command = "CPU_33"
+trigger34= command = "CPU_34"
+trigger35= command = "CPU_35"
+trigger36= command = "CPU_36"
+trigger37= command = "CPU_37"
+trigger38= command = "CPU_38"
+trigger39= command = "CPU_39"
+trigger40= command = "CPU_40"
+trigger41= command = "CPU_41"
+trigger42= command = "CPU_42"
+trigger43= command = "CPU_43"
+trigger44= command = "CPU_44"
+trigger45= command = "CPU_45"
+trigger46= command = "CPU_46"
+trigger47= command = "CPU_47"
+trigger48= command = "CPU_48"
+trigger49= command = "CPU_49"
+trigger50= command = "CPU_50"
+trigger51= 1 ;人操作に切り替えたい時は左端に;を追加。
+v =  59
+value = 1
+
+
+;===========================================================================
+;コンフィグ
+;===========================================================================
+;AI用スイッチ
+;ゲージ技自重スイッチ
+[State -2, EnemyNear]
+type = VarSet
+triggerall = !ishelper 
+triggerall = var(59) 
+trigger1 = 1
+var(50) = 0;1で自重。主に高カラー向け。デフォルト0(自重なし)
+ignorehitpause = 1
+
+;============================================================================
+;コンフィグここまで
+;============================================================================
+
+
+;【敵生存確認】------------------------------------------------------------------------------------------
+
+;敵が1体
+
+[State -2, EnemyNear]
+type = VarSet
+triggerall = !ishelper 
+triggerall = var(59) 
+trigger1 = NumEnemy = 1
+trigger2 = NumEnemy > 1
+trigger2 = EnemyNear(1),Life = 0
+var(57) = 0
+ignorehitpause = 1
+
+[State -2, EnemyNear]
+type = VarSet
+triggerall = !ishelper 
+triggerall = var(59) 
+trigger1 = NumEnemy > 1
+trigger1 = EnemyNear(0),Life = 0
+var(57) = 1
+ignorehitpause = 1
+
+;敵が2体、パートナーがいる時
+
+[State -2, EnemyNear]
+type = VarSet
+triggerall = !ishelper 
+triggerall = var(59) 
+triggerall = NumPartner > 0
+triggerall = Partner,Life > 0
+triggerall = NumEnemy > 1
+triggerall = EnemyNear(0),Life > 0 && EnemyNear(1),Life > 0
+trigger1 = !(Partner,MoveType = A && Partner,NumTarget && EnemyNear(0),MoveType = H && EnemyNear(1),MoveType != H && !((EnemyNear(0),StateNo = [5000,5300]) || (EnemyNear(0),StateNo = [120,160])) && EnemyNear(0),GetHitVar(hitshaketime) = 0)
+trigger1 = !(Partner,MoveType = H && EnemyNear(0),NumTarget && EnemyNear(0),MoveType = A && !((Partner,StateNo = [5000,5300]) || (Partner,StateNo = [120,160])) && Partner,GetHitVar(hitshaketime) = 0)
+var(57) = 0
+ignorehitpause = 1
+
+[State -2, EnemyNear]
+type = VarSet
+triggerall = !ishelper 
+triggerall = var(59) 
+triggerall = NumPartner > 0
+triggerall = Partner,Life > 0
+triggerall = NumEnemy > 1
+triggerall = EnemyNear(0),Life > 0 && EnemyNear(1),Life > 0
+trigger1 = (Partner,MoveType = A && Partner,NumTarget && EnemyNear(0),MoveType = H && EnemyNear(1),MoveType != H && !((EnemyNear(0),StateNo = [5000,5300]) || (EnemyNear(0),StateNo = [120,160])) && EnemyNear(0),GetHitVar(hitshaketime) = 0)
+trigger2 = (Partner,MoveType = H && EnemyNear(0),NumTarget && EnemyNear(0),MoveType = A && !((Partner,StateNo = [5000,5300]) || (Partner,StateNo = [120,160])) && Partner,GetHitVar(hitshaketime) = 0)
+var(57) = 1
+ignorehitpause = 1
+
+;【ガード用ヘルパー】----------------------------------------------------------------------------------
+
+[State -3];ガード補助ヘルパー1
+type = Helper
+triggerall = !ishelper 
+triggerall = var(59) 
+trigger1 = NumHelper(20000) = 0
+ID = 20000
+name = "GuardAssist1"
+postype = p1
+pos = 0,0
+sprpriority = -1
+stateno = 20000
+helpertype = normal
+keyctrl = 0
+pausemovetime = 2147483647
+supermovetime = 2147483647
+persistent = 0
+ignorehitpause = 1
+
+[State -3];ガード補助ヘルパー2
+type = Helper
+triggerall = !ishelper 
+triggerall = var(59) 
+trigger1 = NumHelper(20001) = 0
+ID = 20001
+name = "GuardAssist2"
+postype = p1
+pos = 0,0
+sprpriority = -1
+stateno = 20001
+helpertype = normal
+keyctrl = 0
+pausemovetime = 2147483647
+supermovetime = 2147483647
+persistent = 0
+ignorehitpause = 1
+
+[State -3,ガード補助ヘルパー運用]
+type = VarSet
+triggerall = !ishelper 
+triggerall = NumHelper(20000)
+triggerall = NumHelper(20001)
+trigger1 = !InGuardDist && Helper(20000),InGuardDist
+trigger2 = !InGuardDist && Helper(20001),InGuardDist
+var(55) = 1
+ignorehitpause = 1
+
+[State -3,ガード補助ヘルパー運用]
+type = VarSet
+triggerall = !ishelper 
+triggerall = NumHelper(20000)
+triggerall = NumHelper(20001)
+trigger1 = !(!InGuardDist && Helper(20000),InGuardDist)
+trigger1 = !(!InGuardDist && Helper(20001),InGuardDist)
+var(55) = 0
+ignorehitpause = 1
+
+;━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+;特殊行動
+;━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+;バックステップ
+[State -3,backstep1]
+Type = ChangeState
+value = 105
+triggerall = !ishelper 
+triggerall = var(59)
+triggerall = RoundState = 2
+triggerall = StateType != A
+triggerall = Ctrl || (StateNo = [21,22]) 
+triggerall = EnemyNear(var(57)),MoveType = A
+triggerall = BackEdgeBodyDist > 90
+triggerall = EnemyNear(var(57)),HitDefAttr = SC, NT, ST, HT
+triggerall = P2BodyDist X <= 70
+trigger1 = Random <= 900
+
+[State -3,rp2]
+type = ChangeState
+value = 710
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+triggerall = power >= 8000
+trigger1 = random <= 800
+
+[State -3,rp2]
+type = ChangeState
+value = 780
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+triggerall = power >= 7500
+trigger1 = random <= 170
+
+[State -3,rp2]
+type = ChangeState
+value = 720
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = var(50) = 0
+trigger1 = power = [4500,6000]
+trigger1 = random < 300 && random < 300 
+trigger1 = p2bodydist X >= 50
+trigger2 = var(50) = 1
+trigger2 = p2bodydist X >= 80
+trigger2 = random < 200 && random < 200
+trigger2 = p2movetype = H
+
+[State -3,rp2]
+type = ChangeState
+value = 700
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+triggerall = power = [2000,3500]
+triggerall = var(59)
+trigger1 = var(50) = 0
+trigger1 = random < 300 && random < 300
+trigger1 = p2bodydist X >= 70
+trigger2 = var(50) = 1
+trigger2 = p2bodydist X >= 100
+trigger2 = random < 200 && random < 200
+trigger2 = p2movetype = H
+
+[State -3,rp2]
+type = ChangeState
+value = ifelse(random <= 500,540,550)
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = Random < 800
+trigger1 = p2bodydist X >= 100
+
+[State -3,rp2]
+type = ChangeState
+value = ifelse(random <= 500,ifelse(random <= 600,540,105),ifelse(random <= 500,530,500))
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = p2bodydist X = [80,100]
+
+[State -3,rp2]
+type = ChangeState
+value = ifelse(random <= 500,ifelse(random <= 500,550,530),ifelse(random <= 600,520,105))
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = p2bodydist X = [70,80]
+
+[State -3,rp2]
+type = ChangeState
+value = ifelse(random <= 500,ifelse(random <= 500,600,530),ifelse(random <= 600,550,105))
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = p2bodydist X = [56,70]
+
+[State -3,rp2]
+type = ChangeState
+value = ifelse(random <= 500,540,500)
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = p2bodydist X = [50,56]
+
+[State -3,rp2]
+type = ChangeState
+value = ifelse(random <= 500,ifelse(random <= 500,601,500),ifelse(random <= 500,530,550))
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = p2bodydist X = [40,50]
+
+[State -3,rp2]
+type = ChangeState
+value = ifelse(random <= 500,ifelse(random <= 500,601,540),ifelse(random <= 600,500,105))
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = p2bodydist X = [20,40]
+
+[State -3,rp2]
+type = ChangeState
+value = ifelse(random <= 500,ifelse(random <= 600,500,105),ifelse(random <= 500,300,550))
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = p2bodydist X = [15,20]
+
+[State -3,rp2]
+type = ChangeState
+value = ifelse(random <= 500,ifelse(random <= 500,200,500),ifelse(random <= 600,410,105))
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = p2bodydist X = [10,15]
+
+[State -3,rp2]
+type = ChangeState
+value = ifelse(random <= 500,ifelse(random <= 500,200,600),ifelse(random <= 500,550,410))
+IgnoreHitPause = 1
+triggerall = !ishelper 
+Triggerall = HitPauseTime = 0
+triggerall = var(59)
+triggerall = StateType != A
+triggerall = RoundState = 2 && Life > 0
+triggerall = Ctrl
+trigger1 = p2bodydist X <= 10
+
+
+;━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+;ガード 
+;inguarddist EnemyNear,HitDefAttr = SCA,AA;打撃
+;━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+;立ちガード
+;[State -3,guard]
+;type = ChangeState
+;value = 120
+;IgnoreHitPause = 1
+;triggerall = !ishelper 
+;Triggerall = HitPauseTime = 0
+;triggerall = var(59) 
+;triggerall = palno = 3
+;triggerall = RoundState = 2
+;triggerall = StateNo != [120,155]
+;triggerall = Ctrl || StateNo = 1 || (StateNo = [21,22]) || (StateNo = [100,101])
+;Triggerall = !(EnemyNear(var(57)),HitDefAttr = SCA,AT)
+;triggerall = StateType != A
+;triggerall = Random < 800 || Life < 333
+;triggerall = var(20) != 1
+;Trigger1 = InGuardDist || var(55)
+
+

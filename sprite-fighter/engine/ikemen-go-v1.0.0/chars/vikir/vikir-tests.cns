@@ -1,0 +1,233 @@
+[Statedef -3]
+[State -3, Directional skill down]
+type=AssertCommand
+trigger1=map(test.pulse)=5 || map(test.pulse)=11 || map(test.pulse)=12 || map(test.pulse)=17
+name="holddown"
+[State -3, Directional skill back]
+type=AssertCommand
+trigger1=map(test.pulse)=6 || map(test.pulse)=8 || map(test.pulse)=16
+name="holdback"
+[State -3, Directional guest forward]
+type=AssertCommand
+trigger1=map(test.pulse)=14 || map(test.pulse)=15 || map(test.pulse)=18
+name="holdfwd"
+
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=1
+name="L"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=2
+name="M"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=3
+name="H"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=4
+name="skill"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=5
+name="rise"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=6
+name="retreat"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=7
+name="super"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=8
+name="drain"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=9
+name="seven"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=10
+name="form"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=11
+name="base"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=12
+name="aura"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=13
+name="step"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=14
+name="guest_dolores"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=15
+name="guest_camu"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=16
+name="guest_aiyen"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=17
+name="guest_sinclair"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=18
+name="bow"
+buffer.time=1
+[State -3, Command]
+type=AssertCommand
+trigger1=map(test.pulse)=19
+name="ultimate"
+buffer.time=1
+[State -3, Consume]
+type=MapSet
+trigger1=map(test.pulse)>0
+map="test.pulse"
+value=0
+[State -3, Held]
+type=AssertCommand
+trigger1=map(test.walk)=1
+name="holdfwd"
+[State -3, Input]
+type=AssertInput
+trigger1=map(test.walk)=1
+flag=F
+[State -3, Held]
+type=AssertCommand
+trigger1=map(test.walkback)=1
+name="holdback"
+[State -3, Input]
+type=AssertInput
+trigger1=map(test.walkback)=1
+flag=B
+[State -3, Held]
+type=AssertCommand
+trigger1=map(test.down)=1
+name="holddown"
+[State -3, Input]
+type=AssertInput
+trigger1=map(test.down)=1
+flag=D
+[State -3, Held]
+type=AssertCommand
+trigger1=map(test.jump)=1
+name="holdup"
+[State -3, Input]
+type=AssertInput
+trigger1=map(test.jump)=1
+flag=U
+[State -3, Held]
+type=AssertCommand
+trigger1=map(test.charge)=1
+name="hold_charge"
+[State -3, No KO]
+type=AssertSpecial
+trigger1=!ishelper
+flag=globalnoko
+[State -3, Real button input]
+type=AssertInput
+trigger1=map(test.key)=1
+flag=a
+[State -3, Real button input]
+type=AssertInput
+trigger1=map(test.key)=2
+flag=b
+[State -3, Real button input]
+type=AssertInput
+trigger1=map(test.key)=3
+flag=c
+[State -3, Real button input]
+type=AssertInput
+trigger1=map(test.key)=4
+flag=x
+[State -3, Real button input]
+type=AssertInput
+trigger1=map(test.key)=5
+flag=y
+[State -3, Real button input]
+type=AssertInput
+trigger1=map(test.key)=6
+flag=z
+[State -3, Real button input]
+type=AssertInput
+trigger1=map(test.key)=7
+flag=d
+[State -3, Real button input]
+type=AssertInput
+trigger1=map(test.key)=8
+flag=w
+[State -3, Chord S]
+type=AssertInput
+trigger1=map(test.key)=9
+flag=y
+[State -3, Chord D]
+type=AssertInput
+trigger1=map(test.key)=9
+flag=z
+[Statedef 99000]
+type=S
+movetype=I
+physics=N
+anim=0
+ctrl=0
+velset=0,0
+[State 99000, Position]
+type=PosSet
+trigger1=1
+x=map(test.startx)
+y=0
+[State 99000, Face]
+type=Turn
+trigger1=facing!=map(test.facing)
+[State 99000, Clear]
+type=RemoveExplod
+trigger1=1
+[State 99000, Cooldowns]
+type=VarSet
+trigger1=1
+var(10)=0
+[State 99000, Cooldown]
+type=VarSet
+trigger1=1
+var(11)=0
+[State 99000, Clear aura]
+type=VarSet
+trigger1=1
+var(20)=0
+[State 99000, Reset guest cooldown]
+type=VarSet
+trigger1=1
+var(21)=map(test.cooldown)
+[State 99000, Ready]
+type=ChangeState
+trigger1=time>=5
+value=0
+ctrl=1

@@ -1,0 +1,1098 @@
+
+[statedef -3  ]
+;--------------------------------------------------------------------------------------------------------
+[State 0, VarSet]
+type = Varadd
+triggerall = Var(53)>0
+triggerall = var(56) = 1
+triggerall = stateno != [9001,9008 ]
+triggerall = stateno != 6010
+trigger1 = time%2 = 0
+v = 53   ;fv = 10
+value = -1
+;_-----------------------------------------------
+;way big
+[State 0, Width]
+type = Width
+trigger1 = var(20) = 1
+player = 20,20
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = var(20) = 1
+scale = .7,.7
+value = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+
+
+[State 0, Width]
+type = Width
+trigger1 = var(21) = 1
+player = 25,25
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = var(21) = 1
+scale = 1.5,1.5
+value = 0
+ignorehitpause = 1
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = var(21) = 1
+value = 2
+
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+;--------------------------------------------------------------------------------------------------------
+[State 0, VarSet]
+type = VarSet
+
+trigger1 = life<=lifemax/2
+v = 42   ;fv = 10
+value = 1
+[State 0, VarSet]
+type = VarSet
+trigger1 = life> lifemax/2
+v = 42   ;fv = 10
+value = 0
+[State 0, VarSet]
+type = Varadd
+trigger1 = Var(50)=0
+triggerall = Var(53)<1000
+triggerall = var(56) = 0
+trigger1 = time%2 = 0
+v = 53   ;fv = 10
+value = 2
+[State 0, VarSet]
+type = Varadd
+trigger1 = Var(50)=1
+triggerall = Var(53)<1000
+triggerall = var(56) = 0
+trigger1 = time%2 = 0
+v = 53   ;fv = 10
+value = 3
+[State 0, VarSet]
+type = VarSet
+trigger1 = roundstate = 0
+v = 53    ;fv = 10
+value = 1000
+[State 0, VarSet]
+type = VarSet
+trigger1 = Var(53)>1000
+v = 53    ;fv = 10
+value = 1000
+[State 0, VarSet]
+type = VarSet
+trigger1 = Var(53)<=0
+v = 53    ;fv = 10
+value = 0
+[State 0, VarSet]
+type = VarSet
+trigger1 = Var(56)=0
+v = 40    ;fv = 10
+value = 0
+
+[State 0, VarSet]
+type = VarSet
+triggerall = var(53) > 0
+triggerall = var(9) =2
+trigger1 = pos y >=0
+v = 9    ;fv = 10
+value = 1
+[State 0, VarSet]
+type = VarSet
+trigger1 = enemy,name= "BEN TENNYSON" && enemy,var(22) = 1
+v =51  ;fv = 10
+value = 1
+[State 0, VarSet]
+type = VarSet
+trigger1 = enemy,var(22)= 0
+v =51  ;fv = 10
+value = 0
+[State 0, VarSet]
+type = VarSet
+trigger1 = enemy,name= "BEN TENNYSON" && enemy,var(8) = 2
+v =52  ;fv = 10
+value = 1
+[State 0, VarSet]
+type = VarSet
+trigger1 = enemy,var(22) != 2
+v =52  ;fv = 10
+value = 0
+[State 0, AfterImage]
+type = AfterImage
+triggerall = var(22) = 1
+trigger1 = timemod =10,0
+time = 10
+length = 15
+palbright = 0,0,0
+palcontrast = 200,200,200
+palpostbright = 0,0,0
+paladd = 0,0,0
+palmul = 0.8,0.8,0.8
+timegap = 0
+framegap = 1
+trans =add1
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = VAR(8) = 2
+value = var(48)
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 =stateno = 9200
+value = var(48)
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = VAR(22) = 1
+value = var(48)/4
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = VAR(20) = 1
+value = var(48)/2
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = VAR(21) = 1
+value = var(48)/3
+[State 0, Helper]
+type = Helper
+TRIGGERALL = VAR(20) = 1
+trigger1 = NUMHELPER(11012) = 0
+helpertype = player
+name = "ESCUDO"
+ID = 11012
+stateno = 11012
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, NotHitBy]
+type = NotHitBy
+TRIGGERALL = !ISHELPER
+TRIGGERALL = VAR(20) = 1
+TRIGGERALL = VAR(52) = 0
+TRIGGER1= 1
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 5
+ignorehitpause =1
+[State 0, Helper]
+type = Helper
+TRIGGERALL = VAR(21) = 1
+trigger1 = NUMHELPER(1101222) = 0
+helpertype = player
+name = "ESCUDO"
+ID = 1101222
+stateno = 1101222
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, NotHitBy]
+type = NotHitBy
+TRIGGERALL = !ISHELPER
+TRIGGERALL = VAR(21) = 1
+TRIGGERALL = VAR(52) = 0
+TRIGGER1= 1
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 5
+ignorehitpause =1
+[State 0, Helper]
+type = Helper
+triggerall = var(51) = 0
+TRIGGERALL = VAR(22) = 1
+trigger1 = NUMHELPER(1120000) = 0
+helpertype = player
+name = "ESCUDO"
+ID = 1120000
+stateno =  1120000
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, NotHitBy]
+type = NotHitBy
+TRIGGERALL = VAR(22) =1
+triggerall = var(51) = 0
+TRIGGERALL = !ISHELPER
+TRIGGER1= 1
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 5
+ignorehitpause =1
+;------------------------
+[State 0, Helper]
+type = Helper
+triggerall = var(56) = 0
+triggerall = var(42) = 1
+TRIGGERALL = !ISHELPER
+triggerall = roundstate = 2
+trigger1= numhelper(9988) = 0
+helpertype =NORMAL
+name = "alien x disponible"
+ID = 9988
+stateno = 9988
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+;------------------------
+[State 0, Helper]
+type = Helper
+TRIGGERALL = VAR(8) = 2
+TRIGGERALL = VAR(52) = 0
+trigger1 = NUMHELPER(9740) = 0
+helpertype = player
+name = "ESCUDO"
+ID = 9740
+stateno = 9740
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+;------------------------
+[State 0, Helper]
+type = Helper
+TRIGGERALL =stateno = 9200
+trigger1 = NUMHELPER(9201) = 0
+helpertype = player
+name = "ESCUDO"
+ID = 9201
+stateno = 9201
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+[State 0, NotHitBy]
+type = NotHitBy
+TRIGGERALL = stateno = 9200
+TRIGGERALL = !ISHELPER
+TRIGGER1= 1
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 5
+ignorehitpause =1
+[State 0, NotHitBy]
+type = NotHitBy
+TRIGGERALL = !ISHELPER
+TRIGGERALL = VAR(8) = 2
+TRIGGERALL = VAR(52) = 0
+TRIGGER1= 1
+value = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+time = 5
+ignorehitpause =1
+;------------------------
+[State 0, Helper]
+type = Helper
+triggerall = var(56) = 1
+TRIGGERALL = !ISHELPER
+triggerall = roundstate = 2
+triggerall = Var(53) <= 90
+triggerall = Var(53) >=30
+trigger1= numhelper(100000000) = 0
+helpertype =NORMAL
+name = "omnitrix alarma"
+ID = 100000000
+stateno = 100000000
+pos = 0,0
+postype = p1    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+
+ ;------------------------
+[State 0, Helper]
+type = Helper
+triggerall = var(10) = 1
+TRIGGERALL = !ISHELPER
+triggerall = roundstate = 2
+triggerall = fVar(4) = 0
+trigger1= numhelper(1150) = 0
+helpertype =NORMAL
+name = "p2 palfx"
+ID = 1150
+stateno = 1150
+pos = 0,0
+postype = p2    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+;------------------------
+[State 0, Helper]
+type = Helper
+triggerall = var(2) = 1
+TRIGGERALL = !ISHELPER
+triggerall = roundstate = 2
+triggerall = fVar(4) = 0
+trigger1= numhelper(1150) = 0
+helpertype =NORMAL
+name = "p2 palfx"
+ID = 1150
+stateno = 1150
+pos = 0,0
+postype = p2    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+persistent = 1
+
+
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(10) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(3) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(3) = 2
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(4) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(5) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(6) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(7) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(8) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(8) = 2
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(9) =1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(9) = 2
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(11) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(11) = 2
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(12) =1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(13) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(14) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(15) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(16) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(17) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(18) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(19) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(20) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = Fvar(32) = 0
+triggerall = var(19) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+trigger1 = 1
+value = 9901
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(22) = 1
+triggerall = stateno = 0 |stateno = 20 | stateno = 21|statetype = c
+triggerall = Var(53) <= 50
+trigger1 = 1
+value = 9901
+;-----------------------------------------
+;-----------------------------------------
+[State 0, VarSet]
+type = VarSet
+triggerall = var(2) = 1
+trigger1 = 1
+v = 59    ;fv = 10
+value = 10000
+persistent = 1
+ignorehitpause = 1
+;-----------------------------------------
+[State 0, VarSet]
+type = VarSet
+triggerall = var(10) = 1
+trigger1 = 1
+v = 59    ;fv = 10
+value = 110000
+persistent = 1
+ignorehitpause = 1
+ [State 0, VarSet]
+type = VarSet
+triggerall = var(3) = 1
+trigger1 = 1
+v = 59    ;fv = 10
+value = 20000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(3) = 2
+trigger1 = 1
+v = 59    ;fv = 10
+value = 210000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(4) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 30000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(5) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 40000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(6) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 50000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(7) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 60000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(8) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 70000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(8) = 2
+trigger1 =1
+v = 59    ;fv = 10
+value = 90000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(9) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 80000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(9) = 2
+trigger1 =1
+v = 59    ;fv = 10
+value = 80000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(11) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 200000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(11) = 2
+trigger1 =1
+v = 59    ;fv = 10
+value = 220000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(12) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 300000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(13) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 400000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(14) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 500000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(15) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 600000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(16) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 700000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(17) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 310000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(22) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 1000000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(18) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 900000
+persistent = 1
+ignorehitpause = 1
+[State 0, VarSet]
+type = VarSet
+triggerall = var(19) = 1
+trigger1 =1
+v = 59    ;fv = 10
+value = 950000
+persistent = 1
+[State 0, Manto de chakra]
+type = Explod
+triggerall = alive
+triggerall = stateno != 6200
+triggerall =  Var(9) =1
+trigger1 = timemod =7,0
+anim = 4
+ID = 4
+pos = -15/2+random%35/2,0-random%70/2
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+vel = -.5,-1.5
+removetime = -2
+scale = .4/2,.4/2
+sprpriority = 4
+ontop = 1
+ownpal = 1
+supermovetime = 999
+ignorehitpause = 1
+[State 0, Manto de chakra]
+type = Explod
+triggerall = alive
+triggerall = stateno != 6200
+triggerall =  Var(9) =1
+trigger1 = timemod =7,0
+anim = 4
+ID = 4
+pos = -15/2+random%35/2,0-random%70/2
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+vel = -.5,-1.5
+removetime = -2
+scale = .4/2,.4/2
+sprpriority = 4
+ontop = 1
+ownpal = 1
+supermovetime = 999
+[State 0, Manto de chakra]
+type = Explod
+triggerall = alive
+triggerall =  Var(22) =1
+trigger1 = timemod =5,0
+anim = 1761
+ID = 4
+pos = -15+random%35,0-random%100
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+vel = -.5,-1.5
+removetime = -2
+scale = .04,.04
+sprpriority = 4
+ontop = 1
+ownpal = 1
+supermovetime = 999
+[State 0, Manto de chakra]
+type = Explod
+triggerall = alive
+triggerall =  Var(22) =1
+trigger1 = timemod =5,0
+anim = 1761
+ID = 4
+pos = -15/2+random%35/2,0-random%100/2
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+vel = -.5,-1.5
+removetime = -2
+scale = .02/2,.02/2
+sprpriority = 4
+ontop = 1
+ownpal = 1
+supermovetime = 999
+[State 0, Manto de chakra]
+type = Explod
+triggerall = alive
+triggerall =  Var(22) =1
+trigger1 = timemod =5,0
+anim = 1761
+ID = 4
+pos = -15/2+random%35/2,0-random%100/2
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+vel = -.5,-1.5
+removetime = -2
+scale = .04/2,.04/2
+sprpriority = 0
+ontop = 0
+ownpal = 1
+supermovetime = 999
+[State 0, Manto de chakra]
+type = Explod
+triggerall = alive
+triggerall =  Var(22) =1
+trigger1 = timemod =5,0
+anim = 1761
+ID = 4
+pos = -15/2+random%35/2,0-random%100/2
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+vel = -.5,-1.5
+removetime = -2
+scale = .02/2,.02/2
+sprpriority = 0
+ontop = 0
+ownpal = 1
+supermovetime = 999
+
+[State 0, Manto de chakra]
+type = Explod
+triggerall = alive
+triggerall = stateno != 6200
+triggerall =  Var(9) =2
+trigger1 = timemod =7,0
+anim = 6080
+ID = 4
+pos = -15/2+random%3/25,0-random%80/2
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+vel = -.5,-1.5
+removetime = -2
+scale = .4/2,.4/2
+sprpriority = 4
+ontop = 1
+ownpal = 1
+supermovetime = 999
+[State 0, Manto de chakra]
+type = Explod
+triggerall = alive
+triggerall = stateno != 6200
+triggerall =  Var(9) =1
+trigger1 = timemod =7,0
+anim =6080
+ID = 4
+pos = -15/2+random%35/2,0-random%80/2
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+vel = -.5,-1.5
+removetime = -2
+scale = .4/2,.4/2
+sprpriority = 4
+ontop = 1
+ownpal = 1
+supermovetime = 999
+[State 0, AfterImage]
+type = AfterImage
+triggerall = var(9) = 2
+trigger1 = timemod =10,0
+time = 10
+length = 15
+palbright = 0,0,0
+palcontrast = 200,200,200
+palpostbright = 0,0,0
+paladd = 0,0,0
+palmul = 0.8,0.8,0.8
+timegap = 0
+framegap = 1
+trans = add
+
+
+[State 0, AfterImage]
+type = AfterImage
+triggerall = var(9) = 1
+trigger1 = timemod =10,0
+time = 10
+length = 15
+palbright = 0,0,0
+palcontrast = 200,200,200
+palpostbright = 0,0,0
+paladd = 0,0,0
+palmul = 0.8,0.8,0.8
+timegap = 0
+framegap = 1
+trans = add
+;-------------------------------------------------------------------------
+[State 0, Helper Pared]
+type = Helper
+trigger1 = enemy,stateno = 9261 && numhelper(9260) = 0
+helpertype = normal
+name = "Helper Pared"
+ID = 9260
+stateno = 262
+pos = 0,-30/2
+postype = p2
+facing = 1
+size.xscale =.3
+size.yscale =.3
+trans = add
+;-------------------------------------------------------------------------
+[State 0, Helper Pared]
+type = Helper
+trigger1 = enemy,stateno = 261 && numhelper(2240) = 0
+helpertype = normal
+name = "Helper Pared"
+ID = 2240
+stateno = 262
+pos = 0,-30/2
+postype = p2
+facing = 1
+size.xscale =.3
+size.yscale =.3
+trans = add
+;-------------------------------------------------------------------------
+[State 0, Helper Pared]
+type = Helper
+trigger1 = enemy,stateno =9043&& numhelper(2240) = 0
+helpertype = normal
+name = "Helper Pared"
+ID = 2240
+stateno = 262
+pos = 0,-30/2
+postype = p2
+facing = 1
+size.xscale =.3
+size.yscale =.3
+trans = add
+ ;-------------------------------------------------------------------------------
+[State 0, Helper Polvo]
+type = Helper
+triggerall = numhelper(9263) = 0
+trigger1 = p2stateno = 9260
+helpertype = normal
+name = "Helper Polvo"
+ID = 9263
+stateno = 263
+pos = 0,-40/2
+postype = p2
+facing = 1
+;------------------------------------------------------------------------------
+[State 0, Helper Pared]
+type = Helper
+trigger1 = enemy,stateno = 9271 && numhelper(9272) = 0
+helpertype = normal
+name = "Helper Pared"
+ID = 9272
+stateno = 272
+pos = 0,-30/2
+postype = p2
+facing = 1
+size.xscale =.3
+size.yscale =.3
+
+ ;-------------------------------------------------------------------------------
+[State 0, Helper Polvo]
+type = Helper
+triggerall = numhelper(263) = 0
+trigger1 = p2stateno = 260
+helpertype = normal
+name = "Helper Polvo"
+ID = 263
+stateno = 263
+pos = 0,-40/2
+postype = p2
+facing = 1
+
+ ;-------------------------------------------------------------------------------
+[State 0, Helper Polvo]
+type = Helper
+triggerall = numhelper(1070) = 0
+trigger1 = p2stateno = 190070
+helpertype = normal
+name = "Helper Polvo"
+ID = 1070
+stateno = 1070
+pos = 0,-60/2
+postype = p2
+facing = 1
+;------------------------------------------------------------------------------
+[State 0, Helper Pared]
+type = Helper
+trigger1 = enemy,stateno = 271 && numhelper(272) = 0
+helpertype = normal
+name = "Helper Piso"
+ID = 272
+stateno = 272
+pos = 0,-30/2
+postype = p2
+facing = 1
+size.xscale =.3
+size.yscale =.3
+;------------------------------------------------------------------------------
+[State 0, Helper Pared]
+type = Helper
+trigger1 = enemy,stateno =150011 && numhelper(272) = 0
+helpertype = normal
+name ="Helper Piso"
+ID = 272
+stateno = 272
+pos = 0,-30/2
+postype = p2
+facing = 1
+size.xscale =.3
+size.yscale =.3
+;--------------------------------------
+;para caerse
+;-------------------------------
+[State 0,c ]
+type = ChangeState
+triggerall = stateno = 0 || stateno = 200 ||  stateno = 300 || stateno = 10001 || stateno = 100 || stateno = 105
+trigger1 = pos y < 0
+value = 50
+ctrl = 1
+[State 0,c ]
+type = ChangeState
+triggerall = var(50) =1
+triggerall = var(6) = 1
+triggerall =movetype = h
+trigger1 = pos y <= -200
+value = 50
+ctrl = 1
+[State 0, c]
+type = ChangeState
+triggerall=!ishelper
+triggerall=stateno!= 99011
+triggerall = var(53) <=50
+triggerall = var(22) = 1
+trigger1 = pos y >= -5
+trigger1 = statetype  =s
+value = 99011
+ctrl = 1
+
+
+

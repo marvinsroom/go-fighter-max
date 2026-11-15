@@ -1,0 +1,208 @@
+;--------------------- Variable List ----------------------
+; Var(0) - StateDef
+; Var(3) - Jump Type (0 = Normal; 1 = Low Jump; 2 = Long Low Jump; 3 = Long Jump)
+; Var(5) - Special Cancel Check
+; Var(6) - Super Cancel Check
+; Var(7) - MAX Cancel Check
+; Var(9) - Counter Flag
+; Var(10) - Button Detect (0 = Light; 1 = Medium; 2 = Heavy)
+; Var(13) - Hit Count
+; Var(15) - Juggle Points
+; Var(16) - Juggle Flag
+; Var(17) - Ticks UnGuardable
+; Var(19) - Throw Escape
+; Var(20) - Custom Combo Timer
+; Var(21) - Super Cancel Flag
+; Var(22) - MAX Cancel Flag
+; Var(23) - Super Finish Type
+; Var(24) - MAX Mode Power Gauge Set
+; Var(25) - Ticks to Apply EX FX
+; Var(26) - Ticks Unable to Walk
+; Var(30) - Hit Detection
+; Var(33) - Hit Spark (8010 = Light; 8011 = Medium; 8012 = Hard; 8013 = Special; 8014 = Super)
+; Var(34) - Guard Spark (8000 = Normal; 8001 = Special)
+; Var(35) - Spark xPos
+; Var(36) - Spark yPos
+; Var(58) - Game Time
+
+;--------------------- Float Variable List ----------------------
+;fvar(5) - Amount of Corner Push
+;fvar(10) - Damage Dampener
+;fvar(11) - enemy hit
+;----------------------------------------------------------------
+
+
+
+[Data]
+life = 1000			;Amount of life to start with
+attack = 100		;attack power (more is stronger)
+defence = 100		;defensive power (more is stronger)
+fall.defence_up = 50	;Percentage to increase defense everytime player is knocked down
+liedown.time = 50		;Time which player lies down for, before getting up
+airjuggle = 0		;Number of points for juggling
+sparkno = s8010			;Default hit spark number for HitDefs
+guard.sparkno = s8000	;Default guard spark number
+KO.echo = 0			;1 to enable echo on KO
+volume = 150			;Volume offset (negative for softer)
+IntPersistIndex = 0	;Variables with this index and above will not have their values
+FloatPersistIndex = 0 ;reset to 0 between rounds or matches. There are 60 int variables,
+  				;indexed from 0 to 59, and 40 float variables, indexed from 0 to 39.
+  				;If omitted, then it defaults to 60 and 40 for integer and float
+  				;variables repectively, meaning that none are persistent, i.e. all
+  				;are reset. If you want your variables to persist between matches,
+  				;you need to override state 5900 from common1.cns.
+
+[Size]
+xscale = .6333       ;Horizontal scaling factor.
+yscale = .6777       ;Vertical scaling factor.
+ground.back = 36     ;Player width (back, ground)
+ground.front = 25    ;Player width (front, ground)
+air.back = 20       ;Player width (back, air)
+air.front = 18       ;Player width (front, air)
+height = 60          ;Height of player (for opponent to jump over)
+attack.dist = 160    ;Default attack distance
+proj.attack.dist = 90 ;Default attack distance for projectiles
+proj.doscale = 0     ;Set to 1 to scale projectiles too
+head.pos = 5, -90   ;Approximate position of head
+mid.pos = 2, -65    ;Approximate position of midsection
+shadowoffset = 0     ;Number of pixels to vertically offset the shadow
+draw.offset = 0,0    ;Player drawing offset in pixels (x, y)
+
+[Velocity]
+walk.fwd  = 3.5      ;Walk forward
+walk.back = -2.5     ;Walk backward
+run.fwd  = 5.5, 0    ;Run forward (x, y)
+run.back = -6,-4 ;Hop backward (x, y)
+jump.neu = 0,-10    ;Neutral jumping velocity (x, y)
+jump.back = -3.725    ;Jump back Speed (x, y)
+jump.fwd = 3.975     ;Jump forward Speed (x, y)
+runjump.back = -4.5,-11.2535 ;Running jump speeds (opt)
+runjump.fwd = 4.5,-11.2535     ;.
+airjump.neu = 0,-9.1      ;.
+airjump.back = -2.55      ;Air jump speeds (opt)
+airjump.fwd = 2.5         ;.
+
+[Movement]
+airJump.num = 0
+airJump.height = 0
+yaccel = 0.46875
+stand.friction = 0.85
+crouch.friction = 0.82
+stand.friction.threshold = 1.0
+crouch.friction.threshold = 1.0
+air.gethit.groundLevel = 25
+air.gethit.groundRecover.ground.threshold = -20
+air.gethit.groundRecover.groundLevel = 10
+air.gethit.airRecover.threshold = -1
+air.gethit.airRecover.yAccel = 0.35
+air.gethit.trip.groundLevel = 15
+down.bounce.offset = 0, 20
+down.bounce.yAccel = 0.4
+down.bounce.groundLevel = 12
+down.friction.threshold = 0.5
+
+[Quotes]
+victory0 = "My reality... Is mine alone."
+victory1 = "That was a joke!"
+victory2 = "Is that what you had in mind?"
+victory3 = "You're out of luck!"
+victory4 = "Don't mess with me!"
+victory5 = "A win is a win!"
+victory6 = "That was bad!"
+victory7 = "Just get out of here."
+victory8 = "A loss is a loss... Move on."
+victory9 = "I guess that's it then."
+victory10 = "Don't you even care?"
+victory11 = "You just... Lost."
+victory12 = "You're burnt out!"
+victory13 = "This is... The end of the line!"
+victory14 = "You're kidding me!"
+victory15 = "How could this have ended... So quickly?"
+victory16 = "You're too reckless!"
+victory17 = "It ends here! No hard feelings!"
+;Ryu
+victory18 = "A strong spirit... Keep fighting!"
+victory19 = "Find me when you awaken. I'll be ready!"
+;Ken
+victory20 = "Be stronger... Believe in your goal!"
+victory21 = "Your fire's out... Guess that's it!"
+;Gouken
+victory22 = "You're powerful... But you lose!"
+victory23 = "Hado... I want to... Understand it!"
+;Wolfgang Krauser
+victory24 = "Enough...! It's over!"
+victory25 = "Kaiser...? It just wasn't strong enough!"
+;Billy Kane
+victory26 = "You fight... For the wrong reasons."
+victory27 = "That stick... That all you got?"
+;B.Jenet
+victory28 = "Treasure...? Not interested!"
+victory29 = "Riches...? You're on your own!"
+;Geese Howard
+victory30 = "You don't frighten me!"
+victory31 = "Leave this city... While you can!"
+;Bison/Vega (Dictator)
+victory32 = "A twisted dream... This ends now!"
+victory33 = "I had doubts. But I've overcome your madness!"
+;Tifa
+victory34 = "I can handle it from here... You faught well!"
+victory35 = "I knew this day would come... I'll help you."
+;Tifa
+victory36 = "So you're a true warrior... Not bad."
+victory37 = "Next time, fight with pride."
+;Sagat
+victory38 = "You're strong but... I earned this victory."
+victory39 = "What do you want with me...? Your kingship has ended."
+;Chun Li
+victory40 = "You're fighting for a purpose... Continue."
+victory41 = "For your father... I know why you fight."
+;Haohmaru
+victory42 = "So you're a samurai... interesting."
+;Kain Blade
+victory43 = "You're wild... Sharpen your skills."
+;Millan Flare
+victory44 = "A noble effort... Go... Winwood awaits."
+;Gillius Rockhead
+victory45 = "Axe combat... Too reckless."
+;Strider Hiryu
+victory46 = "Slow down strider... You're ahead of yourself."
+victory47 = "Your fast but... I'm steady. And precise!"
+;Hanzo
+victory48 = "You ok Iga...? That's it then."
+;Fuuma
+victory49 = "Ninja... You couldn't have defeated me."
+;Yashaou
+victory50 = "A mercenary swordsman... You giving up?"
+;Goat
+victory51 = "Stand your ground... Let's end this!"
+victory52 = "A fallen prince... Of what land?"
+;Yoshitora Tokugawa
+victory53 = "Nice swordplay but... You've lost!"
+;Kaede
+victory54 = "Who are you...? One or the other...? No matter... I win!"
+;Moriya
+victory55 = "A credit to your master... But this is over!"
+;Kyo Kusanagi
+victory56 = "You're extinguished. Guess it's not your day."
+victory57 = "Next time... don't think... just fight"
+;Iori Yagami
+victory58 = "I sense darkness in you... I'll end this now."
+victory59 = "That dark flame... Show me it's true power."
+;Gouki/Akuma
+victory60 = "Such darkness... I don't feel sorry for you."
+victory61 = "A dark side of Hado... I'll put an end to this"
+;Asura
+victory62 = "Your sins... Cannot be redeemed."
+victory63 = "I'm no hero... But ending you protects all."
+;Ky Kiske
+victory64 = "Holy knight... You weren't ready for me."
+victory65 = "A policeman...? What a depressing job."
+;Sol Badguy
+victory66 = "Frederick... Is that... Really your name."
+victory67 = "That Fuuenken... It's... A really tough weapon."
+;Leo
+victory68 = "Guess there was no getting around this"
+victory69 = "You... Were not an ordinary foe"
+;Kenji
+victory70 = "Another assassin... How dare you"
+victory71 = "Ninja... Understand that I can't lose"

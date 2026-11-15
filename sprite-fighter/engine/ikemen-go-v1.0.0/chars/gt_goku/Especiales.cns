@@ -1,0 +1,2198 @@
+;===============================================================================
+;----------------------Especiales-----------------------------------------------
+;===============================================================================
+;===============================================================================
+; Ki Liberation:
+;-------------------------------------------------------------------------------
+; Ki Liberation - Start
+[Statedef 1000]
+type    = S
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (1000+var(14))+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -500
+sprpriority = 2
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = var(2) = 2
+trigger1 = time = 0
+value = (27000)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State 0, Viento]
+type = Explod
+trigger1 = time = 30
+anim = (7022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 550
+pos = -5*Helper(999999),Fvar(16),3
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .3*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+vel = -2,0
+sprpriority = 3
+ontop = 1
+ownpal = 1
+removeongethit = 1
+
+[State 0, Viento]
+type = Explod
+trigger1 = time = 30
+anim = (7022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 550
+pos = 5*Helper(999999),Fvar(16),-5
+postype = p1
+facing = -1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .3*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+vel = 2,0
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 1
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 30
+movetime = 30
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 0
+v = 12
+value = -100
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 30
+v = 12
+value = 0
+
+[State 3000, VarAdd]
+type = VarAdd
+trigger1 = time >= 20 && Var(12) < 0
+v = 12
+value = 6
+
+[State 3000, BGColorFX]
+type = BGPalFX
+trigger1 = Time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+
+[State 3000, Super Charge]
+type = Explod
+trigger1 = Time = 0
+anim = (7400)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7400
+pos = 5*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = -1
+ownpal = 1
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 3000, PlaySnd - Super Charge]
+type = PlaySnd
+trigger1 = Time = 0
+value = S950,1
+volume = 50
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30||time = 31
+value = S0,23
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30
+value = S5,14
+volume = 50
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = time = 30
+time = 20
+ampl = -2
+
+[State 0, Honda]
+type = Helper
+trigger1 = time = 30
+helpertype = normal
+name = "Honda"
+ID = 1050
+stateno = 1050
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .3*Helper(999999),Fvar(16)
+size.yscale = .3*Helper(999999),Fvar(16)
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = var(2) != 2
+trigger1 = time > 32 && numhelper(1050) > 0
+value = (1000+var(14))+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 6
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = var(2) != 2
+triggerall = animelem != 7
+trigger1 = time > 32 && numhelper(1050) = 0
+value = (1000+var(14))+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 7
+
+[State 200, End]
+type = ChangeState
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Honda
+[Statedef 1050]
+type    = S
+movetype= A
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (1050)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 5*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = 1
+value = 1+root,fvar(2)+root,fvar(3)
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = time = 10
+statetype = S
+movetype = I
+physics = N
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 0
+scale = .2+time*.1,.2+time*.1
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*10),256
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = A, SA
+animtype  = Heavy
+damage    = 80,40
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 0,10
+sparkno = -1
+guard.sparkno = -1
+sparkxy = -8,-25
+hitsound   = -1
+guardsound = -1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = ifelse(p2bodydist x < -10,6,-6),-6
+air.velocity = ifelse(p2bodydist x < -10,6,-6),-6
+Fall = 1
+Sprpriority = 3
+Getpower = 0,0
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 30
+trigger2 = root,stateno != 1000
+;===============================================================================
+; Genkidama:
+;-------------------------------------------------------------------------------
+; Genkidama - Start
+[Statedef 1100]
+type    = S
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (1100)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -1500
+sprpriority = 2
+
+[State 0, Explod]
+type = Explod
+trigger1 = time = 80
+anim = (7022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1051
+pos = -15*Helper(999999),Fvar(16),0
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .5*Helper(999999),Fvar(16),.5*Helper(999999),Fvar(16)
+sprpriority = 2
+ontop = 1
+ownpal = 1
+removeongethit = 1
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time = [5,80]
+value = (1100)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 2
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time = 80
+value = (1100)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 3
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time > 85 && numhelper(1150) > 0
+value = (1100)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 4
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = animelem != 5
+triggerall = animelem != 6
+triggerall = animelem != 7
+trigger1 = time > 85 && numhelper(1150) = 0
+value = (1100)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 5
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 30
+movetime = 30
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 0
+v = 12
+value = -100
+
+[State 3000, VarAdd]
+type = VarAdd
+trigger1 = time >= 20 && Var(12) < 0
+v = 12
+value = 6
+
+[State 3000, BGColorFX]
+type = BGPalFX
+trigger1 = Time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+
+[State 3000, Super Charge]
+type = Explod
+trigger1 = Time = 0
+anim = (7400)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7400
+pos = -1*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = -1
+ownpal = 1
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 3000, PlaySnd - Super Charge]
+type = PlaySnd
+trigger1 = Time = 0
+value = S950,1
+volume = 50
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,40
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 80
+value = S0,35
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 80
+value = S5,42
+volume = 50
+
+[State 0, Genkidama Charge]
+type = Helper
+trigger1 = time = 5
+helpertype = normal
+name = "Genkidama Charge"
+ID = 1130
+stateno = 1130
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .02*Helper(999999),Fvar(16)
+size.yscale = .02*Helper(999999),Fvar(16)
+supermovetime = 999
+
+[State 0, Genkidama]
+type = Helper
+trigger1 = time = 80
+helpertype = normal
+name = "Genkidama"
+ID = 1150
+stateno = 1150
+pos = 40*Helper(999999),Fvar(16),-30*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .02*Helper(999999),Fvar(16)
+size.yscale = .02*Helper(999999),Fvar(16)
+
+[State 200, End]
+type = ChangeState
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Genkidama - Charge
+[Statedef 1130]
+type    = S
+movetype= I
+physics = N
+velset = 0,0
+ctrl = 0
+anim = (1150)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, Genkidama Cachos]
+type = Helper
+triggerall = time < 50
+trigger1 = timemod = 2,0
+helpertype = normal
+name = "Genkidama Cachos"
+ID = 1135
+stateno = 1135
+pos = -25*Helper(999999),Fvar(16)+random%50*Helper(999999),Fvar(16),25*Helper(999999),Fvar(16)-random%50*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .0015*Helper(999999),Fvar(16)
+size.yscale = .0015*Helper(999999),Fvar(16)
+supermovetime = 999
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = -15*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = time < 50
+scale = .1+time*.02,.1+time*.02
+value = -1-time*25
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = time > 50
+scale = 1,1.1
+value = -1-time*25
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,31
+volume = 50
+channel = 3
+
+[State 0, StopSnd]
+type = StopSnd
+trigger1 = root,stateno != 1100
+trigger2 = root,movetype = H
+trigger3 = root,animelem = 3
+channel = 3
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,stateno != 1100
+trigger2 = root,movetype = H
+trigger3 = root,animelem = 3
+;-------------------------------------------------------------------------------
+; Genkidama - Charge Bolas
+[Statedef 1135]
+type    = S
+movetype= I
+physics = N
+velset = 0,0
+ctrl = 0
+anim = (1150)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 0
+x = parentdist x/10*Helper(999999),Fvar(16)
+y = parentdist y/10*Helper(999999),Fvar(16)
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+scale = 1,1
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256-time*25,256
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 10
+trigger2 = root,movetype = H
+trigger3 = root,animelem = 3
+;-------------------------------------------------------------------------------
+; Genkidama - Start
+[Statedef 1150]
+type    = S
+movetype= A
+physics = N
+juggle  = 2
+ctrl = 0
+anim = (1150)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = unguardable
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = 1
+value = 1+root,fvar(2)+root,fvar(3)
+
+[State 1050,Afterimage]
+type = AfterImage
+trigger1 = time = 1
+time = 1000
+trans = Add
+length = 5
+timegap = 1
+framegap = 1
+palbright = 0 , 0 , 0
+palcontrast = 100, 100, 100
+paladd = 0,0,0
+palmul = .90, .90, .90
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = time < 1
+flag = invisible
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = -(vel y)*5
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 0
+x = 20
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = A, SP
+animtype  = Heavy
+damage    = 0
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 0,10
+sparkno = -1
+guard.sparkno = -1
+sparkxy = -8,-25
+hitsound   = -1
+guardsound = -1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = 0,0
+air.velocity = 0,0
+Fall = 0
+Sprpriority = 3
+Envshake.time = 10
+Getpower = 0,0
+numhits = 0
+
+[State 200, End]
+type = Changestate
+trigger1 = movecontact
+value = 1152
+
+[State 200, End]
+type = Changestate
+trigger1 = pos y >= -5
+trigger2 = frontedgebodydist < 0
+trigger3 = time = 500
+value = 1151
+;-------------------------------------------------------------------------------
+; Genkidama -  Fin
+[Statedef 1151]
+type    = S
+movetype= I
+physics = S
+juggle  = 2
+ctrl = 0
+anim = (9999)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+velset = 0,0
+sprpriority = -1
+
+[State 0, Explosion]
+type = Explod
+trigger1 = time = 0
+anim = (9022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9022
+pos = 0,0
+postype = left
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 999,999
+sprpriority = 9
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S1,12
+volume = 50
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = time = 0
+time = 10
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 0
+x = 30*Helper(999999),Fvar(16)
+y = 0
+
+[State 0, Explosion]
+type = Explod
+trigger1 = time = 0
+anim = (1151)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1151
+pos = 0,0
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .6*Helper(999999),Fvar(16),.6*Helper(999999),Fvar(16)
+sprpriority = 3
+ontop = 1
+ownpal = 1
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 1
+;-------------------------------------------------------------------------------
+; Genkidama - Golpes Repetidos
+[Statedef 1152]
+type    = S
+movetype= A
+physics = N
+juggle  = 2
+ctrl = 0
+velset = 0,0
+anim = (1152)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = 1
+value = 1+root,fvar(2)+root,fvar(3)
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 0
+x = 30*Helper(999999),Fvar(16)
+y = 0
+
+[State 1050,Afterimage Cancelar]
+type = AfterImage
+trigger1 = time = 1
+time = 1
+trans = Add
+length = 5
+timegap = 1
+framegap = 1
+palbright = 0 , 0 , 0
+palcontrast = 100, 100, 100
+paladd = 0,0,0
+palmul = .90, .90, .90
+
+[State 200, 1]
+type = HitDef
+trigger1 = 1
+attr = A, SP
+animtype  = Heavy
+damage    = 22,11
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 10,20
+sparkno = -1
+guard.sparkno = -1
+sparkxy = -8,-25
+hitsound   = -1
+guardsound = -1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -2,-6
+air.velocity = -2,-6
+Fall = 1
+Sprpriority = 3
+Envshake.time = 10
+Getpower = 0,0
+PalFX.time = 30
+PalFX.add = -200,-200,-200
+PalFX.mul = 256,256,256
+PalFX.sinadd = 50,50,50,50
+PalFX.invertall = 0
+PalFX.color = 256
+
+[State 0, Explosion]
+type = Explod
+trigger1 = 1
+anim = (1460)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1151
+pos = -30*Helper(999999),Fvar(16)+random%50*Helper(999999),Fvar(16),30*Helper(999999),Fvar(16)-random%50*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .4*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+sprpriority = 3
+ontop = 1
+ownpal = 1
+
+[State 0, Explosion]
+type = Explod
+trigger1 = timemod = 2,0
+anim = (9022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9022
+pos = 0,0
+postype = left
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 999,999
+sprpriority = 9
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = 1
+value = S1,12
+volume = 50
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 10
+;===============================================================================
+; Meteor Smash:
+;-------------------------------------------------------------------------------
+; Meteor Smash - Start
+[Statedef 1200]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (1200)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -500
+sprpriority = 2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,31
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = p2bodydist x > 50
+trigger1 = time = 30
+value = S60,1
+volume = 50
+
+[State 0, Explod]
+type = Explod
+triggerall = p2bodydist x > 50
+trigger1 = time = 30
+anim = (7022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1051
+pos = 0,0
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .5*Helper(999999),Fvar(16),.5*Helper(999999),Fvar(16)
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 1
+
+[State 0, Explod]
+type = Explod
+triggerall = p2bodydist x > 50
+trigger1 = timemod = 2,0 && time = [30,40]
+trigger2 = time = 30
+anim = (7022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1051
+pos = 0,0
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 1
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 30
+movetime = 30
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 0
+v = 12
+value = -100
+
+[State 3000, VarAdd]
+type = VarAdd
+trigger1 = time >= 20 && Var(12) < 0
+v = 12
+value = 6
+
+[State 3000, BGColorFX]
+type = BGPalFX
+trigger1 = Time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+
+[State 3000, Super Charge]
+type = Explod
+trigger1 = Time = 0
+anim = (7400)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7400
+pos = 5*Helper(999999),Fvar(16),-15*Helper(999999),Fvar(16)
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = -1
+ownpal = 1
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 3000, PlaySnd - Super Charge]
+type = PlaySnd
+trigger1 = Time = 0
+value = S950,1
+volume = 50
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 30
+x = 30
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = p2bodydist x < 30
+trigger1 = time = [30,40]
+value = (1200)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 5
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = animelem = 5
+x = 2
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = unguardable
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = S, SA
+animtype  = Heavy
+damage    = 50
+guardflag = MA
+pausetime = 12,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,14
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 30
+ground.velocity = -4
+air.velocity = -4,-2
+Fall = 0
+Getpower = 0,0
+Envshake.time = 5
+
+[State 200, Spark CVS]
+type = Explod
+triggerall = Numexplod(7001) = 0
+trigger1 = Movehit = 1
+anim = (7010)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7001
+postype = P2
+pos = 0,-30
+facing = -1
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .5*Helper(999999),Fvar(16),.5*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 44
+value = S0,20
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 44
+value = S5,4
+volume = 50
+
+[State 0, Camara Lenta]
+type = Helper
+Triggerall = numhelper(591) = 0
+trigger1 = movehit = 1
+helpertype = normal
+name = "Camara Lenta"
+ID = 591
+stateno = 591
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 0
+
+[State 0, ChangeState]
+type = ChangeState
+Triggerall = movehit
+trigger1 = time = 58
+value = 1201
+
+[State 200, End]
+type = ChangeState
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Meteor Smash - Fin
+[Statedef 1201]
+type    = A
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (1201)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -500
+sprpriority = 2
+
+[State 0, ScreenBound]
+type = ScreenBound
+trigger1 = time >= 15 && movehit
+value = 0
+
+[State 0, PlayerPush]
+type = PlayerPush
+trigger1 = time = [0,5]
+trigger2 = time = [24,29]
+value = 0
+
+[State 0, Teleport]
+type = Helper
+trigger1 = time = 0||time = 24
+trigger2 = time = 2||time = 26
+helpertype = normal
+name = "Teleport"
+ID = 580
+stateno = 580
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .3*Helper(999999),Fvar(16)
+size.yscale = .3*Helper(999999),Fvar(16)
+supermove = 999
+supermovetime = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0||time = 22
+value = S5,22
+volume = 50
+
+[State 0, Turn]
+type = Turn
+trigger1 = time = 1
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 1
+x = p2bodydist x - 20
+y = p2bodydist y - 20
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,18
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 10
+value = S5,3
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = time < 15
+triggerall = !movecontact
+trigger1 = 1
+attr = A, SA
+animtype  = Up
+damage    = 50
+guardflag = MA
+pausetime = 8,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,13
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 30
+ground.velocity = -2,-6
+air.velocity = -2,-6
+Fall = 1
+Fall.recover = 0
+Envshake.time = 10
+
+[State 200, Spark CVS]
+type = Explod
+triggerall = time < 15
+triggerall = Numexplod(7001) = 0
+trigger1 = Movehit = 1
+anim = (7010)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7001
+postype = P2
+pos = 0,-30
+facing = -1
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .5*Helper(999999),Fvar(16),.5*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 0, Turn]
+type = Turn
+trigger1 = time = 25
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 25
+x = p2bodydist x - 50
+y = p2bodydist y
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30||time = 31
+value = S0,19
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30
+value = S5,4
+volume = 50
+
+[State 0, MoveHitReset]
+type = MoveHitReset
+trigger1 = time = 15
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time >= 15 && movecontact = 1
+x = -2
+y = -4
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = time >= 15 && movecontact = 1
+statetype = A
+movetype = A
+physics = A
+
+[State 200, 1]
+type = HitDef
+triggerall = time >= 15
+triggerall = !movecontact
+trigger1 = 1
+attr = A, SA
+animtype  = Heavy
+damage    = 50
+guardflag = MA
+pausetime = 10,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,15
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 30
+ground.velocity = -6,-5
+air.velocity = -6,-5
+Fall = 1
+Envshake.time = 20
+
+[State 0, TargetState]
+type = TargetState
+triggerall = time >= 15
+triggerall = enemy,stateno != [1205,1206]
+trigger1 = movehit = 1
+value = 1205
+
+[State 200, Spark CVS]
+type = Explod
+triggerall = time >= 15
+triggerall = Numexplod(7001) = 0
+trigger1 = Movehit = 1
+anim = (7010)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7001
+postype = P2
+pos = 0,-30
+facing = -1
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .6*Helper(999999),Fvar(16),.6*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 0, Camara Lenta]
+type = Helper
+TRIGGERALL = TIME >= 15
+Triggerall = numhelper(591) = 0
+trigger1 = movehit = 1
+helpertype = normal
+name = "Camara Lenta"
+ID = 591
+stateno = 591
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 0
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 50
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Combo 3 - 3 - P2
+[Statedef 1205]
+type    = A
+movetype= H
+physics = A
+juggle  = 2
+velset = 0,0
+ctrl = 0
+sprpriority = 2
+facep2 = 1
+
+[State 0, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 0, ChangeAnim2]
+type = ChangeAnim
+trigger1 = time = 0
+value = 5030+ifelse(authorname = "Mikel8888",var(10),0)
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 0
+y = -8
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = 1
+x = -13
+
+[State 200, End]
+type = ChangeState
+trigger1 = backedgebodydist < 5
+value = 1206
+;-------------------------------------------------------------------------------
+; Combo 3 - 3 - P2 Fin
+[Statedef 1206]
+type    = A
+movetype= H
+physics = A
+juggle  = 2
+velset = 0,0
+ctrl = 0
+sprpriority = 2
+
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = time = 0
+value = -10
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 0
+y = -4
+x = 3
+
+[State 200, End]
+type = selfstate
+trigger1 = time = 1
+value = 5050
+;-------------------------------------------------------------------------------
+; Helper - P2 Contra la Pared
+[Statedef 1250]
+type    = S
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (9999)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S1,10
+volume = 50
+
+[State 0, Explod]
+type = Explod
+trigger1 = time = 0
+anim = (8250)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 8250
+pos = -20,0
+postype = p1
+vel = -2,-2
+facing = -1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .7,.7
+sprpriority = 2
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 0
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 1
+;===============================================================================
+; Shunkan Ido:
+;-------------------------------------------------------------------------------
+[Statedef 1300]
+type    = S
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (1300+var(14))+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -500
+sprpriority = 2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,6
+volume = 999
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 30
+movetime = 30
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 0
+v = 12
+value = -100
+
+[State 3000, VarAdd]
+type = VarAdd
+trigger1 = time >= 20 && Var(12) < 0
+v = 12
+value = 6
+
+[State 3000, BGColorFX]
+type = BGPalFX
+trigger1 = Time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+
+[State 3000, Super Charge]
+type = Explod
+trigger1 = Time = 0
+anim = (7400)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7400
+pos = 4*Helper(999999),Fvar(16),-30*Helper(999999),Fvar(16)
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = -1
+ownpal = 1
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 3000, PlaySnd - Super Charge]
+type = PlaySnd
+trigger1 = Time = 0
+value = S950,1
+volume = 50
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 35
+value = S5,22
+volume = 50
+
+[State 0, PosSet]
+type = Posadd
+trigger1 = time = 43
+x = p2bodydist x + 80
+
+[State 0, Turn]
+type = Turn
+trigger1 = time = 44
+
+[State 0, PosSet]
+type = PosSet
+trigger1 = time = 45
+y = ifelse(enemy,pos y >= 0,0,enemy,pos y+ifelse(enemy,pos y < -60,60,0))
+
+[State 0, Teleport]
+type = Helper
+trigger1 = time = 35||time = 45
+helpertype = normal
+name = "Teleport"
+ID = 580
+stateno = 580
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .3*Helper(999999),Fvar(16)
+size.yscale = .3*Helper(999999),Fvar(16)
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = ifelse(pos y < 0,50,0)
+ctrl = 1
+;===============================================================================
+; Kamehameha:
+;-------------------------------------------------------------------------------
+; Kamehameha - Start
+[Statedef 1400]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (1400+var(14))+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -1000
+sprpriority = 2
+
+[State 0, Viento]
+type = Explod
+triggerall = time = [10,60]
+trigger1 = timemod = 10,0
+anim = (7022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 550
+pos = -5*Helper(999999),Fvar(16),3
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .3*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+vel = -2,0
+sprpriority = 3
+ontop = 1
+ownpal = 1
+removeongethit = 1
+supermove = 999
+supermovetime = 999
+
+[State 0, Viento]
+type = Explod
+triggerall = time = [10,60]
+trigger1 = timemod = 10,0
+anim = (7022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 550
+pos = 5*Helper(999999),Fvar(16),-5
+postype = p1
+facing = -1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .3*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+vel = 2,0
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 1
+supermove = 999
+supermovetime = 999
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = time = 60
+id = 550
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 60
+value = S0,11
+volume = 999
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 30
+movetime = 30
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 0
+v = 12
+value = -100
+
+[State 3000, VarAdd]
+type = VarAdd
+trigger1 = time >= 20 && Var(12) < 0
+v = 12
+value = 6
+
+[State 3000, BGColorFX]
+type = BGPalFX
+trigger1 = Time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+
+[State 3000, Super Charge]
+type = Explod
+trigger1 = Time = 0
+anim = (7400)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7400
+pos = 0,-20*Helper(999999),Fvar(16)
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = -1
+ownpal = 1
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 3000, PlaySnd - Super Charge]
+type = PlaySnd
+trigger1 = Time = 0
+value = S950,1
+volume = 50
+
+[State 0, Charge FX]
+type = Helper
+trigger1 = time = 10
+helpertype = normal
+name = "Charge FX"
+ID = 1430
+stateno = 1430
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = 1
+size.yscale = 1
+supermovetime = 999
+
+[State 0, Kamehameha]
+type = Helper
+trigger1 = time = 60
+helpertype = normal
+name = "Kamehameha"
+ID = 1450
+stateno = 1450
+pos = map(goku.muzzle_x),map(goku.muzzle_y)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = 1
+size.yscale = 1
+
+[State 0, Explod]
+type = Explod
+trigger1 = time = 60
+anim = (7022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1051
+pos = -10*Helper(999999),Fvar(16),0
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = 1*Helper(999999),Fvar(16),1*Helper(999999),Fvar(16)
+sprpriority = 2
+ontop = 1
+ownpal = 1
+removeongethit = 1
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time > 68 && numhelper(1450) > 0
+value = (1400+var(14))+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 20
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = animelem != 21
+trigger1 = time > 68 && numhelper(1450) = 0
+value = (1400+var(14))+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 21
+
+[State 200, End]
+type = ChangeState
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Kamehameha - Charge
+[Statedef 1430]
+type    = S
+movetype= I
+physics = N
+velset = 0,0
+ctrl = 0
+anim = (1430)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = (root,map(goku.muzzle_x)),(root,map(goku.muzzle_y))
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = time < 10
+scale = .1+time*.1,.1+time*.1
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = time > 10
+scale = 1,1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,17
+volume = 50
+channel = 3
+
+[State 0, StopSnd]
+type = StopSnd
+trigger1 = root,stateno != 1400
+trigger2 = root,movetype = H
+trigger3 = root,time = 61
+channel = 3
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,stateno != 1400
+trigger2 = root,movetype = H
+trigger3 = root,time = 61
+;-------------------------------------------------------------------------------
+; Kamehameha - Helper
+[Statedef 1450]
+type    = S
+movetype= I
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (1450)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = 1
+value = 1+root,fvar(2)+root,fvar(3)
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = time = 4
+statetype = S
+movetype = A
+physics = N
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = time = 54
+statetype = S
+movetype = I
+physics = N
+
+[State 0, BindToParent]
+type = BindToroot
+trigger1 = 1
+pos = (root,map(goku.muzzle_x)),(root,map(goku.muzzle_y))
+
+
+triggerall=time=0 || root,map(goku.emitting)
+[State 0, VarSet]
+type = VarSet
+trigger1 = time = 0
+fv = 12
+value = 0
+
+[State 0, VarSet]
+type = Varadd
+trigger1 = time > 60
+fv = 12
+value = .05
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+scale = 1,1
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 1700-time*25,256
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,18
+volume = 50
+
+[State 200, 1]
+type = HitDef
+trigger1 = 1
+attr = A, SA
+animtype  = heavy
+damage    = 3,1
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 0,0
+sparkno = -1
+guard.sparkno = -1
+sparkxy = -15,0
+hitsound   = S5,ifelse(time > 52,26,2666)
+guardsound = Sifelse(time > 52,5,4),ifelse(time > 52,26,1)
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = ifelse(time > 52,-6,-2),ifelse(time > 52,-8,0)
+air.velocity = ifelse(time > 52,-6,-2),ifelse(time > 52,-8,0)
+Fall = ifelse(time > 52,1,0)
+getpower = 0,0
+sprpriority = 3
+PalFX.time = ifelse(time > 52,30,0)
+PalFX.add = -200,-200,-200
+PalFX.mul = 256,256,256
+PalFX.sinadd = 50,50,50,50
+PalFX.invertall = 0
+PalFX.color = 256
+
+[State 0, EnvShake]
+type = EnvShake
+triggerall = time < 60
+trigger1 = timemod = 5,0
+time = 5
+ampl = -8
+
+[State 0, Explosion]
+type = Explod
+triggerall = time > 52
+triggerall = numhelper(9022) = 0
+trigger1 = movecontact = 1
+anim = (9022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9022
+pos = 0,0
+postype = left
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 999,999
+sprpriority = 9
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0, Explosion]
+type = Explod
+triggerall = time > 52
+triggerall = numexplod(406) = 0
+trigger1 = movecontact = 1
+anim = 960400
+ID = 406
+pos = 0,-p2dist y-p2dist x*(0.00000000)
+postype = p2
+facing = -1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = 1,1
+sprpriority = 5
+ontop = 1
+ownpal = 1
+
+
+angle = 0
+[State 0, Camara Lenta]
+type = Helper
+triggerall = time > 52
+Triggerall = numhelper(590) = 0
+trigger1 = movehit = 1
+helpertype = normal
+name = "Camara Lenta"
+ID = 590
+stateno = 590
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 0
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 75
+trigger2 = root,stateno != 1400
+;===============================================================================
+; Super Energy Blast:
+;-------------------------------------------------------------------------------
+; Super Energy Blast - Start
+[Statedef 1500]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (1500+var(14))+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -1000
+sprpriority = 2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,29
+volume = 999
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = (animelem = 5||animelem = 7) && time = [30,130]
+time = 5
+ampl = -2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = (animelem = 5||animelem = 7) && time = [30,130]
+value = S0,23
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = (animelem = 5||animelem = 7) && time = [30,130]
+value = S5,16
+volume = 50
+
+[State 0, Lanzar FX]
+type = Helper
+trigger1 = (animelem = 5||animelem = 7) && time = [30,130]
+helpertype = normal
+name = "Lanzar FX"
+ID = 1520
+stateno = 1520
+pos = 50*Helper(999999),Fvar(16),-30*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .35*Helper(999999),Fvar(16)
+size.yscale = .35*Helper(999999),Fvar(16)
+
+[State 0, Super Energy Blast]
+type = Helper
+trigger1 = (animelem = 5||animelem = 7) && time = [30,130]
+helpertype = normal
+name = "Super Energy Blast"
+ID = 1550
+stateno = 1550
+pos = map(goku.muzzle_x),map(goku.muzzle_y)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = 1
+size.yscale = 1
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 30
+movetime = 30
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 0
+v = 12
+value = -100
+
+[State 3000, VarAdd]
+type = VarAdd
+trigger1 = time >= 20 && Var(12) < 0
+v = 12
+value = 6
+
+[State 3000, BGColorFX]
+type = BGPalFX
+trigger1 = Time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+
+[State 3000, Super Charge]
+type = Explod
+trigger1 = Time = 0
+anim = (7400)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7400
+pos = 0,-25*Helper(999999),Fvar(16)
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = -1
+ownpal = 1
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 3000, PlaySnd - Super Charge]
+type = PlaySnd
+trigger1 = Time = 0
+value = S950,1
+volume = 50
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time = [130,174]
+value = (1500+var(14))+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 8
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time = 175
+value = (1500+var(14))+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 9
+
+[State 200, End]
+type = ChangeState
+trigger1 = time = 178
+value = 0
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Lanzar FX
+[Statedef 1520]
+type    = S
+movetype= I
+physics = N
+ctrl = 0
+anim = (415)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = animtime = 0
+trigger2 = root,movetype = H
+;-------------------------------------------------------------------------------
+; Super Energy Blast - Start
+[Statedef 1550]
+type    = S
+movetype= A
+physics = N
+juggle  = 2
+ctrl = 0
+anim = (1550)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = 1
+value = 1+root,fvar(2)+root,fvar(3)
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = time < 1
+flag = invisible
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = -1-time*5
+scale = 1,1
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 0
+x = 10
+y = 0
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = A, SP
+animtype  = Heavy
+damage    = 12,6
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 0,8
+sparkno = -1
+guard.sparkno = -1
+sparkxy = -8,-25
+hitsound   = -1
+guardsound = -1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -4,-6
+air.velocity = -4,-6
+Fall = 1
+Sprpriority = 3
+Envshake.time = 10
+Getpower = 0,0
+PalFX.time = 30
+PalFX.add = -200,-200,-200
+PalFX.mul = 256,256,256
+PalFX.sinadd = 50,50,50,50
+PalFX.invertall = 0
+PalFX.color = 256
+
+[State 200, End]
+type = Changestate
+trigger1 = movecontact
+trigger2 = pos y >= -5
+trigger3 = frontedgebodydist < 0
+trigger4 = time = 500
+value = 1551
+;-------------------------------------------------------------------------------
+; Super Energy Blast -  Fin
+
+[State 0, Match graphic to actual flight vector]
+type=AngleSet
+trigger1=1
+value=-atan(vel y/max(.001,abs(vel x)))*180/pi
+[State 0, Registered projectile size]
+type=AngleDraw
+trigger1=1
+scale=1,1
+[State 0, Retire missed shots outside the stage]
+type=DestroySelf
+trigger1=time>500
+trigger2=frontedgedist < -160
+trigger3=backedgedist < -160
+[Statedef 1551]
+type    = S
+movetype= I
+physics = S
+juggle  = 2
+ctrl = 0
+anim = (9999)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+velset = 0,0
+sprpriority = -1
+
+[State 0, Explosion]
+type = Explod
+trigger1 = time = 0
+anim = (9022)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9022
+pos = 0,0
+postype = left
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 999,999
+sprpriority = 9
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S1,12
+volume = 50
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = time = 0
+time = 10
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 0
+x = 0
+y = 0
+
+[State 0, Explosion]
+type = Explod
+trigger1 = time = 0
+anim = 960400
+ID = 406
+pos = 0,0
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = 1,1
+sprpriority = 3
+ontop = 1
+ownpal = 1
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 1

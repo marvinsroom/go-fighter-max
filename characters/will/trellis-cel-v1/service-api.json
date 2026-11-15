@@ -1,0 +1,855 @@
+{
+  "named_endpoints": {
+    "/start_session": {
+      "parameters": [],
+      "returns": [],
+      "description": ""
+    },
+    "/preprocess_image": {
+      "parameters": [
+        {
+          "label": "Image Prompt",
+          "parameter_name": "input",
+          "parameter_has_default": false,
+          "parameter_default": null,
+          "type": {
+            "properties": {
+              "path": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Path to a local file",
+                "title": "Path"
+              },
+              "url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Publicly available url or base64 encoded image",
+                "title": "Url"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Size of image in bytes",
+                "title": "Size"
+              },
+              "orig_name": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Original filename",
+                "title": "Orig Name"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "mime type of image",
+                "title": "Mime Type"
+              },
+              "is_stream": {
+                "default": false,
+                "description": "Can always be set to False",
+                "title": "Is Stream",
+                "type": "boolean"
+              },
+              "meta": {
+                "additionalProperties": true,
+                "default": {
+                  "_type": "gradio.FileData"
+                },
+                "title": "Meta",
+                "type": "object"
+              }
+            },
+            "title": "ImageData",
+            "type": "object",
+            "additional_description": "For input, either path or url must be provided. For output, path is always provided."
+          },
+          "python_type": {
+            "type": "dict(path: str | None (Path to a local file), url: str | None (Publicly available url or base64 encoded image), size: int | None (Size of image in bytes), orig_name: str | None (Original filename), mime_type: str | None (mime type of image), is_stream: bool (Can always be set to False), meta: dict(str, Any))",
+            "description": "For input, either path or url must be provided. For output, path is always provided."
+          },
+          "component": "Image",
+          "example_input": {
+            "path": "https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png",
+            "meta": {
+              "_type": "gradio.FileData"
+            },
+            "orig_name": "bus.png",
+            "url": "https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "label": "Image Prompt",
+          "type": {
+            "properties": {
+              "path": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Path to a local file",
+                "title": "Path"
+              },
+              "url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Publicly available url or base64 encoded image",
+                "title": "Url"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Size of image in bytes",
+                "title": "Size"
+              },
+              "orig_name": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Original filename",
+                "title": "Orig Name"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "mime type of image",
+                "title": "Mime Type"
+              },
+              "is_stream": {
+                "default": false,
+                "description": "Can always be set to False",
+                "title": "Is Stream",
+                "type": "boolean"
+              },
+              "meta": {
+                "additionalProperties": true,
+                "default": {
+                  "_type": "gradio.FileData"
+                },
+                "title": "Meta",
+                "type": "object"
+              }
+            },
+            "title": "ImageData",
+            "type": "object",
+            "additional_description": "For input, either path or url must be provided. For output, path is always provided."
+          },
+          "python_type": {
+            "type": "dict(path: str | None (Path to a local file), url: str | None (Publicly available url or base64 encoded image), size: int | None (Size of image in bytes), orig_name: str | None (Original filename), mime_type: str | None (mime type of image), is_stream: bool (Can always be set to False), meta: dict(str, Any))",
+            "description": ""
+          },
+          "component": "Image"
+        }
+      ],
+      "description": "Preprocess the input image."
+    },
+    "/get_seed": {
+      "parameters": [
+        {
+          "label": "Randomize Seed",
+          "parameter_name": "randomize_seed",
+          "parameter_has_default": true,
+          "parameter_default": true,
+          "type": {
+            "type": "boolean"
+          },
+          "python_type": {
+            "type": "bool",
+            "description": ""
+          },
+          "component": "Checkbox",
+          "example_input": true
+        },
+        {
+          "label": "Seed",
+          "parameter_name": "seed",
+          "parameter_has_default": true,
+          "parameter_default": 0,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 0 and 2147483647"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 0
+        }
+      ],
+      "returns": [
+        {
+          "label": "Seed",
+          "type": {
+            "type": "number",
+            "description": "numeric value between 0 and 2147483647"
+          },
+          "python_type": {
+            "type": "float",
+            "description": "numeric value between 0 and 2147483647"
+          },
+          "component": "Slider"
+        }
+      ],
+      "description": "Get the random seed."
+    },
+    "/lambda": {
+      "parameters": [],
+      "returns": [],
+      "description": ""
+    },
+    "/image_to_3d": {
+      "parameters": [
+        {
+          "label": "Image Prompt",
+          "parameter_name": "image",
+          "parameter_has_default": false,
+          "parameter_default": null,
+          "type": {
+            "properties": {
+              "path": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Path to a local file",
+                "title": "Path"
+              },
+              "url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Publicly available url or base64 encoded image",
+                "title": "Url"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Size of image in bytes",
+                "title": "Size"
+              },
+              "orig_name": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Original filename",
+                "title": "Orig Name"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "mime type of image",
+                "title": "Mime Type"
+              },
+              "is_stream": {
+                "default": false,
+                "description": "Can always be set to False",
+                "title": "Is Stream",
+                "type": "boolean"
+              },
+              "meta": {
+                "additionalProperties": true,
+                "default": {
+                  "_type": "gradio.FileData"
+                },
+                "title": "Meta",
+                "type": "object"
+              }
+            },
+            "title": "ImageData",
+            "type": "object",
+            "additional_description": "For input, either path or url must be provided. For output, path is always provided."
+          },
+          "python_type": {
+            "type": "dict(path: str | None (Path to a local file), url: str | None (Publicly available url or base64 encoded image), size: int | None (Size of image in bytes), orig_name: str | None (Original filename), mime_type: str | None (mime type of image), is_stream: bool (Can always be set to False), meta: dict(str, Any))",
+            "description": "For input, either path or url must be provided. For output, path is always provided."
+          },
+          "component": "Image",
+          "example_input": {
+            "path": "https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png",
+            "meta": {
+              "_type": "gradio.FileData"
+            },
+            "orig_name": "bus.png",
+            "url": "https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png"
+          }
+        },
+        {
+          "label": "Seed",
+          "parameter_name": "seed",
+          "parameter_has_default": true,
+          "parameter_default": 0,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 0 and 2147483647"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 0
+        },
+        {
+          "label": "Resolution",
+          "parameter_name": "resolution",
+          "parameter_has_default": true,
+          "parameter_default": "1024",
+          "type": {
+            "enum": [
+              "512",
+              "1024",
+              "1536"
+            ],
+            "title": "Radio",
+            "type": "string"
+          },
+          "python_type": {
+            "type": "Literal['512', '1024', '1536']",
+            "description": ""
+          },
+          "component": "Radio",
+          "example_input": "512"
+        },
+        {
+          "label": "Guidance Strength",
+          "parameter_name": "ss_guidance_strength",
+          "parameter_has_default": true,
+          "parameter_default": 7.5,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1.0 and 10.0"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1.0
+        },
+        {
+          "label": "Guidance Rescale",
+          "parameter_name": "ss_guidance_rescale",
+          "parameter_has_default": true,
+          "parameter_default": 0.7,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 0.0 and 1.0"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 0.0
+        },
+        {
+          "label": "Sampling Steps",
+          "parameter_name": "ss_sampling_steps",
+          "parameter_has_default": true,
+          "parameter_default": 12,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1 and 50"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1
+        },
+        {
+          "label": "Rescale T",
+          "parameter_name": "ss_rescale_t",
+          "parameter_has_default": true,
+          "parameter_default": 5.0,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1.0 and 6.0"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1.0
+        },
+        {
+          "label": "Guidance Strength",
+          "parameter_name": "shape_slat_guidance_strength",
+          "parameter_has_default": true,
+          "parameter_default": 7.5,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1.0 and 10.0"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1.0
+        },
+        {
+          "label": "Guidance Rescale",
+          "parameter_name": "shape_slat_guidance_rescale",
+          "parameter_has_default": true,
+          "parameter_default": 0.5,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 0.0 and 1.0"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 0.0
+        },
+        {
+          "label": "Sampling Steps",
+          "parameter_name": "shape_slat_sampling_steps",
+          "parameter_has_default": true,
+          "parameter_default": 12,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1 and 50"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1
+        },
+        {
+          "label": "Rescale T",
+          "parameter_name": "shape_slat_rescale_t",
+          "parameter_has_default": true,
+          "parameter_default": 3.0,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1.0 and 6.0"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1.0
+        },
+        {
+          "label": "Guidance Strength",
+          "parameter_name": "tex_slat_guidance_strength",
+          "parameter_has_default": true,
+          "parameter_default": 1.0,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1.0 and 10.0"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1.0
+        },
+        {
+          "label": "Guidance Rescale",
+          "parameter_name": "tex_slat_guidance_rescale",
+          "parameter_has_default": true,
+          "parameter_default": 0.0,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 0.0 and 1.0"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 0.0
+        },
+        {
+          "label": "Sampling Steps",
+          "parameter_name": "tex_slat_sampling_steps",
+          "parameter_has_default": true,
+          "parameter_default": 12,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1 and 50"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1
+        },
+        {
+          "label": "Rescale T",
+          "parameter_name": "tex_slat_rescale_t",
+          "parameter_has_default": true,
+          "parameter_default": 3.0,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1.0 and 6.0"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1.0
+        }
+      ],
+      "returns": [
+        {
+          "label": "3D Asset Preview",
+          "type": {
+            "type": "string"
+          },
+          "python_type": {
+            "type": "str",
+            "description": ""
+          },
+          "component": "Html"
+        }
+      ],
+      "description": ""
+    },
+    "/lambda_1": {
+      "parameters": [],
+      "returns": [],
+      "description": ""
+    },
+    "/extract_glb": {
+      "parameters": [
+        {
+          "label": "Decimation Target",
+          "parameter_name": "decimation_target",
+          "parameter_has_default": true,
+          "parameter_default": 300000,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 100000 and 500000"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 100000
+        },
+        {
+          "label": "Texture Size",
+          "parameter_name": "texture_size",
+          "parameter_has_default": true,
+          "parameter_default": 2048,
+          "type": {
+            "type": "number",
+            "description": "numeric value between 1024 and 4096"
+          },
+          "python_type": {
+            "type": "float",
+            "description": ""
+          },
+          "component": "Slider",
+          "example_input": 1024
+        }
+      ],
+      "returns": [
+        {
+          "label": "Extracted GLB",
+          "type": {
+            "$defs": {
+              "FileDataMeta": {
+                "properties": {
+                  "_type": {
+                    "const": "gradio.FileData",
+                    "title": "Type",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "_type"
+                ],
+                "title": "FileDataMeta",
+                "type": "object"
+              }
+            },
+            "properties": {
+              "path": {
+                "title": "Path",
+                "type": "string"
+              },
+              "url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Url"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Size"
+              },
+              "orig_name": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Orig Name"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Mime Type"
+              },
+              "is_stream": {
+                "default": false,
+                "title": "Is Stream",
+                "type": "boolean"
+              },
+              "meta": {
+                "$ref": "#/$defs/FileDataMeta"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "title": "FileData",
+            "type": "object",
+            "additional_description": "The FileData class is a subclass of the GradioModel class that represents a file object within a Gradio interface. It is used to store file data and metadata when a file is uploaded.\n\nAttributes:\n    path: The server file path where the file is stored.\n    url: The normalized server URL pointing to the file.\n    size: The size of the file in bytes.\n    orig_name: The original filename before upload.\n    mime_type: The MIME type of the file.\n    is_stream: Indicates whether the file is a stream.\n    meta: Additional metadata used internally (should not be changed)."
+          },
+          "python_type": {
+            "type": "filepath",
+            "description": ""
+          },
+          "component": "Model3d"
+        },
+        {
+          "label": "Download GLB",
+          "type": {
+            "$defs": {
+              "FileDataMeta": {
+                "properties": {
+                  "_type": {
+                    "const": "gradio.FileData",
+                    "title": "Type",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "_type"
+                ],
+                "title": "FileDataMeta",
+                "type": "object"
+              }
+            },
+            "properties": {
+              "path": {
+                "title": "Path",
+                "type": "string"
+              },
+              "url": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Url"
+              },
+              "size": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Size"
+              },
+              "orig_name": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Orig Name"
+              },
+              "mime_type": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Mime Type"
+              },
+              "is_stream": {
+                "default": false,
+                "title": "Is Stream",
+                "type": "boolean"
+              },
+              "meta": {
+                "$ref": "#/$defs/FileDataMeta"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "title": "FileData",
+            "type": "object",
+            "additional_description": "The FileData class is a subclass of the GradioModel class that represents a file object within a Gradio interface. It is used to store file data and metadata when a file is uploaded.\n\nAttributes:\n    path: The server file path where the file is stored.\n    url: The normalized server URL pointing to the file.\n    size: The size of the file in bytes.\n    orig_name: The original filename before upload.\n    mime_type: The MIME type of the file.\n    is_stream: Indicates whether the file is a stream.\n    meta: Additional metadata used internally (should not be changed)."
+          },
+          "python_type": {
+            "type": "filepath",
+            "description": ""
+          },
+          "component": "Downloadbutton"
+        }
+      ],
+      "description": "Extract a GLB file from the 3D model."
+    }
+  },
+  "unnamed_endpoints": {}
+}

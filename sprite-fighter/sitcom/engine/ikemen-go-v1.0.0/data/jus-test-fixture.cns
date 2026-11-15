@@ -1,0 +1,59 @@
+[Statedef -4]
+[State -4, Natural forward input]
+type=AssertInput
+trigger1=map(jusform.natural)=1
+flag=F
+[State -4, Natural forward command]
+type=AssertCommand
+trigger1=map(jusform.natural)=1
+name="holdfwd"
+buffer.time=1
+[State -4, Initialize Urkel appearance]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(jusform.urkel)=1
+v=30
+value=map(jusform.form_value)
+[Statedef 8797199]
+type=S
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+[State 8797199, Grounded form start]
+type=PosSet
+trigger1=1
+x=-camerapos x
+y=0
+[State 8797199, Face into walking input]
+type=Turn
+trigger1=facing!=1
+[State 8797199, Native form-aware idle]
+type=SelfState
+trigger1=time>=2
+value=0
+ctrl=1
+[Statedef 8797198]
+type=S
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+[State 8797198, Native cycle observation]
+type=ChangeAnim
+trigger1=anim!=map(jusform.action)
+trigger2=map(jusform.hold)=1
+value=map(jusform.action)
+elem=ifelse(map(jusform.hold)=1,map(jusform.elem),1)
+[State 8797198, Ground root]
+type=PosSet
+trigger1=1
+x=-camerapos x
+y=0
+[State 8797198, Observation facing]
+type=Turn
+trigger1=facing!=map(jusform.facing)
+[State 8797198, No automatic turn]
+type=AssertSpecial
+trigger1=1
+flag=noautoturn

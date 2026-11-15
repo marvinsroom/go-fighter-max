@@ -1,0 +1,242 @@
+
+[Statedef 7910]
+type=S
+movetype=A
+physics=S
+anim=0
+ctrl=0
+velset=0,0
+poweradd=-1000
+[State 7910, Super anticipation]
+type=SuperPause
+trigger1=!time
+time=8
+movetime=0
+anim=-1
+sound=-1
+darken=0
+unhittable=0
+[State 7910, Gather shadow magic]
+type=Explod
+trigger1=!time
+anim=550
+pos=0,0
+postype=p1
+scale=.3,.3
+sprpriority=-2
+ownpal=1
+removetime=30
+supermovetime=8
+[State 7910, Call alpha]
+type=Helper
+trigger1=time=8
+name="alpha summon"
+ID=7911
+stateno=7911
+postype=p1
+pos=12,0
+ownpal=1
+keyctrl=0
+size.xscale=1.65
+size.yscale=1.65
+[State 7910, Cast sound]
+type=PlaySnd
+trigger1=time=8
+value=S10,6
+channel=7
+volumescale=70
+[State 7910, Recover]
+type=ChangeState
+trigger1=time>=56
+value=0
+ctrl=1
+[Statedef 7911]
+type=S
+movetype=A
+physics=N
+anim=7911
+ctrl=0
+velset=0,0
+sprpriority=3
+[State 7911, Spell actor]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 7911, Fade in and out]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=cond(time<4,time*64,cond(time>42,(48-time)*42,256)),cond(time<4,256-time*64,cond(time>42,256-(48-time)*42,0))
+[State 7911, Cancel when interrupted]
+type=DestroySelf
+trigger1=root,movetype=H
+trigger2=root,life<=0
+[State 7911, Finish]
+type=DestroySelf
+trigger1=time>=48
+
+[State 7911, Rush]
+type=VelSet
+trigger1=time<16
+x=min(4,max(0,p2dist x-24))
+[State 7911, Plant]
+type=VelSet
+trigger1=time>=16
+x=0
+[State 7911, Sword combo]
+type=HitDef
+trigger1=time=18
+trigger2=time=24
+trigger3=time=36
+attr=S,HA
+ID=7911
+affectteam=E
+hitflag=MAF
+guardflag=MA
+animtype=Hard
+damage=70,7
+getpower=0,0
+pausetime=3,5
+sparkno=-1
+guard.sparkno=-1
+ground.type=High
+ground.slidetime=12
+ground.hittime=20
+ground.velocity=-2,0
+air.velocity=-2,-3
+fall=time>=36
+kill=1
+[State 7911, Impact]
+type=EnvShake
+trigger1=movehit=1
+time=6
+ampl=-2
+freq=60
+
+[Statedef 7915]
+type=S
+movetype=A
+physics=S
+anim=0
+ctrl=0
+velset=0,0
+poweradd=-1000
+[State 7915, Super anticipation]
+type=SuperPause
+trigger1=!time
+time=8
+movetime=0
+anim=-1
+sound=-1
+darken=0
+unhittable=0
+[State 7915, Gather shadow magic]
+type=Explod
+trigger1=!time
+anim=550
+pos=0,0
+postype=p1
+scale=.3,.3
+sprpriority=-2
+ownpal=1
+removetime=30
+supermovetime=8
+[State 7915, Call beta]
+type=Helper
+trigger1=time=8
+name="beta summon"
+ID=7916
+stateno=7916
+postype=p1
+pos=-30,0
+ownpal=1
+keyctrl=0
+size.xscale=1.65
+size.yscale=1.65
+[State 7915, Cast sound]
+type=PlaySnd
+trigger1=time=8
+value=S10,6
+channel=7
+volumescale=70
+[State 7915, Recover]
+type=ChangeState
+trigger1=time>=56
+value=0
+ctrl=1
+[Statedef 7916]
+type=S
+movetype=A
+physics=N
+anim=7916
+ctrl=0
+velset=0,0
+sprpriority=3
+[State 7916, Spell actor]
+type=NotHitBy
+trigger1=1
+value=SCA
+time=1
+[State 7916, Fade in and out]
+type=Trans
+trigger1=1
+trans=addalpha
+alpha=cond(time<4,time*64,cond(time>42,(48-time)*42,256)),cond(time<4,256-time*64,cond(time>42,256-(48-time)*42,0))
+[State 7916, Cancel when interrupted]
+type=DestroySelf
+trigger1=root,movetype=H
+trigger2=root,life<=0
+[State 7916, Finish]
+type=DestroySelf
+trigger1=time>=48
+
+[State 7916, Mana arrows]
+type=Helper
+trigger1=time=24
+trigger2=time=30
+trigger3=time=36
+name="Beta magic arrow"
+ID=7917
+stateno=7917
+postype=p1
+pos=52,-38
+ownpal=1
+keyctrl=0
+size.xscale=1.65
+size.yscale=1.65
+
+[Statedef 7917]
+type=A
+movetype=A
+physics=N
+anim=7917
+ctrl=0
+velset=7,0
+sprpriority=4
+[State 7917, Arrow]
+type=HitDef
+trigger1=!time
+attr=S,HP
+ID=7917
+affectteam=E
+hitflag=MAF
+guardflag=MA
+animtype=Hard
+damage=65,6
+getpower=0,0
+pausetime=0,5
+sparkno=-1
+guard.sparkno=-1
+ground.type=High
+ground.slidetime=10
+ground.hittime=16
+ground.velocity=-2,0
+air.velocity=-2,-3
+fall=0
+[State 7917, End]
+type=DestroySelf
+trigger1=movecontact
+trigger2=time>=45
+trigger3=root,movetype=H
+trigger4=root,life<=0

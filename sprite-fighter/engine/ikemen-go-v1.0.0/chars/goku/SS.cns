@@ -1,0 +1,6192 @@
+;===============================================================================
+;----------------------SS1------------------------------------------------------
+;===============================================================================
+;===============================================================================
+;-------------------------------------------------------------------------------
+; Aura Permanente SS1
+[Statedef 565]
+type    = S
+movetype= I
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (9999)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = -1
+
+[State 0, Estellas]
+type = Explod
+trigger1 = timemod = 35,0
+anim = (122049)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 560
+pos = 5,-5
+postype = p1
+bindtime = -1
+vel = 0,0
+removetime = 35
+scale = .13,.13
+sprpriority = -2
+ownpal = 1
+removeongethit = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+
+[State 0, Rayos]
+type = Explod
+trigger1 = timemod = 20,0
+anim = (122018+random%2)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 560
+pos = -7+random%15,-10-random%40
+postype = p1
+facing = 1
+vel = 0,0
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = .06,.06
+sprpriority = 2
+ontop = 1
+ownpal = 1
+removeongethit = 0
+supermovetime = 999
+pausemovetime = 999
+angle = 0+random%360
+
+[State 0,FX]
+type = Explod
+trigger1 = timemod = 42,0
+anim = (122017)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 560
+pos = 2,-30
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = .3*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+sprpriority = -3
+SuperMovetime = 999
+pausemovetime = 9999
+supermove = 999
+
+[State 0, Turn]
+type = Turn
+trigger1 = facing != root,facing
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 0,0
+
+[State 0, Rayos]
+type = Explod
+trigger1 = timemod = 20,0
+anim = (2564)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 560
+pos = -7+random%15,-10-random%40
+postype = p1
+facing = 1
+vel = 0,0
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = .075,.075
+sprpriority = random%15*cond(random%2,1,-1)
+ontop = 1
+ownpal = 1
+removeongethit = 0
+supermovetime = 999
+pausemovetime = 999
+angle = 0+random%360
+
+[State 0, Aura Arriba]
+type = Explod
+triggerall = root,vel x = 0
+trigger1 = timemod = 8,0
+anim = (2563)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 560
+pos = -7*Helper(999999),Fvar(16)+random%15*Helper(999999),Fvar(16),10-random%40*Helper(999999),Fvar(16)
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+vel = 0,-2
+accel = 0,0
+random = 0,0
+removetime = -2
+scale = .05*Helper(999999),Fvar(16),.05*Helper(999999),Fvar(16)
+sprpriority = 3
+ontop = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = root,stateno = 5110
+trigger2 = root,stateno = 1300 && root,time = [35,45]
+trigger3 = root,life = 0
+id = 560
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,var(2) != 1
+;===============================================================================
+; SS1:
+;-------------------------------------------------------------------------------
+; SS1 - Start
+[Statedef 700]
+type    = S
+movetype= I
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (700)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 0
+sprpriority = 2
+
+
+[State 0, Aura Transform]
+type = Explod
+trigger1 = time = 60
+anim = (122035)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 122035
+pos = -6,4
+scale = 0.2, 0.2
+sprpriority = 4
+postype = p1
+bindtime = 1
+ownpal = 1
+supermove = 1
+ignorehitpause = 1
+supermove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0, FX Raio]
+type = Explod
+trigger1 = time >= 10 & time < 160
+trigger1 = timemod = 5,0
+anim = (122022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 122022
+pos = -100+random%200,17
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+removetime = -2
+sprpriority = 2
+scale = .5,.5
+ontop = ifelse(random < 500,1,-1)
+ownpal = 1
+removeongethit = 1
+supermove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0, EnvShake]
+type = EnvShake
+triggerall = time >= 10 & time < 140
+trigger1 = time%5 = 0
+time = 30
+ampl = -5
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = time = [0,140]
+trigger1 = timemod = 20,0
+value = S5,28
+volume = 50
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,12
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,12
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,12
+volume = 999
+
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = time = [32,80]
+trigger1 = timemod = 10,0
+value = (((anim)%1000000))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 7
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = time = [80,150]
+trigger1 = timemod = 10,0
+value = (((anim)%1000000))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 9
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time = 150
+value = (((anim)%1000000))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 11
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 207
+movetime = 207
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 0
+v = 12
+value = -100
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 207
+v = 12
+value = 0
+
+[State 3000, VarAdd]
+type = VarAdd
+trigger1 = time >= 197 && Var(12) < 0
+v = 12
+value = 6
+
+[State 3000, BGColorFX]
+type = BGPalFX
+trigger1 = Time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+
+[State 0, Power Charge - Aura BG]
+type = Helper
+trigger1 = time = 30
+name = "Power Charge - Aura BG"
+ID = 750
+stateno = 750
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .2
+size.yscale = .2
+supermovetime = 999
+
+
+[State 0, Power Charge - Aura]
+type = Helper
+trigger1 = time = 30
+name = "Power Charge - Aura"
+ID = 751
+stateno = 751
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .27
+size.yscale = .32
+supermovetime = 999
+
+[State 0, SS1 Activado]
+type = Helper
+trigger1 = time = 80
+helpertype = Normal
+name = "SS1 Activado"
+ID = 760
+stateno = 760
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+
+[State 200, End]
+type = ChangeState
+trigger1 = animtime = 0
+value = ifelse(pos y < 0,50,0)
+ctrl = 1
+;-------------------------------------------------------------------------------
+; SS1 - Fin
+[Statedef 705]
+type    = S
+movetype= I
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (705)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 2
+
+[State 0, ChangeAnim]
+type = attackmulset
+trigger1 = time = 10
+value = 1
+[State 0, ChangeAnim]
+type = defencemulset
+trigger1 = time = 10
+value = 1
+
+[State 0, Aura]
+type = Helper
+trigger1 = time = 8
+helpertype = normal
+name = "Aura"
+ID = 751
+stateno = 751
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .7*Helper(999999),Fvar(16)
+size.yscale = .7*Helper(999999),Fvar(16)
+supermovetime = 999
+
+[State 0, SS1 Desactivado]
+type = Helper
+trigger1 = time = 8
+helpertype = Normal
+name = "SS1 Desactivado"
+ID = 761
+stateno = 761
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+
+[State 200, End]
+type = ChangeState
+trigger1 = animtime = 0
+value = ifelse(pos y < 0,50,0)
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Aura - Start
+[Statedef 750]
+type    = S
+movetype= I
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = -3
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 1
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 2
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 3
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 4
+trigger1 = 1
+time = 9999999999999
+add = -10,-20,0
+mul = 458,239,60
+color= 0
+
+
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 5
+trigger1 = 1
+time = 9999999999999
+add = -100,-20,0
+mul = 400,300,500
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 6
+trigger1 = 1
+time = 9999999999999
+add = -10,0,0
+mul = 400,300,500
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 7
+trigger1 = 1
+time = 9999999999999
+add = -10,0,0
+mul = 400,300,500
+color = 0
+
+[State 0, Viento]
+type = Explod
+triggerall = root,pos y >= 0
+trigger1 = time%10 = 0
+anim = (7022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 550
+pos = -5*Helper(999999),Fvar(16),5
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .3*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+vel = -2,0
+sprpriority = 3
+ontop = 1
+ownpal = 1
+removeongethit = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, Viento]
+type = Explod
+triggerall = root,pos y >= 0
+trigger1 = time%10 = 0
+anim = (7022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 550
+pos = 5*Helper(999999),Fvar(16),-2
+postype = p1
+facing = -1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .3*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+vel = 2,0
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+trigger2 = root,time = 80
+value = S500,1
+volume = 50
+channel = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = time >= 30
+trigger1 = timemod = 30,0
+value = S500,2
+volume = 50
+channel = 2
+
+[State 0, Explosion]
+type = Explod
+trigger1 = time = 0
+trigger2 = root,time = 80
+anim = (9022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9022
+pos = 0,0
+postype = left
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 999,999
+sprpriority = 9
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0,BindToRoot]
+type=BindToRoot
+trigger1= 1
+pos= 0,-2
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256,256
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,stateno != 700
+
+[State 200, End]
+type = Changestate
+trigger1 = root,time >= 150
+value = 555
+;-------------------------------------------------------------------------------
+; Aura - Start
+[Statedef 751]
+type    = S
+movetype= I
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (535)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = -3
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 1
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 2
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 3
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 4
+trigger1 = 1
+time = 9999999999999
+add = -10,-20,0
+mul = 458,239,60
+color= 0
+
+
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 5
+trigger1 = 1
+time = 9999999999999
+add = -100,-20,0
+mul = 400,300,500
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 6
+trigger1 = 1
+time = 9999999999999
+add = -10,0,0
+mul = 400,300,500
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 7
+trigger1 = 1
+time = 9999999999999
+add = -10,0,0
+mul = 400,300,500
+color = 0
+
+[State 0, Viento]
+type = Explod
+triggerall = root,pos y >= 0
+trigger1 = time%10 = 0
+anim = (7022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 550
+pos = -5*Helper(999999),Fvar(16),-7
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .3*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+vel = -2,0
+sprpriority = 3
+ontop = 1
+ownpal = 1
+removeongethit = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, Viento]
+type = Explod
+triggerall = root,pos y >= 0
+trigger1 = time%10 = 0
+anim = (7022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 550
+pos = 5*Helper(999999),Fvar(16),-15
+postype = p1
+facing = -1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .3*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+vel = 2,0
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+trigger2 = root,time = 80
+value = S500,1
+volume = 50
+channel = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = time >= 30
+trigger1 = timemod = 30,0
+value = S500,2
+volume = 50
+channel = 2
+
+[State 0, Explosion]
+type = Explod
+trigger1 = time = 0
+trigger2 = root,time = 80
+anim = (9022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9022
+pos = 0,0
+postype = left
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 999,999
+sprpriority = 9
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = -2,0
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256,256
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,stateno != 700
+
+[State 200, End]
+type = Changestate
+trigger1 = root,time >= 150
+value = 555
+;-------------------------------------------------------------------------------
+; SS1 - Activado
+[Statedef 760]
+type    = S
+movetype= I
+physics = S
+velset = 0,0
+ctrl = 0
+anim = (9999)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = -1
+
+[State 200, End]
+type = Destroyself
+trigger1 = ifelse(ailevel > 0,time >= 1000,time >= 1)
+;-------------------------------------------------------------------------------
+; SS1 - Desactivado
+[Statedef 761]
+type    = S
+movetype= I
+physics = S
+velset = 0,0
+ctrl = 0
+anim = (9999)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = -1
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 1
+;-------------------------------------------------------------------------------
+[Statedef 2181]
+type = S
+ctrl = 0
+anim = (2180)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+velset = 0,0
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,39
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,39
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,39
+volume = 999
+
+[State 181, 1]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+[Statedef 2230]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+ctrl = 0
+anim = (2230)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 30
+velset = 0,0
+sprpriority = 2
+
+[State 0, Turn]
+type = Turn
+trigger1 = !time
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 0
+x = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,17
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,6
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = S, NA
+animtype  = Light
+damage    = 10
+guardflag = MA
+pausetime = 10,10
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,6
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -2,-9
+air.velocity = -2,-8
+Fall = 1
+fall.recover = 0
+Envshake.time = 5
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .17*Helper(999999),Fvar(16)
+size.yscale = .17*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+[State 0, ScreenBound]
+type = ScreenBound
+trigger1 = 1
+value = 0
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 1
+x = p2bodydist x -20
+y = p2bodydist y
+
+[State 0, Teleport]
+type = Helper
+trigger1 = time = 0 || time = 5
+helpertype = normal
+name = "Teleport"
+ID = 580
+stateno = 580
+pos = -10,-30*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .3*Helper(999999),Fvar(16)
+size.yscale = .3*Helper(999999),Fvar(16)
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0 || time = 5
+value = S5,22
+volume = 50
+
+[State 200, End]
+type = ChangeState
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "a"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 2240
+
+[State 200, End]
+type = ChangeState
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "b"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 2330
+
+[State 200, End]
+type = ChangeState
+triggerall = power >= 200
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "c"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100) && p2bodydist x = [30,200]
+value = 400
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+[Statedef 2240]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+ctrl = 0
+anim = (240+var(11))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 100
+sprpriority = 2
+
+[State 0, Teleport]
+type = Helper
+trigger1 = time = 3||time = 5
+helpertype = normal
+name = "Teleport"
+ID = 580
+stateno = 580
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .2*Helper(999999),Fvar(16)
+size.yscale = .2*Helper(999999),Fvar(16)
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 3
+value = S5,22
+volume = 50
+
+[State 0, PosSet]
+type = PosSet
+trigger1 = time = 3
+x = enemy,pos x
+y = p2bodydist y - 50
+
+
+
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time = 20
+value = (240+var(11))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = animelem = 2||animelem = 4||animelem = 6
+value = S0,18
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = animelem = 2||animelem = 4||animelem = 6
+value = S5,5
+volume = 50
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = animelem = 2||animelem = 4||animelem = 6
+x = 2
+
+
+[State 200, 1]
+type = HitDef
+trigger1 = animelem = 2||animelem = 4||animelem = 6
+attr = A, NA
+animtype  = Medium
+damage    = 5
+guardflag = MA
+pausetime = 4,3
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,9
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -1,-4
+air.velocity = -1,-2
+Fall = 0
+Envshake.time = 5
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = -10+random%20,0-random%40
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .17*Helper(999999),Fvar(16)
+size.yscale = .17*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+[State 200, End]
+type = ChangeState
+Triggerall = movecontact && time > 30
+trigger1 = ailevel = 0 && command = "b"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 615
+
+[State 200, End]
+type = ChangeState
+Triggerall = movecontact && time > 30
+trigger1 = ailevel = 0 && command = "a"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 600
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 50
+ctrl = 1
+
+[Statedef 2320]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+ctrl = 0
+anim = (310+var(11))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 40
+velset = 0,0
+sprpriority = 2
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 0
+x = 5
+
+[State 0, VelSet]
+type = Veladd
+trigger1 = movecontact = 1
+x = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,17
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,20
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = S, NA
+animtype  = Light
+damage    = 15
+guardflag = MA
+pausetime = 10,10
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,6
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -3
+air.velocity = -3,-1
+Fall = 0
+Envshake.time = 5
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .17*Helper(999999),Fvar(16)
+size.yscale = .17*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+
+[State 200, End]
+type = ChangeState
+triggerall = var(2) = 1
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "b"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 2330
+
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+[Statedef 2330]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+ctrl = 0
+anim = (320+var(11))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 40
+velset = 0,0
+sprpriority = 2
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 0
+x = 5
+
+[State 0, VelSet]
+type = Veladd
+trigger1 = movecontact = 1
+x = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,17
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,20
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = S, NA
+animtype  = Light
+damage    = 15
+guardflag = MA
+pausetime = 10,10
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,6
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -3
+air.velocity = -3,-1
+Fall = 0
+Envshake.time = 5
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .17*Helper(999999),Fvar(16)
+size.yscale = .17*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+[State 200, End]
+type = ChangeState
+triggerall = var(2) = 1
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "b"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 2340
+
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; B - 2
+[Statedef 2340]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+ctrl = 0
+anim = (330+var(11))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 40
+velset = 0,0
+sprpriority = 2
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = time = 5
+statetype = A
+movetype = A
+physics = A
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 5
+x = 2
+y = -7
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,20
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,4
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = A, NA
+animtype  = Up
+damage    = 20
+guardflag = MA
+pausetime = 12,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S2,3
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -2,-7
+air.velocity = -2,-7
+Fall = 1
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .17*Helper(999999),Fvar(16)
+size.yscale = .17*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+
+
+[State 200, End]
+type = ChangeState
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "a"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 600
+
+[State 200, End]
+type = ChangeState
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "b"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 2350
+
+[State 200, End]
+type = ChangeState
+triggerall = power >= 200
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "c"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 620
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 50
+ctrl = 1
+
+[Statedef 2350]
+type    = A
+movetype= A
+physics = A
+juggle  = 2
+ctrl = 0
+anim = (2340)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 40
+sprpriority = 2
+
+[State 0, PlaySnd]
+type = turn
+trigger1 = time = 0
+trigger1 = p2dist x < 0
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,21
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,5
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = A, NA
+animtype  = medium
+damage    = 10
+guardflag = MA
+pausetime = 6,10
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,9
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -2,0
+air.velocity = -2,-2
+Fall = 0
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .17*Helper(999999),Fvar(16)
+size.yscale = .17*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+
+
+[State 200, End]
+type = ChangeState
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "a"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 600
+
+[State 200, End]
+type = ChangeState
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "b"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 2360
+
+[State 200, End]
+type = ChangeState
+triggerall = power >= 200
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "c"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 620
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 50
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; B Aire 2
+[Statedef 2360]
+type    = A
+movetype= A
+physics = N
+juggle  = 2
+ctrl = 0
+anim = (2350)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 40
+velset = 0,0
+sprpriority = 2
+
+;[State 0, VelSet]
+;type = Velset
+;trigger1 = movecontact = 1
+;x = 0
+;y = -6
+
+[State 0, ScreenBound]
+type = ScreenBound
+trigger1 = time = [4,11]
+value = 0
+
+[State 0, Teleport]
+type = Helper
+trigger1 = time = 4||time = 5
+helpertype = normal
+name = "Teleport"
+ID = 580
+stateno = 580
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .3*Helper(999999),Fvar(16)
+size.yscale = .3*Helper(999999),Fvar(16)
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 4
+value = S5,22
+volume = 50
+
+[State 0, Turn]
+type = Turn
+triggerall = p2bodydist x < 50
+trigger1 = time = 4
+
+[State 0, PosAdd]
+type = PosAdd
+triggerall = p2bodydist x < 50
+trigger1 = time = 4
+x = p2bodydist x -60
+
+[State 0, PosAdd]
+type = PosAdd
+triggerall = p2bodydist x >= 50
+trigger1 = time = 4
+x = 80
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = time = 9
+statetype = A
+movetype = A
+physics = A
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 9
+x = 4
+y = -4
+
+;[State 0, VelSet]
+;type = Veladd
+;trigger1 = movecontact = 1
+;x = -1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,21
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 9
+value = S5,4
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = S, NA
+animtype  = Light
+damage    = 15
+guardflag = MA
+pausetime = 12,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,14
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -3,-4
+air.velocity = -3,-4
+Fall = 1
+Envshake.time = 15
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .17*Helper(999999),Fvar(16)
+size.yscale = .17*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+
+[State 200, End]
+type = ChangeState
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "a"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 600
+
+[State 200, End]
+type = ChangeState
+triggerall = power >= 200
+Triggerall = movecontact
+trigger1 = ailevel = 0 && command = "c"
+trigger2 = roundstate = 2 && ailevel > 0 && random < (ailevel * 100)
+value = 620
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 50
+ctrl = 1
+;===============================================================================
+; Explosive Wave
+;-------------------------------------------------------------------------------
+[Statedef 25100]
+type    = A
+movetype= A
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (1100+var(14))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -1500
+sprpriority = 2
+
+;=============================
+; Super Armor
+[State 0, Super Armor]
+type = Helper
+trigger1 = time = 0
+helpertype = Normal
+name = "Super Armor"
+ID = 9000
+stateno = 9000
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+;=============================
+
+
+; SUPER PAUSE ============
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 30
+movetime = 30
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 0
+v = 12
+value = -100
+
+[State 3000, VarAdd]
+type = VarAdd
+trigger1 = time >= 20 && Var(12) < 0
+v = 12
+value = 6
+
+[State 3000, BGColorFX]
+type = BGPalFX
+trigger1 = Time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+
+[State 3000, Super Charge]
+type = Explod
+trigger1 = Time = 0
+anim = (7400)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7400
+pos = -2*Helper(999999),Fvar(16),-23*Helper(999999),Fvar(16)
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = -1
+ownpal = 1
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime = 999
+ignorehitpause  = 1
+
+[State 3000, PlaySnd - Super Charge]
+type = PlaySnd
+trigger1 = Time = 0
+value = S950,1
+volume = 50
+;====================
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30
+value = S0,22
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30
+value = S0,22
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30
+value = S0,22
+volume = 999
+
+[State 0, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 0, Honda FX Tapado]
+type = Helper
+triggerall = var(2) = 1
+trigger1 = time = 30
+helpertype = normal
+name = "Honda FX"
+ID = 25165
+stateno = 25165
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+ownpal = 1
+size.xscale = .7*Helper(999999),Fvar(16)
+size.yscale = .7*Helper(999999),Fvar(16)
+
+[State 0, Honda FX]
+type = Helper
+triggerall = var(2) = 1
+triggerall = time > 30 && numhelper(25150) > 0
+trigger1 = timemod = 5,0
+helpertype = normal
+name = "Honda FX"
+ID = 25170
+stateno = 25170
+pos = -20*Helper(999999),Fvar(16)+random%40*Helper(999999),Fvar(16),0-random%60*Helper(999999),Fvar(16)
+postype = p1
+ownpal = 1
+ownpal = 1
+size.xscale = .4*Helper(999999),Fvar(16)
+size.yscale = .4*Helper(999999),Fvar(16)
+
+[State 0, Honda FX Tapado]
+type = Helper
+triggerall = var(2) = [2,3]
+trigger1 = time = 30
+helpertype = normal
+name = "Honda FX"
+ID = 25175
+stateno = 25175
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+ownpal = 1
+size.xscale = 1.2*Helper(999999),Fvar(16)
+size.yscale = 1.2*Helper(999999),Fvar(16)
+
+[State 0, Honda FX]
+type = Helper
+triggerall = var(2) = [2,3]
+triggerall = time > 30 && numhelper(25150) > 0
+trigger1 = timemod = 5,0
+helpertype = normal
+name = "Honda FX"
+ID = 25160
+stateno = 25160
+pos = -20*Helper(999999),Fvar(16)+random%40*Helper(999999),Fvar(16),0-random%60*Helper(999999),Fvar(16)
+postype = p1
+ownpal = 1
+ownpal = 1
+size.xscale = 1*Helper(999999),Fvar(16)
+size.yscale = 1*Helper(999999),Fvar(16)
+
+[State 0, Honda FX Tapado]
+type = Helper
+triggerall = var(2) = 4
+trigger1 = time = 30
+helpertype = normal
+name = "Honda FX"
+ID = 25185
+stateno = 25185
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+ownpal = 1
+size.xscale = 1.2*Helper(999999),Fvar(16)
+size.yscale = 1.2*Helper(999999),Fvar(16)
+
+[State 0, Honda FX]
+type = Helper
+triggerall = var(2) = 4
+triggerall = time > 30 && numhelper(25150) > 0
+trigger1 = timemod = 5,0
+helpertype = normal
+name = "Honda FX"
+ID = 25160
+stateno = 25180
+pos = -20*Helper(999999),Fvar(16)+random%40*Helper(999999),Fvar(16),0-random%60*Helper(999999),Fvar(16)
+postype = p1
+ownpal = 1
+ownpal = 1
+size.xscale = 1*Helper(999999),Fvar(16)
+size.yscale = 1*Helper(999999),Fvar(16)
+
+[State 0, Honda FX Tapado]
+type = Helper
+triggerall = var(3) >= 1
+trigger1 = time = 30
+helpertype = normal
+name = "Honda FX"
+ID = 25185
+stateno = 25185
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+ownpal = 1
+size.xscale = 1.2*Helper(999999),Fvar(16)
+size.yscale = 1.2*Helper(999999),Fvar(16)
+
+[State 0, Honda FX]
+type = Helper
+triggerall = var(3) >= 1
+triggerall = time > 30 && numhelper(25150) > 0
+trigger1 = timemod = 5,0
+helpertype = normal
+name = "Honda FX"
+ID = 25160
+stateno = 25180
+pos = -20*Helper(999999),Fvar(16)+random%40*Helper(999999),Fvar(16),0-random%60*Helper(999999),Fvar(16)
+postype = p1
+ownpal = 1
+ownpal = 1
+size.xscale = 1*Helper(999999),Fvar(16)
+size.yscale = 1*Helper(999999),Fvar(16)
+
+[State 0, Honda FX Tapado]
+type = Helper
+triggerall = var(2) = 5
+trigger1 = time = 30
+helpertype = normal
+name = "Honda FX"
+ID = 25185
+stateno = 25195
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+ownpal = 1
+size.xscale = 1.2*Helper(999999),Fvar(16)
+size.yscale = 1.2*Helper(999999),Fvar(16)
+
+[State 0, Honda FX]
+type = Helper
+triggerall = var(2) = 5
+triggerall = time > 30 && numhelper(25150) > 0
+trigger1 = timemod = 5,0
+helpertype = normal
+name = "Honda FX"
+ID = 25160
+stateno = 25190
+pos = -20*Helper(999999),Fvar(16)+random%40*Helper(999999),Fvar(16),0-random%60*Helper(999999),Fvar(16)
+postype = p1
+ownpal = 1
+ownpal = 1
+size.xscale = 1*Helper(999999),Fvar(16)
+size.yscale = 1*Helper(999999),Fvar(16)
+
+
+[State 0, Super Explosive Wave]
+type = Helper
+trigger1 = time = 30
+helpertype = Normal
+name = "Super Explosive Wave"
+ID = 25150
+stateno = 25150
+pos = 0,0
+postype = p1
+ownpal = 1
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time > 30 && numhelper(25150) > 0 && timemod = 10,0
+value = (1100+var(14))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 3
+
+[State 200, End]
+type = ChangeState
+trigger1 = animtime = 0
+value = ifelse(pos y < 0,50,0)
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Explosive Wave
+[Statedef 25150]
+type    = A
+movetype= I
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (25150)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 2
+
+[State 0, Super Siayan]
+type = ChangeAnim
+triggerall = root,var(2) > 1
+trigger1 = ((anim)%1000000) != 27150
+value = (27150)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = 1
+value = 1+root,fvar(2)+root,fvar(3)
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = time = 10
+statetype = A
+movetype = A
+physics = N
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 0,-35*Helper(999999),Fvar(16)
+
+[State 200, 1]
+type = HitDef
+triggerall = hitcount < 10
+trigger1 = timemod = 4,0
+attr = A, SP
+animtype  = Heavy
+damage    = 16,8
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 10,10
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = 0,0
+hitsound   = S1,14
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = ifelse(p2bodydist x < -10,0.5,-0.5),-6
+air.velocity = ifelse(p2bodydist x < -10,0.5,-0.5),ifelse(time > 40,-6,-2)
+Fall = 1
+Getpower = 0,0
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 60
+trigger2 = root,stateno != 25100
+;-------------------------------------------------------------------------------
+; Honda - FX
+[Statedef 25160]
+type    = A
+movetype= I
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (25160)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,27
+volume = 50
+channel = 3
+
+[State 0, StopSnd]
+type = StopSnd
+trigger1 = animtime = 0
+channel = 3
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 0
+scale = .5+time*.05,.5+time*.05
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*10),256
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = animtime = 0
+;-------------------------------------------------------------------------------
+; Honda - FX Tapado
+[Statedef 25165]
+type    = A
+movetype= I
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+sprpriority = 3
+
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = timemod = 15,0
+value = (25160)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 15
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = timemod = 5,0
+time = 5
+ampl = -4
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 0
+scale = 1,1
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,animelem = 5
+trigger2 = root,stateno != 25100
+;-------------------------------------------------------------------------------
+; Honda - FX
+[Statedef 25170]
+type    = A
+movetype= I
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (25160)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,27
+volume = 50
+channel = 3
+
+[State 0, StopSnd]
+type = StopSnd
+trigger1 = animtime = 0
+channel = 3
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 0
+scale = .5+time*.05,.5+time*.05
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*10),256
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = animtime = 0
+;-------------------------------------------------------------------------------
+; Honda - FX Tapado
+[Statedef 25175]
+type    = A
+movetype= I
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+sprpriority = 3
+
+[State 0, Rayos]
+type = Explod
+trigger1 = timemod = 5,0
+anim = (25120)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9030
+pos = -50*Helper(999999),Fvar(16)+random%100*Helper(999999),Fvar(16),-50*Helper(999999),Fvar(16)+random%100*Helper(999999),Fvar(16)
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = ifelse(random < 500,1,-1)
+bindtime = -1
+removetime = -2
+scale = .4*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+sprpriority = 5
+ontop = 1
+ownpal = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = timemod = 15,0
+value = (25160)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 15
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = timemod = 5,0
+time = 5
+ampl = -4
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 0
+scale = 1,1
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,animelem = 5
+trigger2 = root,stateno != 25100
+;-------------------------------------------------------------------------------
+; Honda - FX
+[Statedef 25180]
+type    = A
+movetype= I
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (31160)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,27
+volume = 50
+channel = 3
+
+[State 0, StopSnd]
+type = StopSnd
+trigger1 = animtime = 0
+channel = 3
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 0
+scale = .5+time*.05,.5+time*.05
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*10),256
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = animtime = 0
+;-------------------------------------------------------------------------------
+; Honda - FX Tapado
+[Statedef 25185]
+type    = A
+movetype= I
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+sprpriority = 3
+
+[State 0, Rayos]
+type = Explod
+trigger1 = timemod = 5,0
+anim = (25120)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9030
+pos = -50*Helper(999999),Fvar(16)+random%100*Helper(999999),Fvar(16),-50*Helper(999999),Fvar(16)+random%100*Helper(999999),Fvar(16)
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = ifelse(random < 500,1,-1)
+bindtime = -1
+removetime = -2
+scale = .4*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+sprpriority = 5
+ontop = 1
+ownpal = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = timemod = 15,0
+value = (31160)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 15
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = timemod = 5,0
+time = 5
+ampl = -4
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 0
+scale = 1,1
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,animelem = 5
+trigger2 = root,stateno != 25100
+;-------------------------------------------------------------------------------
+; Honda - FX
+[Statedef 25190]
+type    = A
+movetype= I
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (33160)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,27
+volume = 50
+channel = 3
+
+[State 0, StopSnd]
+type = StopSnd
+trigger1 = animtime = 0
+channel = 3
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 0
+scale = .5+time*.05,.5+time*.05
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*10),256
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = animtime = 0
+;-------------------------------------------------------------------------------
+; Honda - FX Tapado
+[Statedef 25195]
+type    = A
+movetype= I
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+sprpriority = 3
+
+[State 0, Rayos]
+type = Explod
+trigger1 = timemod = 5,0
+anim = (25120)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9030
+pos = -50*Helper(999999),Fvar(16)+random%100*Helper(999999),Fvar(16),-50*Helper(999999),Fvar(16)+random%100*Helper(999999),Fvar(16)
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = ifelse(random < 500,1,-1)
+bindtime = -1
+removetime = -2
+scale = .4*Helper(999999),Fvar(16),.4*Helper(999999),Fvar(16)
+sprpriority = 5
+ontop = 1
+ownpal = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = timemod = 15,0
+value = (33160)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 15
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = timemod = 5,0
+time = 5
+ampl = -4
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 0
+scale = 1,1
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,animelem = 5
+trigger2 = root,stateno != 25100
+;===============================================================================
+; Meteor Smash:
+;-------------------------------------------------------------------------------
+; Meteor Smash - Start
+[Statedef 25200]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (25200)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -500
+sprpriority = 2
+
+[State 0, Special Hit Spark (A)]
+type = Explod
+triggerall = Numexplod(7007) = 0
+trigger1 = Movehit = 1
+anim = (7007)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7007
+postype = P2
+pos = 0*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+facing = -1
+ontop = 1
+sprpriority = 0
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .45*Helper(999999),Fvar(16),.45*Helper(999999),Fvar(16)
+removeongethit = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+Angle = 0+Random%180
+;=============================
+; Super Armor
+[State 0, Super Armor]
+type = Helper
+trigger1 = time = 0
+helpertype = Normal
+name = "Super Armor"
+ID = 9000
+stateno = 9000
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+;=============================
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,26
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = p2bodydist x > 50
+trigger1 = time = 30
+value = S60,1
+volume = 50
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+
+[State 0, Explod]
+type = Explod
+triggerall = p2bodydist x > 50
+trigger1 = time = 30
+anim = (7022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1051
+pos = 0,0
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .5*Helper(999999),Fvar(16),.5*Helper(999999),Fvar(16)
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 1
+
+[State 0, Explod]
+type = Explod
+triggerall = p2bodydist x > 50
+trigger1 = timemod = 2,0 && time = [30,40]
+trigger2 = time = 30
+anim = (7022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1051
+pos = 0,0
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .2,.2
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 1
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 30
+movetime = 30
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 0
+v = 12
+value = -100
+
+[State 3000, VarAdd]
+type = VarAdd
+trigger1 = time >= 20 && Var(12) < 0
+v = 12
+value = 6
+
+[State 3000, BGColorFX]
+type = BGPalFX
+trigger1 = Time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+
+[State 3000, Super Charge]
+type = Explod
+trigger1 = Time = 0
+anim = (7400)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7400
+pos = 3*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = -1
+ownpal = 1
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 3000, PlaySnd - Super Charge]
+type = PlaySnd
+trigger1 = Time = 0
+value = S950,1
+volume = 50
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 30
+x = 30
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = p2bodydist x < 30
+trigger1 = time = [30,40]
+value = (25200)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 5
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = animelem = 5
+x = 2
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = unguardable
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = S, SA
+animtype  = Heavy
+damage    = 50
+guardflag = MA
+pausetime = 12,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,14
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 30
+ground.velocity = -4
+air.velocity = -4,-2
+Fall = 0
+Getpower = 0,0
+Envshake.time = 5
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .27*Helper(999999),Fvar(16)
+size.yscale = .27*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 44
+value = S0,20
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 44
+value = S5,4
+volume = 50
+
+[State 0, Camara Lenta]
+type = Helper
+Triggerall = numhelper(591) = 0
+trigger1 = movehit = 1
+helpertype = normal
+name = "Camara Lenta"
+ID = 591
+stateno = 591
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 0
+
+[State 0, ChangeState]
+type = ChangeState
+Triggerall = movehit
+trigger1 = time = 58
+value = 25201
+
+[State 200, End]
+type = ChangeState
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; Meteor Smash - Continuacion
+[Statedef 25201]
+type    = A
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (25201)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -500
+sprpriority = 2
+
+;=============================
+; Super Armor
+[State 0, Super Armor]
+type = Helper
+trigger1 = time = 0
+helpertype = Normal
+name = "Super Armor"
+ID = 9000
+stateno = 9000
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+;=============================
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+
+[State 0, ScreenBound]
+type = ScreenBound
+trigger1 = time >= 15 && movehit
+value = 0
+
+[State 0, PlayerPush]
+type = PlayerPush
+trigger1 = time = [0,5]
+trigger2 = time = [24,29]
+value = 0
+
+[State 0, Teleport]
+type = Helper
+trigger1 = time = 0||time = 24
+trigger2 = time = 2||time = 26
+helpertype = normal
+name = "Teleport"
+ID = 580
+stateno = 580
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .3*Helper(999999),Fvar(16)
+size.yscale = .3*Helper(999999),Fvar(16)
+supermove = 999
+supermovetime = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0||time = 22
+value = S5,22
+volume = 50
+
+
+[State 0, Turn]
+type = Turn
+trigger1 = time = 1
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 1
+x = p2bodydist x - 20
+y = p2bodydist y - 20
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,18
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 10
+value = S5,3
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = time < 15
+triggerall = !movecontact
+trigger1 = 1
+attr = A, SA
+animtype  = Up
+damage    = 30
+guardflag = MA
+pausetime = 8,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,13
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 30
+ground.velocity = -2,-6
+air.velocity = -2,-6
+Fall = 1
+Fall.recover = 0
+Envshake.time = 10
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .27*Helper(999999),Fvar(16)
+size.yscale = .27*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+
+
+[State 0, Turn]
+type = Turn
+trigger1 = time = 25
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 25
+x = p2bodydist x - 50
+y = p2bodydist y
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30||time = 31
+value = S0,19
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30
+value = S5,4
+volume = 50
+
+[State 0, MoveHitReset]
+type = MoveHitReset
+trigger1 = time = 15
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time >= 15 && movecontact = 1
+x = -2
+y = -4
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = time >= 15 && movecontact = 1
+statetype = A
+movetype = A
+physics = A
+
+[State 200, 1]
+type = HitDef
+triggerall = time >= 15
+triggerall = !movecontact
+trigger1 = 1
+attr = A, SA
+animtype  = Heavy
+damage    = 30
+guardflag = MA
+pausetime = 14,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,13
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 30
+ground.velocity = -6,-6
+air.velocity = -6,-6
+Fall = 1
+Fall.recover = 0
+Envshake.time = 10
+
+
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 25202
+
+[Statedef 25202]
+type    = S
+movetype= A
+physics = N
+juggle  = 2
+ctrl = 0
+anim = (25202)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 0
+velset = 0,0
+sprpriority = 2
+
+[State 0, Special Hit Spark (A)]
+type = Explod
+triggerall = Numexplod(7007) = 0
+trigger1 = Movehit = 1
+anim = (7007)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7007
+postype = P2
+pos = 0*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+facing = -1
+ontop = 1
+sprpriority = 0
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .45*Helper(999999),Fvar(16),.45*Helper(999999),Fvar(16)
+removeongethit = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+Angle = 0+Random%180
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = !time
+x = 0
+y = -6
+
+;=============================
+; Super Armor
+[State 0, Super Armor]
+type = Helper
+trigger1 = time = 0
+helpertype = Normal
+name = "Super Armor"
+ID = 9000
+stateno = 9000
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+;=============================
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = animelem = 3
+y = 0
+
+[State 0, Pause]
+type = Pause
+trigger1 = animelem = 3
+time = 10
+movetime = 10
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = p2bodydist x > 50
+trigger1 = time = 30
+value = S60,1
+volume = 50
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = p2bodydist x < 5
+trigger1 = time = [30,40]
+value = (25200)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 5
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 10
+x = 20
+
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = movehit
+x = 0
+y = 0
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = S, NA
+animtype  = Light
+damage    = 60
+guardflag = MA
+pausetime = 12,15
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,13
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = 0,0
+air.velocity = 0,0
+Fall = 1
+fall.recover = 0
+Envshake.time = 5
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .27*Helper(999999),Fvar(16)
+size.yscale = .27*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+
+[State 0, targetbind]
+type = Targetbind
+trigger1 = movehit
+time = 25
+pos = 24,7
+
+[State 200, End]
+type = ChangeState
+triggerall = movehit
+trigger1 = AnimTime = 0
+value = 25203
+ctrl = 1
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+;-------------------------------------------------------------------------------
+; A - 1
+[Statedef 25203]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+ctrl = 0
+anim = (25203)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 0
+velset = 0,0
+sprpriority = 2
+
+[State 0, Special Hit Spark (A)]
+type = Explod
+triggerall = Numexplod(7007) = 0
+trigger1 = Movehit = 1
+anim = (7007)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7007
+postype = P2
+pos = 0*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+facing = -1
+ontop = 1
+sprpriority = 0
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .45*Helper(999999),Fvar(16),.45*Helper(999999),Fvar(16)
+removeongethit = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+Angle = 0+Random%180
+
+;=============================
+; Super Armor
+[State 0, Super Armor]
+type = Helper
+trigger1 = time = 0
+helpertype = Normal
+name = "Super Armor"
+ID = 9000
+stateno = 9000
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+;=============================
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,18
+volume = 999
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,4
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = S, NA
+animtype  = Light
+damage    = 90
+guardflag = MA
+pausetime = 10,10
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,14
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = 7,-3
+air.velocity = 7,-2
+Fall = 1
+fall.recover = 0
+Envshake.time = 5
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .27*Helper(999999),Fvar(16)
+size.yscale = .27*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 50
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Meteor Smash - Fin
+[Statedef 25204]
+type    = A
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (25201)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 0
+sprpriority = 2
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+
+[State 0, ScreenBound]
+type = ScreenBound
+trigger1 = time >= 15 && movehit
+value = 0
+
+[State 0, PlayerPush]
+type = PlayerPush
+trigger1 = time = [0,5]
+trigger2 = time = [24,29]
+value = 0
+
+[State 0, Teleport]
+type = Helper
+trigger1 = time = 0||time = 24
+trigger2 = time = 2||time = 26
+helpertype = normal
+name = "Teleport"
+ID = 580
+stateno = 580
+pos = 0,-30*Helper(999999),Fvar(16)
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = .3*Helper(999999),Fvar(16)
+size.yscale = .3*Helper(999999),Fvar(16)
+supermove = 999
+supermovetime = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0||time = 22
+value = S5,22
+volume = 50
+
+[State 0, Turn]
+type = Turn
+trigger1 = time = 1
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 1
+x = p2bodydist x - 80
+y = p2bodydist y - 10
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,18
+volume = 999
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time = 29
+value = (2605)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ignorehitpause = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 10
+value = S5,3
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = time < 15
+triggerall = !movecontact
+trigger1 = 1
+attr = A, SA
+animtype  = Up
+damage    = 50
+guardflag = MA
+pausetime = 8,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,13
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 30
+ground.velocity = -2,-6
+air.velocity = -2,-6
+Fall = 1
+Fall.recover = 0
+Envshake.time = 10
+
+[State 200, Spark CVS]
+type = Explod
+triggerall = time < 15
+triggerall = Numexplod(7001) = 0
+trigger1 = Movehit = 1
+anim = (7011)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7001
+postype = P2
+pos = 0,-30
+facing = -1
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .5*Helper(999999),Fvar(16),.5*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 0, Turn]
+type = Turn
+trigger1 = time = 25
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 25
+x = p2bodydist x - 50
+y = p2bodydist y
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30||time = 31
+value = S0,19
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 30
+value = S5,4
+volume = 50
+
+[State 0, MoveHitReset]
+type = MoveHitReset
+trigger1 = time = 15
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time >= 15 && movecontact = 1
+x = -2
+y = -4
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = time >= 15 && movecontact = 1
+statetype = A
+movetype = A
+physics = A
+
+[State 200, 1]
+type = HitDef
+triggerall = time >= 15
+triggerall = !movecontact
+trigger1 = 1
+attr = A, SA
+animtype  = Heavy
+damage    = 50
+guardflag = MA
+pausetime = 10,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,15
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 30
+ground.velocity = -6,-5
+air.velocity = -6,-5
+Fall = 1
+Envshake.time = 20
+
+[State 0, TargetState]
+type = TargetState
+triggerall = time >= 15
+triggerall = enemy,stateno != [25205,25206]
+trigger1 = movehit = 1
+value = 25205
+
+[State 200, Spark CVS]
+type = Explod
+triggerall = time >= 15
+triggerall = Numexplod(7001) = 0
+trigger1 = Movehit = 1
+anim = (7011)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7001
+postype = P2
+pos = 0,-30
+facing = -1
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .6*Helper(999999),Fvar(16),.6*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 0, Camara Lenta]
+type = Helper
+TRIGGERALL = TIME >= 15
+Triggerall = numhelper(591) = 0
+trigger1 = movehit = 1
+helpertype = normal
+name = "Camara Lenta"
+ID = 591
+stateno = 591
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 0
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 50
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Combo 3 - 3 - P2
+[Statedef 25205]
+type    = A
+movetype= H
+physics = N
+juggle  = 2
+velset = 0,0
+ctrl = 0
+sprpriority = 2
+facep2 = 1
+
+[State 0, PlayerPush]
+type = Null;Gravity
+trigger1 = 1
+
+[State 0, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 0, ChangeAnim2]
+type = ChangeAnim
+trigger1 = time = 0
+value = 5030+ifelse(authorname = "Mikel8888",var(10),0)
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 0
+y = 8
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = 1
+x = -13
+
+[State 200, End]
+type = ChangeState
+trigger1 = backedgebodydist < 5
+trigger2 = pos y >= -5
+value = 25206
+;-------------------------------------------------------------------------------
+; Combo 3 - 3 - P2 Fin
+[Statedef 25206]
+type    = A
+movetype= H
+physics = A
+juggle  = 2
+velset = 0,0
+ctrl = 0
+sprpriority = 2
+
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 = time = 0
+value = -10
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 0
+y = -4
+x = 3
+
+[State 200, End]
+type = selfstate
+trigger1 = time = 1
+value = 5050
+;-------------------------------------------------------------------------------
+; Helper - P2 Contra la Pared
+[Statedef 25250]
+type    = S
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (9999)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S1,10
+volume = 50
+
+[State 0, Explod]
+type = Explod
+trigger1 = time = 0
+anim = (8250)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 8250
+pos = -20,0
+postype = p1
+vel = -2,-2
+facing = -1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .7,.7
+sprpriority = 2
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 0
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 1
+;===============================================================================
+; Meteor Smash
+;-------------------------------------------------------------------------------
+[Statedef 25600]
+type    = S
+movetype= A
+physics = S
+juggle  = 2
+velset = 0,0
+ctrl = 0
+anim = (1600+var(14))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -1000
+sprpriority = 2
+
+[State 0, Special Hit Spark (A)]
+type = Explod
+persistent = -1
+trigger1 = Movehit = 1
+anim = (7007)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7007
+postype = P2
+pos = 0*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+facing = -1
+ontop = 1
+sprpriority = 0
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .45*Helper(999999),Fvar(16),.45*Helper(999999),Fvar(16)
+removeongethit = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+Angle = 0+Random%180
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+
+;=============================
+; Super Armor
+[State 0, Super Armor]
+type = Helper
+trigger1 = time = 0
+helpertype = Normal
+name = "Super Armor"
+ID = 9000
+stateno = 9000
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+;=============================
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 20
+movetime = 20
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+[State 3000, VarSet]
+type = Varset
+trigger1 = time = 0
+v = 12
+value = -100
+
+[State 3000, VarAdd]
+type = VarAdd
+trigger1 = time >= 20 && Var(12) < 0
+v = 12
+value = 6
+
+[State 3000, BGColorFX]
+type = BGPalFX
+trigger1 = Time > 0
+time = 1
+add = Var(12),Var(12),Var(12)
+
+
+[State 0, 1] ;Blink white
+type = PalFX
+trigger1 = Time = 5
+time = 3
+add = 128,128,128
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S500,1
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,38
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,38
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,38
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,19
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,19
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,19
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = p2bodydist x > 50
+trigger1 = time = 30
+value = S60,1
+volume = 50
+
+
+[State 0, Explod]
+type = Explod
+triggerall = p2bodydist x > 50
+trigger1 = time = 30
+anim = (7022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1051
+pos = 0,0
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .5*Helper(999999),Fvar(16),.5*Helper(999999),Fvar(16)
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 1
+
+[State 0, Explod]
+type = Explod
+triggerall = p2bodydist x > 50
+trigger1 = timemod = 2,0 && time = [30,40]
+trigger2 = time = 30
+anim = (7022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1051
+pos = 0,0
+postype = p1
+facing = 1
+vfacing = 1
+bindtime = 1
+removetime = -2
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+sprpriority = 1
+ontop = 0
+ownpal = 1
+removeongethit = 1
+
+[State 3000, Super Charge]
+type = Explod
+trigger1 = Time = 0
+anim = (7400)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7400
+pos = 2*Helper(999999),Fvar(16),-20*Helper(999999),Fvar(16)
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = -1
+ownpal = 1
+scale = .2*Helper(999999),Fvar(16),.2*Helper(999999),Fvar(16)
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 3000, PlaySnd - Super Charge]
+type = PlaySnd
+trigger1 = Time = 0
+value = S950,1
+volume = 50
+
+[State 0, Aura]
+type = Helper
+trigger1 = time = 0
+helpertype = normal
+name = "Aura"
+ID = 25610
+stateno = 25610
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .2*Helper(999999),Fvar(16)
+size.yscale = .2*Helper(999999),Fvar(16)
+supermovetime = 999
+
+[State 0, Power Charge - Aura BG]
+type = Helper
+trigger1 = time = 0
+name = "Power Charge - Aura BG"
+ID = 25611
+stateno = 25611
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .27
+size.yscale = .32
+supermovetime = 999
+
+[State 0, Super Dash - Aura]
+type = Helper
+trigger1 = time = 30
+name = "Super Dash - Aura"
+ID = 25612
+stateno = 25612
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .17
+size.yscale = .12
+
+
+[State 0, Super Dash - Aura BG]
+type = Helper
+trigger1 = time = 30
+name = "Super Dash - Aura BG"
+ID = 25613
+stateno = 25613
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .3
+size.yscale = .35
+
+
+[State 0, KI FX]
+type = Helper
+triggerall = var(2) = 5
+triggerall = var(3) >= 1
+trigger1 = time = 0
+helpertype = normal
+name = "KI FX"
+ID = 27620
+stateno = 27620
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .75*Helper(999999),Fvar(16)
+size.yscale = .75*Helper(999999),Fvar(16)
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 0, KI FX]
+type = Helper
+triggerall = var(2) = 5
+triggerall = var(3) >= 1
+trigger1 = time = 30
+helpertype = normal
+name = "KI FX"
+ID = 27621
+stateno = 27621
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .75*Helper(999999),Fvar(16)
+size.yscale = .75*Helper(999999),Fvar(16)
+supermovetime 	= 999
+ignorehitpause  = 1
+
+
+[State 0, VelSet]
+type = VelSet
+triggerall = p2bodydist y <= 0
+trigger1 = time = [30,40]
+x = 30
+y = p2bodydist y/30 -1
+[State 0, VelSet]
+type = VelSet
+triggerall = p2bodydist y > 0
+trigger1 = time = [30,40]
+x = 30
+y = p2bodydist y/30 +2
+[State 0, PosSet]
+type = PosSet
+trigger1 = pos y >= -5
+y = -5
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+triggerall = p2bodydist x < 30
+trigger1 = time = [30,40]
+value = (1600+var(14))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 5
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = animelem = 5
+x = 2
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = unguardable
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = S, SA
+animtype  = Heavy
+damage    = 30
+guardflag = MA
+pausetime = 12,12
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,13
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 30
+ground.velocity = -7
+guard.velocity = -5
+airguard.velocity = -1,-2
+air.type = High
+air.velocity = -1,0
+air.hittime = 30
+envshake.time = 20
+getpower = 0,0
+givepower = 0,0
+
+[State 0, Evitador de Infinitos]
+type = Helper
+triggerall = numhelper(1160) = 0
+trigger1 = movehit = 1
+helpertype = normal
+name = "Evitador de Infinitos"
+ID = 1160
+stateno = 1160
+pos = 9999,9999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .22*Helper(999999),Fvar(16)
+size.yscale = .22*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark FORTE"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .2*Helper(999999),Fvar(16)
+size.yscale = .2*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 44
+value = S5,4
+volume = 50
+
+[State 0, TargetBind]
+type = TargetBind
+trigger1 = movehit
+pos = 30,0
+ignorehitpause = 1
+persistent = 1
+
+
+[State 0, ChangeState]
+type = ChangeState
+Triggerall = movehit
+triggerall = var(2) = 1
+trigger1 = animelem = 8
+value = 25601
+
+[State 0, ChangeState]
+type = ChangeState
+Triggerall = movehit
+triggerall = var(2) = 2
+trigger1 = animelem = 8
+value = 27601
+
+[State 0, ChangeState]
+type = ChangeState
+Triggerall = movehit
+triggerall = var(2) = 4
+trigger1 = animelem = 8
+value = 31601
+
+[State 0, ChangeState]
+type = ChangeState
+Triggerall = movehit
+triggerall = var(2) = 5
+trigger1 = animelem = 8
+value = 37601
+
+[State 0, ChangeState]
+type = ChangeState
+Triggerall = movehit
+triggerall = var(2) = 6 || var(2) = 7
+trigger1 = animelem = 8
+value = 35301
+
+[State 200, End]
+type = ChangeState
+trigger1 = animtime = 0
+value = ifelse(pos y < 0,50,0)
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Meteor Smash - Combo
+[Statedef 25601]
+type    = A
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (1601+var(14))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = -500
+sprpriority = 2
+
+[State 0, Special Hit Spark (A)]
+type = Explod
+persistent = -1
+trigger1 = Movehit = 1
+anim = (7007)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7007
+postype = P2
+pos = 0*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+facing = -1
+ontop = 1
+sprpriority = 0
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .45*Helper(999999),Fvar(16),.45*Helper(999999),Fvar(16)
+removeongethit = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+Angle = 0+Random%180
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+
+;=============================
+; Super Armor
+[State 0, Super Armor]
+type = Helper
+trigger1 = time = 0
+helpertype = Normal
+name = "Super Armor"
+ID = 9000
+stateno = 9000
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+;=============================
+
+
+[State 0, TargetBind]
+type = TargetBind
+trigger1 = movehit
+pos = 30,0
+ignorehitpause = 1
+persistent = 1
+
+
+[State 0, PlayerPush]
+type = PlayerPush
+trigger1 = time = [0,5]
+trigger2 = time = [24,29]
+value = 0
+
+
+
+
+[State 0, Aura]
+type = Helper
+trigger1 = time = 0
+helpertype = normal
+name = "Aura"
+ID = 25610
+stateno = 25610
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .2*Helper(999999),Fvar(16)
+size.yscale = .2*Helper(999999),Fvar(16)
+supermovetime = 999
+
+[State 0, Power Charge - Aura BG]
+type = Helper
+trigger1 = time = 0
+name = "Power Charge - Aura BG"
+ID = 25611
+stateno = 25611
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .27
+size.yscale = .32
+supermovetime = 999
+
+
+[State 0, KI FX]
+type = Helper
+triggerall = var(2) = 5
+triggerall = var(3) >= 1
+trigger1 = time = 30
+helpertype = normal
+name = "KI FX"
+ID = 25621
+stateno = 25621
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .75*Helper(999999),Fvar(16)
+size.yscale = .75*Helper(999999),Fvar(16)
+supermovetime 	= 999
+ignorehitpause  = 1
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0||time = 22
+value = S5,22
+volume = 50
+
+[State 0, Turn]
+type = Turn
+trigger1 = time = 1
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 1
+x = p2bodydist x - 45
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,20
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,20
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,20
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 10
+value = S5,3
+volume = 50
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = animelem = 4||animelem = 6||animelem = 8||animelem = 10||animelem = 12||animelem = 14||animelem = 16
+value = S5,6
+volume = 50
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = AnimElem = 2
+x = -3
+[State 0, VelSet]
+type = VelSet
+trigger1 = AnimElem = 3
+x = 5
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = animelem = 4||animelem = 6||animelem = 8||animelem = 10||animelem = 12||animelem = 14||animelem = 16
+x = .25
+
+
+[State 200, 1]
+type = HitDef
+trigger1 = animelem = 4||animelem = 6||animelem = 8||animelem = 10||animelem = 12||animelem = 14||animelem = 16
+attr = S, SA
+animtype  = Medium
+damage    = 2,1
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 0,5
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,7
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -2
+air.velocity = -2,-1
+Fall = 0
+Envshake.time = 10
+Getpower = 0,0
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .22*Helper(999999),Fvar(16)
+size.yscale = .22*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+
+
+[State 200, COMBO]
+type = ChangeState
+trigger1 = movehit && time = 35
+value = 25602
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+;-------------------------------------------------------------------------------
+; Meteor Smash - Combo
+[Statedef 25602]
+type    = A
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (1601+var(14))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 0
+sprpriority = 2
+[State 0, Special Hit Spark (A)]
+type = Explod
+triggerall = Numexplod(7007) = 0
+trigger1 = Movehit = 1
+anim = (7007)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7007
+postype = P2
+pos = 0*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+facing = -1
+ontop = 1
+sprpriority = 0
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .45*Helper(999999),Fvar(16),.45*Helper(999999),Fvar(16)
+removeongethit = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+Angle = 0+Random%180
+
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+ ;=============================
+; Super Armor
+[State 0, Super Armor]
+type = Helper
+trigger1 = time = 0
+helpertype = Normal
+name = "Super Armor"
+ID = 9000
+stateno = 9000
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+;=============================
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,39
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,39
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,39
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0||time = 22
+value = S5,22
+volume = 50
+
+[State 0, Turn]
+type = Turn
+trigger1 = time = 1
+
+[State 0, PosAdd]
+type = PosAdd
+trigger1 = time = 1
+x = p2bodydist x - 35
+
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,81
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,81
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 5
+value = S0,81
+volume = 999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 10
+value = S5,3
+volume = 50
+
+[State 0, Aura]
+type = Helper
+trigger1 = time = 0
+helpertype = normal
+name = "Aura"
+ID = 25610
+stateno = 25610
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .2*Helper(999999),Fvar(16)
+size.yscale = .2*Helper(999999),Fvar(16)
+supermovetime = 999
+
+[State 0, Power Charge - Aura BG]
+type = Helper
+trigger1 = time = 0
+name = "Power Charge - Aura BG"
+ID = 25611
+stateno = 25611
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .27
+size.yscale = .32
+supermovetime = 999
+
+
+[State 0, KI FX]
+type = Helper
+triggerall = var(2) = 5
+triggerall = var(3) >= 1
+trigger1 = time = 30
+helpertype = normal
+name = "KI FX"
+ID = 25621
+stateno = 25621
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .75*Helper(999999),Fvar(16)
+size.yscale = .75*Helper(999999),Fvar(16)
+supermovetime 	= 999
+ignorehitpause  = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = animelem = 4||animelem = 6||animelem = 8||animelem = 10||animelem = 12||animelem = 14||animelem = 16
+value = S5,6
+volume = 50
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = AnimElem = 2
+x = -3
+[State 0, VelSet]
+type = VelSet
+trigger1 = AnimElem = 3
+x = 5
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = animelem = 4||animelem = 6||animelem = 8||animelem = 10||animelem = 12||animelem = 14||animelem = 16
+x = .25
+
+
+[State 200, 1]
+type = HitDef
+trigger1 = animelem = 4||animelem = 6||animelem = 8||animelem = 10||animelem = 12||animelem = 14||animelem = 16
+attr = S, SA
+animtype  = Medium
+damage    = 2,1
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 0,5
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,7
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -2
+air.velocity = -2,-1
+Fall = 0
+Envshake.time = 10
+Getpower = 0,0
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .22*Helper(999999),Fvar(16)
+size.yscale = .22*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+[State 200, COMBO]
+type = ChangeState
+trigger1 = movehit && time = 30
+value = 25603
+
+[State 200, End]
+type = ChangeState
+trigger1 = time = 30
+value = 25602
+;-------------------------------------------------------------------------------
+; Hit 3
+[Statedef 25603]
+type    = S
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (1602+var(14))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 0
+sprpriority = 2
+
+[State 0, Special Hit Spark (A)]
+type = Explod
+triggerall = Numexplod(7007) = 0
+trigger1 = Movehit = 1
+anim = (7007)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 7007
+postype = P2
+pos = 0*Helper(999999),Fvar(16),-25*Helper(999999),Fvar(16)
+facing = -1
+ontop = 1
+sprpriority = 0
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = .45*Helper(999999),Fvar(16),.45*Helper(999999),Fvar(16)
+removeongethit = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+Angle = 0+Random%180
+
+[State 0, Helper]
+type = Helper
+trigger1 = movehit = 1
+helpertype = Normal
+name = ""
+ID = 321
+stateno = 321
+pos = 0,-15-(random%25)
+postype = p2
+vfacing = ifelse(random < 100,1,-1)
+keyctrl = 0
+ownpal = 1
+
+;=============================
+; Super Armor
+[State 0, Super Armor]
+type = Helper
+trigger1 = time = 0
+helpertype = Normal
+name = "Super Armor"
+ID = 9000
+stateno = 9000
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+;=============================
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = animelem = 3
+value = S60,1
+volume = 50
+
+
+
+
+[State 0, Viento]
+type = Explod
+trigger1 = animelem = 3
+anim = (7022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 1051
+pos = 0*Helper(999999),Fvar(16),10
+postype = p1
+scale = .5*Helper(999999),Fvar(16),.5*Helper(999999),Fvar(16)
+sprpriority = 2
+ontop = 1
+ownpal = 1
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = animelem = 3
+statetype = A
+movetype = A
+physics = A
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = animelem = 3
+x = 2
+Y = -6
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 10
+value = S5,24
+volume = 50
+
+[State 200, 1]
+type = HitDef
+triggerall = !movecontact
+trigger1 = 1
+attr = A, SA
+animtype  = Up
+damage    = 20,10
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 10,8
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S1,14
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -2,-9
+air.velocity = -2,-9
+Fall = 1
+Fall.Recover = 0
+Envshake.time = 20
+Getpower = 0,0
+
+[State 0, Hit Spark]
+type = Helper
+trigger1 = movehit = 1 && numhelper(980) = 0
+helpertype = normal
+name = "Hit Spark"
+ID = 980
+stateno = 980
+pos = 0,-25
+postype = p2
+facing = -1
+ownpal = 1
+size.xscale = .22*Helper(999999),Fvar(16)
+size.yscale = .22*Helper(999999),Fvar(16)
+ignorehitpause = 1
+
+[State 200, COMBO]
+type = ChangeState
+trigger1 = time = 30
+value = 25604
+
+[State 200, End]
+type = ChangeState
+trigger1 = time = 30
+value = 25603
+;-------------------------------------------------------------------------------
+; Start Aire
+[Statedef 25604]
+type    = A
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (1603+var(14))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+poweradd = 0
+sprpriority = 2
+
+[State 0, Speed FX]
+type = Explod
+triggerall = time = [30, 140]
+trigger1 = timemod = 2,0
+anim = (580)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+id = 580
+pos = -10-random%25,-5-random%30
+postype = p1
+facing = 1
+vfacing = 1
+vel = -2,0
+bindtime = -1
+removetime = -2
+scale = .3,.15
+sprpriority = 1
+ontop = 1
+ownpal = 1
+removeongethit = 1
+ignorehitpause = 1
+Trans = sub
+Angle = 90
+supermovetime = 99999
+;=============================
+; Super Armor
+[State 0, Super Armor]
+type = Helper
+trigger1 = time = 0
+helpertype = Normal
+name = "Super Armor"
+ID = 9000
+stateno = 9000
+pos = 999,999
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+;=============================
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,50
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,50
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,50
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,50
+volume = 999
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S0,50
+volume = 999
+
+
+
+
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 30
+x = .1
+y = .1
+
+[State 0, VelSet]
+type = VelSet
+trigger1 = time = 40
+x = -.3
+
+
+
+
+[State 3000, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 20
+movetime = 20
+anim = -1
+sound = -1
+pos = 32,-80
+darken = 0
+unhittable = 1
+
+
+[State 0, Charge FX]
+type = Helper
+trigger1 = time = 5
+helpertype = normal
+name = "Charge FX"
+ID = 25630
+stateno = 25630
+pos = 0,0
+postype = p1
+ownpal = 1
+size.xscale = .3*Helper(999999),Fvar(16)
+size.yscale = .3*Helper(999999),Fvar(16)
+Supermovetime = 25
+
+[State 0, Kamehameha ]
+type = Helper
+trigger1 = time = 42
+helpertype = normal
+name = "Kamehameha"
+ID = 25640
+stateno = 25640
+pos = map(goku.muzzle_x),map(goku.muzzle_y)
+postype = p1
+ownpal = 1
+size.xscale = 1
+size.yscale = 1
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = time > 42 && numhelper(25640) > 0
+value = (((anim)%1000000))+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+elem = 6
+
+[State 200, End]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 50
+ctrl = 1
+
+[Statedef 25610]
+type=S
+movetype= I
+physics= N
+juggle= 1
+velset= 0,0
+ctrl= 0
+anim= (550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = -3
+
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 1
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 2
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 3
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 4
+trigger1 = 1
+time = 9999999999999
+add = 7,-200,-200
+mul = 256,256,256
+color= 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 5
+trigger1 = 1
+time = 9999999999999
+add = -100,-20,0
+mul = 400,300,500
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 6
+trigger1 = 1
+time = 9999999999999
+add = -10,0,0
+mul = 400,300,500
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 7
+trigger1 = 1
+time = 9999999999999
+add = -10,0,0
+mul = 400,300,500
+color = 0
+
+[State 0,Explosion]
+type=Explod
+trigger1= !Time
+anim= (9023)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID= 9023
+pos= 0,0
+postype= left
+facing= 1
+vfacing= 1
+bindtime= -1
+removetime= -2
+scale= 999,999
+sprpriority= 9
+ontop= 1
+ownpal= 1
+removeongethit= 0
+ignorehitpause= 1
+supermove= 99999
+pausemove= 99999
+supermovetime= 99999
+pausemovetime= 99999
+
+[State 0,BindToRoot]
+type=BindToRoot
+trigger1= 1
+pos= 0,-2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S500,1
+volume = 50
+Channel = 1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time > 0 && timemod = 70,0
+trigger2 = time = 40
+value = S500,2
+volume = 50
+Channel = 2
+
+[State 0,AssertSpecial]
+type=AssertSpecial
+trigger1= 1
+flag= noshadow
+
+[State 0,Trans]
+type=Trans
+trigger1= 1
+trans= add
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 30
+;-------------------------------------------------------------------------------
+; Aura - Start
+[Statedef 25611]
+type    = S
+movetype= I
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (535)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = -3
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 1
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 2
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 3
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 4
+trigger1 = 1
+time = 9999999999999
+add = -10,-20,0
+mul = 458,239,60
+color= 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 5
+trigger1 = 1
+time = 9999999999999
+add = -100,-20,0
+mul = 400,300,500
+color = 0
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = -2,0
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 30
+
+;-------------------------------------------------------------------------------
+; Aura I
+[Statedef 25612]
+type    = A
+movetype= I
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = -3
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 1
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 2
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 3
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 4
+trigger1 = 1
+time = 9999999999999
+add = 7,-200,-200
+mul = 256,256,256
+color= 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 5
+trigger1 = 1
+time = 9999999999999
+add = -100,-20,0
+mul = 400,300,500
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 6
+trigger1 = 1
+time = 9999999999999
+add = -10,0,0
+mul = 400,300,500
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 7
+trigger1 = 1
+time = 9999999999999
+add = -10,0,0
+mul = 400,300,500
+color = 0
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 90
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 33,-28
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256,256
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root,StateNo != 25600
+id = 550
+
+[State 0, Explosion]
+type = Explod
+trigger1 = time = 0
+anim = (9022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9022
+pos = 0,0
+postype = left
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 999,999
+sprpriority = 9
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,movetype = H
+
+[State 200, End]
+type = Changestate
+trigger1 = time = 30
+value = 25614
+;-------------------------------------------------------------------------------
+; Aura II
+[Statedef 25613]
+type    = A
+movetype= I
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (540)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = -3
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 1
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 2
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 3
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 4
+trigger1 = 1
+time = 9999999999999
+add = -10,-20,0
+mul = 458,239,60
+color= 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 5
+trigger1 = 1
+time = 9999999999999
+add = -100,-20,0
+mul = 400,300,500
+color = 0
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 90
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 33,-28
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256,256
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,movetype = H
+
+[State 200, End]
+type = Changestate
+trigger1 = time = 30
+value = 25614
+;-------------------------------------------------------------------------------
+; Aura End
+[Statedef 25614]
+type    = A
+movetype= I
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 1
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 2
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 3
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 4
+trigger1 = 1
+time = 9999999999999
+add = -10,-20,0
+mul = 458,239,60
+color= 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 5
+trigger1 = 1
+time = 9999999999999
+add = -100,-20,0
+mul = 400,300,500
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 6
+trigger1 = 1
+time = 9999999999999
+add = -10,0,0
+mul = 400,300,500
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 7
+trigger1 = 1
+time = 9999999999999
+add = -10,0,0
+mul = 400,300,500
+color = 0
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 90
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 33,-28
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Time = 0
+id = 550
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+scale = .80+(time*.080),.80+(time*.080)
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 200-(time*30),256
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 0, Explosion]
+type = Explod
+trigger1 = time = 0
+anim = (9022)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+ID = 9022
+pos = 0,0
+postype = left
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 999,999
+sprpriority = 9
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 20
+trigger2 = root,movetype = H
+;-------------------------------------------------------------------------------
+; aura FX cima
+[Statedef 25620]
+type    = A
+movetype= I
+physics = N
+anim = (2550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+
+[State 0, Super Siayan]
+type = ChangeAnim
+triggerall = root,var(2) = 4
+trigger1 = ((anim)%1000000) != 15550
+value = (15550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State 0, Super Siayan]
+type = ChangeAnim
+triggerall = root,var(2) = 5
+trigger1 = ((anim)%1000000) != 17550
+value = (17550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State 0, Super Siayan]
+type = ChangeAnim
+triggerall = root,var(2) = 6
+trigger1 = ((anim)%1000000) != 552
+value = (552)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 5,5
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 30
+;----------------------
+;-------------------------------------------------------------------------------
+; aura FX frente
+[Statedef 25621]
+type    = A
+movetype= I
+physics = N
+anim = (2550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+
+[State 0, Super Siayan]
+type = ChangeAnim
+triggerall = root,var(2) = 4
+trigger1 = ((anim)%1000000) != 15550
+value = (15550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State 0, Super Siayan]
+type = ChangeAnim
+triggerall = root,var(2) = 5
+trigger1 = ((anim)%1000000) != 17550
+value = (17550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State 0, Super Siayan]
+type = ChangeAnim
+triggerall = root,var(2) = 6
+trigger1 = ((anim)%1000000) != 552
+value = (552)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 30,-25
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 90
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 35
+;----------------------
+;-------------------------------------------------------------------------------
+; aura FX baixo
+[Statedef 25622]
+type    = A
+movetype= I
+physics = N
+anim = (550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 1
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 2
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 3
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 4
+trigger1 = 1
+time = 9999999999999
+add = -10,-20,0
+mul = 458,239,60
+color= 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 5
+trigger1 = 1
+time = 9999999999999
+add = -100,-20,0
+mul = 400,300,500
+color = 0
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 30,-65
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = -150
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 35
+; aura FX baixo
+[Statedef 25624]
+type    = A
+movetype= I
+physics = N
+anim = (535)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 1
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 2
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 3
+trigger1 = 1
+time = 999999999999
+add = 0,0,-100
+mul = 500,400,300
+color = 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 4
+trigger1 = 1
+time = 9999999999999
+add = -10,-20,0
+mul = 458,239,60
+color= 0
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = root,var(2) = 5
+trigger1 = 1
+time = 9999999999999
+add = -100,-20,0
+mul = 400,300,500
+color = 0
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 30,-65
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = -150
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 35
+;-------------------------------------------------------------------------------
+; aura FX Longa
+[Statedef 25623]
+type    = A
+movetype= I
+physics = N
+anim = (2550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+[State 0, Super Siayan]
+type = ChangeAnim
+triggerall = root,var(2) = 4
+trigger1 = ((anim)%1000000) != 15550
+value = (15550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State 0, Super Siayan]
+type = ChangeAnim
+triggerall = root,var(2) = 5
+trigger1 = ((anim)%1000000) != 17550
+value = (17550)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State 0, Super Siayan]
+type = ChangeAnim
+triggerall = root,var(2) = 6
+trigger1 = ((anim)%1000000) != 552
+value = (552)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 5,5
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 120
+;-------------------------------------------------------------------------------
+; aura FX frente
+[Statedef 25631]
+type    = A
+movetype= I
+physics = N
+anim = (535)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+
+
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 30,-25
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 90
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 35
+;----------------------
+;-------------------------------------------------------------------------------
+; aura FX baixo
+[Statedef 25632]
+type    = A
+movetype= I
+physics = N
+anim = (535)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 30,-65
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = -150
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 35
+;----------------------
+;-------------------------------------------------------------------------------
+; aura FX Longa
+[Statedef 25633]
+type    = A
+movetype= I
+physics = N
+anim = (535)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 5,5
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 120
+;------------------------------------------------------------------------------
+; Kamehameha - Charge
+[Statedef 25630]
+type    = S
+movetype= I
+physics = N
+velset = 0,0
+ctrl = 0
+anim = (1420)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 0*Helper(999999),Fvar(16),-43*Helper(999999),Fvar(16)
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = time < 10
+scale = .1+time*.1,.1+time*.1
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = time > 10
+scale = 1+fvar(1),1+fvar(1)
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = root,var(2) = 1 || root,var(2) = 2 || root,var(2) = 3 || root,var(2) = 4 || root,var(2) = 5
+trigger1 = time = 43
+value = S5,14
+volume = 50
+
+[State 0, VarAdd]
+type = VarAdd
+triggerall = root,var(2) = 1 || root,var(2) = 2
+trigger1 = time = [43,48]
+fv = 1
+value = .05
+
+[State 0, VarAdd]
+type = VarAdd
+triggerall = root,var(2) = 3 || root,var(2) = 4 || root,var(2) = 5
+trigger1 = time = [43,48]
+fv = 1
+value = .1
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,17
+volume = 50
+channel = 3
+
+[State 0, StopSnd]
+type = StopSnd
+trigger1 = root,stateno != 25604
+channel = 3
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = add
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,stateno != 25604
+trigger2 = root,stateno = 25604 && root,time >= 41
+;-------------------------------------------------------------------------------
+; aura FX cima
+[Statedef 27620]
+type    = A
+movetype= I
+physics = N
+anim = (551)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 5,5
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 30
+;-------------------------------------------------------------------------------
+; aura FX frente
+[Statedef 27621]
+type    = A
+movetype= I
+physics = N
+anim = (551)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 30,-25
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 90
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 35
+;----------------------
+;-------------------------------------------------------------------------------
+; aura FX baixo
+[Statedef 27622]
+type    = A
+movetype= I
+physics = N
+anim = (551)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 30,-65
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = -150
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 35
+;----------------------
+;-------------------------------------------------------------------------------
+; aura FX Longa
+[Statedef 27623]
+type    = A
+movetype= I
+physics = N
+anim = (551)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = 5,5
+
+
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 300-(time*2),256
+
+
+
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 120
+;-------------------------------------------------------------------------------
+; Air Kamehameha Start
+[Statedef 25640]
+type    = A
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = (1415)+ifelse(authorname="keyber,Sonikku TSK",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+sprpriority = 3
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,32
+volume = 50
+
+
+
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = root,stateno != 25604
+trigger2 = stateno = 25645
+id = 001
+
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = 1
+value = 1+root,fvar(2)+root,fvar(3)
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S5,35
+volume = 50
+
+[State 0, BindToRoot]
+type = BindToRoot
+trigger1 = 1
+pos = (root,map(goku.muzzle_x)),(root,map(goku.muzzle_y))
+
+
+triggerall=time=0 || root,map(goku.emitting)
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+Alpha = 256,256
+ignorehitpause = 1
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+
+[State 0, PalFXWiz]
+type = PalFX
+trigger1 = 1
+time = 9999999999999
+add = -100,-20,0
+mul = 400,300,500
+
+[State 200, 1]
+type = HitDef
+trigger1 = timemod = 5,0
+attr = A, SP
+animtype  = Medium
+damage    = 16,8
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 0,0
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-5
+hitsound   = S1,12
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -2
+air.velocity = -2,-.5
+Fall = 0
+Getpower = 0,0
+envshake.time = 10
+envshake.ampl = -5
+Sprpriority = 3
+
+
+[State 200, SPECIAL Hit Spark A]
+type = Explod
+Triggerall = (Gametime % 1) = 0
+trigger1 = MoveContact = 1
+anim = 960400
+ID = 7008
+postype = P2
+pos = 0,-p2dist y-p2dist x*(0.00000000)
+facing = 1
+VFacing = IfElse(Random <= 500,-1,1)
+sprpriority = 0
+supermove = 1
+removetime = -2
+bindtime = 1
+ontop = 1
+ownpal = 1
+scale = 1,1
+removeongethit = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+angle = 0
+
+[State 200, SPECIAL Hit Spark B]
+type = Explod
+Triggerall = (Gametime % 1) = 0
+trigger1 = MoveContact = 1
+anim = 960400
+ID = 7009
+postype = P2
+pos = 0,-p2dist y-p2dist x*(0.00000000)
+facing = 1
+VFacing = IfElse(Random <= 500,-1,1)
+sprpriority = 0
+supermove = 1
+removetime = -2
+bindtime = 1
+ontop = 0
+ownpal = 1
+scale = 1,1
+removeongethit = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+angle = 0
+
+[State 200, End]
+type = Destroyself
+trigger1 = root,stateno != 25604
+
+[State 200, End]
+type = ChangeState
+trigger1 = time >= 95
+value = 25645
+;-------------------------------------------------------------------------------
+; Air Kamehameha Fin
+[Statedef 25645]
+type    = A
+movetype= A
+physics = N
+juggle  = 1
+velset = 0,0
+ctrl = 0
+sprpriority = 3
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Time >= 5
+id = 001
+
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = 1
+value = 1+root,fvar(2)+root,fvar(3)
+
+[State 0, EnvShake]
+type = EnvShake
+trigger1 = time = 0
+time = 30
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = time = 0
+v = 2
+value = 0
+
+[State 0, VarSet]
+type = VarAdd
+trigger1 = time > 10
+v = 2
+value = 25
+
+[State 0, Trans]
+type = Trans
+trigger1 = 1
+trans = addalpha
+alpha = 256-var(2),256
+ignorehitpause = 1
+
+[State 0, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+ignorehitpause = 1
+
+[State 0, StateTypeSet]
+type = StateTypeSet
+trigger1 = time = 5
+statetype = A
+movetype = I
+physics = N
+
+[State 200, 1]
+type = HitDef
+trigger1 = !movecontact
+attr = A, SP
+animtype  = Heavy
+damage    = 16,8
+Hitflag = MAFDE
+guardflag = MA
+pausetime = 0,10
+sparkno = -1
+guard.sparkno = s7000
+sparkxy = -8,-25
+hitsound   = S5,26
+guardsound = S4,1
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -6,-8
+air.velocity = -6,-8
+Fall = 1
+Getpower = 0,0
+sprpriority = 3
+PalFX.time = 30
+PalFX.add = -200,-200,-200
+PalFX.mul = 256,256,256
+PalFX.sinadd = 50,50,50,50
+PalFX.invertall = 0
+PalFX.color = 256
+
+[State 200, END Spark]
+type = Explod
+triggerall = Numexplod(1460) = 0
+trigger1 = MoveContact = 1
+anim = 960400
+ID = 1460
+postype = P2
+pos = 0,-p2dist y-p2dist x*(0.00000000)
+facing = -1
+sprpriority = 2
+supermove = 1
+removetime = -2
+bindtime = 1
+ownpal = 1
+scale = 1,1
+removeongethit = 1
+ontop = 1
+supermovetime 	= 999
+ignorehitpause  = 1
+
+
+
+angle = 0
+[State 0, VarSet]
+type = VarSet
+trigger1 = time = 0
+fv = 1
+value = 0
+
+[State 0, VarSet]
+type = VarAdd
+trigger1 = time > 20
+fv = 1
+value = .1
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = 0
+scale = 1,1
+ignorehitpause = 1
+
+[State 200, End]
+type = Destroyself
+trigger1 = time = 20

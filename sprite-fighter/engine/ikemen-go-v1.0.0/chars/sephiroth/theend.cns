@@ -1,0 +1,387 @@
+[StateDef 4100]
+type = A
+physics = N
+movetype = A
+velset = 0,0
+anim = 3000
+ctrl = 0
+
+[state 3200]
+type = explod
+trigger1 = time = 0
+supermove = 1
+sprpriority = 3
+ownpal = 1
+anim = 1081
+removetime = 80
+
+[State 4100]
+type = PlaySnd
+trigger1 = Time = 0
+value = 4000,1
+channel = 1
+
+[State 4100]
+type = NotHitBy
+trigger1 = Time >= 60
+time = 1
+value = SCA
+
+[State 4100]
+type = AssertSpecial
+trigger1 = Anim = 3001
+flag = Invisible
+
+[State 4100]
+type = ChangeAnim
+trigger1 = Time = 60
+value = 3001
+
+[State 4100]
+type = AfterImage
+trigger1 = Time = 60
+time = 60
+lenght = 5
+removetime = 12
+trans = Sub
+timegap = 2
+framegap = 1
+
+[State 4100]
+type = ChangeState
+trigger1 = Time = 120
+value = 4101
+
+;------------------------------------------------
+;Movie
+[StateDef 4101]
+type = A
+physics = N
+movetype = A
+anim = 602
+
+[State 4101]
+type = PlaySnd
+trigger1 = Time = 0
+value = 4100,3
+channel = 2
+
+[State 4101]
+type = PlaySnd
+trigger1 = Time = 210
+value = 4100,0
+channel = 3
+
+[State 4101]
+type = PlaySnd
+trigger1 = Time = 300
+value = 4100,1
+channel = 4
+
+[State 4101]
+type = PlaySnd
+trigger1 = Time = 480
+value = 4100,2
+channel = 5
+
+[State 4101]
+type = Pause
+trigger1 = Time = 0
+time = 600
+movetime = 600
+
+[State 4101]
+type = BGPalFX
+trigger1 = Time = [0,30]
+time = 1
+add = Time/30.0*-255,Time/30.0*-255,Time/30.0*-255
+
+[State 4101]
+type = AssertSpecial
+trigger1 = Time = [0,600]
+flag = NoBG
+flag2 = NoFG
+flag3 = NoBarDisplay
+
+[State 4101]
+type = Explod
+trigger1 = Time = [30,60]
+removetime = IfElse(Time<60,IfElse(Time%2=0,1,5),30)
+bindtime = -1
+pausemovetime = -1
+anim = 4104
+postype = Back
+pos = 160,exp(2*ln((Time-30)/30.0))*120
+scale = (Time-30)/6.0,(Time-30)/6.0
+sprproirity = Time
+
+[State 4101]
+type = Explod
+trigger1 = Time = 90
+removetime = 120
+pausemovetime = -1
+anim = 4103
+postype = Back
+velocity = -0.5,-0.8
+sprpriority = 100
+
+[State 4101]
+type = Explod
+trigger1 = Time = 90
+removetime = 120
+pausemovetime = -1
+anim = 4107
+postype = Back
+pos = 160,120
+velocity = -0.1,-0.2
+scale = 0.5,0.5
+sprpriority = 101
+id = 4107
+
+[State 4101]
+type = ModifyExplod
+trigger1 = Time = [90,210]
+id = 4107
+scale = 0.5+(Time-90)/240.0,0.5+(Time-90)/240.0
+
+;Movie Part2
+[State 4101]
+type = Explod
+trigger1 = Time = 210
+removetime = 120
+pausemovetime = -1
+anim = 4103
+postype = Back
+pos = -60,-96
+velocity = 0.5,0.8
+sprpriority = 100
+
+[State 4101]
+type = Explod
+trigger1 = Time = 210
+removetime = 120
+pausemovetime = -1
+anim = 4100
+postype = Back
+pos = 320,0
+velocity = 0.1,-0.1
+sprpriority = 101
+
+[State 4101]
+type = Explod
+trigger1 = Time = 210
+removetime = 120
+pausemovetime = -1
+anim = 4101
+postype = Back
+pos = 80,80
+velocity = 0.05,-0.05
+sprpriority = 101
+
+[State 4101]
+type = Explod
+trigger1 = Time = 210
+removetime = 120
+pausemovetime = -1
+anim = 4102
+postype = Back
+pos = -18,246
+velocity = 0.15,-0.05
+sprpriority = 101
+
+;Destroying
+[State 4101]
+type = Explod
+trigger1 = Time = [210,300]
+removetime = 5
+pausemovetime = -1
+anim = 4105
+postype = Back
+pos = 170,130
+sprpriority = 102
+scale = sin((Time-210)/90.0*Pi)*0.2,sin((Time-210)/90.0*Pi)*0.2
+
+[State 4101]
+type = Explod
+trigger1 = Time = [240,330]
+removetime = 5
+pausemovetime = -1
+anim = 4105
+postype = Back
+pos = 155,120
+sprpriority = 103
+scale = sin((Time-240)/90.0*Pi)*0.5,sin((Time-240)/90.0*Pi)*0.5
+
+;Galaxy
+[State 4101]
+type = Helper
+trigger1 = Time = [210,330]
+name = "Galaxy"
+stateno = 4102
+postype = Back
+pos = 160,-80
+pausemovetime = 2
+keyctrl = 0
+ownpal = 1
+size.xscale = (Time-210)/240.0
+size.yscale = (Time-210)/240.0
+
+;Star Hit Earth
+[State 4101]
+type = Explod
+trigger1 = Time = 330
+removetime = 150
+pausemovetime = -1
+anim = 4103
+postype = Back
+velocity = -0.5,-0.8
+sprpriority = 100
+
+[State 4101]
+type = Explod
+trigger1 = Time = 330
+removetime = 150
+pausemovetime = -1
+anim = 4107
+postype = Back
+pos = 160,120
+facing = -1
+velocity = -0.1,-0.2
+scale = 0.5,0.5
+sprpriority = 101
+id = 4107
+
+[State 4101]
+type = ModifyExplod
+trigger1 = Time = [330,480]
+id = 4107
+scale = 0.5+(Time-330)/240.0,0.5+(Time-330)/240.0
+
+[State 4101]
+type = Explod
+trigger1 = Time = 330
+removetime = 60
+pausemovetime = - 1
+postype = Back
+pos = 20,-10
+velocity = 2,2
+anim = 3200
+scale = 3,3
+sprpriority = 102
+id = 4108
+
+[State 4101]
+type = ModifyExplod
+trigger1 = Time = [330,390]
+id = 4108
+scale = 3-(Time-330)/20.0,3-(Time-330)/20.0
+
+[State 4101]
+type = Explod
+trigger1 = Time = [390,450]
+removetime = 1
+pausemovetime = - 1
+postype = Back
+pos = 140,110
+anim = 3303
+sprpriority = 102
+scale = sin((Time-390)/60.0*Pi)*0.2,sin((Time-390)/60.0*Pi)*0.2
+
+[State 4101]
+type = Explod
+trigger1 = Time = 440
+trigger2 = Time = 450
+trigger3 = Time = 460
+removetime = 2
+pausemovetime = - 1
+postype = Back
+pos = 140,110
+anim = 3401
+sprpriority = 102
+
+;Final Movie
+[State 4101]
+type = Explod
+trigger1 = Time = 480
+removetime = 120
+bindtime = -1
+pausemovetime = - 1
+postype = Back
+pos = IfElse(Facing=1,0,1),0
+anim = 4108
+sprpriority = 100
+
+[State 4101]
+type = HitDef
+trigger1 = Time >= 599
+trigger1 = !MoveHit
+attr = A,HP
+damage = 3100, 0
+hitflag = MAFD
+guardflag = 
+getpower = 0
+givepower = 0
+sparkno = -1
+pausetime = 0,0
+animtype = Up
+ground.type = High
+ground.velocity = 0,-0.1
+ground.hittime = 180
+air.velocity = 0,-20
+fall = 1
+fall.recover = 0
+
+[State 4101]
+type = AllPalFX
+trigger1 = Time = [599,660]
+time = 1
+add = 255-(Time-600)/60.0*255,255-(Time-600)/60.0*255,255-(Time-600)/60.0*255
+
+[State 4101]
+type = Explod
+trigger1 = Time = [600,660]
+removetime = 1
+anim = 1102
+postype = Back
+pos = -120+(Time-600),240
+scale = 1,(Time-600)/20.0
+
+[State 4101]
+type = ChangeAnim
+trigger1 = Time = 600
+value = 3001
+
+[State 4101]
+type = ChangeState
+trigger1 = Time >= 660
+value = 0
+ctrl = 1
+
+;------------------------------------------------
+;Galaxy
+[StateDef 4102]
+type = A
+physics = N
+movetype = A
+anim = 4106
+
+[State 4102]
+type = AngleSet
+trigger1 = 1
+value = Parent, Time
+
+[State 4102]
+type = AngleDraw
+trigger1 = 1
+
+[State 4102]
+type = Sprpriority
+trigger1 = 1
+value = 101
+
+[State 4102]
+type = DestroySelf
+trigger1 = Time = 1
+
+
+

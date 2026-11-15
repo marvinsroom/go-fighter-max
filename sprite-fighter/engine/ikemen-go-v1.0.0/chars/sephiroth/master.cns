@@ -1,0 +1,188 @@
+[StateDef 4000]
+type = A
+physics = N
+movetype = A
+poweradd = -2500
+anim = 3000
+ctrl = 0
+
+[state 3200]
+type = explod
+trigger1 = time = 0
+supermove = 1
+scale = 0.75,0.75
+sprpriority = 3
+bindtime = -1
+ownpal = 1
+anim = 4201
+removetime = 80
+
+[State 4000]
+type = PlaySnd
+trigger1 = Time = 0
+value = 3000,0
+channel = 1
+
+[State 4000]
+type = NotHitBy
+trigger1 = 1
+time = 1
+value = SCA
+
+[State 4000]
+type = AssertSpecial
+trigger1 = Anim = 3001
+flag = Invisible
+
+[State 4000]
+type = ChangeAnim
+trigger1 = Time = 60
+value = 3001
+
+[State 4000]
+type = AfterImage
+trigger1 = Time = 60
+time = 60
+lenght = 5
+removetime = 12
+trans = Sub
+timegap = 2
+framegap = 1
+
+[State 4000]
+type = ChangeState
+trigger1 = Time = 120
+value = 4001
+
+;------------------------------------------
+;Attack Start-Movie
+[StateDef 4001]
+type = A
+physics = N
+movetype = A
+velset = 0,0
+anim = 602
+ctrl = 0
+
+[State 4001]
+type = PlaySnd
+trigger1 = TimeMod = 60,0
+value = 4000,0
+channel = 1
+
+[State 4001]
+type = PlaySnd
+trigger1 = Time = 60
+value = 4800,8
+volume = 999
+
+[State 4001]
+type = PlaySnd
+trigger1 = Time = 60
+value = 4800,8
+volume = 999
+
+[State 4001]
+type = PlaySnd
+trigger1 = Time = 60
+value = 4800,8
+channel = 2
+volume = 999
+
+[State 4001]
+type = BGPalFX
+trigger1 = Time = [0,30]
+time = 1
+add = Time/30.0*-255,Time/30.0*-255,Time/30.0*-255
+
+[State 4001]
+type = AssertSpecial
+trigger1 = Time = [30,270]
+flag = NoBG
+flag2 = NoFG
+flag3 = NoBarDisplay
+
+[State 4001]
+type = Explod
+trigger1 = Time = 30
+removetime = 124
+bindtime = -1
+anim = 4001
+postype = Back
+ownpal = 0
+sprpriority = -10
+
+[State 4001]
+type = PalFX
+trigger1 = Time = [124,154]
+time = 1
+add = (Time-124)/30.0*-255,(Time-124)/30.0*-255,(Time-124)/30.0*-255
+
+[State 4001]
+type = Explod
+trigger1 = Time = 150
+removetime = 120
+bindtime = -1
+anim = 4000
+postype = Back
+pos = 0,240
+ownpal = 1
+sprpriority = 3
+scale = 1,0
+id = 4000
+
+[State 4001]
+type = ModifyExplod
+trigger1 = Time = [150,270]
+id = 4000
+scale = 1+(Time-150)/120.0,(Time-150)/30.0
+
+[State 4001]
+type = Explod
+trigger1 = Time = [210,270]
+removetime = 1
+anim = 3201
+postype = Back
+pos = 160,200
+ownpal = 0
+scale = (Time-210)/16.0,(Time-210)/16.0
+sprpriority = 10
+
+[State 4001]
+type = PalFX
+trigger1 = Time = [210,270]
+time = 1
+color = 0
+add = 0,(Time-210)/60.0*300,(Time-210)/60.0*225
+
+[State 4001]
+type =AllPalFX
+trigger1 = Time = [270,300]
+time = 1
+add = -255+(Time-270)/30.0*255,300+(Time-270)/30.0*-300,225+(Time-270)/30.0*-225
+
+[State 4001]
+type = HitDef
+trigger1 = Time = [210,270]
+attr = A,HP
+damage = 50,10
+numhits = 10
+hitflag = MAFD
+guardflag = MA
+getpower = 0
+givepower = 0
+sparkno = -1
+pausetime = 0,0
+animtype = Up
+ground.type = High
+ground.velocity = 4,-12
+ground.hittime = 180
+air.velocity = 4,-12
+fall = 1
+fall.recover = 0
+
+[State 4001]
+type = ChangeState
+trigger1 = Time >= 300
+value = 0
+ctrl = 1

@@ -1,0 +1,510 @@
+; Inteligencia Artificial - Inicio
+[Statedef 9999]
+anim = 9999
+ctrl = 0
+
+[State 9999, 0]
+type = Turn
+trigger1 = facing != parent, facing
+
+[State 9999, 1]
+type = Varset
+trigger1 = 1
+var(9) = parent, var(9)
+
+[State 9999, 2]
+type = ParentVarSet
+triggerall = parent, RoundState = 2
+trigger1 = parent, command = "x"
+trigger2 = parent, command = "y"
+trigger3 = parent, command = "z"
+trigger4 = parent, command = "a"
+trigger5 = parent, command = "holdfwd"
+trigger6 = parent, command = "holdback"
+trigger7 = parent, command = "holdup"
+trigger8 = parent, command = "holddown"
+var(9) = 1
+
+[State 9999, 3]
+type = ParentVarSet
+triggerall = parent, RoundState = 2
+trigger1 = (command = "x" && parent, command = "x")
+trigger2 = (command = "y" && parent, command = "y")
+trigger3 = (command = "z" && parent, command = "z")
+trigger4 = (command = "a" && parent, command = "a")
+trigger5 = (command = "holdfwd" && parent, command = "holdfwd")
+trigger6 = (command = "holdback" && parent, command = "holdback")
+trigger7 = (command = "holdup" && parent, command = "holdup")
+trigger8 = (command = "holddown" && parent, command = "holddown")
+var(9) = -1
+
+[State 9999, 4]
+type = varset
+trigger1 = var(9) != parent, var(9)
+V = 47
+value = 0
+
+[State 9999, 5]
+type = VarAdd
+trigger1 = var(9) = parent, var(9)
+V = 47
+value = 1
+
+[State 9999, 6]
+type = Destroyself
+trigger1 = parent, var(9) = -1
+trigger1 = var(47) >= 23
+trigger2 = parent, var(9) = 2
+trigger2 = var(47) >= 23
+trigger3 = RoundState = 3
+;-------------------------------------------------------------------------------
+[Statedef -2]
+[State 0, Armor Break]
+type = Helper
+triggerall = movetype = H
+trigger1 = life <= lifemax/2 && numhelper(950) = 0
+helpertype = normal
+name = "Armor Break"
+ID = 950
+stateno = 950
+pos = 0,-40
+postype = p1
+facing = 1
+supermove = 9999999999
+pausemove = 9999999999
+supermovetime = 99999999
+pausemovetime = 99999999999
+
+[State -2, ModifyExplod]
+type = ModifyExplod
+trigger1 = Numexplod(6006)
+trigger1 = Enemy,name = "Hoshigaki Kisame" && Enemy,AuthorName = "Akashi Mugen"
+trigger1 = Enemy,numexplod(6006) > 0 && Enemy,var(3) > Var(3)
+ID = 6006
+trans = addalpha
+alpha = 0,256
+
+[State -2, ModifyExplod]
+type = ModifyExplod
+trigger1 = Numexplod(6006)
+trigger1 = Enemy,name = "Hoshigaki Kisame" && Enemy,AuthorName = "Akashi Mugen"
+trigger1 = Enemy,numexplod(6006) <= 0
+ID = 6006
+trans = addalpha
+alpha = 150,256
+
+[State -2, ChangeState]
+type = ChangeState
+trigger1 = Var(3)>0
+trigger1 = Var(2)>0
+trigger1 = Stateno!=[550,555]
+trigger1 = Stateno!=[10000,15000]
+value = 15000
+ctrl = 0
+
+;===============================================================================
+;---------------------------Estados usados Siempre------------------------------
+;===============================================================================
+[Statedef -3]
+[State -1, RemoveExplod]
+type = RemoveExplod
+Trigger1 = stateno!=1500 && stateno!=1300 && stateno!=1305 && stateno!=1400 && stateno!=3100
+id = 1560
+
+[State -1, RemoveExplod]
+type = RemoveExplod
+Trigger1 = stateno!=1500 && stateno!=1300 && stateno!=1305 && stateno!=1400 && stateno!=3100
+id = 1560
+
+[State -1, RemoveExplod]
+type = RemoveExplod
+Trigger1 = stateno!=1500 && stateno!=1300 && stateno!=1305 && stateno!=1400 && stateno!=3100
+id = 1560
+
+[State -1, RemoveExplod]
+type = RemoveExplod
+Trigger1 = stateno!=1500 && stateno!=1300 && stateno!=1305 && stateno!=1400 && stateno!=3100
+id = 1560
+
+;===============================================================================
+; Awakening:
+;-------------------------------------------------------------------------------
+[State -3, VarSet - Awakening]
+type = VarSet
+trigger1 = numhelper(560) = 1
+v = 2
+value = 1
+
+[State -3, VarSet - Awakening]
+type = VarSet
+trigger1 = numhelper(561) = 1
+trigger2 = life = 0
+trigger3 = stateno = 181 && time = 2
+trigger4 = stateno = 170 && time = 2
+v = 2
+value = 0
+
+[State -3, VarSet - Awakening]
+type = VarSet
+trigger1 =  Win || Lose || DrawGame || Life = 0
+v = 3
+value = 0
+
+
+[State 0, Explosion]
+type = Explod
+triggerall = stateno = 170||stateno = 181
+triggerall = var(2) = 1
+trigger1 = time = 1
+anim = 9022
+ID = 9022
+pos = 0,0
+postype = left
+facing = 1
+vfacing = 1
+bindtime = -1
+removetime = -2
+scale = 999,999
+sprpriority = 9
+ontop = 1
+ownpal = 1
+removeongethit = 0
+ignorehitpause = 1
+supermove = 99999
+pausemove = 99999
+supermovetime = 99999
+pausemovetime = 99999
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = stateno = 170||stateno = 181
+triggerall = var(2) = 1
+trigger1 = time = 1
+value = S2,2
+volume = 999
+
+[State 0, EnvShake]
+type = EnvShake
+triggerall = stateno = 170||stateno = 181
+triggerall = var(2) = 1
+trigger1 = time = 1
+time = 10
+freq = 60
+ampl = -8
+phase = 90
+
+[State 0, Limite]
+type = VarAdd
+triggerall = stateno != [550,555]
+triggerall = var(3) > 0
+triggerall = var(2) = 1
+trigger1 = time%2 = 0
+v = 3
+value = -1
+
+[State 0, Vuelta a la Normalidad]
+type = ChangeState
+triggerall = var(2) = 1 || Life = 0
+triggerall = stateno = 10000
+triggerall = var(3) <= 50 || Life = 0
+trigger1 = 1
+value = 554
+
+[State 0, Gotas]
+type = Explod
+triggerall = var(2) = 1
+trigger1 = timemod = 20,0
+anim =565
+ID =560
+pos = -15+random%35,10-random%20
+postype = p1
+facing = ifelse(random < 500,1,-1)
+vfacing = 1
+bindtime = 1
+vel = -.5,-1.5
+removetime = -2
+scale = 0.4,0.4
+sprpriority = 2
+ontop = 1
+ownpal = 1
+supermovetime = 999
+
+[State 0, PalFXWiz]
+type = PalFX
+triggerall = var(2) = 1
+trigger1 = gametime%40 = 0
+time = 200
+add = 5,12,62
+mul = 256,256,256
+sinadd = 20,20,20,20
+invertall = 0
+color = 256
+ignorehitpause = 1
+
+[State 0, AfterImage]
+type = AfterImage
+triggerall = var(2) = 1
+trigger1 = time = 1
+time = 1000
+length = 4
+palcolor = 256
+palinvertall = 0
+palbright = 30,30,30
+palcontrast = 120,120,220
+palpostbright = 0,0,0
+paladd = 2,2,6
+palmul = .65,.65,.75
+timegap = 1
+framegap = 1
+trans = add
+
+;---------------------
+[State 0, PalFXWiz];ANULAR
+type = PalFX
+trigger1 = time = 10 && stateno = 554
+trigger2 = time = 1 && stateno = [170,190]
+trigger3 = life = 0
+time = 1
+add = 0,0,0
+mul = 256,256,256
+color = 256
+ignorehitpause = 1
+
+[State 0, AfterImage];ANULAR
+type = AfterImage
+trigger1 = time = 1 && stateno = 554
+trigger2 = time = 1 && stateno = [170,190]
+trigger3 = life = 0
+time = 1
+length = 1
+palcolor = 256
+palinvertall = 0
+palbright = 30,30,30
+palcontrast = 120,120,220
+palpostbright = 0,0,0
+paladd = 10,10,25
+palmul = .65,.65,.75
+timegap = 1
+framegap = 1
+trans = add
+;-------------------
+
+[State 0, EnvShake]
+type = EnvShake
+triggerall = var(2) = 1
+trigger1 = movehit = 1
+time = 5
+freq = 60
+ampl = -4
+phase = 90
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+triggerall = stateno != 320
+trigger1 = var(2) = 1
+value = 1.2
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+triggerall = stateno != 320
+trigger1 = var(2) = 0
+value = 1
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+triggerall = stateno = 320
+trigger1 = var(2) = 1
+value = ifelse(numhelper(3050) = 1,1.5,1.2)
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+triggerall = stateno = 320
+trigger1 = var(2) = 0
+value = ifelse(numhelper(3050) = 1,1.5,1)
+
+[State 0, AttackMulSet]
+type = DefenceMulSet
+trigger1 = var(2) = 1
+value = .8
+
+[State 0, AttackMulSet]
+type = DefenceMulSet
+trigger1 = var(2) = 0
+value = 1
+;===============================================================================
+; Chakra Bar:
+;-------------------------------------------------------------------------------
+[State 0, Chakra Bar]
+type = Helper
+trigger1 = numhelper(20000) = 0
+helpertype = normal
+name = "Chakra Bar"
+ID = 20000
+stateno = 20000
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermove = 999999
+pausemove = 999999
+supermovetime = 999999
+pausemovetime = 999999
+;-------------------------------------------------------------------------------
+; Sonidos Comunes:
+;-------------------------------------------------------------------------------
+[State 0, Andando]
+type = PlaySnd
+triggerall = stateno = 20
+trigger1 = animelem = 3||animelem = 6
+value = S20,1
+
+[State 0, Saltando]
+type = PlaySnd
+triggerall = stateno = 40
+trigger1 = Time = 1
+value = S40,1
+volume = 55
+channel = -1
+
+[State 0, Super Jump]
+type = PlaySnd
+triggerall = stateno = 80
+trigger1 = Time = 1
+value = S60,1
+volume = 55
+channel = -1
+
+[State 0, Land]
+type = PlaySnd
+triggerall = stateno = 52
+trigger1 = time = 1
+value = S52,1
+volume = 50
+
+[State 0, Run]
+type = PlaySnd
+triggerall = stateno = 60||stateno = 70
+trigger1 = time = 1
+value = S40,2
+volume = 50
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+TRIGGER1 = stateno != 500 && stateno != 550 && var(3)<=0 && var(2)<=0
+trigger2 = Stateno!=10271 && var(3)>0 && var(2)>0
+id = 550
+
+[State 0, StopSnd]
+type = StopSnd
+TRIGGER1 = stateno != 500 && stateno != 550 && var(3)<=0 && var(2)<=0
+trigger2 = Stateno!=10271 && var(3)>0 && var(2)>0
+channel = 1
+
+[State 0, StopSnd]
+type = StopSnd
+TRIGGER1 = stateno != 500 && stateno != 550 && var(3)<=0 && var(2)<=0
+trigger2 = Stateno!=10271 && var(3)>0 && var(2)>0
+channel = 2
+
+[State 0, Golpeado]
+type = PlaySnd
+trigger1 = movetype=H && (stateno!=[0,155]) && !time && HitOver=0 && random%3=0
+value = 5000,ifelse(random < 500,1,ifelse(random < 500,2,3))
+
+[State 0, Solucion Stand Aire]
+type = ChangeState
+triggerall = stateno = 0||stateno = 20
+trigger1 = pos y < 0
+value = 50
+ctrl = 1
+
+[State 0, Helper Pared 3]
+type = Helper
+trigger1 = enemy,stateno = 236 && numhelper(11240) = 0
+helpertype = normal
+name = "Helper Pared"
+ID = 11240
+stateno = 11240
+pos = 0,-30
+postype = p2
+facing = 1
+
+
+[State -3, HitOverride]
+type = HitOverride
+trigger1 = Stateno =[10000,15000]
+attr = SCA,NA,SA,HA,NP,SP,HP,NT,ST,HT
+stateno = 15000
+time = 0
+
+[State 0, Explod]
+type = Explod
+ownpal = 1
+trigger1 = Vel X!=0
+trigger1 = Anim!=10000
+trigger1 = Stateno =[10000,15000]
+trigger1 = Time%2 = 0
+anim = 1401
+ID = 1401
+pos = (random%27-13)*1,-35-(random%27-14)*0.8
+random = 30,60
+vel = 0.2,-1
+accel = 0,0.03
+postype = p1
+bindtime = 1
+removetime = -2
+supermovetime = 9999
+pausemovetime = 9999
+scale = 0.05,0.05
+sprpriority = 3
+ownpal = 1
+ontop = 0
+
+[State 0, Explod]
+type = Explod
+ownpal = 1
+trigger1 = Vel y!=0
+trigger1 = Anim!=10000 || Command = "holdup" || Command ="holddown"
+trigger1 = Stateno =[10000,15000]
+trigger1 = Time%2 = 0
+anim = 1401
+ID = 1401
+pos = (random%27-13)*1,-35-(random%27-14)*0.8
+random = 30,60
+vel = 0.2,-1
+accel = 0,0.03
+postype = p1
+bindtime = 1
+removetime = -2
+supermovetime = 9999
+pausemovetime = 9999
+scale = 0.05,0.05
+sprpriority = 3
+ownpal = 1
+ontop = 0
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = Vel y!=0 && Vel X = 0 || Vel y = 0 && Vel X != 0 || Vel y !=0 && Vel X != 0
+trigger1 = Anim!=10000 || Command = "holdup" || Command ="holddown"
+trigger1 = Stateno =[10000,15000]
+trigger1 = Time%20 = 0
+trigger2 = Stateno=[10261,10265]
+trigger2 = time = 1
+value = S1260,1260
+volume = 800
+
+[State 0, Pause]
+type = Pause
+trigger1 = stateno=[10261,10265]
+trigger1 = movehit = 1
+time = 2
+
+[State 0, EnvColor]
+type = EnvColor
+trigger1 = stateno=[10261,10265]
+trigger1 = movehit = 1
+value = 255,200,200
+time = 1
+ignorehitpause = 1

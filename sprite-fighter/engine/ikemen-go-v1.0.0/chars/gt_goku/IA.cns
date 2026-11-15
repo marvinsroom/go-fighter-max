@@ -1,0 +1,4378 @@
+;===============================================================================
+; INTELIGENCIA ARTIFICIAL:
+;===============================================================================
+[Statedef -2]
+[State -2, Preserve illustrated form through borrowed hurt states]
+type=ChangeAnim
+triggerall=!ishelper && anim>=0
+trigger1=anim<950000
+trigger2=anim>=1000000 && floor(anim/1000000)!=map(goku.bank)+1
+value=(anim%1000000)+(map(goku.bank)+1)*1000000
+elem=AnimElemNo(0)
+ignorehitpause=1
+
+
+[State 0, Run]
+type = ChangeState
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x > 100
+trigger1 = random < (ailevel * 100)/2
+value = 60
+
+[State 0, Run Atras]
+type = ChangeState
+triggerall = backedgebodydist > 50
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 100 && p2movetype = A
+trigger1 = random < (ailevel * 100)/4
+value = 70
+
+[State 0, Guard]
+type = ChangeState
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = (p2bodydist x < 50 && p2movetype = A) || (enemy,numproj > 0)
+trigger1 = random < (ailevel * 100)/2
+value = ifelse(statetype = A,132,130)
+
+[State 0, Power Charge]
+type = ChangeState
+triggerall = power < 3000
+triggerall = ailevel > 0
+triggerall = ctrl
+triggerall = p2bodydist x > 100
+trigger1 = random < (ailevel * 100)/4
+value = 500
+
+[State 0, Power Charge End]
+type = ChangeState
+triggerall = time >= 12
+triggerall = stateno = 500
+triggerall = ailevel > 0
+trigger1 = (p2bodydist x < 50) || (enemy,numproj > 0)
+trigger2 = power = 3000
+value = 501
+
+[State 0, SS1 Activar]
+type = ChangeState
+triggerall = statetype != A
+triggerall = power >= 500
+triggerall = var(2) = 0
+Triggerall = var(3) = 0
+triggerall = ailevel > 0
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)/2
+value = 700
+
+[State 0, SS2 Activar]
+type = ChangeState
+triggerall = statetype != A
+triggerall = power >= 500
+triggerall = var(2) = 1
+triggerall = ailevel > 0
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)/2
+value = 800
+
+[State 0, SS3 Activar]
+type = ChangeState
+triggerall = statetype != A
+triggerall = power >= 500
+triggerall = var(2) = 2
+triggerall = ailevel > 0
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)/2
+value = 900
+
+[State 0, SS4 Activar]
+type = ChangeState
+triggerall = numhelper(760) = 0
+triggerall = numhelper(860) = 0
+triggerall = numhelper(960) = 0
+triggerall = statetype != A
+triggerall = power >= 1000
+triggerall = var(2) < 4
+Triggerall = var(3) = 0
+triggerall = ailevel > 0
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)*2
+value = 1900
+
+[State 0, SS4 Desactivar]
+type = ChangeState
+triggerall = statetype != A
+triggerall = numhelper(1960) = 0
+triggerall = var(2) = 4
+triggerall = ailevel > 0
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)/50
+value = 1905
+
+[State 0, A]
+type = ChangeState
+triggerall = var(2) = 0
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 200
+
+[State 0, B]
+type = ChangeState
+triggerall = var(2) = 0
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 300
+
+[State 0, C]
+type = ChangeState
+triggerall = power >= 200
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,200]
+trigger1 = random < (ailevel * 100)/8
+value = 400
+
+[State 0, A Aire]
+type = ChangeState
+triggerall = var(2) = 0
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 600
+
+[State 0, B Aire]
+type = ChangeState
+triggerall = var(2) = 0
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 610
+
+[State 0, C Aire]
+type = ChangeState
+triggerall = power >= 200
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,200]
+trigger1 = random < (ailevel * 100)/8
+value = 620
+;-------------------------------------------------------------------------------
+[State 0, A SS4]
+type = ChangeState
+triggerall = var(2) = 4
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 15200
+
+[State 0, B SS4]
+type = ChangeState
+triggerall = var(2) = 4
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 15300
+
+[State 0, A Aire SS4]
+type = ChangeState
+triggerall = var(2) = 4
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 15600
+
+[State 0, B Aire SS4]
+type = ChangeState
+triggerall = var(2) = 4
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 15610
+
+[State 0, Ki Liberation]
+type = ChangeState
+triggerall = var(2) = 0
+triggerall = power >= 500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-50,50]
+trigger1 = random < (ailevel * 100)/4
+value = 1000
+
+[State 0, Genkidama]
+type = ChangeState
+triggerall = var(2) = 0
+triggerall = power >= 1500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)
+value = 1100
+
+[State 0, Meteor Smash]
+type = ChangeState
+triggerall = var(2) = 0
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [60,120]
+trigger1 = random < (ailevel * 100)/2
+value = 1200
+
+[State 0, Shunkan Ido]
+type = ChangeState
+triggerall = power >= 500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)/4
+value = 1300
+
+[State 0, Kamehameha]
+type = ChangeState
+triggerall = var(2) = 0
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [100,300]
+trigger1 = random < (ailevel * 100)/2
+value = 1400
+
+[State 0, Super Energy Blast]
+type = ChangeState
+triggerall = var(2) = 0
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)/2
+value = 1500
+;-------------------------------------------------------------------------------
+[State 0, A]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 2200
+
+[State 0, B]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 2300
+
+[State 0, C]
+type = ChangeState
+triggerall = power >= 200
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,200]
+trigger1 = random < (ailevel * 100)/8
+value = 400
+
+[State 0, A Aire]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 2600
+
+[State 0, B Aire]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 2610
+
+[State 0, C Aire]
+type = ChangeState
+triggerall = power >= 200
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,200]
+trigger1 = random < (ailevel * 100)/8
+value = 620
+
+[State 0, Ki Liberation]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = power >= 500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-50,50]
+trigger1 = random < (ailevel * 100)/4
+value = 1000
+
+[State 0, Explosive Wave]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = power >= 1500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-50,50]
+trigger1 = random < (ailevel * 100)
+value = 25100
+
+[State 0, Meteor Smash]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [60,120]
+trigger1 = random < (ailevel * 100)/2
+value = 25200
+
+[State 0, Shunkan Ido]
+type = ChangeState
+triggerall = power >= 500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)/4
+value = 1300
+
+[State 0, Super Kamehameha SS1]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = power >= 1500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [100,300]
+trigger1 = random < (ailevel * 100)
+value = 25400
+
+[State 0, Super Energy Blast]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)/2
+value = 1500
+
+[State 0, Instant Kamehameha]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = power >= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 150
+trigger1 = random < (ailevel * 100)*2
+value = 26000
+;--------------------------------------------------------------------------------
+[State 0, A SS2]
+type = ChangeState
+triggerall = var(2) = 2
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 11200
+
+[State 0, B SS2]
+type = ChangeState
+triggerall = var(2) = 2
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 11300
+
+[State 0, A Aire SS2]
+type = ChangeState
+triggerall = var(2) = 2
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 11600
+
+[State 0, B Aire SS2]
+type = ChangeState
+triggerall = var(2) = 2
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 11610
+
+[State 0, Ki Liberation]
+type = ChangeState
+triggerall = var(2) = 2
+triggerall = power >= 500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-50,50]
+trigger1 = random < (ailevel * 100)/4
+value = 1000
+
+[State 0, Explosive Wave]
+type = ChangeState
+triggerall = var(2) = 1
+triggerall = power >= 1500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-50,50]
+trigger1 = random < (ailevel * 100)
+value = 25100
+
+[State 0, bakurikihmaha]
+type = ChangeState
+triggerall = var(2) = 2
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [60,120]
+trigger1 = random < (ailevel * 100)/2
+value = 27500
+
+[State 0, Shunkan Ido]
+type = ChangeState
+triggerall = power >= 500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)/4
+value = 1300
+
+[State 0, kicks combo]
+type = ChangeState
+triggerall = var(2) = 2
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [60,120]
+trigger1 = random < (ailevel * 100)/2
+value = 27200
+
+[State 0, Super Kamehameha SS2]
+type = ChangeState
+triggerall = var(2) = 2
+triggerall = power >= 1500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [100,300]
+trigger1 = random < (ailevel * 100)
+value = 27400
+
+[State 0, Instant Kamehameha]
+type = ChangeState
+triggerall = var(2) = 2
+triggerall = power >= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 150
+trigger1 = random < (ailevel * 100)*2
+value = 27000
+;-------------------------------------------------------------------------------
+[State 0, A SS3]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 13200
+
+[State 0, B SS3]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 13300
+
+[State 0, A Aire SS3]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 13600
+
+[State 0, B Aire SS3]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = statetype = A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x < 30
+trigger1 = random < (ailevel * 100)
+value = 13610
+
+[State 0, ki liberation ss3]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = power >= 700
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [60,120]
+trigger1 = random < (ailevel * 100)/2
+value = 29000
+
+[State 0, Super Explosive Wave]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = power >= 1500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-80,80]
+trigger1 = random < (ailevel * 100)
+value = 29100
+
+[State 0, bakurikihmaha]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [60,120]
+trigger1 = random < (ailevel * 100)/2
+value = 29200
+
+[State 0, Shunkan Ido]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = power >= 500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)/4
+value = 1300
+
+[State 0, Super Kamehameha SS3]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = power >= 1500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [100,300]
+trigger1 = random < (ailevel * 100)
+value = 29400
+
+[State 0, Super Kamehameha SS3]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = power >= 1100
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [100,300]
+trigger1 = random < (ailevel * 100)
+value = 29500
+
+[State 0, Dragon first]
+type = ChangeState
+triggerall = var(2) = 3
+triggerall = power >= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 150
+trigger1 = random < (ailevel * 100)*2
+value = 30000
+;-------------------------------------------------------------------------------
+[State 0, Taiyoken]
+type = ChangeState
+triggerall = var(2) = 4
+Triggerall = numhelper(31160) = 0
+triggerall = power >= 500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-50,50]
+trigger1 = random < (ailevel * 100)/4
+value = 31100
+
+[State 0, Ki Liberation]
+type = ChangeState
+triggerall = var(2) = 4
+triggerall = power >= 500
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [-50,50]
+trigger1 = random < (ailevel * 100)/4
+value = 31000
+
+[State 0, Full Power]
+type = ChangeState
+triggerall = var(2) = 4
+triggerall = var(3) = 0
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)
+value = 31600
+
+[State 0, Kamehamehax10]
+type = ChangeState
+triggerall = var(2) = 4
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,300]
+trigger1 = random < (ailevel * 100)
+value = 31400
+
+[State 0, Full Power]
+type = ChangeState
+triggerall = var(2) = 4
+triggerall = power >= 1000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x >= 100
+trigger1 = random < (ailevel * 100)
+value = 31200
+
+[State 0, Cho Genkidama]
+type = ChangeState
+triggerall = var(2) = 0
+Triggerall = life <= lifemax/2
+Triggerall = p2life <= lifemax/2
+triggerall = power >= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+trigger1 = p2bodydist x >= 100 && p2movetype = A
+trigger1 = random < (ailevel * 500)
+trigger2 = p2bodydist x < 75
+trigger2 = random < (ailevel * 100)*2
+value = 3000
+
+[State 0, Cho Genkidama]
+type = ChangeState
+triggerall = var(2) = 0
+triggerall = power >= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [60,120]
+trigger1 = random < (ailevel * 100)*2
+value = 4000
+;-------------------------------------------------------------------------------
+[State 0, Ryu Ken]
+type = ChangeState
+triggerall = var(2) = 4
+triggerall = power >= 3000
+triggerall = statetype != A
+triggerall = ailevel > 0 && roundstate = 2
+triggerall = ctrl
+triggerall = p2bodydist x = [50,400]
+trigger1 = random < (ailevel * 100)*2
+value = 32000
+;===============================================================================
+;---------------------------Estados usados Siempre------------------------------
+;===============================================================================
+[Statedef -3]
+[State 0, HELPER ESCALA]
+type = Helper
+trigger1 = NUMHELPER(999999) = 0
+helpertype = normal
+name = "HELPER ESCALA"
+ID = 999999
+stateno = 999999
+pos = 9999,9999
+postype = P1
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermove = 999999
+pausemove = 999999
+supermovetime = 999999
+pausemovetime = 999999
+
+[State 0, Aura Permanente Kaioken]
+type = Helper
+triggerall = var(3) = 1
+trigger1 = numhelper(560) = 0
+helpertype = normal
+name = "Aura Permanente"
+ID = 560
+stateno = 561
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, Aura Permanente SS4]
+type = Helper
+triggerall=0 ; replaced by the illustrated passive aura
+triggerall = var(2) = 4
+trigger1 = numhelper(560) = 0
+helpertype = normal
+name = "Aura Permanente"
+ID = 568
+stateno = 568
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+;===============================================================================
+; Turn Transformaciones:
+;-------------------------------------------------------------------------------
+[State -3, Turn SS1]
+type = ChangeAnim
+trigger1 = var(2) = 1
+trigger1 = ((anim)%1000000) = 5
+value = (2005)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State -3, Turn SS2]
+type = ChangeAnim
+trigger1 = var(2) = 2
+trigger1 = ((anim)%1000000) = 5
+value = (11005)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State -3, Turn SS3]
+type = ChangeAnim
+trigger1 = var(2) = 3
+trigger1 = ((anim)%1000000) = 5
+value = (13005)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+
+[State -3, Turn SS4]
+type = ChangeAnim
+trigger1 = var(2) = 4
+trigger1 = ((anim)%1000000) = 5
+value = (15005)+ifelse(authorname="Mikel8888(edited by InSeph and edited by RafaMugen)",(ifelse(ishelper,(root,map(goku.bank)),map(goku.bank))+1)*1000000,0)
+;===============================================================================
+; Ryu Ken:
+;-------------------------------------------------------------------------------
+[State 0, Ryu Ken Hyper FX]
+type = Helper
+triggerall = facing = 1
+trigger1 = movehit && stateno = 30000 && time = 54
+helpertype = normal
+name = "Ryu Ken Hyper FX"
+ID = 30900
+stateno = 30900
+pos = -50,-350
+postype = Left
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = 1
+size.yscale = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, Ryu Ken Hyper FX]
+type = Helper
+triggerall = facing = -1
+trigger1 = movehit && stateno = 30000 && time = 54
+helpertype = normal
+name = "Ryu Ken Hyper FX"
+ID = 30900
+stateno = 30900
+pos = 50,-350
+postype = Right
+facing = -1
+keyctrl = 0
+ownpal = 1
+size.xscale = 1
+size.yscale = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+;===============================================================================
+; Ryu Ken:
+;-------------------------------------------------------------------------------
+[State 0, Ryu Ken Hyper FX]
+type = Helper
+triggerall = facing = 1
+trigger1 = movehit && stateno = 32000 && time = 54
+helpertype = normal
+name = "Ryu Ken Hyper FX"
+ID = 32090
+stateno = 32090
+pos = -50,-350
+postype = Left
+facing = 1
+keyctrl = 0
+ownpal = 1
+size.xscale = 1
+size.yscale = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+
+[State 0, Ryu Ken Hyper FX]
+type = Helper
+triggerall = facing = -1
+trigger1 = movehit && stateno = 32000 && time = 54
+helpertype = normal
+name = "Ryu Ken Hyper FX"
+ID = 32090
+stateno = 32090
+pos = 50,-350
+postype = Right
+facing = -1
+keyctrl = 0
+ownpal = 1
+size.xscale = 1
+size.yscale = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+;===============================================================================
+; Intro y Otros Stopsnd:
+;-------------------------------------------------------------------------------
+[State 0, StopSnd]
+type = StopSnd
+trigger1 = prevstateno = 1200 && time = 1
+channel = 5
+;===============================================================================
+; Air C:
+;-------------------------------------------------------------------------------
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = prevstateno = 620 && time = 1
+value = 0
+;===============================================================================
+; Kaioken // Full Power:
+;-------------------------------------------------------------------------------
+[State 0, EnvShake]
+type = EnvShake
+triggerall = var(3) = 1
+trigger1 = movehit = 1
+time = 5
+
+[State 0, Pause]
+type = Pause
+triggerall = var(3) = 1
+trigger1 = movehit = 1
+time = 3
+
+[State 0, Kaioken Palfx]
+type = PalFX
+triggerall = var(2) = 0
+triggerall = var(3) = 1
+trigger1 = gametime%40 = 0
+time = 200
+add = 200,0,0
+mul = 200,200,200
+sinadd = 50,50,50,50
+color = 256
+ignorehitpause = 1
+
+[State 0, Kaioken Palfx Anular]
+type = PalFX
+triggerall = var(2) = 0
+triggerall = numhelper(1260) = 1
+trigger1 = helper(1260),stateno = 1261
+time = 1
+add = 200,0,0
+mul = 200,200,200
+sinadd = 50,50,50,50
+color = 256
+ignorehitpause = 1
+;===============================================================================
+; Pared Rota:
+;-------------------------------------------------------------------------------
+;===============================================================================
+; Pared Rota:
+;-------------------------------------------------------------------------------
+[State 0, Helper]
+type = Helper
+triggerall = numhelper(1250) = 0
+trigger1 = p2stateno = 1206
+helpertype = normal
+name = "Pared Rota"
+ID = 1250
+stateno = 1250
+pos = 0,-30
+postype = p2
+facing = 1
+keyctrl = 0
+ownpal = 1
+
+[State 0, Helper]
+type = Helper
+triggerall = numhelper(25250) = 0
+trigger1 = p2stateno = 25206
+helpertype = normal
+name = "Pared Rota"
+ID = 25250
+stateno = 25250
+pos = 0,-30
+postype = p2
+facing = 1
+keyctrl = 0
+ownpal = 1
+;===============================================================================
+; Instant Kamehameha:
+;-------------------------------------------------------------------------------
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = stateno = 26000 && time >= 70
+value = 30
+ignorehitpause = 1
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = prevstateno = 26000 && time = 1
+value = 0
+ignorehitpause = 1
+;===============================================================================
+; SS1:
+;-------------------------------------------------------------------------------
+[State -3, VarSet - SS1]
+type = VarSet
+trigger1 = numhelper(760) = 1
+v = 2
+value = 1
+
+[State -3, VarSet - SS1]
+type = VarSet
+trigger1 = numhelper(761) = 1
+trigger2 = life = 0
+v = 2
+value = 0
+
+[State 0, Fin]
+type = ChangeState
+triggerall = var(2) = 1
+trigger1 = roundstate != 2 && stateno = 0
+value = 705
+
+[State -3, VarSet, Golpeado]
+type = VarSet
+trigger1 = var(2) = 1
+v = 10
+value = 1000
+
+[State -3, VarSet, Apariencia]
+type = VarSet
+trigger1 = var(2) = 1
+v = 11
+value = 2000
+
+[State -3, VarSet, Specials]
+type = VarSet
+trigger1 = var(2) = 1
+v = 14
+value = 24000
+
+[State -3, VarSet, Supers]
+type = VarSet
+trigger1 = var(2) = 1
+v = 15
+value = 23000
+
+[State 0, Aura Permanente]
+type = Helper
+triggerall=0 ; replaced by the illustrated passive aura
+triggerall = var(2) = 1
+trigger1 = numhelper(560) = 0
+helpertype = normal
+name = "Aura Permanente"
+ID = 560
+stateno = 565
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+;===============================================================================
+; SS2:
+;-------------------------------------------------------------------------------
+[State -3, VarSet - SS2]
+type = VarSet
+trigger1 = numhelper(860) = 1
+v = 2
+value = 2
+
+[State -3, VarSet - SS2]
+type = VarSet
+trigger1 = numhelper(861) = 1
+trigger2 = life = 0
+v = 2
+value = 0
+
+[State 0, Fin]
+type = ChangeState
+triggerall = var(2) = 2
+trigger1 = roundstate != 2 && stateno = 0
+value = 805
+
+[State -3, VarSet, Golpeado]
+type = VarSet
+trigger1 = var(2) = 2
+v = 10
+value = 1000
+
+[State -3, VarSet, Apariencia]
+type = VarSet
+trigger1 = var(2) = 2
+v = 11
+value = 11000
+
+[State -3, VarSet, Specials]
+type = VarSet
+trigger1 = var(2) = 2
+v = 14
+value = 26000
+
+[State -3, VarSet, Supers]
+type = VarSet
+trigger1 = var(2) = 2
+v = 15
+value = 25000
+
+[State 0, Aura Permanente]
+type = Helper
+triggerall=0 ; replaced by the illustrated passive aura
+triggerall = var(2) = 2
+trigger1 = numhelper(560) = 0
+helpertype = normal
+name = "Aura Permanente"
+ID = 560
+stateno = 566
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+;===============================================================================
+; SS3:
+;-------------------------------------------------------------------------------
+[State -3, VarSet - SS3]
+type = VarSet
+trigger1 = numhelper(960) = 1
+v = 2
+value = 3
+
+[State -3, VarSet - SS3]
+type = VarSet
+trigger1 = numhelper(961) = 1
+trigger2 = life = 0
+v = 2
+value = 0
+
+[State 0, Fin]
+type = ChangeState
+triggerall = var(2) = 3
+trigger1 = roundstate != 2 && stateno = 0
+value = 905
+
+[State -3, VarSet, Golpeado]
+type = VarSet
+trigger1 = var(2) = 3
+v = 10
+value = 9000
+
+[State -3, VarSet, Apariencia]
+type = VarSet
+trigger1 = var(2) = 3
+v = 11
+value = 13000
+
+[State -3, VarSet, Specials]
+type = VarSet
+trigger1 = var(2) = 3
+v = 14
+value = 28000
+
+[State -3, VarSet, Supers]
+type = VarSet
+trigger1 = var(2) = 3
+v = 15
+value = 27000
+
+[State 0, Aura Permanente]
+type = Helper
+triggerall=0 ; replaced by the illustrated passive aura
+triggerall = var(2) = 3
+trigger1 = numhelper(560) = 0
+helpertype = normal
+name = "Aura Permanente"
+ID = 560
+stateno = 567
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+;===============================================================================
+; SS4:
+;-------------------------------------------------------------------------------
+[State -3, VarSet - SS4]
+type = VarSet
+trigger1 = numhelper(1960) = 1
+v = 2
+value = 4
+
+[State -3, VarSet - SS4]
+type = VarSet
+trigger1 = numhelper(1961) = 1
+trigger2 = life = 0
+v = 2
+value = 0
+
+[State 0, Fin]
+type = ChangeState
+triggerall = var(2) = 4
+trigger1 = roundstate != 2 && stateno = 0
+value = 1905
+
+[State -3, VarSet, Golpeado]
+type = VarSet
+trigger1 = var(2) = 4
+v = 10
+value = 11000
+
+[State -3, VarSet, Apariencia]
+type = VarSet
+trigger1 = var(2) = 4
+v = 11
+value = 15000
+
+[State -3, VarSet, Specials]
+type = VarSet
+trigger1 = var(2) = 4
+v = 14
+value = 30000
+
+[State -3, VarSet, Supers]
+type = VarSet
+trigger1 = var(2) = 4
+v = 15
+value = 29000
+
+[State 0, Aura Permanente]
+type = Helper
+triggerall=0 ; replaced by the illustrated passive aura
+triggerall = var(2) = 4
+trigger1 = numhelper(560) = 0
+helpertype = normal
+name = "Aura Permanente"
+ID = 560
+stateno = 568
+pos = 0,0
+postype = p1
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermove = 999
+supermovetime = 999
+pausemove = 999
+pausemovetime = 999
+;-------------------------------------------------------------------------------
+; COMUNES:
+[State -3, VarSet,Apariencia]
+type = VarSet
+trigger1 = var(2) = 0
+v = 11
+value = 0
+
+[State -3, VarSet,Golpeado]
+type = VarSet
+trigger1 = var(2) = 0
+v = 10
+value = 0
+
+[State -3, VarSet, Specials]
+type = VarSet
+trigger1 = var(2) = 0
+v = 14
+value = 0
+
+[State -3, VarSet, Supers]
+type = VarSet
+trigger1 = var(2) = 0
+v = 15
+value = 0
+
+[State 0, AttackMulSet]
+type = AttackMulSet
+trigger1 = 1
+value = 1+fvar(2)+fvar(3)
+
+[State 0, DefenceMulSet]
+type = DefenceMulSet
+trigger1 = 1
+value = 1-fvar(2)
+;-------------------------------------------------------------------------------
+; FVARS:
+;-------------------------------------------------------------------------------
+[State 0, VarSet] ; Base
+type = VarSet
+trigger1 = var(3) = 0 && var(2) = 0
+fv = 3
+value = 0
+
+[State 0, VarSet] ; Kaioken // Full Power
+type = VarSet
+trigger1 = var(3) = 1
+fv = 3
+value = .5
+
+[State 0, VarSet] ; SS4
+type = VarSet
+trigger1 = var(2) = 4
+fv = 2
+value = .4
+;-------------------------------------------------------------------------------
+; Sonidos Comunes:
+;-------------------------------------------------------------------------------
+[State 0, Saltando]
+type = PlaySnd
+triggerall = stateno = 40
+trigger1 = Time = 1
+value = S40,1
+volume = 55
+channel = -1
+
+[State 0, Super Jump]
+type = PlaySnd
+triggerall = stateno = 80
+trigger1 = Time = 1
+value = S60,1
+volume = 55
+channel = -1
+
+[State 0, Land]
+type = PlaySnd
+triggerall = stateno = 52
+trigger1 = time = 1
+value = S52,1
+volume = 50
+
+[State 0, Run]
+type = PlaySnd
+triggerall = stateno = 60||stateno = 70
+trigger1 = time = 1
+value = S40,2
+volume = 50
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+TRIGGERALL = stateno != 500
+trigger1 = time = 1
+id = 550
+
+[State 0, StopSnd]
+type = StopSnd
+TRIGGERALL = stateno != 500
+trigger1 = time = 1
+channel = 1
+
+[State 0, StopSnd]
+type = StopSnd
+TRIGGERALL = stateno != 500
+trigger1 = time = 1
+channel = 2
+
+[State 0, Golpeado]
+type = PlaySnd
+trigger1 = movetype=H && (stateno!=[0,155]) && !time && HitOver=0 && random%3=0
+value = 5000,ifelse(random < 500,1,ifelse(random < 500,2,3))
+
+[State 0, Solucion Stand Aire]
+type = ChangeState
+triggerall = stateno = 0||stateno = 20
+trigger1 = pos y < 0
+value = 50
+ctrl = 1
+
+[State -3, Native transformation]
+type=MapSet
+triggerall=!ishelper
+trigger1=(stateno=700) && time=1
+map="goku.form"
+value=1
+
+[State -3, Native transformation]
+type=MapSet
+triggerall=!ishelper
+trigger1=(stateno=800) && time=1
+map="goku.form"
+value=2
+
+[State -3, Native transformation]
+type=MapSet
+triggerall=!ishelper
+trigger1=(stateno=900) && time=1
+map="goku.form"
+value=3
+
+[State -3, Native transformation]
+type=MapSet
+triggerall=!ishelper
+trigger1=(stateno=1900) && time=1
+map="goku.form"
+value=4
+
+[State -3, Native transformation]
+type=MapSet
+triggerall=!ishelper
+trigger1=(stateno=705 || stateno=805 || stateno=905 || stateno=1905) && time=1
+map="goku.form"
+value=0
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=0
+var(2)=0
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=0
+var(10)=0
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=0
+var(11)=0
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=0
+var(14)=0
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=0
+var(15)=0
+ignorehitpause=1
+
+[State -3, Illustrated bank]
+type=MapSet
+triggerall=!ishelper
+trigger1=map(goku.form)=0
+map="goku.bank"
+value=0
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=1
+var(2)=1
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=1
+var(10)=1000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=1
+var(11)=2000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=1
+var(14)=24000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=1
+var(15)=23000
+ignorehitpause=1
+
+[State -3, Illustrated bank]
+type=MapSet
+triggerall=!ishelper
+trigger1=map(goku.form)=1
+map="goku.bank"
+value=1
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=2
+var(2)=2
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=2
+var(10)=7000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=2
+var(11)=11000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=2
+var(14)=26000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=2
+var(15)=25000
+ignorehitpause=1
+
+[State -3, Illustrated bank]
+type=MapSet
+triggerall=!ishelper
+trigger1=map(goku.form)=2
+map="goku.bank"
+value=2
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=3
+var(2)=3
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=3
+var(10)=9000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=3
+var(11)=13000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=3
+var(14)=28000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=3
+var(15)=27000
+ignorehitpause=1
+
+[State -3, Illustrated bank]
+type=MapSet
+triggerall=!ishelper
+trigger1=map(goku.form)=3
+map="goku.bank"
+value=3
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=4
+var(2)=4
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=4
+var(10)=11000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=4
+var(11)=15000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=4
+var(14)=30000
+ignorehitpause=1
+
+[State -3, Selected form variable]
+type=VarSet
+triggerall=!ishelper
+trigger1=map(goku.form)=4
+var(15)=29000
+ignorehitpause=1
+
+[State -3, Illustrated bank]
+type=MapSet
+triggerall=!ishelper
+trigger1=map(goku.form)=4
+map="goku.bank"
+value=4
+ignorehitpause=1
+
+[State -3, Change visual bank without changing the move]
+type=ChangeAnim
+triggerall=!ishelper && anim>=1000000
+trigger1=floor(anim/1000000)!=map(goku.bank)+1
+value=(anim%1000000)+(map(goku.bank)+1)*1000000
+elem=AnimElemNo(0)
+ignorehitpause=1
+[State -3, Clear old aura]
+type=RemoveExplod
+triggerall=!ishelper
+trigger1=map(goku.aura_form)!=map(goku.form) || !alive || roundstate!=2
+ID=960820
+[State -3, Stop interrupted charge sound]
+type=StopSnd
+triggerall=!ishelper
+trigger1=stateno!=900810 && numexplod(960810)
+trigger2=stateno!=900810 && prevstateno=900810 && time<=1
+channel=3
+ignorehitpause=1
+[State -3, Clear interrupted charge aura]
+type=RemoveExplod
+triggerall=!ishelper
+trigger1=stateno!=900810
+ID=960810
+[State -3, Illustrated passive aura]
+type=Explod
+triggerall=!ishelper && alive && roundstate=2
+triggerall=map(goku.form)>0 && !numexplod(960820)
+trigger1=1
+anim=ifelse(var(3)>0,960308,960300+map(goku.bank))
+ID=960820
+pos=0,3
+postype=p1
+bindtime=-1
+removetime=-1
+sprpriority=-2
+ownpal=1
+[State -3, Remember aura form]
+type=MapSet
+triggerall=!ishelper
+trigger1=1
+map="goku.aura_form"
+value=map(goku.form)
+
+[State -3, Active release pose]
+type=MapSet
+trigger1=!ishelper
+map="goku.emitting"
+value=0
+ignorehitpause=1
+
+[State -3, Default hand x]
+type=MapSet
+trigger1=!ishelper
+map="goku.muzzle_x"
+value=24
+ignorehitpause=1
+
+[State -3, Default hand y]
+type=MapSet
+trigger1=!ishelper
+map="goku.muzzle_y"
+value=-40
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1000400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1000400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1000400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1000401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1000401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1000401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1001400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1001400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,15.262,ifelse(animelemno(0)=5,15.262,ifelse(animelemno(0)=6,15.262,ifelse(animelemno(0)=7,15.262,ifelse(animelemno(0)=8,15.262,ifelse(animelemno(0)=9,15.262,ifelse(animelemno(0)=10,15.262,ifelse(animelemno(0)=11,15.262,ifelse(animelemno(0)=12,15.262,ifelse(animelemno(0)=13,15.262,ifelse(animelemno(0)=14,15.262,ifelse(animelemno(0)=15,15.262,ifelse(animelemno(0)=16,32.587,ifelse(animelemno(0)=17,32.587,ifelse(animelemno(0)=18,32.587,ifelse(animelemno(0)=19,32.587,ifelse(animelemno(0)=20,32.587,13.612))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1001400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-22.069,ifelse(animelemno(0)=4,-22.069,ifelse(animelemno(0)=5,-22.069,ifelse(animelemno(0)=6,-22.069,ifelse(animelemno(0)=7,-22.069,ifelse(animelemno(0)=8,-22.069,ifelse(animelemno(0)=9,-22.069,ifelse(animelemno(0)=10,-22.069,ifelse(animelemno(0)=11,-22.069,ifelse(animelemno(0)=12,-22.069,ifelse(animelemno(0)=13,-22.069,ifelse(animelemno(0)=14,-22.069,ifelse(animelemno(0)=15,-22.069,ifelse(animelemno(0)=16,-29.287,ifelse(animelemno(0)=17,-29.287,ifelse(animelemno(0)=18,-29.287,ifelse(animelemno(0)=19,-29.287,ifelse(animelemno(0)=20,-29.287,-23.1))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1001500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,37.125,ifelse(animelemno(0)=5,37.125,ifelse(animelemno(0)=6,36.3,ifelse(animelemno(0)=7,36.3,ifelse(animelemno(0)=8,13.612,13.612))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1001500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-22.069,ifelse(animelemno(0)=4,-30.112,ifelse(animelemno(0)=5,-30.112,ifelse(animelemno(0)=6,-14.85,ifelse(animelemno(0)=7,-14.85,ifelse(animelemno(0)=8,-23.1,-23.1))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1004000
+map="goku.emitting"
+value=(animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1004000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,15.262,ifelse(animelemno(0)=5,15.262,ifelse(animelemno(0)=6,32.587,ifelse(animelemno(0)=7,32.587,ifelse(animelemno(0)=8,32.587,ifelse(animelemno(0)=9,32.587,ifelse(animelemno(0)=10,32.587,13.612))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1004000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-22.069,ifelse(animelemno(0)=4,-22.069,ifelse(animelemno(0)=5,-22.069,ifelse(animelemno(0)=6,-29.287,ifelse(animelemno(0)=7,-29.287,ifelse(animelemno(0)=8,-29.287,ifelse(animelemno(0)=9,-29.287,ifelse(animelemno(0)=10,-29.287,-23.1))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1002400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1002400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1002400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1002401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1002401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1002401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1025400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1025400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,15.262,ifelse(animelemno(0)=5,15.262,ifelse(animelemno(0)=6,15.262,ifelse(animelemno(0)=7,15.262,ifelse(animelemno(0)=8,15.262,ifelse(animelemno(0)=9,15.262,ifelse(animelemno(0)=10,15.262,ifelse(animelemno(0)=11,15.262,ifelse(animelemno(0)=12,15.262,ifelse(animelemno(0)=13,15.262,ifelse(animelemno(0)=14,15.262,ifelse(animelemno(0)=15,15.262,ifelse(animelemno(0)=16,37.538,ifelse(animelemno(0)=17,37.538,ifelse(animelemno(0)=18,37.538,ifelse(animelemno(0)=19,37.538,ifelse(animelemno(0)=20,37.538,13.612))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1025400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-20.419,ifelse(animelemno(0)=2,-20.419,ifelse(animelemno(0)=3,-20.419,ifelse(animelemno(0)=4,-20.419,ifelse(animelemno(0)=5,-20.419,ifelse(animelemno(0)=6,-20.419,ifelse(animelemno(0)=7,-20.419,ifelse(animelemno(0)=8,-20.419,ifelse(animelemno(0)=9,-20.419,ifelse(animelemno(0)=10,-20.419,ifelse(animelemno(0)=11,-20.419,ifelse(animelemno(0)=12,-20.419,ifelse(animelemno(0)=13,-20.419,ifelse(animelemno(0)=14,-20.419,ifelse(animelemno(0)=15,-20.419,ifelse(animelemno(0)=16,-29.287,ifelse(animelemno(0)=17,-29.287,ifelse(animelemno(0)=18,-29.287,ifelse(animelemno(0)=19,-29.287,ifelse(animelemno(0)=20,-29.287,-21.45))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1025500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,37.125,ifelse(animelemno(0)=5,37.125,ifelse(animelemno(0)=6,36.3,ifelse(animelemno(0)=7,36.3,ifelse(animelemno(0)=8,13.612,13.612))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1025500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-22.069,ifelse(animelemno(0)=4,-30.112,ifelse(animelemno(0)=5,-30.112,ifelse(animelemno(0)=6,-14.85,ifelse(animelemno(0)=7,-14.85,ifelse(animelemno(0)=8,-23.1,-23.1))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1026000
+map="goku.emitting"
+value=(animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10 || animelemno(0)=11)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1026000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,15.262,ifelse(animelemno(0)=5,15.262,ifelse(animelemno(0)=6,32.587,ifelse(animelemno(0)=7,32.587,ifelse(animelemno(0)=8,32.587,ifelse(animelemno(0)=9,32.587,ifelse(animelemno(0)=10,32.587,ifelse(animelemno(0)=11,32.587,10.312)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1026000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-20.419,ifelse(animelemno(0)=3,-20.419,ifelse(animelemno(0)=4,-20.419,ifelse(animelemno(0)=5,-20.419,ifelse(animelemno(0)=6,-29.287,ifelse(animelemno(0)=7,-29.287,ifelse(animelemno(0)=8,-29.287,ifelse(animelemno(0)=9,-29.287,ifelse(animelemno(0)=10,-29.287,ifelse(animelemno(0)=11,-29.287,-11.55)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1011400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1011400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1011400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1011401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1011401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1011401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1027400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1027400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,15.262,ifelse(animelemno(0)=5,15.262,ifelse(animelemno(0)=6,15.262,ifelse(animelemno(0)=7,15.262,ifelse(animelemno(0)=8,15.262,ifelse(animelemno(0)=9,15.262,ifelse(animelemno(0)=10,15.262,ifelse(animelemno(0)=11,15.262,ifelse(animelemno(0)=12,15.262,ifelse(animelemno(0)=13,15.262,ifelse(animelemno(0)=14,15.262,ifelse(animelemno(0)=15,15.262,ifelse(animelemno(0)=16,37.538,ifelse(animelemno(0)=17,37.538,ifelse(animelemno(0)=18,37.538,ifelse(animelemno(0)=19,37.538,ifelse(animelemno(0)=20,37.538,13.612))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1027400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-20.419,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-22.069,ifelse(animelemno(0)=4,-22.069,ifelse(animelemno(0)=5,-22.069,ifelse(animelemno(0)=6,-22.069,ifelse(animelemno(0)=7,-22.069,ifelse(animelemno(0)=8,-22.069,ifelse(animelemno(0)=9,-22.069,ifelse(animelemno(0)=10,-22.069,ifelse(animelemno(0)=11,-22.069,ifelse(animelemno(0)=12,-22.069,ifelse(animelemno(0)=13,-22.069,ifelse(animelemno(0)=14,-22.069,ifelse(animelemno(0)=15,-22.069,ifelse(animelemno(0)=16,-29.287,ifelse(animelemno(0)=17,-29.287,ifelse(animelemno(0)=18,-29.287,ifelse(animelemno(0)=19,-29.287,ifelse(animelemno(0)=20,-29.287,-23.1))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1027500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,37.125,ifelse(animelemno(0)=3,36.3,16.912)))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1027500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-30.112,ifelse(animelemno(0)=3,-14.85,-23.1)))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1028000
+map="goku.emitting"
+value=(animelemno(0)=5 || animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10 || animelemno(0)=11)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1028000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,15.262,ifelse(animelemno(0)=5,32.587,ifelse(animelemno(0)=6,32.587,ifelse(animelemno(0)=7,32.587,ifelse(animelemno(0)=8,32.587,ifelse(animelemno(0)=9,32.587,ifelse(animelemno(0)=10,32.587,ifelse(animelemno(0)=11,32.587,13.612)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1028000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-22.069,ifelse(animelemno(0)=4,-22.069,ifelse(animelemno(0)=5,-29.287,ifelse(animelemno(0)=6,-29.287,ifelse(animelemno(0)=7,-29.287,ifelse(animelemno(0)=8,-29.287,ifelse(animelemno(0)=9,-29.287,ifelse(animelemno(0)=10,-29.287,ifelse(animelemno(0)=11,-29.287,-23.1)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1013400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1013400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1013400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1013401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1013401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1013401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1029400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1029400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,15.262,ifelse(animelemno(0)=5,15.262,ifelse(animelemno(0)=6,15.262,ifelse(animelemno(0)=7,15.262,ifelse(animelemno(0)=8,15.262,ifelse(animelemno(0)=9,15.262,ifelse(animelemno(0)=10,15.262,ifelse(animelemno(0)=11,15.262,ifelse(animelemno(0)=12,15.262,ifelse(animelemno(0)=13,15.262,ifelse(animelemno(0)=14,15.262,ifelse(animelemno(0)=15,15.262,ifelse(animelemno(0)=16,37.538,ifelse(animelemno(0)=17,37.538,ifelse(animelemno(0)=18,37.538,ifelse(animelemno(0)=19,37.538,ifelse(animelemno(0)=20,37.538,13.612))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1029400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-22.069,ifelse(animelemno(0)=4,-22.069,ifelse(animelemno(0)=5,-22.069,ifelse(animelemno(0)=6,-22.069,ifelse(animelemno(0)=7,-22.069,ifelse(animelemno(0)=8,-22.069,ifelse(animelemno(0)=9,-22.069,ifelse(animelemno(0)=10,-22.069,ifelse(animelemno(0)=11,-22.069,ifelse(animelemno(0)=12,-22.069,ifelse(animelemno(0)=13,-22.069,ifelse(animelemno(0)=14,-22.069,ifelse(animelemno(0)=15,-22.069,ifelse(animelemno(0)=16,-29.287,ifelse(animelemno(0)=17,-29.287,ifelse(animelemno(0)=18,-29.287,ifelse(animelemno(0)=19,-29.287,ifelse(animelemno(0)=20,-29.287,-23.1))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1029500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,37.125,ifelse(animelemno(0)=5,37.125,ifelse(animelemno(0)=6,37.125,ifelse(animelemno(0)=7,36.3,ifelse(animelemno(0)=8,36.3,ifelse(animelemno(0)=9,44.55,ifelse(animelemno(0)=10,21.862,ifelse(animelemno(0)=11,13.612,13.612)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1029500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-22.069,ifelse(animelemno(0)=4,-30.112,ifelse(animelemno(0)=5,-30.112,ifelse(animelemno(0)=6,-30.112,ifelse(animelemno(0)=7,-14.85,ifelse(animelemno(0)=8,-18.15,ifelse(animelemno(0)=9,-26.4,ifelse(animelemno(0)=10,-34.65,ifelse(animelemno(0)=11,-23.1,-23.1)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1015400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1015400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1015400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1015401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1015401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1015401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1031400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1031400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1031400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1031401
+map="goku.emitting"
+value=(animelemno(0)=1 || animelemno(0)=2 || animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1031401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,32.587,ifelse(animelemno(0)=2,32.587,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,13.612)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1031401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-29.287,ifelse(animelemno(0)=2,-29.287,ifelse(animelemno(0)=3,-29.287,ifelse(animelemno(0)=4,-29.287,ifelse(animelemno(0)=5,-29.287,-23.1)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1031500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,15.262,ifelse(animelemno(0)=2,15.262,ifelse(animelemno(0)=3,15.262,ifelse(animelemno(0)=4,37.125,ifelse(animelemno(0)=5,37.125,ifelse(animelemno(0)=6,36.3,ifelse(animelemno(0)=7,36.3,ifelse(animelemno(0)=8,13.612,13.612))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=1031500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-22.069,ifelse(animelemno(0)=2,-22.069,ifelse(animelemno(0)=3,-22.069,ifelse(animelemno(0)=4,-30.112,ifelse(animelemno(0)=5,-30.112,ifelse(animelemno(0)=6,-14.85,ifelse(animelemno(0)=7,-14.85,ifelse(animelemno(0)=8,-23.1,-23.1))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2000400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2000400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2000400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2000401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2000401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2000401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2001400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2001400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,20.212,ifelse(animelemno(0)=5,20.212,ifelse(animelemno(0)=6,20.212,ifelse(animelemno(0)=7,20.212,ifelse(animelemno(0)=8,20.212,ifelse(animelemno(0)=9,20.212,ifelse(animelemno(0)=10,20.212,ifelse(animelemno(0)=11,20.212,ifelse(animelemno(0)=12,20.212,ifelse(animelemno(0)=13,20.212,ifelse(animelemno(0)=14,20.212,ifelse(animelemno(0)=15,20.212,ifelse(animelemno(0)=16,32.587,ifelse(animelemno(0)=17,32.587,ifelse(animelemno(0)=18,32.587,ifelse(animelemno(0)=19,32.587,ifelse(animelemno(0)=20,32.587,18.15))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2001400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-40.837,ifelse(animelemno(0)=4,-40.837,ifelse(animelemno(0)=5,-40.837,ifelse(animelemno(0)=6,-40.837,ifelse(animelemno(0)=7,-40.837,ifelse(animelemno(0)=8,-40.837,ifelse(animelemno(0)=9,-40.837,ifelse(animelemno(0)=10,-40.837,ifelse(animelemno(0)=11,-40.837,ifelse(animelemno(0)=12,-40.837,ifelse(animelemno(0)=13,-40.837,ifelse(animelemno(0)=14,-40.837,ifelse(animelemno(0)=15,-40.837,ifelse(animelemno(0)=16,-31.35,ifelse(animelemno(0)=17,-31.35,ifelse(animelemno(0)=18,-31.35,ifelse(animelemno(0)=19,-31.35,ifelse(animelemno(0)=20,-31.35,-48.262))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2001500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,37.538,ifelse(animelemno(0)=5,37.538,ifelse(animelemno(0)=6,37.125,ifelse(animelemno(0)=7,37.125,ifelse(animelemno(0)=8,18.15,18.15))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2001500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-40.837,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,ifelse(animelemno(0)=6,-14.85,ifelse(animelemno(0)=7,-14.85,ifelse(animelemno(0)=8,-48.262,-48.262))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2004000
+map="goku.emitting"
+value=(animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2004000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,20.212,ifelse(animelemno(0)=5,20.212,ifelse(animelemno(0)=6,32.587,ifelse(animelemno(0)=7,32.587,ifelse(animelemno(0)=8,32.587,ifelse(animelemno(0)=9,32.587,ifelse(animelemno(0)=10,32.587,18.15))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2004000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-40.837,ifelse(animelemno(0)=4,-40.837,ifelse(animelemno(0)=5,-40.837,ifelse(animelemno(0)=6,-31.35,ifelse(animelemno(0)=7,-31.35,ifelse(animelemno(0)=8,-31.35,ifelse(animelemno(0)=9,-31.35,ifelse(animelemno(0)=10,-31.35,-48.262))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2002400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2002400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2002400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2002401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2002401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2002401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2025400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2025400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,20.212,ifelse(animelemno(0)=5,20.212,ifelse(animelemno(0)=6,20.212,ifelse(animelemno(0)=7,20.212,ifelse(animelemno(0)=8,20.212,ifelse(animelemno(0)=9,20.212,ifelse(animelemno(0)=10,20.212,ifelse(animelemno(0)=11,20.212,ifelse(animelemno(0)=12,20.212,ifelse(animelemno(0)=13,20.212,ifelse(animelemno(0)=14,20.212,ifelse(animelemno(0)=15,20.212,ifelse(animelemno(0)=16,37.538,ifelse(animelemno(0)=17,37.538,ifelse(animelemno(0)=18,37.538,ifelse(animelemno(0)=19,37.538,ifelse(animelemno(0)=20,37.538,18.15))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2025400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-39.188,ifelse(animelemno(0)=2,-39.188,ifelse(animelemno(0)=3,-39.188,ifelse(animelemno(0)=4,-39.188,ifelse(animelemno(0)=5,-39.188,ifelse(animelemno(0)=6,-39.188,ifelse(animelemno(0)=7,-39.188,ifelse(animelemno(0)=8,-39.188,ifelse(animelemno(0)=9,-39.188,ifelse(animelemno(0)=10,-39.188,ifelse(animelemno(0)=11,-39.188,ifelse(animelemno(0)=12,-39.188,ifelse(animelemno(0)=13,-39.188,ifelse(animelemno(0)=14,-39.188,ifelse(animelemno(0)=15,-39.188,ifelse(animelemno(0)=16,-31.35,ifelse(animelemno(0)=17,-31.35,ifelse(animelemno(0)=18,-31.35,ifelse(animelemno(0)=19,-31.35,ifelse(animelemno(0)=20,-31.35,-46.612))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2025500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,37.538,ifelse(animelemno(0)=5,37.538,ifelse(animelemno(0)=6,37.125,ifelse(animelemno(0)=7,37.125,ifelse(animelemno(0)=8,18.15,18.15))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2025500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-40.837,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,ifelse(animelemno(0)=6,-14.85,ifelse(animelemno(0)=7,-14.85,ifelse(animelemno(0)=8,-48.262,-48.262))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2026000
+map="goku.emitting"
+value=(animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10 || animelemno(0)=11)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2026000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,20.212,ifelse(animelemno(0)=5,20.212,ifelse(animelemno(0)=6,32.587,ifelse(animelemno(0)=7,32.587,ifelse(animelemno(0)=8,32.587,ifelse(animelemno(0)=9,32.587,ifelse(animelemno(0)=10,32.587,ifelse(animelemno(0)=11,32.587,14.85)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2026000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-39.188,ifelse(animelemno(0)=3,-39.188,ifelse(animelemno(0)=4,-39.188,ifelse(animelemno(0)=5,-39.188,ifelse(animelemno(0)=6,-31.35,ifelse(animelemno(0)=7,-31.35,ifelse(animelemno(0)=8,-31.35,ifelse(animelemno(0)=9,-31.35,ifelse(animelemno(0)=10,-31.35,ifelse(animelemno(0)=11,-31.35,-36.712)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2011400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2011400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2011400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2011401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2011401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2011401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2027400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2027400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,20.212,ifelse(animelemno(0)=5,20.212,ifelse(animelemno(0)=6,20.212,ifelse(animelemno(0)=7,20.212,ifelse(animelemno(0)=8,20.212,ifelse(animelemno(0)=9,20.212,ifelse(animelemno(0)=10,20.212,ifelse(animelemno(0)=11,20.212,ifelse(animelemno(0)=12,20.212,ifelse(animelemno(0)=13,20.212,ifelse(animelemno(0)=14,20.212,ifelse(animelemno(0)=15,20.212,ifelse(animelemno(0)=16,37.538,ifelse(animelemno(0)=17,37.538,ifelse(animelemno(0)=18,37.538,ifelse(animelemno(0)=19,37.538,ifelse(animelemno(0)=20,37.538,18.15))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2027400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-39.188,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-40.837,ifelse(animelemno(0)=4,-40.837,ifelse(animelemno(0)=5,-40.837,ifelse(animelemno(0)=6,-40.837,ifelse(animelemno(0)=7,-40.837,ifelse(animelemno(0)=8,-40.837,ifelse(animelemno(0)=9,-40.837,ifelse(animelemno(0)=10,-40.837,ifelse(animelemno(0)=11,-40.837,ifelse(animelemno(0)=12,-40.837,ifelse(animelemno(0)=13,-40.837,ifelse(animelemno(0)=14,-40.837,ifelse(animelemno(0)=15,-40.837,ifelse(animelemno(0)=16,-31.35,ifelse(animelemno(0)=17,-31.35,ifelse(animelemno(0)=18,-31.35,ifelse(animelemno(0)=19,-31.35,ifelse(animelemno(0)=20,-31.35,-48.262))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2027500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,37.538,ifelse(animelemno(0)=3,37.125,21.45)))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2027500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-30.938,ifelse(animelemno(0)=3,-14.85,-48.262)))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2028000
+map="goku.emitting"
+value=(animelemno(0)=5 || animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10 || animelemno(0)=11)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2028000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,20.212,ifelse(animelemno(0)=5,32.587,ifelse(animelemno(0)=6,32.587,ifelse(animelemno(0)=7,32.587,ifelse(animelemno(0)=8,32.587,ifelse(animelemno(0)=9,32.587,ifelse(animelemno(0)=10,32.587,ifelse(animelemno(0)=11,32.587,18.15)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2028000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-40.837,ifelse(animelemno(0)=4,-40.837,ifelse(animelemno(0)=5,-31.35,ifelse(animelemno(0)=6,-31.35,ifelse(animelemno(0)=7,-31.35,ifelse(animelemno(0)=8,-31.35,ifelse(animelemno(0)=9,-31.35,ifelse(animelemno(0)=10,-31.35,ifelse(animelemno(0)=11,-31.35,-48.262)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2013400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2013400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2013400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2013401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2013401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2013401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2029400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2029400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,20.212,ifelse(animelemno(0)=5,20.212,ifelse(animelemno(0)=6,20.212,ifelse(animelemno(0)=7,20.212,ifelse(animelemno(0)=8,20.212,ifelse(animelemno(0)=9,20.212,ifelse(animelemno(0)=10,20.212,ifelse(animelemno(0)=11,20.212,ifelse(animelemno(0)=12,20.212,ifelse(animelemno(0)=13,20.212,ifelse(animelemno(0)=14,20.212,ifelse(animelemno(0)=15,20.212,ifelse(animelemno(0)=16,37.538,ifelse(animelemno(0)=17,37.538,ifelse(animelemno(0)=18,37.538,ifelse(animelemno(0)=19,37.538,ifelse(animelemno(0)=20,37.538,18.15))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2029400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-40.837,ifelse(animelemno(0)=4,-40.837,ifelse(animelemno(0)=5,-40.837,ifelse(animelemno(0)=6,-40.837,ifelse(animelemno(0)=7,-40.837,ifelse(animelemno(0)=8,-40.837,ifelse(animelemno(0)=9,-40.837,ifelse(animelemno(0)=10,-40.837,ifelse(animelemno(0)=11,-40.837,ifelse(animelemno(0)=12,-40.837,ifelse(animelemno(0)=13,-40.837,ifelse(animelemno(0)=14,-40.837,ifelse(animelemno(0)=15,-40.837,ifelse(animelemno(0)=16,-31.35,ifelse(animelemno(0)=17,-31.35,ifelse(animelemno(0)=18,-31.35,ifelse(animelemno(0)=19,-31.35,ifelse(animelemno(0)=20,-31.35,-48.262))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2029500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,37.538,ifelse(animelemno(0)=5,37.538,ifelse(animelemno(0)=6,37.538,ifelse(animelemno(0)=7,37.125,ifelse(animelemno(0)=8,37.125,ifelse(animelemno(0)=9,45.375,ifelse(animelemno(0)=10,26.4,ifelse(animelemno(0)=11,18.15,18.15)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2029500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-40.837,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,ifelse(animelemno(0)=6,-30.938,ifelse(animelemno(0)=7,-14.85,ifelse(animelemno(0)=8,-18.15,ifelse(animelemno(0)=9,-26.4,ifelse(animelemno(0)=10,-59.812,ifelse(animelemno(0)=11,-48.262,-48.262)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2015400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2015400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2015400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2015401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2015401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2015401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2031400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2031400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2031400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2031401
+map="goku.emitting"
+value=(animelemno(0)=1 || animelemno(0)=2 || animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2031401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,32.587,ifelse(animelemno(0)=2,32.587,ifelse(animelemno(0)=3,32.587,ifelse(animelemno(0)=4,32.587,ifelse(animelemno(0)=5,32.587,18.15)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2031401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-31.35,ifelse(animelemno(0)=2,-31.35,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-48.262)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2031500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,20.212,ifelse(animelemno(0)=2,20.212,ifelse(animelemno(0)=3,20.212,ifelse(animelemno(0)=4,37.538,ifelse(animelemno(0)=5,37.538,ifelse(animelemno(0)=6,37.125,ifelse(animelemno(0)=7,37.125,ifelse(animelemno(0)=8,18.15,18.15))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=2031500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-40.837,ifelse(animelemno(0)=2,-40.837,ifelse(animelemno(0)=3,-40.837,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,ifelse(animelemno(0)=6,-14.85,ifelse(animelemno(0)=7,-14.85,ifelse(animelemno(0)=8,-48.262,-48.262))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3000400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3000400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3000400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3000401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3000401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3000401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3001400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3001400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,17.738,ifelse(animelemno(0)=7,17.738,ifelse(animelemno(0)=8,17.738,ifelse(animelemno(0)=9,17.738,ifelse(animelemno(0)=10,17.738,ifelse(animelemno(0)=11,17.738,ifelse(animelemno(0)=12,17.738,ifelse(animelemno(0)=13,17.738,ifelse(animelemno(0)=14,17.738,ifelse(animelemno(0)=15,17.738,ifelse(animelemno(0)=16,34.237,ifelse(animelemno(0)=17,34.237,ifelse(animelemno(0)=18,34.237,ifelse(animelemno(0)=19,34.237,ifelse(animelemno(0)=20,34.237,16.912))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3001400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-21.862,ifelse(animelemno(0)=4,-21.862,ifelse(animelemno(0)=5,-21.862,ifelse(animelemno(0)=6,-21.862,ifelse(animelemno(0)=7,-21.862,ifelse(animelemno(0)=8,-21.862,ifelse(animelemno(0)=9,-21.862,ifelse(animelemno(0)=10,-21.862,ifelse(animelemno(0)=11,-21.862,ifelse(animelemno(0)=12,-21.862,ifelse(animelemno(0)=13,-21.862,ifelse(animelemno(0)=14,-21.862,ifelse(animelemno(0)=15,-21.862,ifelse(animelemno(0)=16,-30.938,ifelse(animelemno(0)=17,-30.938,ifelse(animelemno(0)=18,-30.938,ifelse(animelemno(0)=19,-30.938,ifelse(animelemno(0)=20,-30.938,-48.262))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3001500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,37.125,ifelse(animelemno(0)=5,37.125,ifelse(animelemno(0)=6,35.475,ifelse(animelemno(0)=7,35.475,ifelse(animelemno(0)=8,16.912,16.912))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3001500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-21.862,ifelse(animelemno(0)=4,-29.7,ifelse(animelemno(0)=5,-29.7,ifelse(animelemno(0)=6,-14.438,ifelse(animelemno(0)=7,-14.438,ifelse(animelemno(0)=8,-48.262,-48.262))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3004000
+map="goku.emitting"
+value=(animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3004000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,34.237,ifelse(animelemno(0)=7,34.237,ifelse(animelemno(0)=8,34.237,ifelse(animelemno(0)=9,34.237,ifelse(animelemno(0)=10,34.237,16.912))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3004000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-21.862,ifelse(animelemno(0)=4,-21.862,ifelse(animelemno(0)=5,-21.862,ifelse(animelemno(0)=6,-30.938,ifelse(animelemno(0)=7,-30.938,ifelse(animelemno(0)=8,-30.938,ifelse(animelemno(0)=9,-30.938,ifelse(animelemno(0)=10,-30.938,-48.262))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3002400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3002400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3002400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3002401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3002401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3002401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3025400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3025400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,17.738,ifelse(animelemno(0)=7,17.738,ifelse(animelemno(0)=8,17.738,ifelse(animelemno(0)=9,17.738,ifelse(animelemno(0)=10,17.738,ifelse(animelemno(0)=11,17.738,ifelse(animelemno(0)=12,17.738,ifelse(animelemno(0)=13,17.738,ifelse(animelemno(0)=14,17.738,ifelse(animelemno(0)=15,17.738,ifelse(animelemno(0)=16,39.188,ifelse(animelemno(0)=17,39.188,ifelse(animelemno(0)=18,39.188,ifelse(animelemno(0)=19,39.188,ifelse(animelemno(0)=20,39.188,16.912))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3025400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-20.212,ifelse(animelemno(0)=2,-20.212,ifelse(animelemno(0)=3,-20.212,ifelse(animelemno(0)=4,-20.212,ifelse(animelemno(0)=5,-20.212,ifelse(animelemno(0)=6,-20.212,ifelse(animelemno(0)=7,-20.212,ifelse(animelemno(0)=8,-20.212,ifelse(animelemno(0)=9,-20.212,ifelse(animelemno(0)=10,-20.212,ifelse(animelemno(0)=11,-20.212,ifelse(animelemno(0)=12,-20.212,ifelse(animelemno(0)=13,-20.212,ifelse(animelemno(0)=14,-20.212,ifelse(animelemno(0)=15,-20.212,ifelse(animelemno(0)=16,-30.938,ifelse(animelemno(0)=17,-30.938,ifelse(animelemno(0)=18,-30.938,ifelse(animelemno(0)=19,-30.938,ifelse(animelemno(0)=20,-30.938,-46.612))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3025500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,37.125,ifelse(animelemno(0)=5,37.125,ifelse(animelemno(0)=6,35.475,ifelse(animelemno(0)=7,35.475,ifelse(animelemno(0)=8,16.912,16.912))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3025500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-21.862,ifelse(animelemno(0)=4,-29.7,ifelse(animelemno(0)=5,-29.7,ifelse(animelemno(0)=6,-14.438,ifelse(animelemno(0)=7,-14.438,ifelse(animelemno(0)=8,-48.262,-48.262))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3026000
+map="goku.emitting"
+value=(animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10 || animelemno(0)=11)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3026000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,34.237,ifelse(animelemno(0)=7,34.237,ifelse(animelemno(0)=8,34.237,ifelse(animelemno(0)=9,34.237,ifelse(animelemno(0)=10,34.237,ifelse(animelemno(0)=11,34.237,13.612)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3026000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-20.212,ifelse(animelemno(0)=3,-20.212,ifelse(animelemno(0)=4,-20.212,ifelse(animelemno(0)=5,-20.212,ifelse(animelemno(0)=6,-30.938,ifelse(animelemno(0)=7,-30.938,ifelse(animelemno(0)=8,-30.938,ifelse(animelemno(0)=9,-30.938,ifelse(animelemno(0)=10,-30.938,ifelse(animelemno(0)=11,-30.938,-36.712)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3011400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3011400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3011400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3011401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3011401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3011401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3027400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3027400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,17.738,ifelse(animelemno(0)=7,17.738,ifelse(animelemno(0)=8,17.738,ifelse(animelemno(0)=9,17.738,ifelse(animelemno(0)=10,17.738,ifelse(animelemno(0)=11,17.738,ifelse(animelemno(0)=12,17.738,ifelse(animelemno(0)=13,17.738,ifelse(animelemno(0)=14,17.738,ifelse(animelemno(0)=15,17.738,ifelse(animelemno(0)=16,39.188,ifelse(animelemno(0)=17,39.188,ifelse(animelemno(0)=18,39.188,ifelse(animelemno(0)=19,39.188,ifelse(animelemno(0)=20,39.188,16.912))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3027400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-20.212,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-21.862,ifelse(animelemno(0)=4,-21.862,ifelse(animelemno(0)=5,-21.862,ifelse(animelemno(0)=6,-21.862,ifelse(animelemno(0)=7,-21.862,ifelse(animelemno(0)=8,-21.862,ifelse(animelemno(0)=9,-21.862,ifelse(animelemno(0)=10,-21.862,ifelse(animelemno(0)=11,-21.862,ifelse(animelemno(0)=12,-21.862,ifelse(animelemno(0)=13,-21.862,ifelse(animelemno(0)=14,-21.862,ifelse(animelemno(0)=15,-21.862,ifelse(animelemno(0)=16,-30.938,ifelse(animelemno(0)=17,-30.938,ifelse(animelemno(0)=18,-30.938,ifelse(animelemno(0)=19,-30.938,ifelse(animelemno(0)=20,-30.938,-48.262))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3027500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,37.125,ifelse(animelemno(0)=3,35.475,20.212)))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3027500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-29.7,ifelse(animelemno(0)=3,-14.438,-48.262)))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3028000
+map="goku.emitting"
+value=(animelemno(0)=5 || animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10 || animelemno(0)=11)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3028000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,34.237,ifelse(animelemno(0)=6,34.237,ifelse(animelemno(0)=7,34.237,ifelse(animelemno(0)=8,34.237,ifelse(animelemno(0)=9,34.237,ifelse(animelemno(0)=10,34.237,ifelse(animelemno(0)=11,34.237,16.912)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3028000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-21.862,ifelse(animelemno(0)=4,-21.862,ifelse(animelemno(0)=5,-30.938,ifelse(animelemno(0)=6,-30.938,ifelse(animelemno(0)=7,-30.938,ifelse(animelemno(0)=8,-30.938,ifelse(animelemno(0)=9,-30.938,ifelse(animelemno(0)=10,-30.938,ifelse(animelemno(0)=11,-30.938,-48.262)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3013400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3013400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3013400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3013401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3013401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3013401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3029400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3029400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,17.738,ifelse(animelemno(0)=7,17.738,ifelse(animelemno(0)=8,17.738,ifelse(animelemno(0)=9,17.738,ifelse(animelemno(0)=10,17.738,ifelse(animelemno(0)=11,17.738,ifelse(animelemno(0)=12,17.738,ifelse(animelemno(0)=13,17.738,ifelse(animelemno(0)=14,17.738,ifelse(animelemno(0)=15,17.738,ifelse(animelemno(0)=16,39.188,ifelse(animelemno(0)=17,39.188,ifelse(animelemno(0)=18,39.188,ifelse(animelemno(0)=19,39.188,ifelse(animelemno(0)=20,39.188,16.912))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3029400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-21.862,ifelse(animelemno(0)=4,-21.862,ifelse(animelemno(0)=5,-21.862,ifelse(animelemno(0)=6,-21.862,ifelse(animelemno(0)=7,-21.862,ifelse(animelemno(0)=8,-21.862,ifelse(animelemno(0)=9,-21.862,ifelse(animelemno(0)=10,-21.862,ifelse(animelemno(0)=11,-21.862,ifelse(animelemno(0)=12,-21.862,ifelse(animelemno(0)=13,-21.862,ifelse(animelemno(0)=14,-21.862,ifelse(animelemno(0)=15,-21.862,ifelse(animelemno(0)=16,-30.938,ifelse(animelemno(0)=17,-30.938,ifelse(animelemno(0)=18,-30.938,ifelse(animelemno(0)=19,-30.938,ifelse(animelemno(0)=20,-30.938,-48.262))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3029500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,37.125,ifelse(animelemno(0)=5,37.125,ifelse(animelemno(0)=6,37.125,ifelse(animelemno(0)=7,35.475,ifelse(animelemno(0)=8,35.475,ifelse(animelemno(0)=9,43.725,ifelse(animelemno(0)=10,25.162,ifelse(animelemno(0)=11,16.912,16.912)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3029500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-21.862,ifelse(animelemno(0)=4,-29.7,ifelse(animelemno(0)=5,-29.7,ifelse(animelemno(0)=6,-29.7,ifelse(animelemno(0)=7,-14.438,ifelse(animelemno(0)=8,-17.738,ifelse(animelemno(0)=9,-25.987,ifelse(animelemno(0)=10,-59.812,ifelse(animelemno(0)=11,-48.262,-48.262)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3015400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3015400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3015400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3015401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3015401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3015401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3031400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3031400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3031400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3031401
+map="goku.emitting"
+value=(animelemno(0)=1 || animelemno(0)=2 || animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3031401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,34.237,ifelse(animelemno(0)=2,34.237,ifelse(animelemno(0)=3,34.237,ifelse(animelemno(0)=4,34.237,ifelse(animelemno(0)=5,34.237,16.912)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3031401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-30.938,ifelse(animelemno(0)=2,-30.938,ifelse(animelemno(0)=3,-30.938,ifelse(animelemno(0)=4,-30.938,ifelse(animelemno(0)=5,-30.938,-48.262)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3031500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,37.125,ifelse(animelemno(0)=5,37.125,ifelse(animelemno(0)=6,35.475,ifelse(animelemno(0)=7,35.475,ifelse(animelemno(0)=8,16.912,16.912))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=3031500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-21.862,ifelse(animelemno(0)=2,-21.862,ifelse(animelemno(0)=3,-21.862,ifelse(animelemno(0)=4,-29.7,ifelse(animelemno(0)=5,-29.7,ifelse(animelemno(0)=6,-14.438,ifelse(animelemno(0)=7,-14.438,ifelse(animelemno(0)=8,-48.262,-48.262))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4000400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4000400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4000400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4000401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4000401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4000401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4001400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4001400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,17.738,ifelse(animelemno(0)=7,17.738,ifelse(animelemno(0)=8,17.738,ifelse(animelemno(0)=9,17.738,ifelse(animelemno(0)=10,17.738,ifelse(animelemno(0)=11,17.738,ifelse(animelemno(0)=12,17.738,ifelse(animelemno(0)=13,17.738,ifelse(animelemno(0)=14,17.738,ifelse(animelemno(0)=15,17.738,ifelse(animelemno(0)=16,38.362,ifelse(animelemno(0)=17,38.362,ifelse(animelemno(0)=18,38.362,ifelse(animelemno(0)=19,38.362,ifelse(animelemno(0)=20,38.362,17.325))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4001400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-32.175,ifelse(animelemno(0)=4,-32.175,ifelse(animelemno(0)=5,-32.175,ifelse(animelemno(0)=6,-32.175,ifelse(animelemno(0)=7,-32.175,ifelse(animelemno(0)=8,-32.175,ifelse(animelemno(0)=9,-32.175,ifelse(animelemno(0)=10,-32.175,ifelse(animelemno(0)=11,-32.175,ifelse(animelemno(0)=12,-32.175,ifelse(animelemno(0)=13,-32.175,ifelse(animelemno(0)=14,-32.175,ifelse(animelemno(0)=15,-32.175,ifelse(animelemno(0)=16,-31.35,ifelse(animelemno(0)=17,-31.35,ifelse(animelemno(0)=18,-31.35,ifelse(animelemno(0)=19,-31.35,ifelse(animelemno(0)=20,-31.35,-35.269))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4001500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,40.012,ifelse(animelemno(0)=5,40.012,ifelse(animelemno(0)=6,40.012,ifelse(animelemno(0)=7,40.012,ifelse(animelemno(0)=8,17.325,17.325))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4001500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-32.175,ifelse(animelemno(0)=4,-32.381,ifelse(animelemno(0)=5,-32.381,ifelse(animelemno(0)=6,-15.675,ifelse(animelemno(0)=7,-15.675,ifelse(animelemno(0)=8,-35.269,-35.269))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4004000
+map="goku.emitting"
+value=(animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4004000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,38.362,ifelse(animelemno(0)=7,38.362,ifelse(animelemno(0)=8,38.362,ifelse(animelemno(0)=9,38.362,ifelse(animelemno(0)=10,38.362,17.325))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4004000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-32.175,ifelse(animelemno(0)=4,-32.175,ifelse(animelemno(0)=5,-32.175,ifelse(animelemno(0)=6,-31.35,ifelse(animelemno(0)=7,-31.35,ifelse(animelemno(0)=8,-31.35,ifelse(animelemno(0)=9,-31.35,ifelse(animelemno(0)=10,-31.35,-35.269))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4002400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4002400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4002400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4002401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4002401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4002401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4025400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4025400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,17.738,ifelse(animelemno(0)=7,17.738,ifelse(animelemno(0)=8,17.738,ifelse(animelemno(0)=9,17.738,ifelse(animelemno(0)=10,17.738,ifelse(animelemno(0)=11,17.738,ifelse(animelemno(0)=12,17.738,ifelse(animelemno(0)=13,17.738,ifelse(animelemno(0)=14,17.738,ifelse(animelemno(0)=15,17.738,ifelse(animelemno(0)=16,43.312,ifelse(animelemno(0)=17,43.312,ifelse(animelemno(0)=18,43.312,ifelse(animelemno(0)=19,43.312,ifelse(animelemno(0)=20,43.312,17.325))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4025400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-30.525,ifelse(animelemno(0)=2,-30.525,ifelse(animelemno(0)=3,-30.525,ifelse(animelemno(0)=4,-30.525,ifelse(animelemno(0)=5,-30.525,ifelse(animelemno(0)=6,-30.525,ifelse(animelemno(0)=7,-30.525,ifelse(animelemno(0)=8,-30.525,ifelse(animelemno(0)=9,-30.525,ifelse(animelemno(0)=10,-30.525,ifelse(animelemno(0)=11,-30.525,ifelse(animelemno(0)=12,-30.525,ifelse(animelemno(0)=13,-30.525,ifelse(animelemno(0)=14,-30.525,ifelse(animelemno(0)=15,-30.525,ifelse(animelemno(0)=16,-31.35,ifelse(animelemno(0)=17,-31.35,ifelse(animelemno(0)=18,-31.35,ifelse(animelemno(0)=19,-31.35,ifelse(animelemno(0)=20,-31.35,-33.619))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4025500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,40.012,ifelse(animelemno(0)=5,40.012,ifelse(animelemno(0)=6,40.012,ifelse(animelemno(0)=7,40.012,ifelse(animelemno(0)=8,17.325,17.325))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4025500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-32.175,ifelse(animelemno(0)=4,-32.381,ifelse(animelemno(0)=5,-32.381,ifelse(animelemno(0)=6,-15.675,ifelse(animelemno(0)=7,-15.675,ifelse(animelemno(0)=8,-35.269,-35.269))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4026000
+map="goku.emitting"
+value=(animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10 || animelemno(0)=11)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4026000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,38.362,ifelse(animelemno(0)=7,38.362,ifelse(animelemno(0)=8,38.362,ifelse(animelemno(0)=9,38.362,ifelse(animelemno(0)=10,38.362,ifelse(animelemno(0)=11,38.362,14.025)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4026000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-30.525,ifelse(animelemno(0)=3,-30.525,ifelse(animelemno(0)=4,-30.525,ifelse(animelemno(0)=5,-30.525,ifelse(animelemno(0)=6,-31.35,ifelse(animelemno(0)=7,-31.35,ifelse(animelemno(0)=8,-31.35,ifelse(animelemno(0)=9,-31.35,ifelse(animelemno(0)=10,-31.35,ifelse(animelemno(0)=11,-31.35,-23.719)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4011400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4011400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4011400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4011401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4011401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4011401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4027400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4027400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,17.738,ifelse(animelemno(0)=7,17.738,ifelse(animelemno(0)=8,17.738,ifelse(animelemno(0)=9,17.738,ifelse(animelemno(0)=10,17.738,ifelse(animelemno(0)=11,17.738,ifelse(animelemno(0)=12,17.738,ifelse(animelemno(0)=13,17.738,ifelse(animelemno(0)=14,17.738,ifelse(animelemno(0)=15,17.738,ifelse(animelemno(0)=16,43.312,ifelse(animelemno(0)=17,43.312,ifelse(animelemno(0)=18,43.312,ifelse(animelemno(0)=19,43.312,ifelse(animelemno(0)=20,43.312,17.325))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4027400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-30.525,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-32.175,ifelse(animelemno(0)=4,-32.175,ifelse(animelemno(0)=5,-32.175,ifelse(animelemno(0)=6,-32.175,ifelse(animelemno(0)=7,-32.175,ifelse(animelemno(0)=8,-32.175,ifelse(animelemno(0)=9,-32.175,ifelse(animelemno(0)=10,-32.175,ifelse(animelemno(0)=11,-32.175,ifelse(animelemno(0)=12,-32.175,ifelse(animelemno(0)=13,-32.175,ifelse(animelemno(0)=14,-32.175,ifelse(animelemno(0)=15,-32.175,ifelse(animelemno(0)=16,-31.35,ifelse(animelemno(0)=17,-31.35,ifelse(animelemno(0)=18,-31.35,ifelse(animelemno(0)=19,-31.35,ifelse(animelemno(0)=20,-31.35,-35.269))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4027500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,40.012,ifelse(animelemno(0)=3,40.012,20.625)))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4027500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.381,ifelse(animelemno(0)=3,-15.675,-35.269)))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4028000
+map="goku.emitting"
+value=(animelemno(0)=5 || animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10 || animelemno(0)=11)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4028000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,38.362,ifelse(animelemno(0)=6,38.362,ifelse(animelemno(0)=7,38.362,ifelse(animelemno(0)=8,38.362,ifelse(animelemno(0)=9,38.362,ifelse(animelemno(0)=10,38.362,ifelse(animelemno(0)=11,38.362,17.325)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4028000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-32.175,ifelse(animelemno(0)=4,-32.175,ifelse(animelemno(0)=5,-31.35,ifelse(animelemno(0)=6,-31.35,ifelse(animelemno(0)=7,-31.35,ifelse(animelemno(0)=8,-31.35,ifelse(animelemno(0)=9,-31.35,ifelse(animelemno(0)=10,-31.35,ifelse(animelemno(0)=11,-31.35,-35.269)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4013400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4013400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4013400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4013401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4013401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4013401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4029400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4029400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,17.738,ifelse(animelemno(0)=5,17.738,ifelse(animelemno(0)=6,17.738,ifelse(animelemno(0)=7,17.738,ifelse(animelemno(0)=8,17.738,ifelse(animelemno(0)=9,17.738,ifelse(animelemno(0)=10,17.738,ifelse(animelemno(0)=11,17.738,ifelse(animelemno(0)=12,17.738,ifelse(animelemno(0)=13,17.738,ifelse(animelemno(0)=14,17.738,ifelse(animelemno(0)=15,17.738,ifelse(animelemno(0)=16,43.312,ifelse(animelemno(0)=17,43.312,ifelse(animelemno(0)=18,43.312,ifelse(animelemno(0)=19,43.312,ifelse(animelemno(0)=20,43.312,17.325))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4029400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-32.175,ifelse(animelemno(0)=4,-32.175,ifelse(animelemno(0)=5,-32.175,ifelse(animelemno(0)=6,-32.175,ifelse(animelemno(0)=7,-32.175,ifelse(animelemno(0)=8,-32.175,ifelse(animelemno(0)=9,-32.175,ifelse(animelemno(0)=10,-32.175,ifelse(animelemno(0)=11,-32.175,ifelse(animelemno(0)=12,-32.175,ifelse(animelemno(0)=13,-32.175,ifelse(animelemno(0)=14,-32.175,ifelse(animelemno(0)=15,-32.175,ifelse(animelemno(0)=16,-31.35,ifelse(animelemno(0)=17,-31.35,ifelse(animelemno(0)=18,-31.35,ifelse(animelemno(0)=19,-31.35,ifelse(animelemno(0)=20,-31.35,-35.269))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4029500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,40.012,ifelse(animelemno(0)=5,40.012,ifelse(animelemno(0)=6,40.012,ifelse(animelemno(0)=7,40.012,ifelse(animelemno(0)=8,40.012,ifelse(animelemno(0)=9,48.262,ifelse(animelemno(0)=10,25.575,ifelse(animelemno(0)=11,17.325,17.325)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4029500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-32.175,ifelse(animelemno(0)=4,-32.381,ifelse(animelemno(0)=5,-32.381,ifelse(animelemno(0)=6,-32.381,ifelse(animelemno(0)=7,-15.675,ifelse(animelemno(0)=8,-18.975,ifelse(animelemno(0)=9,-27.225,ifelse(animelemno(0)=10,-46.819,ifelse(animelemno(0)=11,-35.269,-35.269)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4015400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4015400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4015400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4015401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4015401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4015401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4031400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4031400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4031400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4031401
+map="goku.emitting"
+value=(animelemno(0)=1 || animelemno(0)=2 || animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4031401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,38.362,ifelse(animelemno(0)=2,38.362,ifelse(animelemno(0)=3,38.362,ifelse(animelemno(0)=4,38.362,ifelse(animelemno(0)=5,38.362,17.325)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4031401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-31.35,ifelse(animelemno(0)=2,-31.35,ifelse(animelemno(0)=3,-31.35,ifelse(animelemno(0)=4,-31.35,ifelse(animelemno(0)=5,-31.35,-35.269)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4031500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,17.738,ifelse(animelemno(0)=2,17.738,ifelse(animelemno(0)=3,17.738,ifelse(animelemno(0)=4,40.012,ifelse(animelemno(0)=5,40.012,ifelse(animelemno(0)=6,40.012,ifelse(animelemno(0)=7,40.012,ifelse(animelemno(0)=8,17.325,17.325))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=4031500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-32.175,ifelse(animelemno(0)=2,-32.175,ifelse(animelemno(0)=3,-32.175,ifelse(animelemno(0)=4,-32.381,ifelse(animelemno(0)=5,-32.381,ifelse(animelemno(0)=6,-15.675,ifelse(animelemno(0)=7,-15.675,ifelse(animelemno(0)=8,-35.269,-35.269))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5000400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5000400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5000400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5000401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5000401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5000401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5001400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5001400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,25.162,ifelse(animelemno(0)=5,25.162,ifelse(animelemno(0)=6,25.162,ifelse(animelemno(0)=7,25.162,ifelse(animelemno(0)=8,25.162,ifelse(animelemno(0)=9,25.162,ifelse(animelemno(0)=10,25.162,ifelse(animelemno(0)=11,25.162,ifelse(animelemno(0)=12,25.162,ifelse(animelemno(0)=13,25.162,ifelse(animelemno(0)=14,25.162,ifelse(animelemno(0)=15,25.162,ifelse(animelemno(0)=16,39.188,ifelse(animelemno(0)=17,39.188,ifelse(animelemno(0)=18,39.188,ifelse(animelemno(0)=19,39.188,ifelse(animelemno(0)=20,39.188,21.037))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5001400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-36.506,ifelse(animelemno(0)=4,-36.506,ifelse(animelemno(0)=5,-36.506,ifelse(animelemno(0)=6,-36.506,ifelse(animelemno(0)=7,-36.506,ifelse(animelemno(0)=8,-36.506,ifelse(animelemno(0)=9,-36.506,ifelse(animelemno(0)=10,-36.506,ifelse(animelemno(0)=11,-36.506,ifelse(animelemno(0)=12,-36.506,ifelse(animelemno(0)=13,-36.506,ifelse(animelemno(0)=14,-36.506,ifelse(animelemno(0)=15,-36.506,ifelse(animelemno(0)=16,-35.062,ifelse(animelemno(0)=17,-35.062,ifelse(animelemno(0)=18,-35.062,ifelse(animelemno(0)=19,-35.062,ifelse(animelemno(0)=20,-35.062,-33.825))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5001500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,50.737,ifelse(animelemno(0)=5,50.737,ifelse(animelemno(0)=6,51.975,ifelse(animelemno(0)=7,51.975,ifelse(animelemno(0)=8,21.037,21.037))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5001500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-36.506,ifelse(animelemno(0)=4,-42.487,ifelse(animelemno(0)=5,-42.487,ifelse(animelemno(0)=6,-22.688,ifelse(animelemno(0)=7,-22.688,ifelse(animelemno(0)=8,-33.825,-33.825))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5004000
+map="goku.emitting"
+value=(animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5004000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,25.162,ifelse(animelemno(0)=5,25.162,ifelse(animelemno(0)=6,39.188,ifelse(animelemno(0)=7,39.188,ifelse(animelemno(0)=8,39.188,ifelse(animelemno(0)=9,39.188,ifelse(animelemno(0)=10,39.188,21.037))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5004000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-36.506,ifelse(animelemno(0)=4,-36.506,ifelse(animelemno(0)=5,-36.506,ifelse(animelemno(0)=6,-35.062,ifelse(animelemno(0)=7,-35.062,ifelse(animelemno(0)=8,-35.062,ifelse(animelemno(0)=9,-35.062,ifelse(animelemno(0)=10,-35.062,-33.825))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5002400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5002400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5002400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5002401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5002401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5002401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5025400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5025400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,25.162,ifelse(animelemno(0)=5,25.162,ifelse(animelemno(0)=6,25.162,ifelse(animelemno(0)=7,25.162,ifelse(animelemno(0)=8,25.162,ifelse(animelemno(0)=9,25.162,ifelse(animelemno(0)=10,25.162,ifelse(animelemno(0)=11,25.162,ifelse(animelemno(0)=12,25.162,ifelse(animelemno(0)=13,25.162,ifelse(animelemno(0)=14,25.162,ifelse(animelemno(0)=15,25.162,ifelse(animelemno(0)=16,44.137,ifelse(animelemno(0)=17,44.137,ifelse(animelemno(0)=18,44.137,ifelse(animelemno(0)=19,44.137,ifelse(animelemno(0)=20,44.137,21.037))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5025400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-34.856,ifelse(animelemno(0)=2,-34.856,ifelse(animelemno(0)=3,-34.856,ifelse(animelemno(0)=4,-34.856,ifelse(animelemno(0)=5,-34.856,ifelse(animelemno(0)=6,-34.856,ifelse(animelemno(0)=7,-34.856,ifelse(animelemno(0)=8,-34.856,ifelse(animelemno(0)=9,-34.856,ifelse(animelemno(0)=10,-34.856,ifelse(animelemno(0)=11,-34.856,ifelse(animelemno(0)=12,-34.856,ifelse(animelemno(0)=13,-34.856,ifelse(animelemno(0)=14,-34.856,ifelse(animelemno(0)=15,-34.856,ifelse(animelemno(0)=16,-35.062,ifelse(animelemno(0)=17,-35.062,ifelse(animelemno(0)=18,-35.062,ifelse(animelemno(0)=19,-35.062,ifelse(animelemno(0)=20,-35.062,-32.175))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5025500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,50.737,ifelse(animelemno(0)=5,50.737,ifelse(animelemno(0)=6,51.975,ifelse(animelemno(0)=7,51.975,ifelse(animelemno(0)=8,21.037,21.037))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5025500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-36.506,ifelse(animelemno(0)=4,-42.487,ifelse(animelemno(0)=5,-42.487,ifelse(animelemno(0)=6,-22.688,ifelse(animelemno(0)=7,-22.688,ifelse(animelemno(0)=8,-33.825,-33.825))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5026000
+map="goku.emitting"
+value=(animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10 || animelemno(0)=11)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5026000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,25.162,ifelse(animelemno(0)=5,25.162,ifelse(animelemno(0)=6,39.188,ifelse(animelemno(0)=7,39.188,ifelse(animelemno(0)=8,39.188,ifelse(animelemno(0)=9,39.188,ifelse(animelemno(0)=10,39.188,ifelse(animelemno(0)=11,39.188,17.738)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5026000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-34.856,ifelse(animelemno(0)=3,-34.856,ifelse(animelemno(0)=4,-34.856,ifelse(animelemno(0)=5,-34.856,ifelse(animelemno(0)=6,-35.062,ifelse(animelemno(0)=7,-35.062,ifelse(animelemno(0)=8,-35.062,ifelse(animelemno(0)=9,-35.062,ifelse(animelemno(0)=10,-35.062,ifelse(animelemno(0)=11,-35.062,-22.275)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5011400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5011400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5011400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5011401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5011401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5011401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5027400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5027400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,25.162,ifelse(animelemno(0)=5,25.162,ifelse(animelemno(0)=6,25.162,ifelse(animelemno(0)=7,25.162,ifelse(animelemno(0)=8,25.162,ifelse(animelemno(0)=9,25.162,ifelse(animelemno(0)=10,25.162,ifelse(animelemno(0)=11,25.162,ifelse(animelemno(0)=12,25.162,ifelse(animelemno(0)=13,25.162,ifelse(animelemno(0)=14,25.162,ifelse(animelemno(0)=15,25.162,ifelse(animelemno(0)=16,44.137,ifelse(animelemno(0)=17,44.137,ifelse(animelemno(0)=18,44.137,ifelse(animelemno(0)=19,44.137,ifelse(animelemno(0)=20,44.137,21.037))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5027400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-34.856,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-36.506,ifelse(animelemno(0)=4,-36.506,ifelse(animelemno(0)=5,-36.506,ifelse(animelemno(0)=6,-36.506,ifelse(animelemno(0)=7,-36.506,ifelse(animelemno(0)=8,-36.506,ifelse(animelemno(0)=9,-36.506,ifelse(animelemno(0)=10,-36.506,ifelse(animelemno(0)=11,-36.506,ifelse(animelemno(0)=12,-36.506,ifelse(animelemno(0)=13,-36.506,ifelse(animelemno(0)=14,-36.506,ifelse(animelemno(0)=15,-36.506,ifelse(animelemno(0)=16,-35.062,ifelse(animelemno(0)=17,-35.062,ifelse(animelemno(0)=18,-35.062,ifelse(animelemno(0)=19,-35.062,ifelse(animelemno(0)=20,-35.062,-33.825))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5027500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,50.737,ifelse(animelemno(0)=3,51.975,24.337)))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5027500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-42.487,ifelse(animelemno(0)=3,-22.688,-33.825)))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5028000
+map="goku.emitting"
+value=(animelemno(0)=5 || animelemno(0)=6 || animelemno(0)=7 || animelemno(0)=8 || animelemno(0)=9 || animelemno(0)=10 || animelemno(0)=11)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5028000
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,25.162,ifelse(animelemno(0)=5,39.188,ifelse(animelemno(0)=6,39.188,ifelse(animelemno(0)=7,39.188,ifelse(animelemno(0)=8,39.188,ifelse(animelemno(0)=9,39.188,ifelse(animelemno(0)=10,39.188,ifelse(animelemno(0)=11,39.188,21.037)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5028000
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-36.506,ifelse(animelemno(0)=4,-36.506,ifelse(animelemno(0)=5,-35.062,ifelse(animelemno(0)=6,-35.062,ifelse(animelemno(0)=7,-35.062,ifelse(animelemno(0)=8,-35.062,ifelse(animelemno(0)=9,-35.062,ifelse(animelemno(0)=10,-35.062,ifelse(animelemno(0)=11,-35.062,-33.825)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5013400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5013400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5013400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5013401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5013401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5013401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5029400
+map="goku.emitting"
+value=(animelemno(0)=16 || animelemno(0)=17 || animelemno(0)=18 || animelemno(0)=19 || animelemno(0)=20)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5029400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,25.162,ifelse(animelemno(0)=5,25.162,ifelse(animelemno(0)=6,25.162,ifelse(animelemno(0)=7,25.162,ifelse(animelemno(0)=8,25.162,ifelse(animelemno(0)=9,25.162,ifelse(animelemno(0)=10,25.162,ifelse(animelemno(0)=11,25.162,ifelse(animelemno(0)=12,25.162,ifelse(animelemno(0)=13,25.162,ifelse(animelemno(0)=14,25.162,ifelse(animelemno(0)=15,25.162,ifelse(animelemno(0)=16,44.137,ifelse(animelemno(0)=17,44.137,ifelse(animelemno(0)=18,44.137,ifelse(animelemno(0)=19,44.137,ifelse(animelemno(0)=20,44.137,21.037))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5029400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-36.506,ifelse(animelemno(0)=4,-36.506,ifelse(animelemno(0)=5,-36.506,ifelse(animelemno(0)=6,-36.506,ifelse(animelemno(0)=7,-36.506,ifelse(animelemno(0)=8,-36.506,ifelse(animelemno(0)=9,-36.506,ifelse(animelemno(0)=10,-36.506,ifelse(animelemno(0)=11,-36.506,ifelse(animelemno(0)=12,-36.506,ifelse(animelemno(0)=13,-36.506,ifelse(animelemno(0)=14,-36.506,ifelse(animelemno(0)=15,-36.506,ifelse(animelemno(0)=16,-35.062,ifelse(animelemno(0)=17,-35.062,ifelse(animelemno(0)=18,-35.062,ifelse(animelemno(0)=19,-35.062,ifelse(animelemno(0)=20,-35.062,-33.825))))))))))))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5029500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,50.737,ifelse(animelemno(0)=5,50.737,ifelse(animelemno(0)=6,50.737,ifelse(animelemno(0)=7,51.975,ifelse(animelemno(0)=8,51.975,ifelse(animelemno(0)=9,60.225,ifelse(animelemno(0)=10,29.287,ifelse(animelemno(0)=11,21.037,21.037)))))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5029500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-36.506,ifelse(animelemno(0)=4,-42.487,ifelse(animelemno(0)=5,-42.487,ifelse(animelemno(0)=6,-42.487,ifelse(animelemno(0)=7,-22.688,ifelse(animelemno(0)=8,-25.987,ifelse(animelemno(0)=9,-34.237,ifelse(animelemno(0)=10,-45.375,ifelse(animelemno(0)=11,-33.825,-33.825)))))))))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5015400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5015400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5015400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5015401
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5015401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5015401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5031400
+map="goku.emitting"
+value=(animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5031400
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5031400
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Keep beam on releasing palms]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5031401
+map="goku.emitting"
+value=(animelemno(0)=1 || animelemno(0)=2 || animelemno(0)=3 || animelemno(0)=4 || animelemno(0)=5)
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5031401
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,39.188,ifelse(animelemno(0)=2,39.188,ifelse(animelemno(0)=3,39.188,ifelse(animelemno(0)=4,39.188,ifelse(animelemno(0)=5,39.188,21.037)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5031401
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-35.062,ifelse(animelemno(0)=2,-35.062,ifelse(animelemno(0)=3,-35.062,ifelse(animelemno(0)=4,-35.062,ifelse(animelemno(0)=5,-35.062,-33.825)))))
+ignorehitpause=1
+
+[State -3, Illustrated hand x]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5031500
+map="goku.muzzle_x"
+value=ifelse(animelemno(0)=1,25.162,ifelse(animelemno(0)=2,25.162,ifelse(animelemno(0)=3,25.162,ifelse(animelemno(0)=4,50.737,ifelse(animelemno(0)=5,50.737,ifelse(animelemno(0)=6,51.975,ifelse(animelemno(0)=7,51.975,ifelse(animelemno(0)=8,21.037,21.037))))))))
+ignorehitpause=1
+
+[State -3, Illustrated hand y]
+type=MapSet
+triggerall=!ishelper
+trigger1=anim=5031500
+map="goku.muzzle_y"
+value=ifelse(animelemno(0)=1,-36.506,ifelse(animelemno(0)=2,-36.506,ifelse(animelemno(0)=3,-36.506,ifelse(animelemno(0)=4,-42.487,ifelse(animelemno(0)=5,-42.487,ifelse(animelemno(0)=6,-22.688,ifelse(animelemno(0)=7,-22.688,ifelse(animelemno(0)=8,-33.825,-33.825))))))))
+ignorehitpause=1

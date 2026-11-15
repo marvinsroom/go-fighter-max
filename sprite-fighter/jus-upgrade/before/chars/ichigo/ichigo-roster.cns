@@ -1,0 +1,58 @@
+[Statedef 900800]
+type=S
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+anim=60000+map(ichigo.next)
+[State 900800, Select form]
+type=VarSet
+trigger1=!Time
+var(2)=map(ichigo.next)
+[State 900800, Remember form]
+type=MapSet
+trigger1=!Time
+map="ichigo.form"
+value=var(2)
+[State 900800, Manual control]
+type=MapSet
+trigger1=!Time
+map="ichigo.manual"
+value=1
+[State 900800, Finish]
+type=ChangeState
+trigger1=Time>=30
+value=0
+ctrl=1
+
+[Statedef 900810]
+type=S
+movetype=I
+physics=N
+ctrl=0
+velset=0,0
+anim=60020+var(2)
+[State 900810, Gather spiritual pressure]
+type=PowerAdd
+trigger1=1
+value=35
+[State 900810, Charge aura]
+type=Explod
+trigger1=!time
+anim=60101
+ID=630810
+pos=0,0
+postype=p1
+bindtime=-1
+removetime=-1
+sprpriority=-1
+ownpal=1
+[State 900810, Clear released aura]
+type=RemoveExplod
+trigger1=command!="ichigo_charge" || power>=10000
+ID=630810
+[State 900810, Release]
+type=ChangeState
+trigger1=command!="ichigo_charge" || power>=10000
+value=0
+ctrl=1

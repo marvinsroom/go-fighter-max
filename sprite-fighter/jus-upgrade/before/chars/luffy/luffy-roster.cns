@@ -1,0 +1,64 @@
+[Statedef 900800]
+type=S
+movetype=I
+physics=S
+ctrl=0
+velset=0,0
+[State 900800, Enable manual forms]
+type=MapSet
+trigger1=!time
+map="luffy.manual"
+value=1
+[State 900800, Remember form]
+type=MapSet
+trigger1=!time
+map="luffy.next_form"
+value=ifelse(command="luffy_revert",0,(map(luffy.form)+1)%5)
+[State 900800, Apply form]
+type=MapSet
+trigger1=time=12
+map="luffy.form"
+value=map(luffy.next_form)
+[State 900800, Illustrated transition]
+type=ChangeAnim
+trigger1=!time || time=13
+value=60020+map(luffy.form)
+[State 900800, Clear old effects]
+type=RemoveExplod
+trigger1=!time
+[State 900800, Complete]
+type=ChangeState
+trigger1=time>=30
+value=0
+ctrl=1
+[Statedef 900810]
+type=S
+movetype=I
+physics=S
+ctrl=0
+velset=0,0
+anim=60020+map(luffy.form)
+[State 900810, Gather Haki]
+type=PowerAdd
+trigger1=1
+value=25
+[State 900810, Steam]
+type=Explod
+trigger1=!time
+anim=60101
+ID=630810
+pos=0,0
+postype=p1
+bindtime=-1
+removetime=-1
+sprpriority=-1
+ownpal=1
+[State 900810, Clear aura]
+type=RemoveExplod
+trigger1=command!="luffy_charge" || power>=3000
+ID=630810
+[State 900810, Release]
+type=ChangeState
+trigger1=command!="luffy_charge" || power>=3000
+value=0
+ctrl=1

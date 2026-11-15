@@ -1,0 +1,94 @@
+[Statedef 900800]
+type=S
+movetype=I
+physics=S
+ctrl=0
+velset=0,0
+[State 900800, Clear full power]
+type=VarSet
+trigger1=!time
+v=3
+value=0
+[State 900800, Choose]
+type=MapSet
+trigger1=!time
+map="goku.next"
+value=ifelse(command="goku_revert",0,(map(goku.form)+1)%5)
+[State 900800, Power stance]
+type=ChangeAnim
+trigger1=!time || time=13
+value=960200+map(goku.bank)
+[State 900800, Form]
+type=MapSet
+trigger1=time=12
+map="goku.form"
+value=map(goku.next)
+[State 900800, Burst]
+type=PalFX
+trigger1=time=10
+time=6
+add=90,90,90
+[State 900800, Energy]
+type=Explod
+trigger1=time=14
+anim=ifelse(var(3)>0,960308,960300+map(goku.bank))
+ID=960800
+pos=0,0
+postype=p1
+bindtime=-1
+removetime=22
+sprpriority=-1
+ownpal=1
+[State 900800, Sound]
+type=PlaySnd
+trigger1=time=12
+value=S5,5
+volumescale=80
+[State 900800, Done]
+type=ChangeState
+trigger1=time>=36
+value=0
+ctrl=1
+
+[Statedef 900810]
+type=S
+movetype=I
+physics=S
+ctrl=0
+velset=0,0
+anim=960200+map(goku.bank)
+[State 900810, Gather ki]
+type=PowerAdd
+trigger1=1
+value=25
+[State 900810, Sound]
+type=PlaySnd
+trigger1=!time
+value=S5,64
+channel=3
+volumescale=65
+[State 900810, Illustrated energy]
+type=Explod
+trigger1=!time
+anim=960300+map(goku.bank)
+ID=960810
+pos=0,4
+postype=p1
+bindtime=-1
+removetime=-1
+sprpriority=-1
+ownpal=1
+removeongethit=1
+[State 900810, Clear energy]
+type=RemoveExplod
+trigger1=command!="goku_charge" || power>=3000
+ID=960810
+[State 900810, Stop charge sound]
+type=StopSnd
+trigger1=command!="goku_charge" || power>=3000
+channel=3
+[State 900810, Return]
+type=ChangeState
+trigger1=command!="goku_charge" || power>=3000
+value=0
+ctrl=1
